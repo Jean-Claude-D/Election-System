@@ -1,0 +1,45 @@
+
+File: ../team_repos/ElectionSys05/data/voters5.txt
+Number of lines 10
+Original: narutoFan12-3@Anime4life.com*Angelina*Uzumaki*h4L1W8
+Original: mATH_4_life@numbers*Britney*Goldstein*H4L 9Z9
+Original: Makeup4Ever.6@beautyqueen6*Huda*Vondi*H4J1N7
+Original: Michael-Jackson2009@Gmail.com*Michael*Jackson*E6L 2W5
+Original: Jimmy_1990@hotmail.com*Jimmy*Jackson*E8G 2G7
+Original: geekWORLD-1@compsci317-02*Steve*McLovin*H4J2G6
+Original: I@Un1v3rs3.M1lkyW4y.S0l4rSyst3m.3arth.N0rthAm3rica.C4n4d4.Quebec.M0ntreal.H3r3*Me*’-*A09w4Z
+** File: ../team_repos/ElectionSys05/data/voters5.txt String I@Un1v3rs3.M1lkyW4y.S0l4rSyst3m.3arth.N0rthAm3rica.C4n4d4.Quebec.M0ntreal.H3r3*Me*’-*A09w4Z has invalid voter: Name must have at least 2 letters. Invalid value = ’-
+Original: -_._-_-._@6*Utsunomiyamasayo-shikawabataryunosuke*lastname*J4P 4n3
+Original: Murica-oh-yeah_1776@Best-Country-Ever.freedom.democracy.us*Paula*Van Apeldoorn*b1g3y2
+Original: Steve_Job_InHome_Has_No_Window.s@Apple.App-Store1001.ca*Hashidate*Yamamoto*t7E2s3
+	narutoFan12-3@Anime4life.com Angelina Uzumaki H4L1W8
+	mATH_4_life@numbers Britney Goldstein H4L9Z9
+	Makeup4Ever.6@beautyqueen6 Huda Vondi H4J1N7
+	Michael-Jackson2009@Gmail.com Michael Jackson E6L2W5
+	Jimmy_1990@hotmail.com Jimmy Jackson E8G2G7
+	geekWORLD-1@compsci317-02 Steve McLovin H4J2G6
+	-_._-_-._@6 Utsunomiyamasayo-shikawabataryunosuke lastname J4P4N3
+	Murica-oh-yeah_1776@Best-Country-Ever.freedom.democracy.us Paula Van Apeldoorn B1G3Y2
+	Steve_Job_InHome_Has_No_Window.s@Apple.App-Store1001.ca Hashidate Yamamoto T7E2S3
+
+File: ../team_repos/ElectionSys05/data/elections5.txt
+
+Build a Wall between U.S and Canada and maybe Mexico, it depends*2018*5*1*2018*6*1***single*5
+Build a Wall, and we will pay for it
+Build a Wall, only if U.S.A pay for it
+Talk to Mexico, and together we will build 2 walls to surround U.S.A. We will help each other pay/build the walls
+Do not build any wall-Canada welcomes all
+Xây t??ng làm gì? ?? n??c M? t? xây, t? làm s?p chính kinh t? c?a t?i nó. Mình ng?i ngoài ?n popcorn.
+
+1?*2023*6*9*2023*6*9*h4j*h6a*ranked*5
+puppies
+2/3 racoons
+3 unicorns
+?cats?
+1.5 éléphant
+
+What_Are_We_Going_To_Eat?*1933*6*15*1935*7*16*L3L 4H4*L3L 4H5*single*2
+Nothing
+Aïr
+
+Number of elections: 3
