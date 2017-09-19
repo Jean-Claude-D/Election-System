@@ -1,0 +1,17 @@
+Your files are encoded in UTF-16 LE. Save them again in a different editor
+and make sure they are encoded in either ASCII or UTF-8.
+
+
+File: ../team_repos/ElectionSys05/data/voters5.txt
+Exception in thread "main" java.nio.charset.MalformedInputException: Input length = 1
+	at java.nio.charset.CoderResult.throwException(Unknown Source)
+	at sun.nio.cs.StreamDecoder.implRead(Unknown Source)
+	at sun.nio.cs.StreamDecoder.read(Unknown Source)
+	at java.io.InputStreamReader.read(Unknown Source)
+	at java.io.BufferedReader.fill(Unknown Source)
+	at java.io.BufferedReader.readLine(Unknown Source)
+	at java.io.BufferedReader.readLine(Unknown Source)
+	at java.nio.file.Files.readAllLines(Unknown Source)
+	at java.nio.file.Files.readAllLines(Unknown Source)
+	at election.data.ElectionFileLoader.getVoterListFromSequentialFile(ElectionFileLoader.java:21)
+	at election.data.ElectionFileLoader.main(ElectionFileLoader.java:245)
