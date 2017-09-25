@@ -35,23 +35,20 @@ public class email implements Serializable{
 	
 	public boolean equals(Object email){
 
-		  if (this instanceof email){
+		  if (this instanceof email) {
 			  
 		  
-		    if (email.toString().equalsIgnoreCase(this.getAddress())){
+		    if (email.toString().equalsIgnoreCase(this.getAddress())) {
 		      
 		      return true;
-		    
 		    }
-		    
-		  else { 
-		  
-		  return false;
 		  
 		  }
-		  }
+		return false;  
+	}	
 		    
-		  }
+		  
+	
 	
 	@Override
 	
