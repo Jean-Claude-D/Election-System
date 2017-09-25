@@ -3,7 +3,7 @@ package lib;
 import java.io.Serializable;
 
 
-public class email implements Serializable{
+public class email implements Serializable, Comparable<email>{
 	
 	
 	private final long serialVersionUID = 4203172017L;
@@ -13,6 +13,8 @@ public class email implements Serializable{
 	public email(String address){
 		
 		this.address=address;
+		
+		
 		
 	}
 
@@ -57,6 +59,17 @@ public class email implements Serializable{
 		return this.getAddress();
 		
 	}
+	
+	private String validateEmail(String address) {
+		
+		if (this.address.indexOf('@') == -1) {
+			
+			throw new IllegalArgumentException("This is not an Email");
+		}
+		
+	}
+	
+	
 		  
 	}
 
