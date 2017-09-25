@@ -52,7 +52,15 @@ public class email implements Serializable{
 		  }
 		    
 		  }
+	
+	@Override
+	
+	public String toString() {
+		
+		return this.getAddress();
+		
+	}
 		  
 	}
 
-}
+
