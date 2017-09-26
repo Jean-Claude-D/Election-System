@@ -4,7 +4,7 @@
 package lib;
 
 /**
- * @author Mish
+ *
  *
  */
 public class Name {
