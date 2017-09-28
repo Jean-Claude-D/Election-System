@@ -60,9 +60,35 @@ public class email implements Serializable, Comparable<email>{
 		
 	}
 	
-	@Override
 	
-	public 
+	
+	public int compareTo(email emails) {
+		
+		if (this.getHost().compareTo(emails.getHost()) == 1) {
+			
+			return 1;
+		}
+		
+		else if (this.getHost().compareTo(emails.getHost()) == -1) {
+			
+			return -1;
+		}
+		
+		else if (this.getUserId().compareTo(emails.getUserId()) == 1) {
+			
+			return 1;
+		}
+		
+		else if(this.getUserId().compareTo(emails.getUserId()) == 1) {
+			
+			return -1;
+		}
+		
+		else {
+			
+			return 0;
+		}
+	}
 	
 	private String validateEmail(String address) {
 		
