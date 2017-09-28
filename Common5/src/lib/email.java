@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class email implements Serializable, Comparable<email>{
 	
 	
-	private final long serialVersionUID = 4203172017L;
+	private static final long serialVersionUID = 4203172017L;
 	
 	private final String address;
 	
