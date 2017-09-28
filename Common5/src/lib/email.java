@@ -60,12 +60,18 @@ public class email implements Serializable, Comparable<email>{
 		
 	}
 	
+	@Override
+	
+	public 
+	
 	private String validateEmail(String address) {
 		
 		if (this.address.indexOf('@') == -1) {
 			
 			throw new IllegalArgumentException("This is not an Email");
 		}
+		
+		return address; 
 		
 	}
 	
