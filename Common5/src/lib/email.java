@@ -12,9 +12,7 @@ public class email implements Serializable, Comparable<email>{
 	
 	public email(String address){
 		
-		this.address=address;
-		
-		
+		this.address=validateEmail(address);
 		
 	}
 
