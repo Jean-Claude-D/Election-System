@@ -46,7 +46,16 @@ public class email implements Serializable, Comparable<email>{
 		  }
 		return false;  
 	}	
-		    
+		
+	@Override
+	
+	public int hashCode() {
+		
+		return this.getAddress().toLowerCase().hashCode();
+		
+		}
+		
+	}
 		  
 	
 	
