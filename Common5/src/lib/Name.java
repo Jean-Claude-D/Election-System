@@ -31,14 +31,14 @@ public class Name implements Serializable, Comparable<Name> {
 	/**
 	 * @return the firstname
 	 */
-	public String getFirstname() {
+	public String getFirstName() {
 		return firstname;
 	}
 
 	/**
 	 * @return the lastname
 	 */
-	public String getLastname() {
+	public String getLastName() {
 		return lastname;
 	}
 	
@@ -99,18 +99,18 @@ public class Name implements Serializable, Comparable<Name> {
 	
 	@Override
 	public int compareTo(Name name) {
-		if (!(name instanceof Name))
+		if (name == null)
 		{
-			throw new IllegalArgumentException("ABC");
+			throw new IllegalArgumentException("Object Name is Null");
 		}
 		
-		int check = this.lastname.compareToIgnoreCase( ((Name)name).lastname );
+		int check = this.lastname.compareToIgnoreCase( name.lastname );
 		
 		if (check != 0)
 		{
 			return check;
 		}
-		return this.firstname.compareToIgnoreCase( ((Name)name).firstname );
+		return this.firstname.compareToIgnoreCase( name.firstname );
 	}
 	
 	@Override
@@ -125,7 +125,7 @@ public class Name implements Serializable, Comparable<Name> {
 		}
 		if (object instanceof Name)
 		{
-			if ( ((Name)object).getFullName() == this.getFullName() )
+			if ( ((Name)object).getFullName().equalsIgnoreCase(this.getFullName())  )
 			{
 				return true;
 			}
@@ -136,7 +136,7 @@ public class Name implements Serializable, Comparable<Name> {
 	@Override
 	public int hashCode() {
 //		return this.toString().toUpperCase().hashCode();
-		return Objects.hash(this.firstname, this.lastname);
+		return Objects.hash(this.getFullName().toUpperCase());
 	}
 
 	
