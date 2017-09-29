@@ -40,7 +40,7 @@ public class DawsonItemBallot implements BallotItem {
 	
 @Override
 	
-	public boolean equals(Object DawsonItemBallot){
+	public final boolean equals(Object DawsonItemBallot){
 
 		  if (this instanceof DawsonItemBallot) {
 			  
@@ -52,7 +52,15 @@ public class DawsonItemBallot implements BallotItem {
 		  
 		  }
 		return false;  
-	}	
+	}
+
+@Override
+
+public int hashCode() {
+	
+	return this.getChoice().toLowerCase().hashCode();
+	
+	}
 	
 	public void setValue(int value) {
 		
