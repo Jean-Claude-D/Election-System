@@ -38,7 +38,7 @@ public class NameTest {
 			System.out.println();
 		}
 
-		Name person1 = new Name("Großer", "Kurfürst");
+		Name person1 = new Name("Großer", "Kurfürst");  // person1 will be used throughout this Test.
 		
 		System.out.println( (person1.getFirstName().equals("Großer")) ? "person1's first name is: " + person1.getFirstName() : "TEST FAILED" );
 		System.out.println( (person1.getLastName().equals("Kurfürst")) ? "person1's last name is: " + person1.getLastName() : "TEST FAILED" );
@@ -53,8 +53,8 @@ public class NameTest {
 		System.out.println();
 		
 		System.out.println("Test Copy Constructor");
-		Name person2 = new Name("Friedrich", "Der Grosse");
-		Name copyPerson2 = new Name(person2);
+		Name person2 = new Name("Friedrich", "Der Grosse");  // person2 will be used throughout this test.
+		Name copyPerson2 = new Name(person2);  // copyPerson2 will be used throughout this test.
 		
 		System.out.println( (copyPerson2.getFirstName().equals("Friedrich")) ? "copyPerson2's first name is: " + copyPerson2.getFirstName() : "TEST FAILED" );
 		System.out.println( (copyPerson2.getLastName().equals("Der Grosse")) ? "copyPerson2's last name is: " + copyPerson2.getLastName() : "TEST FAILED" );
@@ -66,13 +66,22 @@ public class NameTest {
 		int a = person2.compareTo(copyPerson2);
 		int b = person2.compareTo(person1);
 		int c = person2.compareTo(person2);
-//		int d = person2.compareTo(null);
+		
+		System.out.println("Compare person2 to null");
+		try {
+			int d = person2.compareTo(null);	
+			System.out.println("TEST FAILED");
+
+		}
+		catch (IllegalArgumentException ex) {
+			System.out.println("TEST PASSED");
+		}
+		
 		
 		
 		System.out.println( (a == 0) ? "Value of a is: " + a : "TEST FAILED" );
 		System.out.println( (b != 0) ? "Value of b is: " + b : "TEST FAILED" );
 		System.out.println( (c == 0) ? "Value of c is: " + c : "TEST FAILED" );
-//		System.out.println( (d != 0) ? "Value of d is: " + d : "TEST FAILED" );
 		System.out.println("------------------------------");
 		System.out.println();
 		
@@ -102,30 +111,7 @@ public class NameTest {
 		else
 		{
 			System.out.println("TEST FAILED");
-		}
-
-		
-		
-		System.out.println("");
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-
-		
+		}		
 	}
 }
 
