@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 public class email implements Serializable, Comparable<email>{
 	
-	
 	private static final long serialVersionUID = 4203172017L;
+	
 	
 	private final String address;
 	
@@ -54,8 +54,6 @@ public class email implements Serializable, Comparable<email>{
 		return this.getAddress().toLowerCase().hashCode();
 		
 		}
-		
-	}
 		  
 	
 	
@@ -99,12 +97,58 @@ public class email implements Serializable, Comparable<email>{
 	
 	private String validateEmail(String address) {
 		
-		if (this.address.indexOf('@') == -1) {
+		String userid= address.substring(0, address.indexOf('@'));
+		String hostid= address.substring(address.indexOf('@'));
+		String[] domainArray= hostid.split(".");
+
+		
+		if (userid.charAt(0) == '.' || userid.charAt( ( userid.length() ) -1) == '.') {
 			
-			throw new IllegalArgumentException("This is not an Email");
+			throw new IllegalArgumentException("not valid");
 		}
 		
-		return address; 
+		else if (userid.length() <1 || userid.length() >32) {
+			
+			throw new IllegalArgumentException("not valid");
+		}
+		
+		
+		
+		for (int i= 0; i< userid.length(); i++) {
+			char currentChar = userid.charAt(i);
+			
+			if(!(currentChar== Character.UPPERCASE_LETTER || currentChar== Character.DECIMAL_DIGIT_NUMBER ||
+			currentChar== Character.LOWERCASE_LETTER || currentChar== '-' || currentChar== '_' || currentChar == '.') ) {
+				
+				throw new IllegalArgumentException("not valid");
+			}
+			
+			if (currentChar == '.') {
+				
+				if( userid.charAt(i+1) =='.')  {
+					
+					throw new IllegalArgumentException("not valid");
+				}	
+				
+				
+			}
+			
+			
+			
+			
+		}
+		
+if (hostid.charAt(0) == '-' || hostid.charAt( ( hostid.length() ) -1) == '-') {
+			
+			throw new IllegalArgumentException("not valid");
+		}
+
+else if (hostid.length() <1 || hostid.length() >32) {
+	
+	throw new IllegalArgumentException("not valid");
+}
+
+		
 		
 	}
 	
