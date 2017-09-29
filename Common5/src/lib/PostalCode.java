@@ -12,22 +12,25 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	}
 	
 	@Override
-	public int compareTo(PostalCode code) {
-		
-		if (this == code) {
-			return 0;
+	public int compareTo(PostalCode postalCode) {
+
+		for (int i = 0; i < this.code.length(); i++) {
+			
+			if (this.code.charAt(i) == postalCode.code.charAt(i)) {
+				return 0;
+			}
+			
+			if (this.code.charAt(i) > postalCode.code.charAt(i)) {
+				return 1;
+			}
+			
+			if (this.code.charAt(i) < postalCode.code.charAt(i)) {
+				return -1;
+			}
+			
 		}
-		
-		if (this.code.getCode() > code.getCode()) {
-			return 1;
-		}
-		
-		if (this < code) {
-			return -1;
-		}
-		
-		
-		
+		return 0;
+			
 	}
 	
 	@Override
@@ -47,7 +50,7 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 			return true;
 		}
 		
-		return false;
+		return true;
 
 	}
 	
@@ -98,6 +101,7 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 		return code.toUpperCase(); 
 	}
 
+	
 	public static String validate(String code) throws IllegalArgumentException {
 
 		if (code.length() < 6 || code.length() > 7) {
@@ -127,9 +131,5 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 		return code;
 	}
 	
-
 	
-	
-	
-	
-}
+}//end class

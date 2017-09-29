@@ -2,6 +2,35 @@ package lib;
 
 public class PostalCodeTest {
 	
+	public static void compareToTest() {
+		
+	}
+	
+	public static void equalsTest() {
+		
+	}
+
+	public static void hashCodeTest() {
+	
+	}
+
+	public static void getCodeTest() {
+	
+	}
+
+	public static void inRangeTest() {
+	
+	}
+
+	public static void toStringTest() {
+		
+	}
+	
+	public static void validateTest() {
+		
+	}
+	
+	
 	public static void main (String [] args) {
 		
 		PostalCode goodCode = new PostalCode ("J4X 2G3");
