@@ -150,8 +150,36 @@ else if (hostid.length() <1 || hostid.length() >32) {
 
 		
 		
-	}
 	
+	
+	for(int i=0; i< domainArray.length; i++) {
+		
+		
+		for(int r= 0; r <domainArray[i].length();i++) {
+		
+		if(!(domainArray[i].charAt(r)== Character.UPPERCASE_LETTER) || domainArray[i].charAt(r)== Character.DECIMAL_DIGIT_NUMBER ||
+				domainArray[i].charAt(r)== Character.LOWERCASE_LETTER || domainArray[i].charAt(r)== '-' || domainArray[i].charAt(r)== '_' || 
+				domainArray[i].charAt(r) == '.') {
+					
+					throw new IllegalArgumentException("not valid");
+				}
+		
+		if (domainArray[i].charAt(r) == '.') {
+			
+			if( domainArray[i].charAt(r+1) =='.')  {
+				
+				throw new IllegalArgumentException("not valid");
+			}
+		
+		
+		}
+		
+	}
+		}
+	
+	return address;
+		
+	}
 	
 		  
 	}
