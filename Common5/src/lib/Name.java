@@ -1,19 +1,25 @@
-/**
- * 
- */
 package lib;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- *
- *
+ * Name Class create an Object that will represent a voter for the Election System Project
+ * @author Cao Hoang Nguyen
+ * @version 1.5
+ * @since 20th September, 2017
  */
 public class Name implements Serializable, Comparable<Name> {
 	private String firstname;
 	private String lastname;
 	private static final long serialVersionUID = 42031768871L;
 
+	/**
+	 * This Constructor will take 2 strings, 1 as first name, the other as last name
+	 * Before create an Object Name, the Constructor will call the validate method
+	 * To check
+	 * @param fname
+	 * @param lname
+	 */
 	public Name (String fname, String lname) {
 		validate(fname);
 		validate(lname);
@@ -85,11 +91,7 @@ public class Name implements Serializable, Comparable<Name> {
 					}
 				}
 			}
-		} // Appe-		
-		
-//		for (int i = 0; i < fname.length(); i++) {
-//			if(fname.charAt(i) !=)
-//		}
+		}
 	}
 	
 	@Override
