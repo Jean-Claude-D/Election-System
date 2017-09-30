@@ -61,6 +61,27 @@ public int hashCode() {
 	return this.getChoice().toLowerCase().hashCode();
 	
 	}
+
+@Override
+
+public String toString() {
+	
+	String choice=this.getChoice();
+	int Value=this.getValue();
+	String delimeter="*";
+	
+	int[] valueArray= {Value};
+	String valueInString=valueArray.toString();
+	
+	String[] choiceDelimeter= {choice,delimeter,valueInString};
+	String FinalString=choiceDelimeter.toString();
+	
+	return FinalString;
+	
+	
+}
+
+
 	
 	public void setValue(int value) {
 		
@@ -70,6 +91,22 @@ public int hashCode() {
 		}
 		
 		this.value=value;
+	}
+	
+	public String getChoice() {
+		
+		return this.choiceString;
+	}
+	
+	
+	public int getValue() {
+		
+		return value;
+	}
+	
+	public int getMaxValue() {
+		
+		return maxValue;
 	}
 	
 
