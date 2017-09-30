@@ -5,7 +5,9 @@ import lib.Name;
 public class NameTest {
 
 	public static void main(String[] args) {
+	}
 		
+	
 		try {
 			System.out.println("Create 3 Valid Name Objects:");
 			System.out.println("+ Luke Skywalker");
