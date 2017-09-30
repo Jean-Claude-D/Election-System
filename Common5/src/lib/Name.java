@@ -73,9 +73,13 @@ public class Name implements Serializable, Comparable<Name> {
 	 * @throws IllegalArgumentException.
 	 */
 	private void validate(String name) {
+		if (name == null)
+		{
+			throw new IllegalArgumentException("Parameter name is null");
+		}
 		if (name.length() < 2 || name.length() < 2)
 		{
-			throw new IllegalArgumentException("Your First Name Is Too Short");
+			throw new IllegalArgumentException("Your First Name Is Too Short, or null");
 		}
 		// Check for the first and last character of the string must be a letter.
 		if ( (!Character.isLetter(name.charAt(0)) ) || ( !Character.isLetter(name.charAt(name.length() - 1))) )
@@ -129,13 +133,13 @@ public class Name implements Serializable, Comparable<Name> {
 			throw new IllegalArgumentException("Object Name is Null");
 		}
 		
-		int check = this.lastname.compareToIgnoreCase( name.lastname );
+		int check = this.lastname.compareToIgnoreCase(name.lastname);
 		
 		if (check != 0)
 		{
 			return check;
 		}
-		return this.firstname.compareToIgnoreCase( name.firstname );
+		return this.firstname.compareToIgnoreCase(name.firstname);
 	}
 	
 	/**
