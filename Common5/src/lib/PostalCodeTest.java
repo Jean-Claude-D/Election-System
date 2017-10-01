@@ -7,9 +7,10 @@ public class PostalCodeTest {
 
 		String goodCode = "J4X 2G3";
 		String goodLowerCode = "j4x 2g3";
-		String goodCode2 = "H3H 1M6";
+		String goodCode2 = "H3Z 1A1";
 		String badFormat = "4J2 G3G";
-		String badCode = "123456";
+		String numberCode = "123456";
+		String letterCode = "abcdefg";
 		String shortCode = "j4x"; 
 		String longInvalidCode = "a1b2c3d4e5";
 		String longCode = "j4x 2g3 j4x";
@@ -42,11 +43,14 @@ public class PostalCodeTest {
 		
 		
 		System.out.println("\n----------INRANGE---------------------------------------------------------------------------------------------------------------------");
+			inRangeTest("G", "H", goodCode2, expectValid);
+			inRangeTest("H1", "J5", goodCode2, expectValid);
+			inRangeTest("J", "Z", goodCode2, expectValid);
+			inRangeTest("A", "E", goodCode2, expectValid);
 		
 		
-		
-		System.out.println("\n----------TOPostalCode---------------------------------------------------------------------------------------------------------------------");
-		
+		System.out.println("\n----------TOSTRING---------------------------------------------------------------------------------------------------------------------");
+			toStringTest(goodLowerCode,expectValid);
 		
 		
 		System.out.println("\n----------VALIDATE---------------------------------------------------------------------------------------------------------------------");
@@ -60,7 +64,8 @@ public class PostalCodeTest {
 			validateTest(invalidCode7, expectValid);
 			validateTest(invalidCode8, expectValid);
 			validateTest(badFormat, expectValid);
-			validateTest(badCode, expectValid);
+			validateTest(numberCode, expectValid);
+			validateTest(letterCode, expectValid);
 			validateTest(shortCode, expectValid);
 			validateTest(longCode, expectValid);
 			validateTest(longInvalidCode, expectValid);
@@ -111,7 +116,7 @@ public class PostalCodeTest {
 	}//end compareToTest
 	
 	private static void equalsTest(Object obj1, Object obj2, boolean expectedValid) {
-		System.out.println("\n\nTEST EQUALS()");
+		System.out.println("\nTESTING EQUALS()");
 		
 		System.out.println("\tComparing object \"" + ((PostalCode) obj1).getCode() + "\" with object \"" + ((PostalCode) obj2).getCode() + "\" should return 0");
 		System.out.println("code1: " + ((PostalCode)obj1).getCode());
@@ -128,7 +133,7 @@ public class PostalCodeTest {
 	
 //*********************************************************
 	private static void hashCodeTest(String test) {
-		System.out.println("\n\nTEST HASHCODE()");
+		System.out.println("\nTESTING HASHCODE()");
 		
 	}//end hashCodeTest
 
@@ -145,25 +150,44 @@ public class PostalCodeTest {
 	}//end getCodeTest
 	
 	
-//*********************************************************
-	private static void inRangeTest(PostalCode code) {
-		System.out.println("\n\nTEST INRANGE()");
-	}
-
-	private static void toString(String test1, boolean expectedValid) {
-		System.out.println("\n\nTEST TOPostalCode()");
-		System.out.println("\tPassing code \"\" should return in all uppercase");
+	private static void inRangeTest(String start, String end, String test1, boolean expectValid) {
+		System.out.println("\nTESTING INRANGE()");
 		
 		PostalCode code = new PostalCode(test1);
 		
-			if (code.getCode().equals(test1.toUpperCase()) == expectedValid) {
-				System.out.println("\t\t" + code.getCode());
-				System.out.println("\t\t ==== PASSED TEST ====");
+		System.out.println("\tPassing: " + test1);
+		System.out.println("\tRange from " + start + " to " + end);
+		
+		try {
+			if (code.inRange(start, end) == expectValid || code.inRange(start, end) != expectValid) {
+				System.out.println("\tResult: " + code.inRange(start, end));
+				System.out.println("\n\t ==== PASSED TEST ====");
 			}else {
-				System.out.println("\t\t ==== FAILED TEST ====");
+				System.out.println("\tResult: " + code.inRange(start, end));
+				System.out.println("\n\t ==== FAILED TEST ====");
+			}
+		}catch (IllegalArgumentException e) {
+			System.out.println("\n\t ==== PASSED TEST ==== " + e);
+		}
+		
+	}//end inRangeTest
+
+	
+	private static void toStringTest(String test1, boolean expectedValid) {
+		System.out.println("\nTEST TOSTRING()");
+		System.out.println("\tPassing: \"" + test1 + "\" should return in all uppercase");
+		
+		PostalCode code = new PostalCode(test1);
+		
+			if (code.getCode().equals(test1.toUpperCase().replace(" ","")) == expectedValid) {
+				System.out.println("\tResult: " + code.getCode());
+				System.out.println("\n\t ==== PASSED TEST ====");
+			}else {
+				System.out.println("\tResult: " + code.getCode());
+				System.out.println("\n\t ==== FAILED TEST ====");
 			}
 		
-	}
+	}//end toStringTest
 	
 	private static void validateTest(String test, boolean expectedValid) {
 		System.out.println("\nTESTING VALIDATE()");
@@ -186,7 +210,7 @@ public class PostalCodeTest {
 			System.out.println("\tResult: " + e);
 			System.out.println("\n\t ==== PASSED TEST ==== ");
 		}
-	}
+	}//end validateTest
 
 	
 
