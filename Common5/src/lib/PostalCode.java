@@ -13,22 +13,23 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	
 	@Override
 	public int compareTo(PostalCode postalCode) {
+		
+		if (postalCode == null) {
+			throw new IllegalArgumentException("Cannot compare to null object.");
+		}
 
 		for (int i = 0; i < this.code.length(); i++) {
-			
-			if (this.code.charAt(i) == postalCode.code.charAt(i)) {
-				return 0;
-			}
-			
+
 			if (this.code.charAt(i) > postalCode.code.charAt(i)) {
 				return 1;
 			}
 			
-			if (this.code.charAt(i) < postalCode.code.charAt(i)) {
+			else if (this.code.charAt(i) < postalCode.code.charAt(i)) {
 				return -1;
 			}
 			
 		}
+		//if it did not return 1 or -1, they must be equal so return 0
 		return 0;
 			
 	}
@@ -36,6 +37,8 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	@Override
 	public boolean equals(Object object) {
 		
+		
+	  //comparing the 2 object to see if they have the same address, in which case they would be the same object referenced differently
 		if (this == object) {
 			return true;
 		}
@@ -46,11 +49,12 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 		
 		if (object instanceof PostalCode) {
 			PostalCode obj = (PostalCode) object;
-			this.code.equalsIgnoreCase(obj.code);
-			return true;
+			if (this.code.equalsIgnoreCase(obj.code)) {
+				return true;
+			}
 		}
 		
-		return true;
+		return false;
 
 	}
 	
@@ -82,7 +86,7 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 		
 		for(int i=0; i < start.length(); i++) {
 			
-			if(start.charAt(i) == Character.DECIMAL_DIGIT_NUMBER) {
+			if(Character.isDigit(start.charAt(i))) {
 				return false;
 			}
 			
@@ -104,25 +108,32 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	
 	public static String validate(String code) throws IllegalArgumentException {
 
-		if (code.length() < 6 || code.length() > 7) {
-			throw new IllegalArgumentException("Invalid postal code: too long or too short.");
+		if (code.equals(null)) {
+			throw new IllegalArgumentException("Invalid Argument: Cannot be null.");
+		}
+
+		code = code.toUpperCase();
+		
+		if (code.length() < 6) {
+			throw new IllegalArgumentException("Invalid postal code: too short.");
+		}
+		if (code.length() > 7) {
+			throw new IllegalArgumentException("Invalid postal code: too long.");
 		}
 		
-		if(code.charAt(0) == Character.DECIMAL_DIGIT_NUMBER) {
-			throw new IllegalArgumentException("Invalid postal code: invalid format.");
+		if(Character.isDigit(code.charAt(0))) {
+			throw new IllegalArgumentException("Invalid postal code format. Code must begin with a letter. Example: A#A #A#");
 		}
 		
-		if(code.charAt(0) == 'W' || code.charAt(0) == 'w' || code.charAt(0) == 'Z' || code.charAt(0) == 'z') {
-			throw new IllegalArgumentException("Invalid postal code: invalid characters.");
+		if(code.charAt(0) == 'W' || code.charAt(0) == 'Z') {
+			throw new IllegalArgumentException("Cannot begin by W or Z. Invalid character: " + code.charAt(0));
 		}
 		
 		for (int i = 0; i < code.length(); i += 2 ) {
-			if (code.charAt(i) == 'D' || code.charAt(i) == 'F' || code.charAt(i) == 'I' || code.charAt(i) == 'O' || code.charAt(i) == 'Q' || code.charAt(i) == 'U') {
-				throw new IllegalArgumentException("Invalid postal code: invalid characters.");
+			if (code.charAt(i) == 'D' || code.charAt(i) == 'F' || code.charAt(i) == 'I' || code.charAt(i) == 'O' ||  code.charAt(i) == 'U' || code.charAt(i) == 'Q') {
+				throw new IllegalArgumentException("Invalid characters: " + code.charAt(i));
 			}
 		}
-		
-		code = code.toUpperCase();
 		
 		if(code.charAt(3) == ' ') {
 			code = code.replace(" ","");
