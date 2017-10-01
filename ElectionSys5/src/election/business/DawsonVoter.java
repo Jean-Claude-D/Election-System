@@ -9,11 +9,11 @@ public class DawsonVoter implements Voter {
 	
 	private static final long serialVersionUID = 42031768871L;
 	
-	private final Name name;
+	private Name name;
 	
-	private final Email email;
+	private Email email;
 	
-	private final PostalCode postalCode;
+	private PostalCode postalCode;
 	
 	public DawsonVoter(String fName, String lName, String email, String postalCode) {
 		this.name = new Name(fName, lName);
@@ -36,20 +36,43 @@ public class DawsonVoter implements Voter {
 		return this.postalCode;
 	}
 	
-	public void setPostalCode(PostalCode postalCode) {
-		this.postalCode = new PostalCode(postalCode);
+	public void setPostalCode(PostalCode newpostalCode) {
+		this.postalCode = new PostalCode(newpostalCode);
 	}
 
 	@Override
-	public int compareTo(Voter arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(Voter voter) {
+		return this.email.compareTo(voter.getEmail());
 	}
 
 	@Override
 	public boolean isEligible(Election election) {
-		if()
-		return false;
+		
+		LocalDate now = LocalDate.now();
+		
+		return (!now.isBefore(election.getStartDate())) && (!now.isAfter(election.getEndDate())) &&
+			   (this.postalCode.inRange(election.getPostalRangeStart(), election.getPostalRangeEnd()));
+	}
+	
+	@Override
+	public final boolean equals(Object obj) {
+		if(obj == null) {
+			throw new IllegalArgumentException("The obj parameter must be non-null");
+		}
+		
+		return (obj instanceof DawsonVoter) && this.email.equals(((DawsonVoter) obj).email);
+	}
+	
+	@Override
+	public final int hashCode() {
+		int prime = 157;
+		return prime * this.email.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return this.email.toString() + '*' + this.name.getFirstname() + '*'
+			   + this.name.getLastname() + '*' + this.postalCode.toString();
 	}
 
 }
