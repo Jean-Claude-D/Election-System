@@ -1,16 +1,30 @@
 package lib;
 import java.io.Serializable;
 
+
+/**
+ * PostalCode Class accepts a string following specific postal code formats
+ * @author Felicia Goragtchov
+ */
 public class PostalCode implements Serializable, Comparable<PostalCode> {
 
 	private long serialVersionUID = 4203172017L;
 	private final String code;
 	
-	
+	/**
+	 * constructor takes a string and runs it through a validator method. if the o=postal code sting is conform it is returned and 
+	 * stored in the code private final field
+	 * @param codeParam
+	 */	
 	public PostalCode (String codeParam) {
 		this.code = validate(codeParam);
 	}
 	
+	/**
+	 * is run on a object and takes an object. compares the strings to determine if they are equal or which is greater
+	 * if this object is greater, return 1. if the comparison object is greater, return -1. if one is not greater than the other, they must be equal, return 0.
+	 * @param postalCode
+	 */
 	@Override
 	public int compareTo(PostalCode postalCode) {
 		
@@ -34,19 +48,25 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 			
 	}
 	
+	/**
+	 * verifies that the argument object is not null. verifies if the objects are the same or if the argument is a child of this class
+	 * @param object
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(Object object) {
 		
 		
 	  //comparing the 2 object to see if they have the same address, in which case they would be the same object referenced differently
-		if (this == object) {
-			return true;
-		}
 		
 		if (object == null) {
 			return false;
 		}
 		
+		if (this == object) {
+			return true;
+		}
+
 		if (object instanceof PostalCode) {
 			PostalCode obj = (PostalCode) object;
 			if (this.code.equalsIgnoreCase(obj.code)) {
@@ -58,20 +78,39 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 
 	}
 	
-	/*Two postal code objects are considered equal if their code are equal (case insensitive). 
-	 * If the equals method is overridden as final, the	hashCode method must be final as well.
-	*/
-	
+
+	/**
+	 * follows the equals(); it returns a boolean so the calculation of the hashcode by adding code.hashCode() to 1 * any prime number.
+	 * @return the hashCode of a postalCode object, of the string it contains 
+	 */
 	@Override
 	public int hashCode() {
-		return this.toString().toUpperCase().hashCode();
+		
+		final int prime = 97;
+		int result = 1;
+		//if code is null, return 0. Otherwise, return code.hashCode(). Use what is returned to add to prime * result
+		result = prime * result + code.hashCode();
+		return result;
+		
 	}//end hashCode
 	
-	
+	/**
+	 * returns the String contained in the code field
+	 * @return String
+	 */
 	public String getCode() {
 		return this.code;
 	}//end getCode
 	
+	
+	
+	/**
+	 * Takes some characters as lower and upper bounds to verify if the postalCode object is within the specified range		
+	 * @param start : lower bound
+	 * @param end : upper bound
+	 * @return boolean 
+	 * @author Jean-Claude Desrosiers
+	 */
 	public boolean inRange(String start, String end) {
         
 		if(start == null) {
@@ -136,24 +175,37 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 
     }//end inRange
 	
+	
+	
+	/**
+	 * returns the code String in all uppercase
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		return code.toUpperCase(); 
 	}
 
 	
+	
+	/**
+	 * Ensures that the passed string for postal code follows the correct format and restrictions.
+	 * @param code String
+	 * @return once the string passed all the validations and is in the correct format, the entire string is made in uppercase and if there is a space, it is removed.
+	 * @throws IllegalArgumentException
+	 */
 	public static String validate(String code) throws IllegalArgumentException {
 
 		char[] invalidChar = {'D','F','I','O','Q','U'};
 
-		//check if object is null 
+	//check if object is null 
 		if (code.equals(null)) {
 			throw new IllegalArgumentException("Invalid Argument: Cannot be null.");
 		}
 
 		code = code.toUpperCase();
 		
-		//check to see if code is the right length; 6 is without a space, 7 is with a space
+	//check to see if code is the right length; 6 is without a space, 7 is with a space. Less than 6 and more than 7 is invalid.
 		if (code.length() < 6) {
 			throw new IllegalArgumentException("Invalid postal code: too short.");
 		}
@@ -161,29 +213,30 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 			throw new IllegalArgumentException("Invalid postal code: too long.");
 		}
 		
-		//if there is any space anywhere, remove it
+	//if there is any space anywhere, remove it
 		if(code.charAt(3) == ' ') {
 			code = code.replace(" ","");
 		}
 		
-		//verify that the code is in the right format A#A#A#, if there's a digit where a letter should be, throw exception. If there's a letter where a number should be, throw exception.	
+	//verify that the code is in the right format A#A#A#, 
+	//if there's a digit where a letter should be, throw exception.
 		for(int i = 0; i < code.length(); i += 2) {
 			if(Character.isDigit(code.charAt(i))) {
 				throw new IllegalArgumentException("Invalid postal code format. Correct format: A#A #A#, where A is any letter and # is any number.");
 			}
-			
 		}
-		for(int j = 0; j < code.length(); j += 2) {
+	//If there's a letter where a number should be, throw exception.	
+		for(int j = 1; j < code.length(); j += 2) {
 			if(Character.isLetter(code.charAt(j))) {
 				throw new IllegalArgumentException("Invalid postal code format. Correct format: A#A #A#, where A is any letter and # is any number.");
 			}
 			
 		}
-	
+	//verify that the code does not begin with W or Z, if it does, throw an exception
 		if(code.charAt(0) == 'W' || code.charAt(0) == 'Z') {
 			throw new IllegalArgumentException("Cannot begin by W or Z. Invalid character: " + code.charAt(0));
 		}
-		
+	//Code must not contain any of these characters ('D','F','I','O','Q','U') anywhere in the string. If it does, throw an exception.
 		for (int codeIndex = 0; codeIndex < code.length(); codeIndex += 2 ) {
 			for (int arrIndex = 0; arrIndex < invalidChar.length; arrIndex++) {
 				if (code.charAt(codeIndex) == invalidChar[arrIndex]) {
