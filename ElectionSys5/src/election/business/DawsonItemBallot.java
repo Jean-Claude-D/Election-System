@@ -1,14 +1,31 @@
+/**
+ * 
+ * @author Maria Hossain
+ * @since Oct. 2nd 2017
+ */
+
+
 package election.business;
 
 import election.business.interfaces.BallotItem;
 
 public class DawsonItemBallot implements BallotItem {
 	
-	//hello
+	
 	private String choiceString;
 	private int value;
 	private final int maxValue;
 	private static final long serialVersionUID = 42031768871L;
+	
+	
+	/**
+	 * 
+	 * The constructor takes in 2 parameter to create the DawsonItemBallot which
+	 * is the Choice and the MaxValue
+	 * 
+	 * @param choiceString
+	 * @param maxValue
+	 */
 	
 	
 	public DawsonItemBallot(String choiceString, int maxValue){
@@ -22,6 +39,13 @@ public class DawsonItemBallot implements BallotItem {
 		
 	}
 	
+	/**
+	 * 
+	 * This is the copy constructor that takes a DawsonItemBallot Object as a parameter
+	 * DawsonItemBallot objet.
+	 * @param item
+	 */
+	
 	public DawsonItemBallot(DawsonItemBallot item) {
 		
 		this.choiceString=getChoice();
@@ -31,6 +55,12 @@ public class DawsonItemBallot implements BallotItem {
 		
 	}
 	
+	/**
+	 * 
+	 * This method makes sure that the choice is not null and that the maxValue 
+	 * is not lower than 1 
+	 */
+	
 	public void validateBallotItem() {
 		
 		if (choiceString == null && maxValue <1 ) {
@@ -39,6 +69,13 @@ public class DawsonItemBallot implements BallotItem {
 		}
 		
 	}
+	
+	/**
+	 * This methods check that the object is of the same instance as DawsonItemBallot
+	 * 
+	 * And that the choice is the same
+	 * 
+	 */
 	
 @Override
 	
@@ -62,6 +99,11 @@ public class DawsonItemBallot implements BallotItem {
 		  return false; 
 }
 
+/**
+ * 
+ * This method returns the hash code of the choice.
+ */
+
 @Override
 
 public int hashCode() {
@@ -69,6 +111,16 @@ public int hashCode() {
 	return this.getChoice().toLowerCase().hashCode();
 	
 	}
+
+/**
+ * 
+ * This overriden toString() method return a string that has the value and choice
+ * with a '*' delimeter. 
+ * 
+ * For example it returns
+ * 
+ * choice*value
+ */
 
 @Override
 
@@ -84,6 +136,11 @@ public String toString() {
 	
 }
 
+/**
+ * 
+ * Method set the value field to another value. It makes sure it is not greater than MaxValue
+ */
+
 
 	
 	public void setValue(int value) {
@@ -96,21 +153,48 @@ public String toString() {
 		this.value=value;
 	}
 	
+	/**
+	 * 
+	 * Returns the current choice
+	 */
+	
 	public String getChoice() {
 		
 		return this.choiceString;
 	}
 	
 	
+	/**
+	 * 
+	 * Returns the current value
+	 */
 	public int getValue() {
 		
 		return value;
 	}
 	
+	
+	/**
+	 * 
+	 * Returns the current MaxValue
+	 */
+	
 	public int getMaxValue() {
 		
 		return maxValue;
 	}
+	
+	/**
+	 * 
+	 * Returns int that represent if one choice is greater than the lexicographical order
+	 *  
+	 *  0=equal
+	 *  1= Greater than
+	 *  -1= Less than
+	 *  
+	 * @param item
+	 * @return
+	 */
 	
 	public int compareTo(DawsonItemBallot item) {
 		
@@ -131,6 +215,11 @@ public String toString() {
 	}
 	
 }
+	
+	/**
+	 * 
+	 * Compare an object to the BollotItem
+	 */
 	
 	public int compareTo(BallotItem bItem) {
 		
