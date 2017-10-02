@@ -1,10 +1,10 @@
 package election.business;
 
-import lib.email;
+import election.business.interfaces.BallotItem;
 
 public class DawsonItemBallot implements BallotItem {
 	
-	
+	//hello
 	private String choiceString;
 	private int value;
 	private final int maxValue;
@@ -13,10 +13,11 @@ public class DawsonItemBallot implements BallotItem {
 	
 	public DawsonItemBallot(String choiceString, int maxValue){
 		
-		validateBallotItem();
+		
 		this.choiceString=choiceString;
 		this.maxValue=maxValue;
 		this.value=0;
+		validateBallotItem();
 		
 		
 	}
@@ -26,6 +27,7 @@ public class DawsonItemBallot implements BallotItem {
 		this.choiceString=getChoice();
 		this.value=getValue();
 		this.maxValue=getMaxValue();
+		validateBallotItem(); 
 		
 	}
 	
@@ -40,19 +42,25 @@ public class DawsonItemBallot implements BallotItem {
 	
 @Override
 	
-	public final boolean equals(Object DawsonItemBallot){
+	public final boolean equals(Object dawsonItemBallot){
+	
+	if(dawsonItemBallot == null) {
+		return false;
+	}
 
 		  if (this instanceof DawsonItemBallot) {
 			  
-		  
-		    if (DawsonItemBallot.toString().equalsIgnoreCase(this.getChoice())) {
-		      
+		  if (this.choiceString.equals(((DawsonItemBallot)dawsonItemBallot).getChoice())) {
+			  
+		    
 		      return true;
-		    }
+		    
 		  
 		  }
-		return false;  
+		 
 	}
+		  return false; 
+}
 
 @Override
 
@@ -68,15 +76,10 @@ public String toString() {
 	
 	String choice=this.getChoice();
 	int Value=this.getValue();
-	String delimeter="*";
 	
-	int[] valueArray= {Value};
-	String valueInString=valueArray.toString();
 	
-	String[] choiceDelimeter= {choice,delimeter,valueInString};
-	String FinalString=choiceDelimeter.toString();
 	
-	return FinalString;
+	return (choice + "*" + Value);
 	
 	
 }
@@ -109,5 +112,29 @@ public String toString() {
 		return maxValue;
 	}
 	
+	public int compareTo(DawsonItemBallot item) {
+		
+		if(this.getChoice().compareToIgnoreCase(item.getChoice()) ==1) {
+			
+			return 1;
+		}
+	
+	
+	else if(this.getChoice().compareToIgnoreCase(item.getChoice()) ==1) {
+		
+		return -1;
+	}
+	
+	else {
+		
+		return 0;
+	}
+	
+}
+	
+	public int compareTo(BallotItem bItem) {
+		
+		return (this.compareTo(bItem));
+	}
 
 }
