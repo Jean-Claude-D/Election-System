@@ -17,6 +17,7 @@ public class DawsonElection implements Election {
 	private static final long serialVersionUID = 42031768871L;
 	private String name;
 	private String type;
+	private ElectionType electType;
 	private int startYear;
 	private int startMonth;
 	private int startDay;
@@ -45,8 +46,7 @@ public class DawsonElection implements Election {
 		
 		validStartEnd(startDate, endDate);
 		
-		electionTypeCheck(type);
-		ElectionType.valueOf(type.toUpperCase().trim());
+		
 		
 		checkTally(tally);
 		
@@ -58,14 +58,26 @@ public class DawsonElection implements Election {
 		this.items = items;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.electType = electionTypeCheck(type);
+
+		
 	}
 	
+
 	public LocalDate getStartDate() {
 		return startDate;
 	}
 	
-	public boolean isLimitedToPostalRange(String range) {
-		return ( (range == null) ? false : true );
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+	
+	public boolean isLimitedToPostalRange() {
+		if ( (this.getPostalRangeStart() == null) || (this.getPostalRangeEnd() == null))
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	public StubBallot getBallot() {
@@ -83,6 +95,10 @@ public class DawsonElection implements Election {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	public ElectionType getElectionType() {
+		return this.electType;
 	}
 	
 	public String getPostalRangeStart() {
@@ -152,11 +168,19 @@ public class DawsonElection implements Election {
 		}
 	}
 	
-	private void electionTypeCheck (String type) {
-		ElectionType elecType[] = ElectionType.values();
-		if ( (!elecType[0].toString().equals(type)) || (!elecType[1].toString().equals(type)) ) {
-			throw new IllegalArgumentException ("INCORRECT TYPE");
+	private ElectionType electionTypeCheck (String type) {
+		type = type.toUpperCase().trim();
+//		ElectionType elecType[] = ElectionType.values();
+//		if ( (!elecType[0].toString().equals(type)) || (!elecType[1].toString().equals(type)) ) {
+//			throw new IllegalArgumentException ("INCORRECT TYPE");
+//		}
+		for (ElectionType elect : ElectionType.values()) {
+			if (!elect.name().equals(type))
+			{
+				throw new IllegalArgumentException ("INCORRECT TYPE");
+			}
 		}
+		return ElectionType.valueOf(type);
 	}
 	
 	private void checkTally (Tally tally) {
