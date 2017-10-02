@@ -11,10 +11,13 @@ import election.business.interfaces.Tally;
 import election.business.interfaces.Voter;
 
 /**
- * Name Class create an Object that will represent a voter for the Election System Project.
+ * Name Class represents by 4 Strings: name, type, startRange, endRange.
+ * 2 LocalDate objects: startDate and endDate.
+ * 1 Tally object: tally.
+ * 1 Array of BallotItem.
+ * 1 enum ElectionType.
  * @author Cao Hoang Nguyen
  * @version 1.5
- * @since 20th September, 2017
  */
 public class DawsonElection implements Election {
 	private static final long serialVersionUID = 42031768871L;
@@ -55,11 +58,26 @@ public class DawsonElection implements Election {
 		this.electType = electionTypeCheck(type);
 	}
 	
-
+	/**
+	 * Return the LocalDate representation of startDate of DawsonElection.
+	 * @return startDate of This DawsonElection
+	 */
 	public LocalDate getStartDate() {
 		return startDate;
 	}
 	
+	/**
+	 * Return the LocalDate representation of startDate of DawsonElection.
+	 * @return endDate of This DawsonElection
+	 */
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+	
+	/**
+	 * Return the array of String representation of ballotItem of This DawsonElection.
+	 * @return the String array.
+	 */
 	public String[] getElectionChoices() {
 		String[] choices = new String[this.ballotItems.length];
 		
@@ -70,10 +88,10 @@ public class DawsonElection implements Election {
 		return choices;
 	}
 	
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-	
+	/**
+	 * Return the StubBallot of This DawsonElection
+	 * @return StubBallot
+	 */
 	public StubBallot getBallot() {
 		BallotItem[] temp = new BallotItem[this.ballotItems.length];
 		
@@ -85,6 +103,12 @@ public class DawsonElection implements Election {
 		return stubBallot;
 	}
 	
+	/**
+	 * Return the Ballot of This DawsonElection
+	 * @return Ballot
+	 * @param v the Voter object
+	 * @throws IllegalArgumentException when voter is not eligible
+	 */
 	public Ballot getBallot(Voter v) {
 		if(v.isEligible(this)) {
 			return (Ballot) this.getBallot();
@@ -92,6 +116,10 @@ public class DawsonElection implements Election {
 		throw new IllegalArgumentException ("Voter is not eligible");
 	}
 
+	/**
+	 * Return true if both postalRange Start and End are NOT null
+	 * @return boolean
+	 */
 	public boolean isLimitedToPostalRange() {
 		if ( (this.getPostalRangeStart() == null) || (this.getPostalRangeEnd() == null))
 		{
@@ -100,6 +128,12 @@ public class DawsonElection implements Election {
 		return true;
 	}
 	
+	/**
+	 * Update tally if voter isEligible
+	 * @throws IllegalArgumentException when voter is not eligible
+	 * @param b the Ballot object
+	 * @param v the Voter bject
+	 */
 	public void castBallot(Ballot b, Voter v) {
 		if (!v.isEligible(this))
 		{
@@ -109,7 +143,11 @@ public class DawsonElection implements Election {
 		this.tally.update(b);
 	}
 	
-	
+	/**
+	 * Set the value of Tally object
+	 * @throws IllegalArgumentException when Name of the Tallies are not equal
+	 * @param tally the Tally object
+	 */
 	public void setTally(Tally tally) {
 		checkTally(tally);
 		if (tally.getElectionName() != this.tally.getElectionName())
@@ -119,10 +157,18 @@ public class DawsonElection implements Election {
 		this.tally = tally;
 	}
 	
+	/**
+	 * Return the name of This DawsonElection
+	 * @return This name
+	 */
 	public String getName() {
 		return this.name;
 	}
 	
+	/**
+	 * Set the ElectionType of
+	 * @return This ElectionType
+	 */
 	public ElectionType getElectionType() {
 		return this.electType;
 	}
