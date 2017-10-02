@@ -41,7 +41,7 @@ public class Name implements Serializable, Comparable<Name> {
 	 * Return the String representation of firstName of Name.
 	 * @return firstName of This Name
 	 */
-	public String getfirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
 
@@ -49,7 +49,7 @@ public class Name implements Serializable, Comparable<Name> {
 	 * Return the String representation of lastName of Name
 	 * @return lastName of This Name
 	 */
-	public String getlastName() {
+	public String getLastName() {
 		return lastName;
 	}
 	
