@@ -8,6 +8,7 @@ import java.io.Serializable;
  * @since Oct 2nd 2017
  * 
  *
+ *
  */
 public class email implements Serializable, Comparable<email>{
 	
