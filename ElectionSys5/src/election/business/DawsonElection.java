@@ -60,9 +60,60 @@ public class DawsonElection implements Election {
 		this.endDate = endDate;
 	}
 	
-	public LocalDate getStartDate( ) {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
+	
+	public boolean isLimitedToPostalRange(String range) {
+		return ( (range == null) ? false : true );
+	}
+	
+	public StubBallot getBallot() {
+		return
+	}
+	
+	public void setTally(Tally tally) {
+		checkTally(tally);
+		if (tally.getElectionName() != this.tally.getElectionName())
+		{
+			throw new IllegalArgumentException ("Name must be equal");
+		}
+		this.tally = tally;
+	}
+	
+	public Tally getTally() {
+		return this.tally;
+	}
+	
+	public int getTotalVotesCast() {
+		throw new UnsupportedOperationException ("SHIT HAPPENED");
+	}
+	
+	public int getInvalidVoteAttempts() {
+		throw new UnsupportedOperationException ("SHIT HAPPENED");
+	}
+	
+	@Override
+	public String toString() {
+	    String election = (this.name + "*" + startDate.getYear() + "*" + startDate.getMonthValue()
+	    + "*" + startDate.getDayOfMonth() + "*" + endDate.getYear() + "*" + endDate.getMonthValue()
+	    + "*" + endDate.getDayOfMonth() + "*" + this.startRange + "*" + this.endRange
+	    + "*" + this.type );  //    THIS IS NOT FINISH   <=======================================================
+	    return election;
+	}
+	
+	@Override
+	public int compareTo(Election name) {
+		if (name == null)
+		{
+			throw new IllegalArgumentException("Object Name is Null");
+		}
+		
+		int check = this.getName().compareToIgnoreCase(name.getName());
+		return check;
+	}
+	
+	
 	
 	private void nullChecker (String check) {
 		if ( (check == null) || (check.isEmpty()) )
