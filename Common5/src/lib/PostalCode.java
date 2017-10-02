@@ -12,7 +12,7 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	private final String code;
 	
 	/**
-	 * constructor takes a string and runs it through a validator method. if the o=postal code sting is conform it is returned and 
+	 * constructor takes a string and runs it through a validator method. if the postal code string is conform it is returned and 
 	 * stored in the code private final field
 	 * @param codeParam
 	 */	
