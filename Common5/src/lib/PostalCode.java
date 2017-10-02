@@ -8,11 +8,11 @@ import java.io.Serializable;
  */
 public class PostalCode implements Serializable, Comparable<PostalCode> {
 
-	private long serialVersionUID = 4203172017L;
+	private static final long serialVersionUID = 4203172017L;
 	private final String code;
 	
 	/**
-	 * constructor takes a string and runs it through a validator method. if the o=postal code sting is conform it is returned and 
+	 * constructor takes a string and runs it through a validator method. if the postal code string is conform it is returned and 
 	 * stored in the code private final field
 	 * @param codeParam
 	 */	
@@ -66,15 +66,9 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 		if (this == object) {
 			return true;
 		}
-
-		if (object instanceof PostalCode) {
-			PostalCode obj = (PostalCode) object;
-			if (this.code.equalsIgnoreCase(obj.code)) {
-				return true;
-			}
-		}
 		
-		return false;
+		return object instanceof PostalCode &&
+			   ((PostalCode) object).code.equalsIgnoreCase(this.code);
 
 	}
 	
@@ -87,10 +81,8 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	public int hashCode() {
 		
 		final int prime = 97;
-		int result = 1;
-		//if code is null, return 0. Otherwise, return code.hashCode(). Use what is returned to add to prime * result
-		result = prime * result + code.hashCode();
-		return result;
+		
+		return prime * code.hashCode();
 		
 	}//end hashCode
 	
@@ -105,12 +97,24 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	
 	
 	/**
-	 * Takes some characters as lower and upper bounds to verify if the postalCode object is within the specified range		
-	 * @param start : lower bound
-	 * @param end : upper bound
-	 * @return boolean 
-	 * @author Jean-Claude Desrosiers
-	 */
+     * Returns true if this PostalCode comes after or at start and comes before or at end. compareTo(PostalCode)'s ordering is
+     * used to order PostalCode from smallest to largest.
+     *
+     * @param start the lower boundary
+     * @param end   the upper boundary
+     *
+     * @return true if this PostalCode's code field is greater than start and
+     *         smaller than end, according to lib.Name#compareTo(PostalCode)'s
+     *         definition of ordering PostalCode.
+     *         false otherwise.
+     *
+     * @throws IllegalArgumentException if start or end are null
+     *
+     * @see lib.Name#removeSpace(String)
+     * @see lib.Name#compareTo(PostalCode)
+     * 
+     * @author Jean-Claude Desrosiers
+     */
 	public boolean inRange(String start, String end) {
         
 		if(start == null) {
@@ -199,11 +203,9 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 		char[] invalidChar = {'D','F','I','O','Q','U'};
 
 	//check if object is null 
-		if (code.equals(null)) {
+		if (code == null) {
 			throw new IllegalArgumentException("Invalid Argument: Cannot be null.");
 		}
-
-		code = code.toUpperCase();
 		
 	//check to see if code is the right length; 6 is without a space, 7 is with a space. Less than 6 and more than 7 is invalid.
 		if (code.length() < 6) {
@@ -212,6 +214,8 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 		if (code.length() > 7) {
 			throw new IllegalArgumentException("Invalid postal code: too long.");
 		}
+		
+		code = code.toUpperCase();
 		
 	//if there is any space anywhere, remove it
 		if(code.charAt(3) == ' ') {

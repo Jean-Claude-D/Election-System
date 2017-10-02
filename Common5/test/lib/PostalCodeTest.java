@@ -56,6 +56,7 @@ public class PostalCodeTest {
 			inRangeTest("H1", "J5", goodCode2, expectValid);
 			inRangeTest("J", "Z", goodCode2, expectValid);
 			inRangeTest("A", "E", goodCode2, expectValid);
+			inRangeTest("L4A  1B5", "L6N  9Z3", "L4M 1S4", expectValid);
 		
 		
 		System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------");
