@@ -25,7 +25,7 @@ public class Person {
 	
 	
 	public Person (Name n, Address address) {
-		this.name = new Name(n.getFirstname(), n.getLastname());
+		this.name = new Name(n.getFirstName(), n.getLastName());
 		this.address = new Address(address.getCivicNumber(), address.getStreetName(), address.getCity());
 	}
 
@@ -47,8 +47,7 @@ public class Person {
 	 * @param name the name to set
 	 */
 	public void setName(String firstName, String lastName) {
-		this.name.setFirstname(firstName);
-		this.name.setLastname(lastName);
+		this.name = new Name(firstName, lastName);
 	}
 
 	/**
