@@ -69,7 +69,7 @@ public class DawsonElection implements Election {
 	}
 	
 	public StubBallot getBallot() {
-		return
+		return //    THIS IS NOT FINISH   <=======================================================
 	}
 	
 	public void setTally(Tally tally) {
@@ -80,6 +80,21 @@ public class DawsonElection implements Election {
 		}
 		this.tally = tally;
 	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getPostalRangeStart() {
+		return this.startRange;
+	}
+	
+	
+	public String getPostalRangeEnd() {
+		return this.endRange;
+	}
+	
+	
 	
 	public Tally getTally() {
 		return this.tally;
