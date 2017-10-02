@@ -105,12 +105,24 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	
 	
 	/**
-	 * Takes some characters as lower and upper bounds to verify if the postalCode object is within the specified range		
-	 * @param start : lower bound
-	 * @param end : upper bound
-	 * @return boolean 
-	 * @author Jean-Claude Desrosiers
-	 */
+     * Returns true if this PostalCode comes after or at start and comes before or at end. compareTo(PostalCode)'s ordering is
+     * used to order PostalCode from smallest to largest.
+     *
+     * @param start the lower boundary
+     * @param end   the upper boundary
+     *
+     * @return true if this PostalCode's code field is greater than start and
+     *         smaller than end, according to lib.Name#compareTo(PostalCode)'s
+     *         definition of ordering PostalCode.
+     *         false otherwise.
+     *
+     * @throws IllegalArgumentException if start or end are null
+     *
+     * @see lib.Name#removeSpace(String)
+     * @see lib.Name#compareTo(PostalCode)
+     * 
+     * @author Jean-Claude Desrosiers
+     */
 	public boolean inRange(String start, String end) {
         
 		if(start == null) {
