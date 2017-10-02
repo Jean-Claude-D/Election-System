@@ -2,24 +2,48 @@ package lib;
 
 import java.io.Serializable;
 
-
+/**
+ * 
+ * @author Maria Hossain
+ * @since Oct 2nd 2017
+ * 
+ *
+ */
 public class email implements Serializable, Comparable<email>{
 	
 	private static final long serialVersionUID = 4203172017L;
 	private final String address;
 	
 	
-	
+/**
+ * 	
+ * @param address
+ * 
+ * This constructor take a String and Validates the address string to make it complies with the
+ * restriction of what the email should look like
+ */
 	
 	public email(String address){
 		
 		this.address=validateEmail(address);
 		
 	}
+	
+	/**
+	 * 
+	 * @return Returns the email address
+	 */
 
 	public String getAddress() {
 		return address;
 	}
+	
+	/**
+	 * 
+	 * returns the userId part of the email
+	 * 
+	 * @return 
+	 */
 	
 	public String getUserId() {
 		
@@ -27,10 +51,23 @@ public class email implements Serializable, Comparable<email>{
 		
 	}
 	
+	/**
+	 * 
+	 * Returns the host of the email
+	 * @return
+	 */
+	
 	public String getHost() {
 		
 		return address.substring(address.indexOf('@'));
 	}
+	
+	
+	/**
+	 * 
+	 * Verifies that the object is of the same instance as the email class and checks if its
+	 * email address is the same 
+	 */
 	
 	@Override
 	
@@ -47,6 +84,13 @@ public class email implements Serializable, Comparable<email>{
 		  }
 		return false;  
 	}	
+	
+	
+	/**
+	 * 
+	 * 
+	 * Returns the hashcode of the email address while being case insensitive
+	 */
 		
 	@Override
 	
@@ -55,6 +99,13 @@ public class email implements Serializable, Comparable<email>{
 		return this.getAddress().toLowerCase().hashCode();
 		
 		}
+	
+	
+	/**
+	 * 
+	 * 
+	 * Returns the String version of the email address
+	 */
 		  
 	
 	
@@ -65,6 +116,11 @@ public class email implements Serializable, Comparable<email>{
 		return this.getAddress();
 		
 	}
+	
+	/**
+	 * 
+	 * Check is 2 adress are written the same way
+	 */
 	
 	
 	
@@ -95,6 +151,13 @@ public class email implements Serializable, Comparable<email>{
 			return 0;
 		}
 	}
+	
+	
+	/**
+	 * Makes sure that the string passed in the constructor is a valid email address
+	 * @param address
+	 * @return
+	 */
 	
 	private String validateEmail(String address) {
 		
