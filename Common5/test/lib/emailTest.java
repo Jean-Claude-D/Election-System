@@ -1,6 +1,6 @@
 package lib;
 
-import lib.email;
+import lib.Email;
 
 public class emailTest {
 
@@ -14,8 +14,8 @@ public class emailTest {
 		
 		//Using the email address, we created 2 email objects to test the methods
 		//within it
-		email voter1Email = new email(email1);
-		email voter2Email= new email(email2);
+		Email voter1Email = new Email(email1);
+		Email voter2Email= new Email(email2);
 		
 		
 		
