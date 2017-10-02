@@ -127,7 +127,7 @@ public class NameTest {
 		System.out.println( (check1 == 0) ? "Value of check1 is: " + check1  + "\t\t\t\t\t === TEST PASSED ==="   : "TEST FAILED" );
 		System.out.println( (check2 < 0) ? "Value of check2 is: " + check2  + "\t\t\t\t\t === TEST PASSED ==="   : "TEST FAILED" );
 		System.out.println( (check3 == 0) ? "Value of check3 is: " + check3  + "\t\t\t\t\t === TEST PASSED ==="   : "TEST FAILED" );
-		System.out.println( (check4 == 0) ? "Value of check3 is: " + check4  + "\t\t\t\t\t === TEST PASSED ==="   : "TEST FAILED" );
+		System.out.println( (check4 == 0) ? "Value of check4 is: " + check4  + "\t\t\t\t\t === TEST PASSED ==="   : "TEST FAILED" );
 		System.out.println("------------------------------");
 		System.out.println();
 	}

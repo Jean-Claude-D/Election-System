@@ -3,10 +3,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Name Class create an Object that will represent a voter for the Election System Project.
+ * Name Class represents by 2 String, firstName and lastName. Both firstName and lastName
+ * must be at least 2 characters long, and cannot be null. Only hyphen, apostrophe and white-space
+ * are alllowed, but they must be between 2 letters
  * @author Cao Hoang Nguyen
  * @version 1.5
- * @since 20th September, 2017
  */
 public class Name implements Serializable, Comparable<Name> {
 	private String firstName;
@@ -31,7 +32,7 @@ public class Name implements Serializable, Comparable<Name> {
 
 	/**
 	 * Copy this Name. This is a deep copy constructor.
-	 * @param name This Name you want to copy from.
+	 * @param name The Name you want to copy from.
 	 */
 	public Name(Name name) {
 		this.firstName = name.firstName;
@@ -40,7 +41,7 @@ public class Name implements Serializable, Comparable<Name> {
 
 	/**
 	 * Return the String representation of firstName of Name.
-	 * @return firstName.
+	 * @return firstName of This Name
 	 */
 	public String getfirstName() {
 		return firstName;
@@ -48,7 +49,7 @@ public class Name implements Serializable, Comparable<Name> {
 
 	/**
 	 * Return the String representation of lastName of Name
-	 * @return lastName.
+	 * @return lastName of This Name
 	 */
 	public String getlastName() {
 		return lastName;
@@ -119,7 +120,6 @@ public class Name implements Serializable, Comparable<Name> {
 	 * Return a String representation of firstName follows by an "*",
 	 * follow by last name. E.g. John*Smith
 	 * @return firstName*lastName
-	 * @Override toString method of Objects
 	 */
 	@Override
 	public String toString() {
@@ -127,7 +127,7 @@ public class Name implements Serializable, Comparable<Name> {
 	}
 	
 	/**
-	 * Check if two Name Objects are equal or not.
+	 * Check if two Name objects are equal or not.
 	 * @return 0 if two Name are equal, a positive integer if current Name
 	 * is greater than the passed in Name, a negative if vice versa.
 	 * @param name compare to This Name
