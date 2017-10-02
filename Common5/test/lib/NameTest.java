@@ -36,10 +36,13 @@ public class NameTest {
 			System.out.println("TEST FAILED");
 		}
 		
-		System.out.println("Create 3 Invalid Name Objects:");
+		System.out.println("Create 5 Invalid Name Objects:");
 		System.out.println("+ J#ohn !Cena");
 		System.out.println("+  Steve Job ");  // SPACE AT THE BEGINNING OF fname AND AT THE END OF lname
 		System.out.println("+ Alex--ander T''he Gr-e--at");
+		System.out.println("+ M- _o");
+		System.out.println("Z E");
+
 		System.out.println();
 		
 		try {
@@ -71,6 +74,25 @@ public class NameTest {
 			System.out.println("----------------------------");
 			System.out.println();
 		}
+		try {
+			Name person7 = new Name("M-", "_o");
+			System.out.println("TEST FAILED");
+		}
+		catch (IllegalArgumentException ex) {
+			System.out.println("\"M- _o\" is not a valid name\t\t\t\t === TEST PASSED ===");
+			System.out.println("----------------------------");
+			System.out.println();
+		}
+		try {
+			Name person6 = new Name("Z", "E");
+			System.out.println("TEST FAILED");
+		}
+		catch (IllegalArgumentException ex) {
+			System.out.println("\"Z E\" is not a valid name\t\t\t\t === TEST PASSED ===");
+			System.out.println("----------------------------");
+			System.out.println();
+		}
+		
 	}
 	
 	private static void testGetterMethod(String a, String b) {

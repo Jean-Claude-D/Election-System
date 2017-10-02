@@ -104,17 +104,14 @@ public class Name implements Serializable, Comparable<Name> {
 				{
 					throw new IllegalArgumentException("Illegal Character: " + currentChar);
 				}
-				else if (currentChar == '\'' || (currentChar == '-') || (currentChar == ' '))
+				if (!Character.isLetter(name.charAt(i+1)))
 				{
-					// If the previous character is a space, hyphen or apostrophe, the next character must be a letter.
-					if (!Character.isLetter(name.charAt(i+1)))
-					{
-						throw new IllegalArgumentException("Two special characters cannot be next to each other");
-					}
+					throw new IllegalArgumentException("Two special characters cannot be next to each other");
 				}
 			}
 		}
 	}
+
 	
 	/**
 	 * Return a String representation of firstName follows by an "*",
