@@ -41,7 +41,7 @@ public class NameTest {
 		System.out.println("+  Steve Job ");  // SPACE AT THE BEGINNING OF fname AND AT THE END OF lname
 		System.out.println("+ Alex--ander T''he Gr-e--at");
 		System.out.println("+ M- _o");
-		System.out.println("Z E");
+		System.out.println("+ Z E");
 
 		System.out.println();
 		
@@ -145,7 +145,7 @@ public class NameTest {
 		int check2 = person2.compareTo(person1);
 		int check3 = person2.compareTo(person2);
 		int check4 = copyPerson2.compareTo(person2);
-		;
+		
 		System.out.println( (check1 == 0) ? "Value of check1 is: " + check1  + "\t\t\t\t\t === TEST PASSED ==="   : "TEST FAILED" );
 		System.out.println( (check2 < 0) ? "Value of check2 is: " + check2  + "\t\t\t\t\t === TEST PASSED ==="   : "TEST FAILED" );
 		System.out.println( (check3 == 0) ? "Value of check3 is: " + check3  + "\t\t\t\t\t === TEST PASSED ==="   : "TEST FAILED" );

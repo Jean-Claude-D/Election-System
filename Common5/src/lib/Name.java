@@ -24,10 +24,8 @@ public class Name implements Serializable, Comparable<Name> {
 	 * @see lib.Name#validate(String)
 	 */
 	public Name (String fname, String lname) {
-		validate(fname);  // Verify if fname is valid or not.
-		validate(lname);  // Verify if lname is valid or not
-		this.firstName = fname;
-		this.lastName = lname;
+		this.firstName = validate(fname);  // Verify if fname is valid or not.
+		this.lastName = validate(lname);  // Verify if lname is valid or not
 	}
 
 	/**
@@ -74,7 +72,7 @@ public class Name implements Serializable, Comparable<Name> {
 	 * @param name the String of either first or last name that need to be checked.
 	 * @throws IllegalArgumentException.
 	 */
-	private void validate(String name) {
+	private String validate(String name) {
 		if (name == null)
 		{
 			throw new IllegalArgumentException("Parameter name is null");
@@ -110,6 +108,7 @@ public class Name implements Serializable, Comparable<Name> {
 				}
 			}
 		}
+		return name;
 	}
 
 	
@@ -155,14 +154,15 @@ public class Name implements Serializable, Comparable<Name> {
 	 */
 	@Override
 	public boolean equals(Object object) {
-		if (this == object)
-		{
-			return true;
-		}
 		if (object == null)
 		{	
 			return false;
 		}
+		if (this == object)
+		{
+			return true;
+		}
+
 		if (object instanceof Name)
 		{
 			if ( ((Name)object).getFullName().equalsIgnoreCase(this.getFullName())  )
