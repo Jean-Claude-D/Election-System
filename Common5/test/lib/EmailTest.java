@@ -2,7 +2,7 @@ package lib;
 
 import lib.Email;
 
-public class emailTest {
+public class EmailTest {
 
 	public static void main(String[] args) {
 		
