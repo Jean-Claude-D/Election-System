@@ -41,7 +41,7 @@ public class DawsonElection implements Election {
 		LocalDate startDate = LocalDate.of (startYear, startMonth, startDay);
 		LocalDate endDate = LocalDate.of (endYear, endMonth, endDay);
 		
-		validStartEnd(startDate, endDate);
+		startEndDateChecker(startDate, endDate);
 		checkTally(tally);
 		
 		this.name = name;
@@ -71,6 +71,49 @@ public class DawsonElection implements Election {
 	}
 	
 	/**
+	 * Check if the parameter y, m, d are valid and logical or not.
+	 * @param y year as 4+ digits number. E.g. 1990
+	 * @param m month as 2 digits number. E.g 05 or 12
+	 * @param d day as 2+ digits number. E.g 02 or 26
+	 * @throws DateTimeException when the data is invalid or inconsistent
+	 */
+	private void dateChecker (int y, int m, int d) {
+		LocalDate currentDate = LocalDate.now();
+		if ( (y < currentDate.getYear()) )
+		{
+			throw new DateTimeException ("YOUR YEAR IS IN THE PAST");
+		}
+		else if ( (m < currentDate.getMonthValue()) ) {
+			throw new DateTimeException ("YOUR MONTH IS IN THE PAST");
+		}
+		else if ( (d < currentDate.getDayOfMonth()) ) {
+			throw new DateTimeException ("YOUR DAY IS IN THE PAST");
+		}
+	}
+	
+	/**
+	 * Check if the LocalDate start and LocalDate end are logical
+	 * @param start LocalDate of This DawsonCollege
+	 * @param end LocalDate of This DawsonCollege
+	 */
+	private void startEndDateChecker (LocalDate start, LocalDate end) {
+		if (end.isBefore(start))
+		{
+			throw new DateTimeException ("END DATE MUST BE BEFORE START DATE");
+		}
+	}
+	
+	/**
+	 * 
+	 * @param type the String representation of type of This DawsonElection
+	 * @return the correct enum value of ElectionType
+	 */
+	private ElectionType electionTypeCheck (String type) {
+		type = type.toUpperCase().trim();
+		return ElectionType.valueOf(type);
+	}
+	
+	/**
 	 * Return true if both postalRange Start and End are NOT null
 	 * @return boolean
 	 */
@@ -80,6 +123,18 @@ public class DawsonElection implements Election {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Check if Tally object is null or not
+	 * @param tally the Tally object
+	 * @throws IllegalArgumentException when Tally object is null
+	 */
+	private void checkTally (Tally tally) {
+		if (tally == null)
+		{
+			throw new IllegalArgumentException ("TALLY MUST NOT BE NULL");
+		}
 	}
 	
 	/**
@@ -111,67 +166,8 @@ public class DawsonElection implements Election {
 		this.tally = tally;
 	}
 	
-
-
 	
 
-	
-
-	
-	/**
-	 * Check if the parameter y, m, d are valid and logical or not.
-	 * @param y year as 4+ digits number. E.g. 1990
-	 * @param m month as 2 digits number. E.g 05 or 12
-	 * @param d day as 2+ digits number. E.g 02 or 26
-	 * @throws DateTimeException when the data is invalid or inconsistent
-	 */
-	private void dateChecker (int y, int m, int d) {
-		LocalDate currentDate = LocalDate.now();
-		if ( (y < currentDate.getYear()) )
-		{
-			throw new DateTimeException ("YOUR YEAR IS IN THE PAST");
-		}
-		else if ( (m < currentDate.getMonthValue()) ) {
-			throw new DateTimeException ("YOUR MONTH IS IN THE PAST");
-		}
-		else if ( (d < currentDate.getDayOfMonth()) ) {
-			throw new DateTimeException ("YOUR DAY IS IN THE PAST");
-		}
-	}
-	
-	/**
-	 * Check if the LocalDate start and LocalDate end are logical
-	 * @param start LocalDate of This DawsonCollege
-	 * @param end LocalDate of This DawsonCollege
-	 */
-	private void validStartEnd (LocalDate start, LocalDate end) {
-		if (end.isBefore(start))
-		{
-			throw new DateTimeException ("END DATE MUST BE BEFORE START DATE");
-		}
-	}
-	
-	/**
-	 * 
-	 * @param type the String representation of type of This DawsonElection
-	 * @return the correct enum value of ElectionType
-	 */
-	private ElectionType electionTypeCheck (String type) {
-		type = type.toUpperCase().trim();
-		return ElectionType.valueOf(type);
-	}
-	
-	/**
-	 * Check if Tally object is null or not
-	 * @param tally the Tally object
-	 * @throws IllegalArgumentException when Tally object is null
-	 */
-	private void checkTally (Tally tally) {
-		if (tally == null)
-		{
-			throw new IllegalArgumentException ("TALLY MUST NOT BE NULL");
-		}
-	}
 	
 	/**
 	 * 
