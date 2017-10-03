@@ -129,7 +129,7 @@ public class DawsonElection implements Election {
 	 * Return true if both postalRange Start and End are NOT null
 	 * @return boolean
 	 */
-	public boolean isLimitedToPostalRange() {  ///////////////////////////////////////////////////////////////////////
+	public boolean isLimitedToPostalRange() {  
 		if ( (this.startRange == null) && (this.endRange == null))
 		{
 			return false;
