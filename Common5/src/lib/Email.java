@@ -126,7 +126,7 @@ public class Email implements Serializable, Comparable<Email>{
 
 	/**
 	 * 
-	 * Check is 2 adress are written the same way
+	 * Check is 2 address are written the same way
 	 */
 
 
