@@ -37,7 +37,7 @@ public class DawsonVoter implements Voter {
 	}
 	
 	public void setPostalCode(PostalCode newpostalCode) {
-		this.postalCode = new PostalCode(newpostalCode);
+		this.postalCode = new PostalCode(newpostalCode.getCode());
 	}
 
 	@Override
