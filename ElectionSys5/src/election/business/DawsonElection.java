@@ -52,7 +52,7 @@ public class DawsonElection implements Election {
 		this.startRange = startRange;
 		this.endRange = endRange;
 		this.tally = tally;
-		this.ballotItems = checkItem(items);
+		//this.ballotItems = checkItem(items);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.electType = electionTypeCheck(type);
@@ -173,29 +173,51 @@ public class DawsonElection implements Election {
 		return this.electType;
 	}
 	
+	/**
+	 * Return startRange as String of This DawsonElection
+	 * @return This DawsonElection startRange
+	 */
 	public String getPostalRangeStart() {
 		return this.startRange;
 	}
 	
-	
+	/**
+	 * Return endRange as String of This DawsonElection
+	 * @return This DawsonElection endRange
+	 */
 	public String getPostalRangeEnd() {
 		return this.endRange;
 	}
 	
 	
-	
+	/**
+	 * Return tally as Tally object
+	 * @return This Dawsoncollege Tally
+	 */
 	public Tally getTally() {
 		return this.tally;
 	}
 	
+	/**
+	 * Method is not yet available
+	 * @throws UnsupportedOperationException
+	 */
 	public int getTotalVotesCast() {
 		throw new UnsupportedOperationException ("THIS METHOD IS NOT SUPPORTED");
 	}
 	
+	/**
+	 * Method is not yet available
+	 * @throws UnsupportedOperationException
+	 */
 	public int getInvalidVoteAttempts() {
 		throw new UnsupportedOperationException ("THIS METHOD IS NOT SUPPORTED");
 	}
-		
+	
+	/**
+	 * Check to see if a String is null or not
+	 * @throws IllegalArgumentException when String is null
+	 */
 	private void nullChecker (String check) {
 		if ( (check == null) || (check.isEmpty()) )
 		{
@@ -203,14 +225,26 @@ public class DawsonElection implements Election {
 		}
 	}
 	
+	/**
+	 * Check if the parameter y, m, d are valid and logical or not.
+	 * @param y year as 4+ digits number. E.g. 1990
+	 * @param m month as 2 digits number. E.g 05 or 12
+	 * @param d day as 2+ digits number. E.g 02 or 26
+	 * @throws DateTimeException when the data is invalid or inconsistent
+	 */
 	private void dateChecker (int y, int m, int d) {
 		LocalDate currentDate = LocalDate.now();
-		if ( (y < currentDate.getYear()) || (m < currentDate.getMonthValue()) || (d < currentDate.getDayOfMonth()))
+		if ( (y < currentDate.getYear()) && (m < currentDate.getMonthValue()) && (d < currentDate.getDayOfMonth()))
 		{
 			throw new DateTimeException ("YOUR DATE IS IN THE PAST");
 		}
 	}
 	
+	/**
+	 * Check if the LocalDate start and LocalDate end are logical
+	 * @param start LocalDate of This DawsonCollege
+	 * @param end LocalDate of This DawsonCollege
+	 */
 	private void validStartEnd (LocalDate start, LocalDate end) {
 		if (end.isBefore(start))
 		{
@@ -218,18 +252,21 @@ public class DawsonElection implements Election {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param type the String representation of type of This DawsonElection
+	 * @return the correct enum value of ElectionType
+	 */
 	private ElectionType electionTypeCheck (String type) {
 		type = type.toUpperCase().trim();
-
-		for (ElectionType elect : ElectionType.values()) {
-			if (!elect.name().equals(type))
-			{
-				throw new IllegalArgumentException ("INCORRECT TYPE");
-			}
-		}
 		return ElectionType.valueOf(type);
 	}
 	
+	/**
+	 * Check if Tally object is null or not
+	 * @param tally the Tally object
+	 * @throws IllegalArgumentException when Tally object is null
+	 */
 	private void checkTally (Tally tally) {
 		if (tally == null)
 		{
@@ -237,26 +274,39 @@ public class DawsonElection implements Election {
 		}
 	}
 	
-	private BallotItem[] checkItem (String...items ) {
-		if (items.length < 2)
-		{
-			throw new IllegalArgumentException ("THERE MUST BE AT LEAST 2 ITEMS");
-		}
-		BallotItem[] choices = new BallotItem[items.length];
-		
-		for (int i = 0; i < items.length; i++)
-		{
-			choices[i] = new DawsonBallotItem(items[i], items.length);
-		}
-		return choices;
-	}
+	/**
+	 * 
+	 * @param items varargs
+	 * @return BallotItem array of all This DawsonElection items
+	 * @throws IllegalArgumentException when there is less that 2 items
+	 */
+//	private BallotItem[] checkItem (String...items ) {
+//		if (items.length < 2)
+//		{
+//			throw new IllegalArgumentException ("THERE MUST BE AT LEAST 2 ITEMS");
+//		}
+//		BallotItem[] choices = new BallotItem[items.length];
+//		
+//		for (int i = 0; i < items.length; i++)
+//		{
+//			choices[i] = new DawsonBallotItem(items[i], items.length);
+//		}
+//		return choices;
+//	}
 	
+	/**
+	 * Return a String in this format:
+	 * name*Y*M*D*endY*endM*endD*startPcode*endPcode*electtype*numOpts
+	 * choice1
+	 * choice2
+	 * @return the String representation of This DawsonElection
+	 */
 	@Override
 	public String toString() {
 	    String election = (this.name + "*" + startDate.getYear() + "*" + startDate.getMonthValue()
 	    + "*" + startDate.getDayOfMonth() + "*" + endDate.getYear() + "*" + endDate.getMonthValue()
 	    + "*" + endDate.getDayOfMonth() + "*" + this.startRange + "*" + this.endRange
-	    + "*" + this.type + "*" +  ballotItems.length);  //    THIS IS NOT FINISH   <=======================================================
+	    + "*" + this.type + "*" +  ballotItems.length);  //    
 	   
 	    for (int i = 0; i < ballotItems.length; i++)
 	    {
@@ -265,6 +315,12 @@ public class DawsonElection implements Election {
 	    return election;	
 	}
 	
+	/**
+	 * Compare two Election objects to see if they are equal or not
+	 * @return 0 if they are equal, negative integer if name greater than This DawsonElection,
+	 * positive if vice versa
+	 * @param name as Election object
+	 */
 	@Override
 	public int compareTo(Election name) {
 		if (name == null)
@@ -275,6 +331,11 @@ public class DawsonElection implements Election {
 		return check;
 	}
 	
+	/**
+	 * Check if an Object is equal to DawsonCollege object
+	 * @return true if they are equal, false otherwise
+	 * @param object of type Object
+	 */
 	@Override
 	public boolean equals(Object object) {
 		if (this == object)
@@ -295,6 +356,11 @@ public class DawsonElection implements Election {
 		return false;
 	}
 	
+	/**
+	 * Return the hascode of This DawsonCollege
+	 * @return Object DawsonCollege hashcode.
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.getName());
