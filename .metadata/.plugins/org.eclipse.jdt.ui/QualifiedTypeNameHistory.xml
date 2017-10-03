@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="election.business.interfaces.BallotItem"/>
+<fullyQualifiedTypeName name="election.business.DawsonItemBallot"/>
+</qualifiedTypeNameHistroy>
