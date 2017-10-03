@@ -2,7 +2,7 @@ package election.business;
 
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
-import lib.Name;
+import lib.*;
 import java.time.LocalDate;
 
 public class DawsonVoter implements Voter {
@@ -17,7 +17,7 @@ public class DawsonVoter implements Voter {
 	
 	public DawsonVoter(String fName, String lName, String email, String postalCode) {
 		this.name = new Name(fName, lName);
-		this.eMail = new Email(email);
+		this.email = new Email(email);
 		this.postalCode = new PostalCode(postalCode);
 	}
 	
@@ -71,8 +71,8 @@ public class DawsonVoter implements Voter {
 	
 	@Override
 	public String toString() {
-		return this.email.toString() + '*' + this.name.getFirstname() + '*'
-			   + this.name.getLastname() + '*' + this.postalCode.toString();
+		return this.email.toString() + '*' + this.name.getFirstName() + '*'
+			   + this.name.getLastName() + '*' + this.postalCode.toString();
 	}
 
 }
