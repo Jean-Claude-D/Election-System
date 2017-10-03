@@ -118,7 +118,7 @@ public class DawsonElection implements Election {
 	 * @param tally the Tally object
 	 * @throws IllegalArgumentException when Tally object is null
 	 */
-	private void tallyChecker (Tally tally) {
+	private void tallyChecker (Tally tally) {  ///////////////////////////////////////////////////////////////////////
 		if (tally == null)
 		{
 			throw new IllegalArgumentException ("TALLY MUST NOT BE NULL");
@@ -129,14 +129,18 @@ public class DawsonElection implements Election {
 	 * Return true if both postalRange Start and End are NOT null
 	 * @return boolean
 	 */
-	public boolean isLimitedToPostalRange() {
-		if ( (this.getPostalRangeStart() == null) || (this.getPostalRangeEnd() == null))
+	public boolean isLimitedToPostalRange() {  ///////////////////////////////////////////////////////////////////////
+		if ( (this.startRange == null) && (this.endRange == null))
+		{
+			return false;
+		}
+		if ( (this.getPostalRangeStart().isEmpty()) && (this.getPostalRangeEnd().isEmpty()))
 		{
 			return false;
 		}
 		return true;
 	}
-	
+		
 	
 	/**
 	 * Update tally if voter isEligible
@@ -144,7 +148,7 @@ public class DawsonElection implements Election {
 	 * @param b the Ballot object
 	 * @param v the Voter bject
 	 */
-	public void castBallot(Ballot b, Voter v) {
+	public void castBallot(Ballot b, Voter v) {  ///////////////////////////////////////////////////////////////////
 		if (!v.isEligible(this))
 		{
 			throw new UnsupportedOperationException ("VOTER IS NOT ELIGIBLE");
@@ -301,7 +305,7 @@ public class DawsonElection implements Election {
 	   
 	    for (int i = 0; i < ballotItems.length; i++)
 	    {
-	    	election += "\n" + ballotItems[i].toString();
+	    	election += "\n" + ballotItems[i].getChoice();
 	    }
 	    return election;	
 	}

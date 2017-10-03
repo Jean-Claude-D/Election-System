@@ -9,7 +9,7 @@ public class DawsonElectionTest {
 		// TODO Auto-generated method stub
 		testConstructor();
 		testAllGetter();
-	//	testToString();
+		testToString();
 		testEquals();
 	}
 	
@@ -107,15 +107,16 @@ public class DawsonElectionTest {
 		}
 	}
 	
-//	private static void testToString() {
-//		StubTally tally = new StubTally();
-//		LocalDate startDate = LocalDate.of (2017, 11, 25);
-//		LocalDate endDate = LocalDate.of (2018, 2, 20);
-//		DawsonElection newElection = new DawsonElection("Canada Election", "SINGLE", 2017, 11, 25, 2018, 2, 20
-//				,"A", "J7E", tally, "Me", "Jean Claude", "Feli", "Maria");
-//		
-//		System.out.println(newElection.toString());
-//	}
+	private static void testToString() {
+		System.out.println("----------- Test toString() method -----------\n");
+		StubTally tally = new StubTally();
+		LocalDate startDate = LocalDate.of (2017, 11, 25);
+		LocalDate endDate = LocalDate.of (2018, 2, 20);
+		DawsonElection newElection = new DawsonElection("Canada Election", "SINGLE", 2017, 11, 25, 2018, 2, 20
+				,"A", "J7E", tally, "Me", "Jean Claude", "Feli", "Maria");
+		
+		System.out.println(newElection.toString());
+	}
 	
 	
 	
@@ -136,6 +137,7 @@ public class DawsonElectionTest {
 		System.out.println();
 		System.out.println( (newElection.getEndDate().isEqual(endDate) ) ? "End date of the election is: " + newElection.getEndDate() + "\t\t\t\t\t\t\t === TEST PASSED ===" : "TEST FAILED" );
 		System.out.println();
+		
 		
 	}
 	
