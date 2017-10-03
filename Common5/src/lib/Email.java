@@ -120,7 +120,7 @@ public class Email implements Serializable, Comparable<Email>{
 
 	public String toString() {
 
-		return this.getAddress();
+		return this.address;
 
 	}
 
@@ -133,22 +133,22 @@ public class Email implements Serializable, Comparable<Email>{
 
 	public int compareTo(Email emails) {
 
-		if (this.getHost().compareTo(emails.getHost()) == 1) {
+		if (this.getHost().compareTo(emails.getHost()) > 0) {
 
 			return 1;
 		}
 
-		else if (this.getHost().compareTo(emails.getHost()) == -1) {
+		else if (this.getHost().compareTo(emails.getHost()) < 0) {
 
 			return -1;
 		}
 
-		else if (this.getUserId().compareTo(emails.getUserId()) == 1) {
+		else if (this.getUserId().compareTo(emails.getUserId()) > 0) {
 
 			return 1;
 		}
 
-		else if(this.getUserId().compareTo(emails.getUserId()) == 1) {
+		else if(this.getUserId().compareTo(emails.getUserId()) < 0) {
 
 			return -1;
 		}
@@ -168,14 +168,14 @@ public class Email implements Serializable, Comparable<Email>{
 
 	private String validateEmail(String address) {
 
-		String userid= address.substring(0, address.indexOf('@'));
-		String hostid= address.substring(address.indexOf('@'));
+		String userid= this.getUserId();
+		String hostid= this.getHost();
 		String[] domainArray= hostid.split(".");
 
 
 		if (userid.charAt(0) == '.' || userid.charAt( ( userid.length() ) -1) == '.') {
 
-			throw new IllegalArgumentException("Your userId should not begin or start with a dot");
+			throw new IllegalArgumentException("Your userId should not begin or end with a dot");
 		}
 
 		else if (userid.length() <1 || userid.length() >32) {
@@ -191,14 +191,14 @@ public class Email implements Serializable, Comparable<Email>{
 			if(!(currentChar== Character.UPPERCASE_LETTER || currentChar== Character.DECIMAL_DIGIT_NUMBER ||
 					currentChar== Character.LOWERCASE_LETTER || currentChar== '-' || currentChar== '_' || currentChar == '.') ) {
 
-				throw new IllegalArgumentException("UserId cannot contain Characters such as '?' ");
+				throw new IllegalArgumentException("UserId cannot contain " + currentChar);
 			}
 
 			if (currentChar == '.') {
 
 				if( userid.charAt(i+1) =='.')  {
 
-					throw new IllegalArgumentException("You user Id should not have 2 consecutive dots");
+					throw new IllegalArgumentException("You user Id should not have 2 consecutive dots \'" + userid + '\'');
 				}	
 
 
@@ -214,20 +214,19 @@ public class Email implements Serializable, Comparable<Email>{
 			throw new IllegalArgumentException("HostId Cannot start or end with a dash");
 		}
 
-		else if (hostid.length() <1 || hostid.length() >32) {
-
-			throw new IllegalArgumentException("Your HostId cannot have less than 1 or more than 32 characters");
-		}
-
 
 
 
 
 		for(int i=0; i< domainArray.length; i++) {
+			
+			if(! (domainArray[i].length() > 1) || ! (domainArray[i].length() < 32)) {
+				throw new IllegalArgumentException("domain name " + domainArray[i] + " is too long or too short.");
+			}
 
 
 			for(int r= 0; r <domainArray[i].length();i++) {
-
+				
 				if(!(domainArray[i].charAt(r)== Character.UPPERCASE_LETTER) || domainArray[i].charAt(r)== Character.DECIMAL_DIGIT_NUMBER ||
 						domainArray[i].charAt(r)== Character.LOWERCASE_LETTER || domainArray[i].charAt(r)== '-' || domainArray[i].charAt(r)== '_' || 
 						domainArray[i].charAt(r) == '.') {
