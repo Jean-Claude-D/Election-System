@@ -39,7 +39,7 @@ public class DawsonElection implements Election {
 		nullChecker(type);
 		
 		dateChecker(startYear, startMonth, startDay);
-		dateChecker(endYear, endMonth, endDay);
+		//dateChecker(endYear, endMonth, endDay);
 		
 		LocalDate startDate = LocalDate.of (startYear, startMonth, startDay);
 		LocalDate endDate = LocalDate.of (endYear, endMonth, endDay);
@@ -81,7 +81,7 @@ public class DawsonElection implements Election {
 	public String[] getElectionChoices() {
 		String[] choices = new String[this.ballotItems.length];
 		
-		for (int i = 0; i < this.ballotItems.length; i++)
+		for (int i = 0; i < choices.length; i++)
 		{
 			choices[i] = this.ballotItems[i].toString();
 		}
@@ -221,7 +221,7 @@ public class DawsonElection implements Election {
 	private void nullChecker (String check) {
 		if ( (check == null) || (check.isEmpty()) )
 		{
-			throw new IllegalArgumentException ("IT'S NULL OR EMPTY");
+			throw new IllegalArgumentException ("THE STRING IS NULL OR EMPTY");
 		}
 	}
 	
@@ -234,9 +234,15 @@ public class DawsonElection implements Election {
 	 */
 	private void dateChecker (int y, int m, int d) {
 		LocalDate currentDate = LocalDate.now();
-		if ( (y < currentDate.getYear()) && (m < currentDate.getMonthValue()) && (d < currentDate.getDayOfMonth()))
+		if ( (y < currentDate.getYear()) )
 		{
-			throw new DateTimeException ("YOUR DATE IS IN THE PAST");
+			throw new DateTimeException ("YOUR YEAR IS IN THE PAST");
+		}
+		else if ( (m < currentDate.getMonthValue()) ) {
+			throw new DateTimeException ("YOUR MONTH IS IN THE PAST");
+		}
+		else if ( (d < currentDate.getDayOfMonth()) ) {
+			throw new DateTimeException ("YOUR DAY IS IN THE PAST");
 		}
 	}
 	
