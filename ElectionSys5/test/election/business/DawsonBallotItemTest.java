@@ -1,13 +1,13 @@
 package election.business;
 
-import election.business.DawsonItemBallot;
+import election.business.DawsonBallotItem;
 
-public class DawsonItemBallotTest {
+public class DawsonBallotItemTest {
 
 	public static void main(String[] args) {
 		
 		
-		//Variable I have created to create 3 DawsonItemBallot Object
+		//Variable I have created to create 3 DawsonBallotItem Object
 		
 		
 		int maxValue= 5;
@@ -17,14 +17,14 @@ public class DawsonItemBallotTest {
 		String choice2= "Fries";
 		
 		
-		//Created 3 object to test the methods within the DawsonItemBallot
+		//Created 3 object to test the methods within the DawsonBallotItem
 		
-		DawsonItemBallot item1= new DawsonItemBallot(choice,maxValue);
-		DawsonItemBallot item2= new DawsonItemBallot(choice,maxValue);
-		DawsonItemBallot item3= new DawsonItemBallot(choice2,value1);
+		DawsonBallotItem item1= new DawsonBallotItem(choice,maxValue);
+		DawsonBallotItem item2= new DawsonBallotItem(choice,maxValue);
+		DawsonBallotItem item3= new DawsonBallotItem(choice2,value1);
 		
 		
-		//All the methods tested within the DawsonItemBallot
+		//All the methods tested within the DawsonBallotItem
 		
 		System.out.println(item1.equals(null));	//good, it returns False	
 		System.out.println(item1.equals(item3));// good

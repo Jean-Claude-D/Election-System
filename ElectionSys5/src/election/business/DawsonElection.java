@@ -49,7 +49,7 @@ public class DawsonElection implements Election {
 		this.startRange = startRange;
 		this.endRange = endRange;
 		this.tally = tally;
-		//this.ballotItems = checkItem(items);
+		this.ballotItems = checkItem(items);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.electType = electionTypeChecker(type);
@@ -173,19 +173,19 @@ public class DawsonElection implements Election {
 	 * @return BallotItem array of all This DawsonElection items
 	 * @throws IllegalArgumentException when there is less that 2 items
 	 */
-//	private BallotItem[] checkItem (String...items ) {
-//		if (items.length < 2)
-//		{
-//			throw new IllegalArgumentException ("THERE MUST BE AT LEAST 2 ITEMS");
-//		}
-//		BallotItem[] choices = new BallotItem[items.length];
-//		
-//		for (int i = 0; i < items.length; i++)
-//		{
-//			choices[i] = new DawsonBallotItem(items[i], items.length);
-//		}
-//		return choices;
-//	}
+	private BallotItem[] checkItem (String...items ) {
+		if (items.length < 2)
+		{
+			throw new IllegalArgumentException ("THERE MUST BE AT LEAST 2 ITEMS");
+		}
+		BallotItem[] choices = new BallotItem[items.length];
+		
+		for (int i = 0; i < items.length; i++)
+		{
+			choices[i] = new DawsonBallotItem(items[i], items.length);
+		}
+		return choices;
+	}
 	
 	/**
 	 * Return the LocalDate representation of startDate of DawsonElection.

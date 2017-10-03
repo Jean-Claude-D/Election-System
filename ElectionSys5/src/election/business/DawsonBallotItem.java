@@ -7,7 +7,7 @@ import election.business.interfaces.BallotItem;
  * @author Maria Hossain
  * @since Oct. 2nd 2017
  */
-public class DawsonItemBallot implements BallotItem {
+public class DawsonBallotItem implements BallotItem {
 
 
 	private String choiceString;
@@ -18,7 +18,7 @@ public class DawsonItemBallot implements BallotItem {
 
 	/**
 	 * 
-	 * The constructor takes in 2 parameter to create the DawsonItemBallot which
+	 * The constructor takes in 2 parameter to create the DawsonBallotItem which
 	 * is the Choice and the MaxValue
 	 * 
 	 * @param choiceString
@@ -26,7 +26,7 @@ public class DawsonItemBallot implements BallotItem {
 	 */
 
 
-	public DawsonItemBallot(String choiceString, int maxValue){
+	public DawsonBallotItem(String choiceString, int maxValue){
 
 
 		this.choiceString=choiceString;
@@ -39,12 +39,12 @@ public class DawsonItemBallot implements BallotItem {
 
 	/**
 	 * 
-	 * This is the copy constructor that takes a DawsonItemBallot Object as a parameter
-	 * DawsonItemBallot objet.
+	 * This is the copy constructor that takes a DawsonBallotItem Object as a parameter
+	 * DawsonBallotItem objet.
 	 * @param item
 	 */
 
-	public DawsonItemBallot(DawsonItemBallot item) {
+	public DawsonBallotItem(DawsonBallotItem item) {
 
 		this.choiceString=getChoice();
 		this.value=getValue();
@@ -69,7 +69,7 @@ public class DawsonItemBallot implements BallotItem {
 	}
 
 	/**
-	 * This methods check that the object is of the same instance as DawsonItemBallot
+	 * This methods check that the object is of the same instance as DawsonBallotItem
 	 * 
 	 * And that the choice is the same
 	 * 
@@ -77,15 +77,15 @@ public class DawsonItemBallot implements BallotItem {
 
 	@Override
 
-	public final boolean equals(Object dawsonItemBallot){
+	public final boolean equals(Object DawsonBallotItem){
 
-		if(dawsonItemBallot == null) {
+		if(DawsonBallotItem == null) {
 			return false;
 		}
 
-		if (this instanceof DawsonItemBallot) {
+		if (this instanceof DawsonBallotItem) {
 
-			if (this.choiceString.equals(((DawsonItemBallot)dawsonItemBallot).getChoice())) {
+			if (this.choiceString.equals(((DawsonBallotItem)DawsonBallotItem).getChoice())) {
 
 
 				return true;
@@ -194,7 +194,7 @@ public class DawsonItemBallot implements BallotItem {
 	 * @return
 	 */
 
-	public int compareTo(DawsonItemBallot item) {
+	public int compareTo(DawsonBallotItem item) {
 
 		if(this.getChoice().compareToIgnoreCase(item.getChoice()) ==1) {
 
