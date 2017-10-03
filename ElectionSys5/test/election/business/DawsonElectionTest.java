@@ -3,8 +3,6 @@ package election.business;
 
 import java.time.LocalDate;
 
-import election.business.interfaces.Tally;
-
 public class DawsonElectionTest {
 
 	public static void main(String[] args) {
