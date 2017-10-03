@@ -1,4 +1,5 @@
 package election.business;
+
 import election.business.DawsonItemBallot;
 
 public class DawsonItemBallotTest {

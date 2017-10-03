@@ -42,7 +42,7 @@ public class DawsonElection implements Election {
 		LocalDate endDate = LocalDate.of (endYear, endMonth, endDay);
 		
 		startEndDateChecker(startDate, endDate);
-		checkTally(tally);
+		tallyChecker(tally);
 		
 		this.name = name;
 		this.type = type;
@@ -52,7 +52,7 @@ public class DawsonElection implements Election {
 		//this.ballotItems = checkItem(items);
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.electType = electionTypeCheck(type);
+		this.electType = electionTypeChecker(type);
 	}
 
 	/**
@@ -108,9 +108,21 @@ public class DawsonElection implements Election {
 	 * @param type the String representation of type of This DawsonElection
 	 * @return the correct enum value of ElectionType
 	 */
-	private ElectionType electionTypeCheck (String type) {
+	private ElectionType electionTypeChecker (String type) {
 		type = type.toUpperCase().trim();
 		return ElectionType.valueOf(type);
+	}
+	
+	/**
+	 * Check if Tally object is null or not
+	 * @param tally the Tally object
+	 * @throws IllegalArgumentException when Tally object is null
+	 */
+	private void tallyChecker (Tally tally) {
+		if (tally == null)
+		{
+			throw new IllegalArgumentException ("TALLY MUST NOT BE NULL");
+		}
 	}
 	
 	/**
@@ -125,17 +137,6 @@ public class DawsonElection implements Election {
 		return true;
 	}
 	
-	/**
-	 * Check if Tally object is null or not
-	 * @param tally the Tally object
-	 * @throws IllegalArgumentException when Tally object is null
-	 */
-	private void checkTally (Tally tally) {
-		if (tally == null)
-		{
-			throw new IllegalArgumentException ("TALLY MUST NOT BE NULL");
-		}
-	}
 	
 	/**
 	 * Update tally if voter isEligible
@@ -158,16 +159,13 @@ public class DawsonElection implements Election {
 	 * @param tally the Tally object
 	 */
 	public void setTally(Tally tally) {
-		checkTally(tally);
+		tallyChecker(tally);
 		if (tally.getElectionName() != this.tally.getElectionName())
 		{
 			throw new IllegalArgumentException ("Name must be equal");
 		}
 		this.tally = tally;
 	}
-	
-	
-
 	
 	/**
 	 * 
@@ -188,7 +186,6 @@ public class DawsonElection implements Election {
 //		}
 //		return choices;
 //	}
-	
 	
 	/**
 	 * Return the LocalDate representation of startDate of DawsonElection.
@@ -267,7 +264,6 @@ public class DawsonElection implements Election {
 		return this.endRange;
 	}
 	
-	
 	/**
 	 * Return tally as Tally object
 	 * @return This Dawsoncollege Tally
@@ -288,7 +284,6 @@ public class DawsonElection implements Election {
 		}
 		throw new IllegalArgumentException ("Voter is not eligible");
 	}
-	
 	
 	/**
 	 * Return a String in this format:
