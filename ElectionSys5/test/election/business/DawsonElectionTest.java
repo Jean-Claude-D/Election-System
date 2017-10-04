@@ -7,7 +7,6 @@ import election.business.interfaces.Tally;
 public class DawsonElectionTest {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		StubTally tally = new StubTally();
 		
 		testConstructor();
@@ -17,10 +16,6 @@ public class DawsonElectionTest {
 		testEquals();
 		testCompareToAndHashcode();
 	}
-	
-//	public DawsonElection(String name, String type, int startYear, int
-//			startMonth, int startDay, int endYear, int endMonth, int endDay,
-//			String startRange, String endRange, Tally tally, String... items )
 	
 	private static void testConstructor() {
 		try {
@@ -196,6 +191,12 @@ public class DawsonElectionTest {
 		test += "\nMaria";
 		
 		System.out.println( (newElection.toString().equals(test) ? "test String is equal to DawsonElection's toString output\t\t\t\t\t\t === TEST PASSED ===" : "TEST FAILED") );
+		System.out.println();
+		System.out.println("The String test:");
+		System.out.println(test);
+		System.out.println();
+		System.out.println("DawsonElection.toString():");
+		System.out.println(newElection.toString());
 		System.out.println();
 	}
 	
