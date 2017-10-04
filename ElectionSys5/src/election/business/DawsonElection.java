@@ -1,4 +1,3 @@
-
 package election.business;
 
 import java.time.DateTimeException;
@@ -33,15 +32,15 @@ public class DawsonElection implements Election {
 	
 	public DawsonElection(String name, String type, int startYear, int
 			startMonth, int startDay, int endYear, int endMonth, int endDay,
-			String startRange, String endRange, Tally tally, String... items ) {
+			String startRange, String endRange, Tally tally, String... items ) {								// Constructor
 		
-		nullChecker(name, type);		
-		dateChecker(startYear, startMonth, startDay);
+		nullChecker(name, type);  // Check to make sure name and type are NOT null OR empty.		
+		dateChecker(startYear, startMonth, startDay);  // Check to make sure each data of date is logical
 		
-		LocalDate startDate = LocalDate.of (startYear, startMonth, startDay);
+		LocalDate startDate = LocalDate.of (startYear, startMonth, startDay); 
 		LocalDate endDate = LocalDate.of (endYear, endMonth, endDay);
 		
-		startEndDateChecker(startDate, endDate);
+		startEndDateChecker(startDate, endDate);  // Check to make sure startDate and endDate are logical
 		tallyChecker(tally);
 		
 		this.name = name;
@@ -55,11 +54,15 @@ public class DawsonElection implements Election {
 		this.electType = electionTypeChecker(type);
 	}
 
+	
+	// ============================================== CHECKER/VALIDATE METHODS ================================================= \\
+	
+	
 	/**
 	 * Check to see if a String is null or not
 	 * @throws IllegalArgumentException when String is null
 	 */
-	private void nullChecker (String name, String type) {
+	private void nullChecker (String name, String type) {														// nullChecker
 		if ( (name == null) || (name.isEmpty()) )
 		{
 			throw new IllegalArgumentException ("THE NAME OF THE ELECTION IS NULL OR EMPTY");
@@ -77,7 +80,7 @@ public class DawsonElection implements Election {
 	 * @param d day as 2+ digits number. E.g 02 or 26
 	 * @throws DateTimeException when the data is invalid or inconsistent
 	 */
-	private void dateChecker (int y, int m, int d) {
+	private void dateChecker (int y, int m, int d) {															// dateChecker
 		LocalDate currentDate = LocalDate.now();
 		if ( (y < currentDate.getYear()) )
 		{
@@ -96,7 +99,7 @@ public class DawsonElection implements Election {
 	 * @param start LocalDate of This DawsonCollege
 	 * @param end LocalDate of This DawsonCollege
 	 */
-	private void startEndDateChecker (LocalDate start, LocalDate end) {
+	private void startEndDateChecker (LocalDate start, LocalDate end) {											// startEndDateChecker
 		if (end.isBefore(start))
 		{
 			throw new DateTimeException ("END DATE MUST BE BEFORE START DATE");
@@ -104,11 +107,12 @@ public class DawsonElection implements Election {
 	}
 	
 	/**
-	 * 
+	 * Return the corresponding value of enum accordin to String type
 	 * @param type the String representation of type of This DawsonElection
 	 * @return the correct enum value of ElectionType
+	 * @throws exception if the String type is not found in the enum.
 	 */
-	private ElectionType electionTypeChecker (String type) {
+	private ElectionType electionTypeChecker (String type) {													// electionTypeChecker
 		type = type.toUpperCase().trim();
 		return ElectionType.valueOf(type);
 	}
@@ -118,7 +122,7 @@ public class DawsonElection implements Election {
 	 * @param tally the Tally object
 	 * @throws IllegalArgumentException when Tally object is null
 	 */
-	private void tallyChecker (Tally tally) {  ///////////////////////////////////////////////////////////////////////
+	private void tallyChecker (Tally tally) {																	// tallyChecker
 		if (tally == null)
 		{
 			throw new IllegalArgumentException ("TALLY MUST NOT BE NULL");
@@ -129,7 +133,7 @@ public class DawsonElection implements Election {
 	 * Return true if both postalRange Start and End are NOT null
 	 * @return boolean
 	 */
-	public boolean isLimitedToPostalRange() {  
+	public boolean isLimitedToPostalRange() {  																	// isLimitedToPostalRange
 		if ( (this.startRange == null) && (this.endRange == null))
 		{
 			return false;
@@ -140,36 +144,6 @@ public class DawsonElection implements Election {
 		}
 		return true;
 	}
-		
-	
-	/**
-	 * Update tally if voter isEligible
-	 * @throws IllegalArgumentException when voter is not eligible
-	 * @param b the Ballot object
-	 * @param v the Voter bject
-	 */
-	public void castBallot(Ballot b, Voter v) {  ///////////////////////////////////////////////////////////////////
-		if (!v.isEligible(this))
-		{
-			throw new UnsupportedOperationException ("VOTER IS NOT ELIGIBLE");
-		}
-		b.validateSelections();
-		this.tally.update(b);
-	}
-	
-	/**
-	 * Set the value of Tally object
-	 * @throws IllegalArgumentException when Name of the Tallies are not equal
-	 * @param tally the Tally object
-	 */
-	public void setTally(Tally tally) {
-		tallyChecker(tally);
-		if (tally.getElectionName() != this.tally.getElectionName())
-		{
-			throw new IllegalArgumentException ("Name must be equal");
-		}
-		this.tally = tally;
-	}
 	
 	/**
 	 * 
@@ -177,7 +151,7 @@ public class DawsonElection implements Election {
 	 * @return BallotItem array of all This DawsonElection items
 	 * @throws IllegalArgumentException when there is less that 2 items
 	 */
-	private BallotItem[] checkItem (String...items ) {
+	private BallotItem[] checkItem (String...items ) {															// checkItem
 		if (items.length < 2)
 		{
 			throw new IllegalArgumentException ("THERE MUST BE AT LEAST 2 ITEMS");
@@ -190,12 +164,22 @@ public class DawsonElection implements Election {
 		}
 		return choices;
 	}
+		
+
+	// ============================================== END CHECKER/VALIDATE METHODS ============================================== \\
+	
+	
+	
+	
+
+	// ==============================================  GETTERS METHODS =========================================================== \\
+	
 	
 	/**
 	 * Return the LocalDate representation of startDate of DawsonElection.
 	 * @return startDate of This DawsonElection
 	 */
-	public LocalDate getStartDate() {
+	public LocalDate getStartDate() {																			// getStartDate
 		return startDate;
 	}
 	
@@ -203,7 +187,7 @@ public class DawsonElection implements Election {
 	 * Return the LocalDate representation of startDate of DawsonElection.
 	 * @return endDate of This DawsonElection
 	 */
-	public LocalDate getEndDate() {
+	public LocalDate getEndDate() {																				// getEndDate
 		return endDate;
 	}
 	
@@ -211,12 +195,12 @@ public class DawsonElection implements Election {
 	 * Return the array of String representation of ballotItem of This DawsonElection.
 	 * @return the String array.
 	 */
-	public String[] getElectionChoices() {
+	public String[] getElectionChoices() {																		// getElectionChoices
 		String[] choices = new String[this.ballotItems.length];
 		
 		for (int i = 0; i < choices.length; i++)
 		{
-			choices[i] = this.ballotItems[i].toString();
+			choices[i] = this.ballotItems[i].getChoice();
 		}
 		return choices;
 	}
@@ -225,7 +209,7 @@ public class DawsonElection implements Election {
 	 * Return the name of This DawsonElection
 	 * @return This name
 	 */
-	public String getName() {
+	public String getName() {																					// getName
 		return this.name;
 	}
 	
@@ -233,7 +217,7 @@ public class DawsonElection implements Election {
 	 * Set the ElectionType of
 	 * @return This ElectionType
 	 */
-	public ElectionType getElectionType() {
+	public ElectionType getElectionType() {																		// getElectionType
 		return this.electType;
 	}
 	
@@ -241,7 +225,7 @@ public class DawsonElection implements Election {
 	 * Return the StubBallot of This DawsonElection
 	 * @return StubBallot
 	 */
-	public StubBallot getBallot() {
+	public StubBallot getBallot() {																				// getBallot
 		BallotItem[] temp = new BallotItem[this.ballotItems.length];
 		
 		for (int i = 0; i < this.ballotItems.length; i++)
@@ -256,7 +240,7 @@ public class DawsonElection implements Election {
 	 * Return startRange as String of This DawsonElection
 	 * @return This DawsonElection startRange
 	 */
-	public String getPostalRangeStart() {
+	public String getPostalRangeStart() {																		// getPostalRangeStart
 		return this.startRange;
 	}
 	
@@ -264,7 +248,7 @@ public class DawsonElection implements Election {
 	 * Return endRange as String of This DawsonElection
 	 * @return This DawsonElection endRange
 	 */
-	public String getPostalRangeEnd() {
+	public String getPostalRangeEnd() {																			// getPostalRangeEnd
 		return this.endRange;
 	}
 	
@@ -272,7 +256,7 @@ public class DawsonElection implements Election {
 	 * Return tally as Tally object
 	 * @return This Dawsoncollege Tally
 	 */
-	public Tally getTally() {
+	public Tally getTally() {																					// getTally
 		return this.tally;
 	}
 	
@@ -282,12 +266,81 @@ public class DawsonElection implements Election {
 	 * @param v the Voter object
 	 * @throws IllegalArgumentException when voter is not eligible
 	 */
-	public Ballot getBallot(Voter v) {
+	public Ballot getBallot(Voter v) {																			// getBallot
 		if(v.isEligible(this)) {
 			return (Ballot) this.getBallot();
 		}
 		throw new IllegalArgumentException ("Voter is not eligible");
 	}
+	
+	// ==============================================  END GETTERS METHODS ============================================== \\
+	
+	
+	
+
+	// ==============================================  SETTERS METHODS =================================================== \\
+
+	
+	/**
+	 * Set the value of Tally object
+	 * @throws IllegalArgumentException when Name of the Tallies are not equal
+	 * @param tally the Tally object
+	 */
+	public void setTally(Tally tally) {																			// setTally
+		tallyChecker(tally);
+		if (tally.getElectionName() != this.tally.getElectionName())
+		{
+			throw new IllegalArgumentException ("Name must be equal");
+		}
+		this.tally = tally;
+	}
+	
+	// ==============================================  END SETTERS METHODS ================================================ \\
+	
+	
+	
+	
+	// ==============================================  OTHERS METHODS ====================================================== \\
+	
+	
+	/**
+	 * Update tally if voter isEligible
+	 * @throws IllegalArgumentException when voter is not eligible
+	 * @param b the Ballot object
+	 * @param v the Voter bject
+	 */
+	public void castBallot(Ballot b, Voter v) {																	// castBallot
+		if (!v.isEligible(this))
+		{
+			throw new UnsupportedOperationException ("VOTER IS NOT ELIGIBLE");
+		}
+		b.validateSelections();
+		this.tally.update(b);
+	}
+	
+	/**
+	 * Method is not yet available
+	 * @throws UnsupportedOperationException
+	 */
+	public int getTotalVotesCast() {																			// getTotalVotesCast
+		throw new UnsupportedOperationException ("THIS METHOD IS NOT SUPPORTED");
+	}
+	
+	/**
+	 * Method is not yet available
+	 * @throws UnsupportedOperationException
+	 */
+	public int getInvalidVoteAttempts() {																		// getInvalidVoteAttempts
+		throw new UnsupportedOperationException ("THIS METHOD IS NOT SUPPORTED");
+	}
+	
+	// ==============================================  END OTHERS METHODS =================================================== \\
+	
+	
+	
+	
+	// ==============================================  OVERRIDED METHODS ====================================================== \\
+	
 	
 	/**
 	 * Return a String in this format:
@@ -297,7 +350,7 @@ public class DawsonElection implements Election {
 	 * @return the String representation of This DawsonElection
 	 */
 	@Override
-	public String toString() {
+	public String toString() {																					// toString
 	    String election = (this.name + "*" + startDate.getYear() + "*" + startDate.getMonthValue()
 	    + "*" + startDate.getDayOfMonth() + "*" + endDate.getYear() + "*" + endDate.getMonthValue()
 	    + "*" + endDate.getDayOfMonth() + "*" + this.startRange + "*" + this.endRange
@@ -317,7 +370,7 @@ public class DawsonElection implements Election {
 	 * @param name as Election object
 	 */
 	@Override
-	public int compareTo(Election name) {
+	public int compareTo(Election name) {																		// compareTo
 		if (name == null)
 		{
 			throw new IllegalArgumentException("Object Name is Null");
@@ -332,7 +385,7 @@ public class DawsonElection implements Election {
 	 * @param object of type Object
 	 */
 	@Override
-	public boolean equals(Object object) {
+	public boolean equals(Object object) {																		// equals
 		if (this == object)
 		{
 			return true;
@@ -357,23 +410,9 @@ public class DawsonElection implements Election {
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
-	public int hashCode() {
+	public int hashCode() {																						// hashCode
 		return Objects.hash(this.getName());
 	}
 	
-	/**
-	 * Method is not yet available
-	 * @throws UnsupportedOperationException
-	 */
-	public int getTotalVotesCast() {
-		throw new UnsupportedOperationException ("THIS METHOD IS NOT SUPPORTED");
-	}
-	
-	/**
-	 * Method is not yet available
-	 * @throws UnsupportedOperationException
-	 */
-	public int getInvalidVoteAttempts() {
-		throw new UnsupportedOperationException ("THIS METHOD IS NOT SUPPORTED");
-	}
+	// ==============================================  END OVERRIDED METHODS ====================================================== \\
 }
