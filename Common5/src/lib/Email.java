@@ -187,9 +187,10 @@ public class Email implements Serializable, Comparable<Email>{
 
 		for (int i= 0; i< userid.length(); i++) {
 			char currentChar = userid.charAt(i);
+			int category = Character.getType(currentChar);
 
-			if(!(currentChar== Character.UPPERCASE_LETTER || currentChar== Character.DECIMAL_DIGIT_NUMBER ||
-					currentChar== Character.LOWERCASE_LETTER || currentChar== '-' || currentChar== '_' || currentChar == '.') ) {
+			if(!(category == Character.UPPERCASE_LETTER || category== Character.DECIMAL_DIGIT_NUMBER ||
+					category== Character.LOWERCASE_LETTER || currentChar == '-' || currentChar== '_' || currentChar == '.') ) {
 
 				throw new IllegalArgumentException("UserId cannot contain " + currentChar);
 			}
