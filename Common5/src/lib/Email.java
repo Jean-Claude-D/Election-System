@@ -168,8 +168,8 @@ public class Email implements Serializable, Comparable<Email>{
 
 	private String validateEmail(String address) {
 
-		String userid= this.getUserId();
-		String hostid= this.getHost();
+		String userid= address.substring(0, address.indexOf('@'));
+		String hostid= address.substring(address.indexOf('@'));
 		String[] domainArray= hostid.split(".");
 
 
