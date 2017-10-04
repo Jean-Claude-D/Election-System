@@ -99,8 +99,8 @@ public class NameTest {
 		Name person1 = new Name(a, b);
 		System.out.println("Test getter methods (get first/last/full name)");
 		
-		System.out.println( (person1.getfirstName().equals(a)) ? "person1's first name is: " + person1.getfirstName() + "\t\t\t\t === TEST PASSED ===" : "TEST FAILED" );
-		System.out.println( (person1.getlastName().equals(b)) ? "person1's last name is: " + person1.getlastName() + "\t\t\t === TEST PASSED ===" : "TEST FAILED" );
+		System.out.println( (person1.getFirstName().equals(a)) ? "person1's first name is: " + person1.getFirstName() + "\t\t\t\t === TEST PASSED ===" : "TEST FAILED" );
+		System.out.println( (person1.getLastName().equals(b)) ? "person1's last name is: " + person1.getLastName() + "\t\t\t === TEST PASSED ===" : "TEST FAILED" );
 		System.out.println( (person1.getFullName().equals(a + " " + b)) ? "person1's full name is: " + person1.getFullName() + "\t\t\t === TEST PASSED ===" : "TEST FAILED" );
 		System.out.println("------------------------------");
 		System.out.println();
@@ -118,9 +118,9 @@ public class NameTest {
 		Name person2 = new Name(a, b);  // person2 will be used throughout this test.
 		Name copyPerson2 = new Name(person2);  // copyPerson2 will be used throughout this test.
 		System.out.println("Test Copy Constructor");
-		System.out.println( (copyPerson2.getfirstName().equals(a)) ? "copyPerson2's first name is: " + copyPerson2.getfirstName() + "\t\t\t === TEST PASSED ==="  : "TEST FAILED" );
-		System.out.println( (copyPerson2.getlastName().equals(b)) ? "copyPerson2's last name is: " + copyPerson2.getlastName() + "\t\t\t === TEST PASSED ==="  : "TEST FAILED" );
-		System.out.println( (copyPerson2.getfirstName().equals(a)) ? "copyPerson2's full name is: " + copyPerson2.getFullName() + "\t === TEST PASSED ==="  : "TEST FAILED" );
+		System.out.println( (copyPerson2.getFirstName().equals(a)) ? "copyPerson2's first name is: " + copyPerson2.getFirstName() + "\t\t\t === TEST PASSED ==="  : "TEST FAILED" );
+		System.out.println( (copyPerson2.getLastName().equals(b)) ? "copyPerson2's last name is: " + copyPerson2.getLastName() + "\t\t\t === TEST PASSED ==="  : "TEST FAILED" );
+		System.out.println( (copyPerson2.getFirstName().equals(a)) ? "copyPerson2's full name is: " + copyPerson2.getFullName() + "\t === TEST PASSED ==="  : "TEST FAILED" );
 		System.out.println( person2.equals(copyPerson2) ? "person2 name is : " + person2.getFullName() + "\t\t\t === TEST PASSED ==="  : "TEST FAILED" );
 		System.out.println("------------------------------");
 		System.out.println();
