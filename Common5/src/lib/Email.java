@@ -227,9 +227,10 @@ public class Email implements Serializable, Comparable<Email>{
 
 
 			for(int r= 0; r <domainArray[i].length();i++) {
+				int category = Character.getType(domainArray[i].charAt(r));
 				
-				if(!(domainArray[i].charAt(r)== Character.UPPERCASE_LETTER) || domainArray[i].charAt(r)== Character.DECIMAL_DIGIT_NUMBER ||
-						domainArray[i].charAt(r)== Character.LOWERCASE_LETTER || domainArray[i].charAt(r)== '-' || domainArray[i].charAt(r)== '_' || 
+				if(!(category== Character.UPPERCASE_LETTER) || category== Character.DECIMAL_DIGIT_NUMBER ||
+						category== Character.LOWERCASE_LETTER || domainArray[i].charAt(r)== '-' || domainArray[i].charAt(r)== '_' || 
 						domainArray[i].charAt(r) == '.') {
 
 					throw new IllegalArgumentException("The hostId cannot have invalid characters");
