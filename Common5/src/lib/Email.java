@@ -168,6 +168,10 @@ public class Email implements Serializable, Comparable<Email>{
 
 	private String validateEmail(String address) {
 
+		if(!address.contains("@")) {
+			throw new IllegalArgumentException("address \'" + address + "\' must contain @");
+		}
+		
 		String userid= address.substring(0, address.indexOf('@'));
 		String hostid= address.substring(address.indexOf('@'));
 		String[] domainArray= hostid.split(".");
