@@ -32,19 +32,21 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 			throw new IllegalArgumentException("Cannot compare to null object.");
 		}
 
-		for (int i = 0; i < this.code.length(); i++) {
-
-			if (this.code.charAt(i) > postalCode.code.charAt(i)) {
-				return 1;
-			}
-			
-			else if (this.code.charAt(i) < postalCode.code.charAt(i)) {
-				return -1;
-			}
-			
-		}
-		//if it did not return 1 or -1, they must be equal so return 0
-		return 0;
+//		for (int i = 0; i < this.code.length(); i++) {
+//
+//			if (this.code.charAt(i) > postalCode.code.charAt(i)) {
+//				return 1;
+//			}
+//			
+//			else if (this.code.charAt(i) < postalCode.code.charAt(i)) {
+//				return -1;
+//			}
+//			
+//		}
+//		//if it did not return 1 or -1, they must be equal so return 0
+//		return 0;
+		
+		return this.code.compareToIgnoreCase(postalCode.code);
 			
 	}
 	
@@ -67,7 +69,7 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 			return true;
 		}
 		
-		return object instanceof PostalCode &&
+		return (this.getClass() == object.getClass()) &&
 			   ((PostalCode) object).code.equalsIgnoreCase(this.code);
 
 	}
