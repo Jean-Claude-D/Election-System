@@ -1,0 +1,17 @@
+#.gitignore adapted from https://gist.github.com/chhh/4961200
+
+#Binaries
+.jar
+.class
+.html
+bin/
+doc/
+lib/
+
+#eclipse
+.settings/
+.classpath
+.project
+.metadata/
+.recommenders/
+
