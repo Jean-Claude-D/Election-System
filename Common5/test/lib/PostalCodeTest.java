@@ -24,6 +24,7 @@ public class PostalCodeTest {
 		String invalidCode7 = "L4Q 5M6";
 		String invalidCode8 = "N7P 8U9";
 		boolean expectValid = true;
+		boolean expectInvalid = false;
 		PostalCodeChild child = new PostalCodeChild ("j4x2g3");
 		PostalCode object1 = new PostalCode("J4X 2G3");
 		PostalCode object2 = new PostalCode("J4X 2G3");
