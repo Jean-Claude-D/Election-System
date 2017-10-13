@@ -43,7 +43,7 @@ public class Email implements Serializable, Comparable<Email>{
 
 	public String getUserId() {
 
-		return address.substring(0, address.indexOf('@'));
+		return address.substring(0, address.indexOf('@'+1));
 
 	}
 
