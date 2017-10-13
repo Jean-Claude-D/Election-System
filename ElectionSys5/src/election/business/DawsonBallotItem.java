@@ -63,7 +63,7 @@ public class DawsonBallotItem implements BallotItem {
 
 		if (choiceString == null && maxValue <1 ) {
 
-			throw new IllegalArgumentException("not valid");
+			throw new IllegalArgumentException("The max vlaue is smaller than 1 and the choice is empty. Please enter a valid choice");
 		}
 
 	}
@@ -145,7 +145,7 @@ public class DawsonBallotItem implements BallotItem {
 
 		if (!(0 <= value && value <= maxValue)) {
 
-			throw new IllegalArgumentException("not valid");
+			throw new IllegalArgumentException("The value should be grater than 0 and the value should not be greater than the Max Value ");
 		}
 
 		this.value=value;
