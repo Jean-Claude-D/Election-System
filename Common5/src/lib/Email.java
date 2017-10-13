@@ -7,8 +7,6 @@ import java.io.Serializable;
  * @author Maria Hossain
  * @since Oct 2nd 2017
  * 
- *
- *
  */
 public class Email implements Serializable, Comparable<Email>{
 
@@ -31,7 +29,6 @@ public class Email implements Serializable, Comparable<Email>{
 	}
 
 	/**
-	 * 
 	 * @return Returns the email address
 	 */
 
@@ -40,9 +37,7 @@ public class Email implements Serializable, Comparable<Email>{
 	}
 
 	/**
-	 * 
 	 * returns the userId part of the email
-	 * 
 	 * @return 
 	 */
 
@@ -53,7 +48,6 @@ public class Email implements Serializable, Comparable<Email>{
 	}
 
 	/**
-	 * 
 	 * Returns the host of the email
 	 * @return
 	 */
@@ -64,8 +58,7 @@ public class Email implements Serializable, Comparable<Email>{
 	}
 
 
-	/**
-	 * 
+	/** 
 	 * Verifies that the object is of the same instance as the email class and checks if its
 	 * email address is the same 
 	 */
@@ -93,9 +86,7 @@ public class Email implements Serializable, Comparable<Email>{
 	}	
 
 
-	/**
-	 * 
-	 * 
+	/** 
 	 * Returns the hashcode of the email address while being case insensitive
 	 */
 
@@ -109,8 +100,6 @@ public class Email implements Serializable, Comparable<Email>{
 
 
 	/**
-	 * 
-	 * 
 	 * Returns the String version of the email address
 	 */
 
@@ -125,7 +114,6 @@ public class Email implements Serializable, Comparable<Email>{
 	}
 
 	/**
-	 * 
 	 * Check is 2 address are written the same way
 	 */
 
