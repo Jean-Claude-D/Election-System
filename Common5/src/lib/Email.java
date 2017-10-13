@@ -160,6 +160,11 @@ public class Email implements Serializable, Comparable<Email>{
 	 */
 
 	private String validateEmail(String address) {
+		
+		if(address == null ) {
+			throw new IllegalArgumentException("There is no existing address");
+			
+		}
 
 		if(!address.contains("@")) {
 			throw new IllegalArgumentException("address \'" + address + "\' must contain @");
