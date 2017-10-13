@@ -24,8 +24,8 @@ public class Name implements Serializable, Comparable<Name> {
 	 * @see lib.Name#validate(String)
 	 */
 	public Name (String fname, String lname) {
-		this.firstName = validate(fname);  // Verify if fname is valid or not.
-		this.lastName = validate(lname);  // Verify if lname is valid or not
+		this.firstName = validate(fname);
+		this.lastName = validate(lname);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class Name implements Serializable, Comparable<Name> {
 			throw new IllegalArgumentException("Not a Valid Name, first character \'" + (name.charAt(0) - 1) + "\' must be a letter");
 		}
 		
-		for (int i = 0; i < name.length(); i++)
+		for (int i = 0; i < name.length() - 1; i++)														
 		{
 			char currentChar = name.charAt(i);
 			
@@ -102,7 +102,7 @@ public class Name implements Serializable, Comparable<Name> {
 				{
 					throw new IllegalArgumentException("Illegal Character: " + currentChar);
 				}
-				if (!Character.isLetter(name.charAt(i+1)))
+				if (!Character.isLetter(name.charAt(i + 1)))
 				{
 					throw new IllegalArgumentException("Two special characters cannot be next to each other");
 				}
@@ -163,11 +163,14 @@ public class Name implements Serializable, Comparable<Name> {
 			return true;
 		}
 
-		if (object instanceof Name)
+		if (object.getClass().equals(this.getClass()))										
 		{
-			if ( ((Name)object).getFullName().equalsIgnoreCase(this.getFullName())  )
+			if ( ((Name)object).getFirstName().equalsIgnoreCase(this.getFirstName())  )
 			{
-				return true;
+				if ( ((Name)object).getLastName().equalsIgnoreCase(this.getLastName())  )
+				{
+					return true;
+				}
 			}
 		}
 		return false;
@@ -181,6 +184,6 @@ public class Name implements Serializable, Comparable<Name> {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.getFullName().toUpperCase());
+		return Objects.hash(this.getFirstName().toUpperCase(), this.getLastName().toUpperCase());
 	}
 }
