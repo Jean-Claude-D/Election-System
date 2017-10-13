@@ -72,6 +72,11 @@ public class Email implements Serializable, Comparable<Email>{
 			throw new IllegalArgumentException("email cannot be null");
 
 		}
+		
+		if (this == email) {
+			
+			return true;
+		}
 
 		if (this instanceof Email) {
 
