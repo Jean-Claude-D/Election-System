@@ -28,7 +28,7 @@ public class DawsonBallotItem implements BallotItem {
 
 	public DawsonBallotItem(String choiceString, int maxValue){
 
-
+		validateBallotItem();
 		this.choiceString=choiceString;
 		this.maxValue=maxValue;
 		this.value=0;
