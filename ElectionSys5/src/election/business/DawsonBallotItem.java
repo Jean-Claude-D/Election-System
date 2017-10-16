@@ -77,15 +77,15 @@ public class DawsonBallotItem implements BallotItem {
 
 	@Override
 
-	public final boolean equals(Object DawsonBallotItem){
+	public final boolean equals(Object dawsonBallotItem){
 
-		if(DawsonBallotItem == null) {
+		if(dawsonBallotItem == null) {
 			return false;
 		}
 
 		if (this instanceof DawsonBallotItem) {
 
-			if (this.choiceString.equals(((DawsonBallotItem)DawsonBallotItem).getChoice())) {
+			if (this.choiceString.equals(((DawsonBallotItem)dawsonBallotItem).getChoice())) {
 
 
 				return true;
