@@ -196,21 +196,7 @@ public class DawsonBallotItem implements BallotItem {
 
 	public int compareTo(DawsonBallotItem item) {
 
-		if(this.getChoice().compareToIgnoreCase(item.getChoice()) ==1) {
-
-			return 1;
-		}
-
-
-		else if(this.getChoice().compareToIgnoreCase(item.getChoice()) ==1) {
-
-			return -1;
-		}
-
-		else {
-
-			return 0;
-		}
+		return this.getChoice().compareToIgnoreCase(item.getChoice());
 
 	}
 
