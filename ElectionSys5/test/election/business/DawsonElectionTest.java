@@ -9,135 +9,85 @@ public class DawsonElectionTest {
 	public static void main(String[] args) {
 		StubTally tally = new StubTally();
 		
-		testConstructor();
-		testAllGetter("Canada Election", "SINGLE", 2017, 11, 25, 2018, 2, 20, "A", "J7E", tally, "H", "Jean Claude", "Felicia", "Maria");
-		testToString("Canada Election", "SINGLE", 2017, 11, 25, 2018, 2, 20, "A", "J7E", tally, "H", "Jean Claude", "Felicia", "Maria");
-		testIsLimitedToPostalRange("Canada Election", "SINGLE", 2017, 11, 25, 2018, 2, 20, "A", "J7E", tally, "H", "Jean Claude", "Felicia", "Maria");
-		testEquals();
-		testCompareToAndHashcode();
+		testConstructor("Canada Election", "single", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("NULL name", null, "single", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("NULL type", "Canada Election", null, 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("EMPTY name and type", "", "", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("a type NOT from enum", "Canada Election", "Dictatorial", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("startYear in the PAST", "Canada Election", "single", 2000, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("startMonth in the PAST", "Canada Election", "single", 2017, 2, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("startDay in the PAST", "Canada Election", "single", 2017, 10, 1, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("endDate before startDate", "Canada Election", "single", 2017, 12, 25, 2016, 12, 4, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("NULL tally", "Canada Election", "single", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				null, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testConstructor("LESS than 2 items", "Canada Election", "single", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "Me");
+		
+		testAllGetter("Canada Election", "single", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testToString("Canada Election", "single", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testIsLimitedToPostalRange("Canada Election", "single", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testEquals("Canada Election", "SINGLE", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
+		
+		testCompareToAndHashcode("Canada Election", "SINGLE", 2017, 11, 25, 2018, 2, 20, "A", "J7E",
+				tally, "H", "Jean Claude", "Felicia", "Maria");
 	}
 	
-	private static void testConstructor() {
+	
+	private static void testConstructor(String name, String type, int startYear, int startMonth, int startDay,
+			int endYear, int endMonth, int endDay, String startRange, String endRange, Tally tally,
+			String... items) {
 		try {
-			StubTally tally = new StubTally();
-
-			DawsonElection newElection = new DawsonElection("Canada Election", "single", 2017, 11, 25, 2018, 2, 20
-					,"A", "J7E", tally, "Me", "Jean Claude", "Stuff");
+			DawsonElection newElection = new DawsonElection(name, type, startYear, startMonth, startDay,
+					endYear, endMonth, endDay, startRange, endRange, tally, items);
 			System.out.println("Creating a DawsonElection with all valid arguments \t\t\t\t\t\t\t === TEST PASSED ===\n");
 		}
 		catch (Exception e){
 			System.out.println("TEST FAILED");
 		}
-		
-		try {
-			StubTally tally = new StubTally();
-			DawsonElection newElection = new DawsonElection(null, "single", 2017, 11, 25, 2018, 2, 20
-					,"A", "J7E", tally, "Me", "Jean Claude", "Stuff");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with NULL name \t\t\t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
-		
-		try {
-			StubTally tally = new StubTally();
-			DawsonElection newElection = new DawsonElection("President for Mars", null, 2017, 11, 25, 2018, 2, 20
-					,"A", "J7E", tally, "Me", "Jean Claude", "Stuff");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with NULL type \t\t\t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
-		
-		try {
-			StubTally tally = new StubTally();
-			DawsonElection newElection = new DawsonElection("", "", 2017, 11, 25, 2018, 2, 20
-					,"A", "J7E", tally, "Me", "Jean Claude", "Stuff");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with Empty name and type \t\t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
-		
-		try {
-			StubTally tally = new StubTally();
-			DawsonElection newElection = new DawsonElection("A", "Ranked", 2000, 11, 25, 2018, 2, 20
-					,"A", "J7E", tally, "Me", "Jean Claude", "Stuff");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with a YEAR in the past \t\t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
-		
-		try {
-			StubTally tally = new StubTally();
-			DawsonElection newElection = new DawsonElection("A", "Ranked", 2017, 2, 25, 2018, 2, 20
-					,"A", "J7E", tally, "Me", "Jean Claude", "Stuff");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with a MONTH in the past \t\t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
-		
-		try {
-			StubTally tally = new StubTally();
-			DawsonElection newElection = new DawsonElection("A", "Ranked", 2017, 10, 1, 2018, 2, 20
-					,"A", "J7E", tally, "Me", "Jean Claude", "Stuff");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with a DAY in the past \t\t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
-		
-		try {
-			StubTally tally = new StubTally();
-			DawsonElection newElection = new DawsonElection("A", "Ranked", 2018, 10, 30, 2018, 9, 20
-					,"A", "J7E", tally, "Me", "Jean Claude", "Stuff");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with a endDate BEFORE startDate \t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
-		
-		try {
-			DawsonElection newElection = new DawsonElection("A", "Ranked", 2018, 10, 30, 2019, 9, 20
-					,"A", "J7E", null, "Me", "Jean Claude", "Stuff");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with a null tally \t\t\t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
-		
-		try {
-			StubTally tally = new StubTally();
-			DawsonElection newElection = new DawsonElection("A", "DICTATORIAL", 2018, 10, 30, 2019, 9, 20
-					,"A", "J7E", tally, "Me", "Jean Claude", "Stuff");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with a type that is NOT in enum\t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
-		
-		try {
-			StubTally tally = new StubTally();
-			DawsonElection newElection = new DawsonElection("A", "DICTATORIAL", 2018, 10, 30, 2019, 9, 20
-					,"A", "J7E", tally, "Me");
-			System.out.println("TEST FAILED");
-		}
-		catch (Exception e){
-			System.out.println("Creating a DawsonElection with less than 2 \"items\" (choices)\t\t\t\t\t\t === TEST PASSED ===");
-			System.out.println(e + "\n");
-		}
 	}
+	
+		private static void testConstructor(String errorMessage, String name, String type, int startYear, int startMonth, int startDay,
+				int endYear, int endMonth, int endDay, String startRange, String endRange, Tally tally,
+				String... items) {
+			try {
+				DawsonElection newElection = new DawsonElection(name, type, startYear, startMonth, startDay,
+						endYear, endMonth, endDay, startRange, endRange, tally, items);
+				
+				System.out.println("TEST FAILED");
+			}
+			catch (Exception e){
+				System.out.println("Creating a DawsonElection with " + errorMessage);
+				System.out.println(e);
+				System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t === TEST PASSED ===");
+			}
+		}
+		
 	
 	private static void testAllGetter(String name, String type, int startYear, int
 			startMonth, int startDay, int endYear, int endMonth, int endDay,
@@ -190,7 +140,7 @@ public class DawsonElectionTest {
 		test += "\nFeli";
 		test += "\nMaria";
 		
-		System.out.println( (newElection.toString().equals(test) ? "test String is equal to DawsonElection's toString output\t\t\t\t\t\t === TEST PASSED ===" : "TEST FAILED") );
+		System.out.println( (newElection.toString().equalsIgnoreCase(test) ? "test String is equal to DawsonElection's toString output\t\t\t\t\t\t === TEST PASSED ===" : "TEST FAILED") );
 		System.out.println();
 		System.out.println("The String test:");
 		System.out.println(test);
@@ -203,16 +153,17 @@ public class DawsonElectionTest {
 	private static void testIsLimitedToPostalRange(String name, String type, int startYear, int
 			startMonth, int startDay, int endYear, int endMonth, int endDay,
 			String startRange, String endRange, Tally tally, String... items) {
+		
 		System.out.println("------------------------------------------------------- TEST isLimitedToPostalRange() METHOD ---------------------------------------\n");
 		
-		DawsonElection newElection = new DawsonElection(name, type, startYear, startMonth, startDay, endYear, endMonth, endDay
-				,startRange, endRange, tally, "H", "Jean Claude", "Feli", "Maria");
+		DawsonElection newElection = new DawsonElection(name, type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, startRange, endRange, tally, items);
 		
-		DawsonElection newElection2 = new DawsonElection(name, type, startYear, startMonth, startDay, endYear, endMonth, endDay
-				,null,null , tally, "H", "Jean Claude", "Feli", "Maria");
+		DawsonElection newElection2 = new DawsonElection(name, type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, "", "", tally, items);
 		
-		DawsonElection newElection3 = new DawsonElection(name, type, startYear, startMonth, startDay, endYear, endMonth, endDay
-				,"","" , tally, "H", "Jean Claude", "Feli", "Maria");
+		DawsonElection newElection3 = new DawsonElection(name, type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, null, null, tally, items);
 		
 		System.out.println( (newElection.isLimitedToPostalRange() ? "newElection has postal range\t\t\t\t\t\t\t\t\t\t === TEST PASSED ===" : "TEST FAILED\n") );
 		System.out.println();
@@ -222,29 +173,20 @@ public class DawsonElectionTest {
 		System.out.println();
 	}
 	
-	private static void testEquals() {
+	private static void testEquals(String name, String type, int startYear, int startMonth, int startDay,
+			int endYear, int endMonth, int endDay, String startRange, String endRange, Tally tally,
+			String... items) {
+		
 		System.out.println("------------------------------------------------------- TEST equals() METHOD -------------------------------------------------------\n");
-		StubTally tally = new StubTally();
-		
-		String name = "Canada Election";
-		String name2 = "US Election";
-		String type = "SINGLE";
-		String startRange = "A";
-		String endRange = "J7E";
-		
-		String Choice1 = "H";
-		String Choice2 = "Jean Claude";
-		String Choice3 = "Felicia";
-		String Choice4 = "Maria";
 
-		DawsonElection newElection = new DawsonElection(name, type, 2017, 11, 25, 2018, 2, 20
-				,startRange, endRange, tally, Choice1, Choice2, Choice3, Choice4);
+		DawsonElection newElection = new DawsonElection(name, type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, startRange, endRange, tally, items);
 		
-		DawsonElection newElection2 = new DawsonElection(name2, type, 2017, 11, 25, 2018, 2, 20
-				,startRange, endRange, tally, Choice1, Choice2, Choice3, Choice4);
+		DawsonElection newElection2 = new DawsonElection("U.S Election", type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, startRange, endRange, tally, items);
 		
-		DawsonElection newElection3 = new DawsonElection(name, type, 2017, 11, 25, 2018, 2, 20
-				,startRange, endRange, tally, Choice1, Choice2, Choice3, Choice4);
+		DawsonElection newElection3 = new DawsonElection(name, type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, startRange, endRange, tally, items);
 		
 		System.out.println( (newElection.equals(newElection2))  ? "FAILED" : newElection.getName() +" is NOT the same as " + newElection2.getName() + "\t\t\t\t\t\t\t\t === TEST PASSED ===");
 		System.out.println();		
@@ -256,34 +198,24 @@ public class DawsonElectionTest {
 		System.out.println();
 	}
 	
-	private static void testCompareToAndHashcode() {
+	private static void testCompareToAndHashcode(String name, String type, int startYear, int startMonth, int startDay,
+			int endYear, int endMonth, int endDay, String startRange, String endRange, Tally tally,
+			String... items) {
+		
 		System.out.println("--------------------------------------------------- TEST compareTo() AND hashcode() METHOD -----------------------------------------\n");
-		StubTally tally = new StubTally();
 		
-		String name = "Canada Election";
-		String name2 = "US Election";
-		String name3 = "Milky Way Galaxy Election";
 		
-		String type = "SINGLE";
-		String startRange = "A";
-		String endRange = "J7E";
+		DawsonElection newElection = new DawsonElection(name, type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, startRange, endRange, tally, items);
 		
-		String Choice1 = "H";
-		String Choice2 = "Jean Claude";
-		String Choice3 = "Felicia";
-		String Choice4 = "Maria";
+		DawsonElection newElection2 = new DawsonElection("U.S Election", type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, startRange, endRange, tally, items);
 		
-		DawsonElection newElection = new DawsonElection(name, type, 2017, 11, 25, 2018, 2, 20
-				,startRange, endRange, tally, Choice1, Choice2, Choice3, Choice4);
+		DawsonElection newElection3 = new DawsonElection(name, type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, startRange, endRange, tally, items);
 		
-		DawsonElection newElection2 = new DawsonElection(name2, type, 2017, 11, 25, 2018, 2, 20
-				,startRange, endRange, tally, Choice1, Choice2, Choice3, Choice4);
-		
-		DawsonElection newElection3 = new DawsonElection(name, type, 2017, 11, 25, 2018, 2, 20
-				,startRange, endRange, tally, Choice1, Choice2, Choice3, Choice4);
-		
-		DawsonElection newElection4 = new DawsonElection(name3, type, 2017, 11, 25, 2018, 2, 20
-				,startRange, endRange, tally, Choice1, Choice2, Choice3, Choice4);
+		DawsonElection newElection4 = new DawsonElection("Milky Way Galaxy", type, startYear, startMonth, startDay,
+				endYear, endMonth, endDay, startRange, endRange, tally, items);
 		
 		if ( (newElection.compareTo(newElection3) == 0) && (newElection.hashCode() == newElection3.hashCode()) ) {
 			System.out.println("newElection and newElection3 are \"equal\", so they also have the SAME hashcode \t\t\t\t === TEST PASSED === ");
@@ -313,3 +245,4 @@ public class DawsonElectionTest {
 		}	
 	}
 }
+

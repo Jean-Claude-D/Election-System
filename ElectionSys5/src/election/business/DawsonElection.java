@@ -34,23 +34,28 @@ public class DawsonElection implements Election {
 			startMonth, int startDay, int endYear, int endMonth, int endDay,
 			String startRange, String endRange, Tally tally, String... items ) {								// Constructor
 		
-		nullChecker(name, type);  // Check to make sure name and type are NOT null OR empty.		
-		dateChecker(startYear, startMonth, startDay);  // Check to make sure each data of date is logical
+		try {
+		this.startDate = LocalDate.of (startYear, startMonth, startDay); 
+		this.endDate = LocalDate.of (endYear, endMonth, endDay);
 		
-		LocalDate startDate = LocalDate.of (startYear, startMonth, startDay); 
-		LocalDate endDate = LocalDate.of (endYear, endMonth, endDay);
+		if ( this.startDate.isBefore(LocalDate.now()) )
+				{
+					throw new IllegalArgumentException("YOUR START DATE IS IN THE PASS");
+				}
+		}
+		catch (DateTimeException e) {
+			throw new IllegalArgumentException(e.getMessage());
+		}
 		
-		startEndDateChecker(startDate, endDate);  // Check to make sure startDate and endDate are logical
+		startEndDateChecker(startDate, endDate);	
 		tallyChecker(tally);
 		
-		this.name = name;
-		this.type = type;
+		this.name = nullChecker(name);
+		this.type = nullChecker(type);
 		this.startRange = startRange;
 		this.endRange = endRange;
 		this.tally = tally;
 		this.ballotItems = checkItem(items);
-		this.startDate = startDate;
-		this.endDate = endDate;
 		this.electType = electionTypeChecker(type);
 	}
 
@@ -62,36 +67,20 @@ public class DawsonElection implements Election {
 	 * Check to see if a String is null or not
 	 * @throws IllegalArgumentException when String is null
 	 */
-	private void nullChecker (String name, String type) {														// nullChecker
-		if ( (name == null) || (name.isEmpty()) )
+	private String nullChecker (String check) {																	// nullChecker
+
+		if (check == null)
 		{
-			throw new IllegalArgumentException ("THE NAME OF THE ELECTION IS NULL OR EMPTY");
+			throw new IllegalArgumentException ("THE NAME OR TYPE OF THE ELECTION IS NULL OR EMPTY");
 		}
-		if ( (type == null) || (type.isEmpty()) )
+		
+		check.trim();
+		
+		if (check.isEmpty())
 		{
-			throw new IllegalArgumentException ("THE TYPE OF THE ELECTION IS NULL OR EMPTY");
+			throw new IllegalArgumentException ("THE NAME OR TYPE OF THE ELECTION IS NULL OR EMPTY");
 		}
-	}
-	
-	/**
-	 * Check if the parameter y, m, d are valid and logical or not.
-	 * @param y year as 4+ digits number. E.g. 1990
-	 * @param m month as 2 digits number. E.g 05 or 12
-	 * @param d day as 2+ digits number. E.g 02 or 26
-	 * @throws DateTimeException when the data is invalid or inconsistent
-	 */
-	private void dateChecker (int y, int m, int d) {															// dateChecker
-		LocalDate currentDate = LocalDate.now();
-		if ( (y < currentDate.getYear()) )
-		{
-			throw new DateTimeException ("YOUR YEAR IS IN THE PAST");
-		}
-		else if ( (m < currentDate.getMonthValue()) ) {
-			throw new DateTimeException ("YOUR MONTH IS IN THE PAST");
-		}
-		else if ( (d < currentDate.getDayOfMonth()) ) {
-			throw new DateTimeException ("YOUR DAY IS IN THE PAST");
-		}
+		return check;
 	}
 	
 	/**
@@ -102,7 +91,7 @@ public class DawsonElection implements Election {
 	private void startEndDateChecker (LocalDate start, LocalDate end) {											// startEndDateChecker
 		if (end.isBefore(start))
 		{
-			throw new DateTimeException ("END DATE MUST BE BEFORE START DATE");
+			throw new IllegalArgumentException ("END DATE: " + end.toString() + " MUST BE BEFORE START DATE: " + start.toString());
 		}
 	}
 	
@@ -114,7 +103,13 @@ public class DawsonElection implements Election {
 	 */
 	private ElectionType electionTypeChecker (String type) {													// electionTypeChecker
 		type = type.toUpperCase().trim();
+		
+		try {
 		return ElectionType.valueOf(type);
+		}
+		catch (IllegalArgumentException e){
+			throw new IllegalArgumentException("Election type is incorrect \n"+ e.getMessage());
+		}
 	}
 	
 	/**
@@ -134,13 +129,10 @@ public class DawsonElection implements Election {
 	 * @return boolean
 	 */
 	public boolean isLimitedToPostalRange() {  																	// isLimitedToPostalRange
-		if ( (this.startRange == null) && (this.endRange == null))
+		if ( (this.startRange == null) || (this.endRange == null)
+				|| (this.startRange.isEmpty()) || (this.endRange.isEmpty()) )
 		{
-			return false;
-		}
-		if ( (this.getPostalRangeStart().isEmpty()) && (this.getPostalRangeEnd().isEmpty()))
-		{
-			return false;
+		return false;
 		}
 		return true;
 	}
@@ -225,7 +217,7 @@ public class DawsonElection implements Election {
 	 * Return the StubBallot of This DawsonElection
 	 * @return StubBallot
 	 */
-	public StubBallot getBallot() {																				// getBallot
+	private StubBallot getBallot() {																				// getBallot
 		BallotItem[] temp = new BallotItem[this.ballotItems.length];
 		
 		for (int i = 0; i < this.ballotItems.length; i++)
@@ -288,7 +280,7 @@ public class DawsonElection implements Election {
 	 */
 	public void setTally(Tally tally) {																			// setTally
 		tallyChecker(tally);
-		if (tally.getElectionName() != this.tally.getElectionName())
+		if (tally.getElectionName().equals(this.tally.getElectionName()) )
 		{
 			throw new IllegalArgumentException ("Name must be equal");
 		}
@@ -375,7 +367,7 @@ public class DawsonElection implements Election {
 		{
 			throw new IllegalArgumentException("Object Name is Null");
 		}
-		int check = this.getName().compareToIgnoreCase(name.getName());
+		int check = this.getName().compareTo(name.getName());
 		return check;
 	}
 	
@@ -396,7 +388,7 @@ public class DawsonElection implements Election {
 		}
 		if (object instanceof DawsonElection)
 		{
-			if ( ((DawsonElection)object).getName().equalsIgnoreCase(this.getName())  )
+			if ( ((DawsonElection)object).getName().equals(this.getName())  )
 			{
 				return true;
 			}
