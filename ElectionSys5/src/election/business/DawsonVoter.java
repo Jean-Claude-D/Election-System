@@ -226,7 +226,11 @@ public class DawsonVoter implements Voter {
 	@Override
 	public final boolean equals(Object obj) {
 		if(obj == null) {
-			throw new IllegalArgumentException("The Object obj parameter must be non-null");
+			return false;
+		}
+		
+		if(this == obj) {
+			return true;
 		}
 		
 		return (obj instanceof DawsonVoter) && this.email.equals(((DawsonVoter) obj).email);
@@ -267,8 +271,7 @@ public class DawsonVoter implements Voter {
 	 */
 	@Override
 	public String toString() {
-		return this.email.toString() + '*' + this.name.getFirstName() + '*'
-			   + this.name.getLastName() + '*' + this.postalCode.toString();
+		return this.email.toString() + '*' + this.name.toString() + '*' + this.postalCode.toString();
 	}
 
 }
