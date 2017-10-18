@@ -195,9 +195,8 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	
 		
 	//if there is any space anywhere, remove it
-		if(code.charAt(3) == ' ') {
-			code = code.replace(" ","");
-		}
+
+		code = code.replace(" ","");
 		
 		
 	//check to see if code is the right length; 6 is without a space, 7 is with a space. Less than 6 and more than 7 is invalid.

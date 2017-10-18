@@ -55,8 +55,8 @@ public class PostalCodeTest {
 		System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------");
 			inRangeTest("G", "H", goodCode2, expectValid);
 			inRangeTest("H1", "J5", goodCode2, expectValid);
-			inRangeTest("J", "Z", goodCode2, expectValid);
-			inRangeTest("A", "E", goodCode2, expectValid);
+			inRangeTest("J", "Z", goodCode2, expectInvalid);
+			inRangeTest("A", "E", goodCode2, expectInvalid);
 			inRangeTest("L4A  1B5", "L6N  9Z3", "L4M 1S4", expectValid);
 		
 		
@@ -66,20 +66,20 @@ public class PostalCodeTest {
 		
 		System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------");
 			validateTest(goodCode, expectValid);
-			validateTest(invalidCode1, expectValid);
-			validateTest(invalidCode2, expectValid);
-			validateTest(invalidCode3, expectValid);
-			validateTest(invalidCode4, expectValid);
-			validateTest(invalidCode5, expectValid);
-			validateTest(invalidCode6, expectValid);
-			validateTest(invalidCode7, expectValid);
-			validateTest(invalidCode8, expectValid);
-			validateTest(badFormat, expectValid);
-			validateTest(numberCode, expectValid);
-			validateTest(letterCode, expectValid);
-			validateTest(shortCode, expectValid);
-			validateTest(longCode, expectValid);
-			validateTest(longInvalidCode, expectValid);
+			validateTest(invalidCode1, expectInvalid);
+			validateTest(invalidCode2, expectInvalid);
+			validateTest(invalidCode3, expectInvalid);
+			validateTest(invalidCode4, expectInvalid);
+			validateTest(invalidCode5, expectInvalid);
+			validateTest(invalidCode6, expectInvalid);
+			validateTest(invalidCode7, expectInvalid);
+			validateTest(invalidCode8, expectInvalid);
+			validateTest(badFormat, expectInvalid);
+			validateTest(numberCode, expectInvalid);
+			validateTest(letterCode, expectInvalid);
+			validateTest(shortCode, expectInvalid);
+			validateTest(longCode, expectInvalid);
+			validateTest(longInvalidCode, expectInvalid);
 
 
 	}// end main method -------------------------------------------------------------------------------------------------------------
