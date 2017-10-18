@@ -34,6 +34,9 @@ public class PostalCodeTest {
 			compareToTest(goodCode, goodLowerCode, expectValid);
 			compareToTest(goodCode, goodCode2, expectValid);
 			compareToTest(goodCode2, goodCode, expectValid);
+			compareToTest(goodCode, null, expectInvalid);
+			compareToTest(null, goodCode, expectInvalid);
+			
 		
 		System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------");
 			equalsTest(object1, object2, expectValid);
@@ -89,39 +92,40 @@ public class PostalCodeTest {
 	private static void compareToTest(String test1, String test2, boolean expectResult) {
 		System.out.println("\nCOMPARETO() TESTING");
 		
-		PostalCode code1 = new PostalCode(test1);
-		PostalCode code2 = new PostalCode(test2);
-		
-
-		System.out.println("\tComparing \"" + test1 + "\" with \"" + test2 + "\"");
-		if (code1.compareTo(code2) == 0) {
-			System.out.println("\tResult: " + code1.compareTo(code2));
-			System.out.println("\n\t ==== PASSED TEST ====");
-		}else {
-			if (code1.compareTo(code2) == 1) {
-				System.out.println("\tResult: " + code1.compareTo(code2));
-				System.out.println("\n\t ==== PASSED TEST ====");
-			}else if (code1.compareTo(code2) == -1) {
+		try { 
+			
+			PostalCode code1 = new PostalCode(test1);
+			PostalCode code2 = new PostalCode(test2);
+			
+			System.out.println("\tComparing \"" + test1 + "\" with \"" + test2 + "\"");
+			if (code1.compareTo(code2) == 0) {
+				System.out.println("\tExpected result: equal, should be 0");
 				System.out.println("\tResult: " + code1.compareTo(code2));
 				System.out.println("\n\t ==== PASSED TEST ====");
 			}
-		}
-		
-		try {
-			System.out.println("\n\tPassing null ");
-			code1.compareTo(null);
-		}catch(IllegalArgumentException e) {
-			if (expectResult == true) {
-				System.out.println("\tComparing \"" + test1 + "\" with \"" + test2 + "\"");
-				System.out.println("\tResult: " + e);
-				System.out.println("\n\t ==== TEST FAILED exception thrown when data is valid ==== ");
-			}else {
+			else {
+				if (code1.compareTo(code2) > 0) {
+					System.out.println("\tExpected result: LHS is greater than RHS, should be greater than 0");
+					System.out.println("\tResult: " + code1.compareTo(code2));
+					System.out.println("\n\t ==== PASSED TEST ====");
+				}
+				else if (code1.compareTo(code2) < 0) {
+					System.out.println("\tExpected result: LHS is smaller than RHS, should be less than 0");
+					System.out.println("\tResult: " + code1.compareTo(code2));
+					System.out.println("\n\t ==== PASSED TEST ====");
+				}
+			}
+			if (test1.equals(null) || test2.equals(null)) {
+				System.out.println("\n\t ==== PASSED FAILED null argument, no exception thrown ====");
+			}
+		}catch (IllegalArgumentException e) {
 				System.out.println("\tComparing \"" + test1 + "\" with \"" + test2 + "\"");
 				System.out.println("\tResult: " + e);
 				System.out.println("\n\t ==== PASSED TEST exception caught successfully ==== ");
 			}
-		}
-		
+
+			
+			
 	}//end compareToTest -----------------------------------------------------------------------------------------------------
 	
 	
