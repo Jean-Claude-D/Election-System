@@ -98,8 +98,10 @@ public class Email implements Serializable, Comparable<Email>{
 	@Override
 
 	public int hashCode() {
-
-		return this.getAddress().toLowerCase().hashCode();
+		final int prime= 37;
+		int result=1;
+		result= prime* result + ((this.getAddress().toLowerCase() == null) ? 0 :this.getAddress().toLowerCase().hashCode());
+		return result;
 
 	}
 
