@@ -32,19 +32,7 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 			throw new IllegalArgumentException("Cannot compare to null object.");
 		}
 
-		for (int i = 0; i < this.code.length(); i++) {
-
-			if (this.code.charAt(i) > postalCode.code.charAt(i)) {
-				return 1;
-			}
-			
-			else if (this.code.charAt(i) < postalCode.code.charAt(i)) {
-				return -1;
-			}
-			
-		}
-		//if it did not return 1 or -1, they must be equal so return 0
-		return 0;
+		return this.code.compareToIgnoreCase(postalCode.code);
 			
 	}
 	
@@ -67,7 +55,7 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 			return true;
 		}
 		
-		return object instanceof PostalCode &&
+		return (this.getClass() == object.getClass()) &&
 			   ((PostalCode) object).code.equalsIgnoreCase(this.code);
 
 	}
@@ -80,9 +68,7 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 	@Override
 	public int hashCode() {
 		
-		final int prime = 97;
-		
-		return prime * code.hashCode();
+		return 97 * code.hashCode();
 		
 	}//end hashCode
 	
@@ -133,7 +119,7 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
         /* Make start the smallest postal code string possible by filling
          * up until the length of a postal code
          * e.g. if start's value is "R3", then it would fill it like so :
-         * "R3A1A1"
+         * "R3A0A0"
          */
         for(int i = start.length(); i <= 5; i++) {
             //First character of a postal code is a letter, then a digit, then a letter...
@@ -206,21 +192,22 @@ public class PostalCode implements Serializable, Comparable<PostalCode> {
 		if (code == null) {
 			throw new IllegalArgumentException("Invalid Argument: Cannot be null.");
 		}
+	
+		
+	//if there is any space anywhere, remove it
+
+		code = code.replace(" ","");
+		
 		
 	//check to see if code is the right length; 6 is without a space, 7 is with a space. Less than 6 and more than 7 is invalid.
 		if (code.length() < 6) {
 			throw new IllegalArgumentException("Invalid postal code: too short.");
 		}
-		if (code.length() > 7) {
+		if (code.length() > 6) {
 			throw new IllegalArgumentException("Invalid postal code: too long.");
 		}
 		
 		code = code.toUpperCase();
-		
-	//if there is any space anywhere, remove it
-		if(code.charAt(3) == ' ') {
-			code = code.replace(" ","");
-		}
 		
 	//verify that the code is in the right format A#A#A#, 
 	//if there's a digit where a letter should be, throw exception.

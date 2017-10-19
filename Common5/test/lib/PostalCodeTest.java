@@ -24,25 +24,29 @@ public class PostalCodeTest {
 		String invalidCode7 = "L4Q 5M6";
 		String invalidCode8 = "N7P 8U9";
 		boolean expectValid = true;
-		PostalCodeChild child = new PostalCodeChild ("j4x2g3");
+		boolean expectInvalid = false;
+		PostalCodeChild sameClass = new PostalCodeChild ("j4x2g3");
 		PostalCode object1 = new PostalCode("J4X 2G3");
 		PostalCode object2 = new PostalCode("J4X 2G3");
 		PostalCode object3 = new PostalCode("H3Z 1A1");
 		
 		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------------");
-			compareToTest(goodCode, goodLowerCode);
-			compareToTest(goodCode, goodCode2);
-			compareToTest(goodCode2, goodCode);
+			compareToTest(goodCode, goodLowerCode, expectValid);
+			compareToTest(goodCode, goodCode2, expectValid);
+			compareToTest(goodCode2, goodCode, expectValid);
+			compareToTest(goodCode, null, expectInvalid);
+			compareToTest(null, goodCode, expectInvalid);
+			
 		
 		System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------");
 			equalsTest(object1, object2, expectValid);
 			equalsTest(object1, object3, expectValid);
-			equalsTest(object1, child, expectValid);
+			equalsTest(object1, sameClass, expectValid);
 	
 		System.out.println("\n----------HASHCODE---------------------------------------------------------------------------------------------------------------------");
 			hashCodeTest(object1, object2);
 			hashCodeTest(object1, object3);
-			hashCodeTest(object1, child);
+			hashCodeTest(object1, sameClass);
 		
 		
 		System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------");
@@ -54,8 +58,8 @@ public class PostalCodeTest {
 		System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------");
 			inRangeTest("G", "H", goodCode2, expectValid);
 			inRangeTest("H1", "J5", goodCode2, expectValid);
-			inRangeTest("J", "Z", goodCode2, expectValid);
-			inRangeTest("A", "E", goodCode2, expectValid);
+			inRangeTest("J", "Z", goodCode2, expectInvalid);
+			inRangeTest("A", "E", goodCode2, expectInvalid);
 			inRangeTest("L4A  1B5", "L6N  9Z3", "L4M 1S4", expectValid);
 		
 		
@@ -65,55 +69,63 @@ public class PostalCodeTest {
 		
 		System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------");
 			validateTest(goodCode, expectValid);
-			validateTest(invalidCode1, expectValid);
-			validateTest(invalidCode2, expectValid);
-			validateTest(invalidCode3, expectValid);
-			validateTest(invalidCode4, expectValid);
-			validateTest(invalidCode5, expectValid);
-			validateTest(invalidCode6, expectValid);
-			validateTest(invalidCode7, expectValid);
-			validateTest(invalidCode8, expectValid);
-			validateTest(badFormat, expectValid);
-			validateTest(numberCode, expectValid);
-			validateTest(letterCode, expectValid);
-			validateTest(shortCode, expectValid);
-			validateTest(longCode, expectValid);
-			validateTest(longInvalidCode, expectValid);
+			validateTest(invalidCode1, expectInvalid);
+			validateTest(invalidCode2, expectInvalid);
+			validateTest(invalidCode3, expectInvalid);
+			validateTest(invalidCode4, expectInvalid);
+			validateTest(invalidCode5, expectInvalid);
+			validateTest(invalidCode6, expectInvalid);
+			validateTest(invalidCode7, expectInvalid);
+			validateTest(invalidCode8, expectInvalid);
+			validateTest(badFormat, expectInvalid);
+			validateTest(numberCode, expectInvalid);
+			validateTest(letterCode, expectInvalid);
+			validateTest(shortCode, expectInvalid);
+			validateTest(longCode, expectInvalid);
+			validateTest(longInvalidCode, expectInvalid);
 
 
 	}// end main method -------------------------------------------------------------------------------------------------------------
 
 
 	
-	private static void compareToTest(String test1, String test2) {
+	private static void compareToTest(String test1, String test2, boolean expectResult) {
 		System.out.println("\nCOMPARETO() TESTING");
 		
-		PostalCode code1 = new PostalCode(test1);
-		PostalCode code2 = new PostalCode(test2);
-		
-
-		System.out.println("\tComparing \"" + test1 + "\" with \"" + test2 + "\"");
-		if (code1.compareTo(code2) == 0) {
-			System.out.println("\tResult: " + code1.compareTo(code2));
-			System.out.println("\n\t ==== PASSED TEST ====");
-		}else {
-			if (code1.compareTo(code2) == 1) {
-				System.out.println("\tResult: " + code1.compareTo(code2));
-				System.out.println("\n\t ==== PASSED TEST ====");
-			}else if (code1.compareTo(code2) == -1) {
+		try { 
+			
+			PostalCode code1 = new PostalCode(test1);
+			PostalCode code2 = new PostalCode(test2);
+			
+			System.out.println("\tComparing \"" + test1 + "\" with \"" + test2 + "\"");
+			if (code1.compareTo(code2) == 0) {
+				System.out.println("\tExpected result: equal, should be 0");
 				System.out.println("\tResult: " + code1.compareTo(code2));
 				System.out.println("\n\t ==== PASSED TEST ====");
 			}
-		}
-		
-		try {
-			System.out.println("\n\tPassing null ");
-			code1.compareTo(null);
-		}catch(IllegalArgumentException e) {
-			System.out.println("\tResult: " + e);
-			System.out.println("\n\t ==== PASSED TEST error caught ==== ");
-		}
-		
+			else {
+				if (code1.compareTo(code2) > 0) {
+					System.out.println("\tExpected result: LHS is greater than RHS, should be greater than 0");
+					System.out.println("\tResult: " + code1.compareTo(code2));
+					System.out.println("\n\t ==== PASSED TEST ====");
+				}
+				else if (code1.compareTo(code2) < 0) {
+					System.out.println("\tExpected result: LHS is smaller than RHS, should be less than 0");
+					System.out.println("\tResult: " + code1.compareTo(code2));
+					System.out.println("\n\t ==== PASSED TEST ====");
+				}
+			}
+			if (test1.equals(null) || test2.equals(null)) {
+				System.out.println("\n\t ==== PASSED FAILED null argument, no exception thrown ====");
+			}
+		}catch (IllegalArgumentException e) {
+				System.out.println("\tComparing \"" + test1 + "\" with \"" + test2 + "\"");
+				System.out.println("\tResult: " + e);
+				System.out.println("\n\t ==== PASSED TEST exception caught successfully ==== ");
+			}
+
+			
+			
 	}//end compareToTest -----------------------------------------------------------------------------------------------------
 	
 	
@@ -165,8 +177,7 @@ public class PostalCodeTest {
 				System.out.println("\tHashcode 2 : " + code2.hashCode());
 				System.out.println("\tResult : " + (code1.hashCode() == code2.hashCode()));
 				System.out.println("\n\t ==== PASSED TEST ====");
-			}
-			else {
+			}else {
 				System.out.println("\n\tHashcode 1: " + code1.hashCode());
 				System.out.println("\tHashcode 2 : " + code2.hashCode());
 				System.out.println("\tResult : " + (code1.hashCode() == code2.hashCode()));
@@ -174,7 +185,6 @@ public class PostalCodeTest {
 			}
 		
 	}//end hashCodeTest ------------------------------------------------------------------------------------------------------
-
 	
 	
 	
@@ -197,7 +207,7 @@ public class PostalCodeTest {
 	
 	
 	
-	private static void inRangeTest(String start, String end, String test1, boolean expectValid) {
+	private static void inRangeTest(String start, String end, String test1, boolean expectResult) {
 		System.out.println("\nINRANGE() TESTING");
 		
 		PostalCode code = new PostalCode(test1);
@@ -206,7 +216,7 @@ public class PostalCodeTest {
 		System.out.println("\tRange from " + start + " to " + end);
 		
 		try {
-			if (code.inRange(start, end) == expectValid || code.inRange(start, end) != expectValid) {
+			if (code.inRange(start, end) == expectResult) {
 				System.out.println("\tResult: " + code.inRange(start, end));
 				System.out.println("\n\t ==== PASSED TEST ====");
 			}else {
@@ -214,20 +224,30 @@ public class PostalCodeTest {
 				System.out.println("\n\t ==== FAILED TEST ====");
 			}
 		}catch (IllegalArgumentException e) {
-			System.out.println("\tResult: " + e);
-			System.out.println("\n\t ==== PASSED TEST error caught ==== ");
+			
+			if (expectResult == true) {
+				System.out.println("\n\tPassing: " + test1);
+				System.out.println("\tRange from " + start + " to " + end);
+				System.out.println("\tResult: " + e);
+				System.out.println("\n\t ==== TEST FAILED exception thrown when data is valid ==== ");
+			}else {
+				System.out.println("\n\tPassing: " + test1);
+				System.out.println("\tRange from " + start + " to " + end);
+				System.out.println("\tResult: " + e);
+				System.out.println("\n\t ==== PASSED TEST exception caught successfully ==== ");
+			}
 		}
 		
 	}//end inRangeTest -------------------------------------------------------------------------------------------------------
 
 	
-	private static void toStringTest(String test1, boolean expectedValid) {
+	private static void toStringTest(String test1, boolean expectResult) {
 		System.out.println("\nTOSTRING() TESTING ");
 		System.out.println("\tPassing: \"" + test1 + "\" should return in all uppercase");
 		
 		PostalCode code = new PostalCode(test1);
 		
-			if (code.getCode().equals(test1.toUpperCase().replace(" ","")) == expectedValid) {
+			if (code.getCode().equals(test1.toUpperCase().replace(" ","")) == expectResult) {
 				System.out.println("\tResult: " + code.getCode());
 				System.out.println("\n\t ==== PASSED TEST ====");
 			}else {
@@ -237,14 +257,14 @@ public class PostalCodeTest {
 		
 	}//end toStringTest -----------------------------------------------------------------------------------------------------------
 	
-	private static void validateTest(String test, boolean expectedValid) {
+	private static void validateTest(String test, boolean expectedResult) {
 		System.out.println("\nVALIDATE() TESTING ");
 		
 		try {
 			PostalCode code = new PostalCode(test);
 			System.out.println("\n\tPassing: " + test);
 			
-			if(code.getCode().equals(test.toUpperCase().replace(" ","")) == expectedValid) {
+			if(code.getCode().equals(test.toUpperCase().replace(" ","")) == expectedResult) {
 				System.out.println("\tResult: " + code.getCode());
 				System.out.println("\n\t ==== PASSED TEST ====");
 			}else {
@@ -254,15 +274,24 @@ public class PostalCodeTest {
 			}
 						
 		}catch (IllegalArgumentException e){
-			System.out.println("\n\tPassing: " + test);
-			System.out.println("\tResult: " + e);
-			System.out.println("\n\t ==== PASSED TEST error caught ==== ");
+			
+			if (expectedResult == true) {
+				System.out.println("\n\tPassing: " + test);
+				System.out.println("\tResult: " + e);
+				System.out.println("\n\t ==== TEST FAILED exception thrown when data is valid ==== ");
+			}else {
+				System.out.println("\n\tPassing: " + test);
+				System.out.println("\tResult: " + e);
+				System.out.println("\n\t ==== PASSED TEST exception caught successfully ==== ");
 		}
 	}//end validateTest -----------------------------------------------------------------------------------------------------------
 
 }//end Test Class ------------------------------------------------------------------------------------------------------------------
 
-
+}
+// after fixing, i was missing a closing bracket somewhere but couldn't find it for the love of god and this fixes it, 
+// so don't touch unless you've successfully found where the missing curly bracket goes. Thank you. 
+	
 class PostalCodeChild extends PostalCode {
 	
 	private long serialVersionUID = 4203172017L;
