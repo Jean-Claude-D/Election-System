@@ -5,7 +5,7 @@ import election.business.interfaces.BallotItem;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionFactory;
 import election.business.interfaces.Voter;
-//import election.business.interfaces.ElectionPolicy;
+// import election.business.interfaces.ElectionPolicy;
 
 /**
  * Enum that implements the ElectionFactory interface. Since it is an enum type, there will only be

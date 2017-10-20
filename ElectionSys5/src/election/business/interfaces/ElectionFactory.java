@@ -1,7 +1,7 @@
 package election.business.interfaces;
 
 import java.io.Serializable;
-import election.business.*;
+import election.business.ElectionType;
 
 /**
  * Defines the required factory methods to centralize the instantiation of business objects. The
@@ -101,6 +101,6 @@ public interface ElectionFactory extends Serializable {
   BallotItem getBallotItem(BallotItem tally);
 
   // Added in Phase 4
-  //ElectionPolicy getElectionPolicy(Election e);
+  // ElectionPolicy getElectionPolicy(Election e);
 }
 
