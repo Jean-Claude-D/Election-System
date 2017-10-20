@@ -7,8 +7,6 @@ import java.io.Serializable;
  * @author Maria Hossain
  * @since Oct 2nd 2017
  * 
- *
- *
  */
 public class Email implements Serializable, Comparable<Email>{
 
@@ -31,7 +29,6 @@ public class Email implements Serializable, Comparable<Email>{
 	}
 
 	/**
-	 * 
 	 * @return Returns the email address
 	 */
 
@@ -40,20 +37,17 @@ public class Email implements Serializable, Comparable<Email>{
 	}
 
 	/**
-	 * 
 	 * returns the userId part of the email
-	 * 
 	 * @return 
 	 */
 
 	public String getUserId() {
 
-		return address.substring(0, address.indexOf('@'));
+		return address.substring(0, address.indexOf('@'+1));
 
 	}
 
 	/**
-	 * 
 	 * Returns the host of the email
 	 * @return
 	 */
@@ -64,8 +58,7 @@ public class Email implements Serializable, Comparable<Email>{
 	}
 
 
-	/**
-	 * 
+	/** 
 	 * Verifies that the object is of the same instance as the email class and checks if its
 	 * email address is the same 
 	 */
@@ -78,6 +71,11 @@ public class Email implements Serializable, Comparable<Email>{
 
 			throw new IllegalArgumentException("email cannot be null");
 
+		}
+		
+		if (this == email) {
+			
+			return true;
 		}
 
 		if (this instanceof Email) {
@@ -93,24 +91,22 @@ public class Email implements Serializable, Comparable<Email>{
 	}	
 
 
-	/**
-	 * 
-	 * 
+	/** 
 	 * Returns the hashcode of the email address while being case insensitive
 	 */
 
 	@Override
 
 	public int hashCode() {
-
-		return this.getAddress().toLowerCase().hashCode();
+		final int prime= 37;
+		int result=1;
+		result= prime* result + ((this.getAddress().toLowerCase() == null) ? 0 :this.getAddress().toLowerCase().hashCode());
+		return result;
 
 	}
 
 
 	/**
-	 * 
-	 * 
 	 * Returns the String version of the email address
 	 */
 
@@ -125,7 +121,6 @@ public class Email implements Serializable, Comparable<Email>{
 	}
 
 	/**
-	 * 
 	 * Check is 2 address are written the same way
 	 */
 
@@ -167,8 +162,13 @@ public class Email implements Serializable, Comparable<Email>{
 	 */
 
 	private String validateEmail(String address) {
+		
+		if(address == null ) {
+			throw new IllegalArgumentException("There is no existing address");
+			
+		}
 
-		if(!address.contains("@")) {
+		if(!address.contains("@"+1)) {
 			throw new IllegalArgumentException("address \'" + address + "\' must contain @");
 		}
 		

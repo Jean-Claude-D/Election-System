@@ -28,7 +28,7 @@ public class DawsonBallotItem implements BallotItem {
 
 	public DawsonBallotItem(String choiceString, int maxValue){
 
-
+		validateBallotItem();
 		this.choiceString=choiceString;
 		this.maxValue=maxValue;
 		this.value=0;
@@ -63,7 +63,7 @@ public class DawsonBallotItem implements BallotItem {
 
 		if (choiceString == null && maxValue <1 ) {
 
-			throw new IllegalArgumentException("not valid");
+			throw new IllegalArgumentException("The max vlaue is smaller than 1 and the choice is empty. Please enter a valid choice");
 		}
 
 	}
@@ -77,15 +77,15 @@ public class DawsonBallotItem implements BallotItem {
 
 	@Override
 
-	public final boolean equals(Object DawsonBallotItem){
+	public final boolean equals(Object dawsonBallotItem){
 
-		if(DawsonBallotItem == null) {
+		if(dawsonBallotItem == null) {
 			return false;
 		}
 
 		if (this instanceof DawsonBallotItem) {
 
-			if (this.choiceString.equals(((DawsonBallotItem)DawsonBallotItem).getChoice())) {
+			if (this.choiceString.equals(((DawsonBallotItem)dawsonBallotItem).getChoice())) {
 
 
 				return true;
@@ -145,7 +145,7 @@ public class DawsonBallotItem implements BallotItem {
 
 		if (!(0 <= value && value <= maxValue)) {
 
-			throw new IllegalArgumentException("not valid");
+			throw new IllegalArgumentException("The value should be grater than 0 and the value should not be greater than the Max Value ");
 		}
 
 		this.value=value;
@@ -196,21 +196,7 @@ public class DawsonBallotItem implements BallotItem {
 
 	public int compareTo(DawsonBallotItem item) {
 
-		if(this.getChoice().compareToIgnoreCase(item.getChoice()) ==1) {
-
-			return 1;
-		}
-
-
-		else if(this.getChoice().compareToIgnoreCase(item.getChoice()) ==1) {
-
-			return -1;
-		}
-
-		else {
-
-			return 0;
-		}
+		return this.getChoice().compareToIgnoreCase(item.getChoice());
 
 	}
 
