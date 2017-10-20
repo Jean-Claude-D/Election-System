@@ -44,7 +44,7 @@ public class DawsonBallotItem implements BallotItem {
 	 * @param item
 	 */
 
-	public DawsonBallotItem(DawsonBallotItem item) {
+	public DawsonBallotItem(BallotItem item) {
 
 		this.choiceString=getChoice();
 		this.value=getValue();
