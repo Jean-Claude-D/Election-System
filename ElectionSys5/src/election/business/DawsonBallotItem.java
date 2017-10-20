@@ -28,7 +28,6 @@ public class DawsonBallotItem implements BallotItem {
 
   public DawsonBallotItem(String choiceString, int maxValue) {
 
-    validateBallotItem();
     this.choiceString = choiceString;
     this.maxValue = maxValue;
     this.value = 0;
@@ -61,7 +60,7 @@ public class DawsonBallotItem implements BallotItem {
 
   public void validateBallotItem() {
 
-    if (choiceString == null && maxValue < 1) {
+    if (choiceString == null || maxValue < 1) {
 
       throw new IllegalArgumentException(
           "The max vlaue is smaller than 1 and the choice is empty. Please enter a valid choice");
