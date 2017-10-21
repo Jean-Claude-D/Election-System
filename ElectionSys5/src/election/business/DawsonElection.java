@@ -32,8 +32,6 @@ public class DawsonElection implements Election {
       int endYear, int endMonth, int endDay, String startRange, String endRange, Tally tally,
       String... items) { // Constructor
 
-    
-    
     try {
       this.startDate = LocalDate.of(startYear, startMonth, startDay);
       this.endDate = LocalDate.of(endYear, endMonth, endDay);
@@ -48,7 +46,6 @@ public class DawsonElection implements Election {
     startEndDateChecker(startDate, endDate);
     tallyChecker(tally);
     
-    
     this.name = nullChecker(name);
     this.type = nullChecker(type);
     this.startRange = startRange;
@@ -58,10 +55,7 @@ public class DawsonElection implements Election {
     this.ballotItems = checkItem(items);
   }
 
-
-  // ============================================== CHECKER/VALIDATE METHODS
-  // ================================================= \\
-
+  // =========== CHECKER VALIDATE METHODS ===========  \\
 
   /**
    * Check to see if a String is null or not
@@ -155,15 +149,10 @@ public class DawsonElection implements Election {
     return choices;
   }
 
-
-  // ============================================== END CHECKER/VALIDATE METHODS
-  // ============================================== \\
+  // ========== END CHECKER/VALIDATE METHODS ========== \\
 
 
-
-  // ============================================== GETTERS METHODS
-  // =========================================================== \\
-
+  // =================== GETTERS METHODS =================== \\
 
   /**
    * Return the LocalDate representation of startDate of DawsonElection.
@@ -273,14 +262,10 @@ public class DawsonElection implements Election {
     throw new IllegalArgumentException("Voter is not eligible");
   }
 
-  // ============================================== END GETTERS METHODS
-  // ============================================== \\
+  // =========== END GETTERS METHODS =========== \\
 
 
-
-  // ============================================== SETTERS METHODS
-  // =================================================== \\
-
+  // ============= SETTERS METHODS ============= \\
 
   /**
    * Set the value of Tally object
@@ -296,14 +281,10 @@ public class DawsonElection implements Election {
     this.tally = tally;
   }
 
-  // ============================================== END SETTERS METHODS
-  // ================================================ \\
+  // ============ END SETTERS METHODS ============ \\
 
 
-
-  // ============================================== OTHERS METHODS
-  // ====================================================== \\
-
+  // ============ OTHERS METHODS ============  \\
 
   /**
    * Update tally if voter isEligible
@@ -338,14 +319,10 @@ public class DawsonElection implements Election {
     throw new UnsupportedOperationException("THIS METHOD IS NOT SUPPORTED");
   }
 
-  // ============================================== END OTHERS METHODS
-  // =================================================== \\
+  // ========== END OTHERS METHODS ========== \\
 
 
-
-  // ============================================== OVERRIDED METHODS
-  // ====================================================== \\
-
+  // =========== OVERRIDED METHODS =========== \\
 
   /**
    * Return a String in this format: name*Y*M*D*endY*endM*endD*startPcode*endPcode*electtype*numOpts
@@ -415,6 +392,5 @@ public class DawsonElection implements Election {
     return Objects.hash(this.getName());
   }
 
-  // ============================================== END OVERRIDED METHODS
-  // ====================================================== \\
+  // =========== END OVERRIDED METHODS =========== \\
 }
