@@ -1,4 +1,6 @@
 package election.data;
+import java.io.IOException;
+
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
 
@@ -9,8 +11,8 @@ import election.business.interfaces.Voter;
  * */
 
 public class ElectionFileLoader {
-	
-	
+
+
 	/**
 	 * 
 	 * @param filename
@@ -22,12 +24,12 @@ public class ElectionFileLoader {
 	 */
 
 
-	public static Voter[] GetVoterListFromSequentialFile(String filename) {
+	public static Voter[] GetVoterListFromSequentialFile(String filename) throws IOException {
 
 		return null;
 
 	}
-	
+
 	/**
 	 * 
 	 * @param filename
@@ -37,12 +39,13 @@ public class ElectionFileLoader {
 	 * This method iterate through the text file and extract the different elections and will put it into a 
 	 * an array of Elections
 	 */
-	
-	public static Election[] getElectionListFromSequentialFile(String filename) {
-		
+
+	public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
+
+
 		return null;
 	} 
-	
+
 	/**
 	 * 
 	 * @param filename
@@ -54,11 +57,13 @@ public class ElectionFileLoader {
 	 */
 
 
-	public static void setExistingTallyFromSequentialFile(String filename,Election[] elections) {
-		
+	public static void setExistingTallyFromSequentialFile(String filename,Election[] elections) throws IOException {
+		{
+
+		}
+
+
+
+
 	}
-
-
-
-
 }
