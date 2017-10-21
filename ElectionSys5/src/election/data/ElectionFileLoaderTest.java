@@ -9,6 +9,25 @@ import java.util.List;
 public class ElectionFileLoaderTest {
 
 	public static void main(String[] args) throws IOException {
+		
+		
+		//Variables
+		String nameOfFile = null;
+		boolean expectedResult= false;
+		
+		
+		//The test method where we will pass the variables
+		
+		//Variable Team mate 1 
+		testGetVoterListFromSequentialFile(nameOfFile,expectedResult);
+		
+		//Variable Team mate 2
+		testGetElectionListFromSequentialFile(nameOfFile,expectedResult);
+		
+		//Variable Team mate 3 
+		testsetExistingTallyFromSequentialFile(nameOfFile,expectedResult);
+		
+	
 
 	}// Main
 

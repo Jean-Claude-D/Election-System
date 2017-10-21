@@ -15,13 +15,14 @@ public class ElectionFileLoader {
 	 * 
 	 * @param filename
 	 * @return Voter[]
+	 * @throws IOException
 	 * 
 	 * This method iterate through a list voter(contained in a text file) with its information such as email,first name,last name and postal
-	 * code. And basacally created and array of Voter Object with that following information.
+	 * code. And basically created and array of Voter Object with that following information.
 	 */
 
 
-	public static Voter[] getVoterListFromSequentialFile(String filename) {
+	public static Voter[] GetVoterListFromSequentialFile(String filename) {
 
 		return null;
 
@@ -31,8 +32,9 @@ public class ElectionFileLoader {
 	 * 
 	 * @param filename
 	 * @return Election[]
+	 * @throws IOException
 	 * 
-	 * This method iterate through the text file and extract the diffrent elections and will put it into a 
+	 * This method iterate through the text file and extract the different elections and will put it into a 
 	 * an array of Elections
 	 */
 	
@@ -45,8 +47,9 @@ public class ElectionFileLoader {
 	 * 
 	 * @param filename
 	 * @param elections
+	 * @throws IOException
 	 * 
-	 * This method takes in a file and an election array. It will basacally match the name of the election in that
+	 * This method takes in a file and an election array. It will basically match the name of the election in that
 	 * array and match it with the matching name and display the result in an int[][]. 
 	 */
 
