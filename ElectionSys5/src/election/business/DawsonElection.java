@@ -32,6 +32,8 @@ public class DawsonElection implements Election {
       int endYear, int endMonth, int endDay, String startRange, String endRange, Tally tally,
       String... items) { // Constructor
 
+    
+    
     try {
       this.startDate = LocalDate.of(startYear, startMonth, startDay);
       this.endDate = LocalDate.of(endYear, endMonth, endDay);
@@ -45,14 +47,15 @@ public class DawsonElection implements Election {
 
     startEndDateChecker(startDate, endDate);
     tallyChecker(tally);
-
+    
+    
     this.name = nullChecker(name);
     this.type = nullChecker(type);
     this.startRange = startRange;
     this.endRange = endRange;
     this.tally = tally;
-    this.ballotItems = checkItem(items);
     this.electType = electionTypeChecker(type);
+    this.ballotItems = checkItem(items);
   }
 
 
@@ -147,7 +150,7 @@ public class DawsonElection implements Election {
     BallotItem[] choices = new BallotItem[items.length];
 
     for (int i = 0; i < items.length; i++) {
-      choices[i] = new DawsonBallotItem(items[i], items.length);
+      choices[i] = DawsonElectionFactory.DAWSON_ELECTION.getBallotItem(items[i], electType, items.length);
     }
     return choices;
   }
@@ -217,14 +220,16 @@ public class DawsonElection implements Election {
    * 
    * @return StubBallot
    */
-  private StubBallot getBallot() { // getBallot
+  private Ballot getBallot() { // getBallot
     BallotItem[] temp = new BallotItem[this.ballotItems.length];
 
     for (int i = 0; i < this.ballotItems.length; i++) {
       temp[i] = this.ballotItems[i];
     }
-    StubBallot stubBallot = new StubBallot(this.ballotItems, this);
-    return stubBallot;
+    //StubBallot stubBallot = new StubBallot(temp, this);
+    Ballot ballot = DawsonElectionFactory.DAWSON_ELECTION.getBallot
+        (temp, this.electType, DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(this));
+    return ballot;
   }
 
   /**
