@@ -7,6 +7,7 @@ import java.util.List;
 
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
+import election.business.DawsonElectionFactory;
 
 /**
  * @author Maria Hossain
@@ -64,43 +65,60 @@ public class ElectionFileLoader {
 	public static void setExistingTallyFromSequentialFile(String filename,Election[] elections) throws IOException {
 		{
 			Path p= Paths.get("ElectionSys5/datafiles/unsorted/elections5.txt");
-			
+
 			List<String> l= Files.readAllLines(p);
-			
-			 for (int i= 0; i <l.size(); i++) {
-				 
-				 for (int r= 0; r< elections.length ; r++) {
-					 
-					 String[] arrayOfLineInTxtFile = l.get(i).split("*");
-					 
-					 for(int q= 0; q <arrayOfLineInTxtFile.length; q++) {
-						 
-						 if (arrayOfLineInTxtFile[q].matches("[a-z](.*)")) {
-							 
-							 if (arrayOfLineInTxtFile[q].equals(elections[r].getName())) {
-								 
-								 String choice =arrayOfLineInTxtFile[q+1];
-								 int choiceInt =Integer.parseInt(choice);
-								 
-								 int[][] result= new int[choiceInt][];
-								 
-							 }
-						 }
-						 
-						 
-						 else {}
-					 }
+
+			for (int r= 0; r< elections.length ; r++) {
+
+				for (int i= 0; i <l.size(); i++) {
+
+					String[] arrayOfLineInTxtFile = l.get(i).split("*");
+
+					for(int q= 0; q <arrayOfLineInTxtFile.length; q++) {
+
+						if (arrayOfLineInTxtFile[q].matches("[a-z](.*)")) {
+
+							if (arrayOfLineInTxtFile[q].equals(elections[r].getName())) {
+
+								String choice =arrayOfLineInTxtFile[q+1];
+								int choiceInt =Integer.parseInt(choice);
+
+								int[][] result= new int[choiceInt][];
+
+								for(int b=0; b< result.length; b++) {
+
+									String tally[] = l.get(i).split("*"); 
+									for (int a=0; a<tally.length ; a++) {
+
+
+										int Tally=Integer.parseInt(tally[a]);	 
+										result[b][a]=Tally;
+									}
+
+								}
+								setExistingTally(result,elections[r]); 
+
 							}
-							 
-						 }
-					 }
-				 }
-			 
-			
-			
-			
-			
-		
+
+
+							else {
+
+								break;
+							}
+						}
+					}
+
+				}
+
+
+			}
+		}
+
+
+
+
+
+
 
 
 
