@@ -172,7 +172,7 @@ public class Email implements Serializable, Comparable<Email> {
 
     }
 
-    if (!address.contains("@" + 1)) {
+    if (!address.contains("@")) {
       throw new IllegalArgumentException("address \'" + address + "\' must contain @");
     }
 
