@@ -30,8 +30,11 @@ public class ElectionFileLoaderTest {
      * fastestmanalive@bell.ca*Grant*Gustin*F3N7G8
      */
 
-
     testGetVoterListFromSequentialFile(pathToVoter, null, true);
+
+    /*
+     * next test
+     */
 
     // Variable Team mate 2
     // testGetElectionListFromSequentialFile(nameOfFile, expectedResult); //Uncomment those!
@@ -50,8 +53,16 @@ public class ElectionFileLoaderTest {
     try {
       Voter[] voters = ElectionFileLoader.GetVoterListFromSequentialFile(fileNameTest);
 
+      if (voters.length == expectedVoters.length && expectedValid) {
+        for (int i = 0; i < voters.length; i++) {
+          if (!voters[i].equals(expectedVoters[i])) {
+
+          }
+        }
+      }
+
     } catch (Exception e) {
-      System.err.println("Something went wrong");
+      System.err.println("Something went wrong : " + e.getClass().toString());
       e.printStackTrace();
     }
 
