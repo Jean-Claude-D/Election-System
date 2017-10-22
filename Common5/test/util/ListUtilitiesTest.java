@@ -16,6 +16,7 @@ public class ListUtilitiesTest {
 	
 	
 //TEST METHODS -------------------------------------------------------------------------------------------------
+	//part 4
 	private static void sortTest(Comparable[] list, boolean expectedResult) {
 		
 	}
@@ -25,8 +26,8 @@ public class ListUtilitiesTest {
 		
 	}
 	
-	
-	private static void comparatorTest() {
+	//comparator, part 5
+	private static void sortTest(Comparable[] list, Comparator sortOrder, boolean expectedResult) {
 		
 	}
 	
