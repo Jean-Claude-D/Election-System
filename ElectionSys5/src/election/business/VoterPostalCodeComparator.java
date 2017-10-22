@@ -18,9 +18,9 @@ public class VoterPostalCodeComparator implements Comparator<Voter> {
   public int compare(Voter voter1, Voter voter2) {
     // if two objects are equal, comparing them should yield 0
     if (voter1.getPostalCode().equals(voter2.getPostalCode())) {
-      return voter1.getPostalCode().compareTo(voter2.getPostalCode());
+      return voter1.compareTo(voter2);
     }
-    return voter1.compareTo(voter2);
+    return voter1.getPostalCode().compareTo(voter2.getPostalCode());
   }
 
 }

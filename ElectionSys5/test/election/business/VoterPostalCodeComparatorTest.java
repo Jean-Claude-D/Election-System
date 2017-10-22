@@ -39,12 +39,15 @@ public class VoterPostalCodeComparatorTest {
     System.out.println();
 
     if (check.compare(voter1, voter2) == 0) {
+      System.out.println(check.compare(voter1, voter2));
       System.out.println(a + " Is Equal To " + b + "\t\t\t\t\t TEST PASSED\n");
       System.out.println("==================================\n");
     } else if (check.compare(voter1, voter2) > 0) {
+      System.out.println(check.compare(voter1, voter2));
       System.out.println(a + " Is Greater Than " + b + "\t\t\t\t\t TEST PASSED\n");
       System.out.println("==========================\n");
     } else if (check.compare(voter1, voter2) < 0) {
+      System.out.println(check.compare(voter1, voter2));
       System.out.println(a + " Is Smaller Than " + b + "\t\t\t\t\t TEST PASSED\n");
       System.out.println("==================================\n");
     } else
