@@ -1,5 +1,9 @@
 package election.data;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
@@ -59,8 +63,44 @@ public class ElectionFileLoader {
 
 	public static void setExistingTallyFromSequentialFile(String filename,Election[] elections) throws IOException {
 		{
-
-		}
+			Path p= Paths.get("ElectionSys5/datafiles/unsorted/elections5.txt");
+			
+			List<String> l= Files.readAllLines(p);
+			
+			 for (int i= 0; i <l.size(); i++) {
+				 
+				 for (int r= 0; r< elections.length ; r++) {
+					 
+					 String[] arrayOfLineInTxtFile = l.get(i).split("*");
+					 
+					 for(int q= 0; q <arrayOfLineInTxtFile.length; q++) {
+						 
+						 if (arrayOfLineInTxtFile[q].matches("[a-z](.*)")) {
+							 
+							 if (arrayOfLineInTxtFile[q].equals(elections[r].getName())) {
+								 
+								 String choice =arrayOfLineInTxtFile[q+1];
+								 int choiceInt =Integer.parseInt(choice);
+								 
+								 int[][] result= new int[choiceInt][];
+								 
+							 }
+						 }
+						 
+						 
+						 else {}
+					 }
+							}
+							 
+						 }
+					 }
+				 }
+			 
+			
+			
+			
+			
+		
 
 
 
