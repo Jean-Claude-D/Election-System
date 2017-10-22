@@ -45,20 +45,17 @@ public class DawsonElection implements Election {
 
     startEndDateChecker(startDate, endDate);
     tallyChecker(tally);
-
+    
     this.name = nullChecker(name);
     this.type = nullChecker(type);
     this.startRange = startRange;
     this.endRange = endRange;
     this.tally = tally;
-    this.ballotItems = checkItem(items);
     this.electType = electionTypeChecker(type);
+    this.ballotItems = checkItem(items);
   }
 
-
-  // ============================================== CHECKER/VALIDATE METHODS
-  // ================================================= \\
-
+  // =========== CHECKER VALIDATE METHODS ===========  \\
 
   /**
    * Check to see if a String is null or not
@@ -147,20 +144,15 @@ public class DawsonElection implements Election {
     BallotItem[] choices = new BallotItem[items.length];
 
     for (int i = 0; i < items.length; i++) {
-      choices[i] = new DawsonBallotItem(items[i], items.length);
+      choices[i] = DawsonElectionFactory.DAWSON_ELECTION.getBallotItem(items[i], electType, items.length);
     }
     return choices;
   }
 
-
-  // ============================================== END CHECKER/VALIDATE METHODS
-  // ============================================== \\
+  // ========== END CHECKER/VALIDATE METHODS ========== \\
 
 
-
-  // ============================================== GETTERS METHODS
-  // =========================================================== \\
-
+  // =================== GETTERS METHODS =================== \\
 
   /**
    * Return the LocalDate representation of startDate of DawsonElection.
@@ -215,16 +207,17 @@ public class DawsonElection implements Election {
   /**
    * Return the StubBallot of This DawsonElection
    * 
-   * @return StubBallot
+   * @return Ballot
    */
-  private StubBallot getBallot() { // getBallot
+  private Ballot getBallot() { // getBallot
     BallotItem[] temp = new BallotItem[this.ballotItems.length];
 
     for (int i = 0; i < this.ballotItems.length; i++) {
       temp[i] = this.ballotItems[i];
     }
-    StubBallot stubBallot = new StubBallot(this.ballotItems, this);
-    return stubBallot;
+    Ballot ballot = DawsonElectionFactory.DAWSON_ELECTION.getBallot
+        (temp, this.electType, DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(this));
+    return ballot;
   }
 
   /**
@@ -268,14 +261,10 @@ public class DawsonElection implements Election {
     throw new IllegalArgumentException("Voter is not eligible");
   }
 
-  // ============================================== END GETTERS METHODS
-  // ============================================== \\
+  // =========== END GETTERS METHODS =========== \\
 
 
-
-  // ============================================== SETTERS METHODS
-  // =================================================== \\
-
+  // ============= SETTERS METHODS ============= \\
 
   /**
    * Set the value of Tally object
@@ -291,14 +280,10 @@ public class DawsonElection implements Election {
     this.tally = tally;
   }
 
-  // ============================================== END SETTERS METHODS
-  // ================================================ \\
+  // ============ END SETTERS METHODS ============ \\
 
 
-
-  // ============================================== OTHERS METHODS
-  // ====================================================== \\
-
+  // ============ OTHERS METHODS ============  \\
 
   /**
    * Update tally if voter isEligible
@@ -333,14 +318,10 @@ public class DawsonElection implements Election {
     throw new UnsupportedOperationException("THIS METHOD IS NOT SUPPORTED");
   }
 
-  // ============================================== END OTHERS METHODS
-  // =================================================== \\
+  // ========== END OTHERS METHODS ========== \\
 
 
-
-  // ============================================== OVERRIDED METHODS
-  // ====================================================== \\
-
+  // =========== OVERRIDED METHODS =========== \\
 
   /**
    * Return a String in this format: name*Y*M*D*endY*endM*endD*startPcode*endPcode*electtype*numOpts
@@ -410,6 +391,5 @@ public class DawsonElection implements Election {
     return Objects.hash(this.getName());
   }
 
-  // ============================================== END OVERRIDED METHODS
-  // ====================================================== \\
+  // =========== END OVERRIDED METHODS =========== \\
 }

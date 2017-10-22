@@ -32,8 +32,7 @@ public class DawsonBallotItem implements BallotItem {
     this.maxValue = maxValue;
     this.value = 0;
     validateBallotItem();
-
-
+    
   }
 
   /**
