@@ -49,7 +49,6 @@ public class ElectionFileLoaderTest {
      * fastestmanalive@bell.ca*Grant*Gustin*F3N7G8
      */
 
-    String pathToVoter1 = "datafiles/voters1.txt";
     Voter[] validVoter1 = {
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Daisy", "Johnson",
             "djflower@hotmail.com", "H7N9L0"),
@@ -62,19 +61,32 @@ public class ElectionFileLoaderTest {
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Sabrina", "Carpenter",
             "sabrinacarpenter@gmail.com", "V3Y0K1")};
 
-    testGetVoterListFromSequentialFile(pathToVoter1, validVoter1, true, null);
+    testGetVoterListFromSequentialFile("datafiles/voters1.txt", validVoter1, true, null);
 
     /*
-     * Test GetVoterListFromSequentialFile with null :
+     * Test GetVoterListFromSequentialFile with null and "":
      * 
      * Should raise an IllegalArgumentException
      */
 
-    testGetVoterListFromSequentialFile(null, null, false, illArg);
+    testGetVoterListFromSequentialFile(null, null, false, IllegalArgumentException.class);
+    testGetVoterListFromSequentialFile("", null, false, IllegalArgumentException.class);
 
     /*
-     * Test GetVoterListFromSequentialFile with null :
+     * Test GetVoterListFromSequentialFile with a path that leads no where :
+     * 
+     * Should raise an NoSuchFileException
      */
+
+
+    /*
+     * Test GetVoterListFromSequentialFile with an invalid path :
+     * 
+     * Should raise an InvalidPathException
+     */
+
+    testGetVoterListFromSequentialFile("There/is/no/file/at.txt", null, false,
+        InvalidPathException.class);
 
 
 
