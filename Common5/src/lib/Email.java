@@ -44,7 +44,7 @@ public class Email implements Serializable, Comparable<Email> {
 
   public String getUserId() {
 
-    return address.substring(0, address.indexOf('@' + 1));
+    return address.substring(0, address.indexOf('@'));
 
   }
 
@@ -56,7 +56,7 @@ public class Email implements Serializable, Comparable<Email> {
 
   public String getHost() {
 
-    return address.substring(address.indexOf('@'));
+    return address.substring(address.indexOf('@') + 1);
   }
 
 
@@ -172,7 +172,7 @@ public class Email implements Serializable, Comparable<Email> {
 
     }
 
-    if (!address.contains("@" + 1)) {
+    if (!address.contains("@")) {
       throw new IllegalArgumentException("address \'" + address + "\' must contain @");
     }
 
