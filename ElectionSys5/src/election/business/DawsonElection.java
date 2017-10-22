@@ -207,7 +207,7 @@ public class DawsonElection implements Election {
   /**
    * Return the StubBallot of This DawsonElection
    * 
-   * @return StubBallot
+   * @return Ballot
    */
   private Ballot getBallot() { // getBallot
     BallotItem[] temp = new BallotItem[this.ballotItems.length];
@@ -215,7 +215,6 @@ public class DawsonElection implements Election {
     for (int i = 0; i < this.ballotItems.length; i++) {
       temp[i] = this.ballotItems[i];
     }
-    //StubBallot stubBallot = new StubBallot(temp, this);
     Ballot ballot = DawsonElectionFactory.DAWSON_ELECTION.getBallot
         (temp, this.electType, DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(this));
     return ballot;
