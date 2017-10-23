@@ -160,17 +160,23 @@ public class ListUtilities {
     for (int iterat1 = 0, iterat2 = 0; (iterat1 < list1.length) && (iterat2 < list2.length);) {
       int comparison = list1[iterat1].compareTo(list2[iterat2]);
 
-      // If list1 at current position is greater than list2 at current
-      // position
-      if (comparison == 1) {
-
+      if (comparison == 1) { // If list1 > list2
+        list3.add(list2[iterat2++]);
       } else {
-        if (comparison == 0) {
+        if (comparison == 0) { // If list1 == list2
+          String[] duplicate = {list1[iterat1].toString() + " (merged)", list2[iterat2].toString()};
 
+          saveListToTextFile(duplicate, duplicateFileName, true, CHARACTER_ENCODING);
+
+          iterat2++; // If we find a duplicate, no need to check list2 again
         }
+
+        list3.add(list1[iterat1++]);
 
       }
     }
+
+
 
     /*
      * 
