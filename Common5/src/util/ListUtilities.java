@@ -157,9 +157,19 @@ public class ListUtilities {
 
     List<Comparable> list3 = new ArrayList<Comparable>(list1.length);
 
-    for (int iterator1 = 0, iterator2 = 0; (iterator1 < list1.length)
-        && (iterator2 < list2.length);) {
+    for (int iterat1 = 0, iterat2 = 0; (iterat1 < list1.length) && (iterat2 < list2.length);) {
+      int comparison = list1[iterat1].compareTo(list2[iterat2]);
 
+      // If list1 at current position is greater than list2 at current
+      // position
+      if (comparison == 1) {
+
+      } else {
+        if (comparison == 0) {
+
+        }
+
+      }
     }
 
     /*
