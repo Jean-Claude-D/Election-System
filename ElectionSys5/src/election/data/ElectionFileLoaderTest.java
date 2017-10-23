@@ -90,9 +90,9 @@ public class ElectionFileLoaderTest {
 
     Voter[] validVoter21 = {
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Isaac", "Finch",
-            "1-3_5678910121416182022242628303@abc1-2-3.b.com", "H5S 2J5"),
+            "IsaacSFinch@teleworm.us", "H5S 2J5"),
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Koodo Moodo", "Tentucky",
-            "IsaacSFinch@teleworm.us", "K7S2R5"),
+            "1-3_5678910121416182022242628303@abc1-2-3.b.com", "K7S2R5"),
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Mich'elle", "Obama",
             "Michelle.Obama@Whitehouse.gov", "T2K0P7"),
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Mary", "Garcia",
@@ -103,15 +103,11 @@ public class ElectionFileLoaderTest {
             "SimonCroteau@gmail.com", "J2C 4N1"),
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
             "julietAssange12@hello.ca", "J4R9S1"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
-            "julietAssange12@hello.ca", "J4R9S1"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
-            "julietAssange12@hello.ca", "J4R9S1"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
-            "julietAssange12@hello.ca", "J4R9S1")};
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Sebastian", "Strol",
+            "SebStrol_89@kayak_com", "J6L5T9")};
 
 
-    testGetVoterListFromSequentialFile("datafiles/voters1.txt", validVoter21, true, null);
+    testGetVoterListFromSequentialFile("datafiles/voters21.txt", validVoter21, true, null);
 
 
     /*
