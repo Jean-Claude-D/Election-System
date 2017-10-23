@@ -49,17 +49,21 @@ public class ElectionFileLoader {
       String[] tempVoter = fileVoters.get(i).split("\\*");
 
       try {
-        voter = Optional.ofNullable(DawsonElectionFactory.DAWSON_ELECTION
-            .getVoterInstance(tempVoter[1], tempVoter[2], tempVoter[0], tempVoter[3]));
+        // No need to use ofNullable, since exception would've been thrown
+        voter = Optional.of(DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance(tempVoter[1],
+            tempVoter[2], tempVoter[0], tempVoter[3]));
 
-        if (voter.isPresent()) {
-          voters.add(voter.get());
-        }
-      } catch (IllegalArgumentException e) {
+        // No need to verify Voter is present, since exception would've been thrown
+        voters.add(voter.get());
+      }
+      // Voter not created because either firstname/lastname/email/pcode was invalid
+      catch (IllegalArgumentException e) {
         System.err.println("Could not create [" + tempVoter[1] + ',' + tempVoter[2] + "] on line #"
             + (i + 1) + " because of : " + e.getMessage());
       }
     }
+    ((ArrayList<Voter>) voters).trimToSize();
+
     return voters.toArray(new Voter[voters.size()]);
   }
 
