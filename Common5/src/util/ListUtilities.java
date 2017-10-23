@@ -8,8 +8,6 @@ import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Comparator;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -21,8 +19,8 @@ public class ListUtilities {
   private static final Charset CHARACTER_ENCODING = StandardCharsets.UTF_8;
 
   // TODO constructor here
-  private ListUtilities () {
-	  
+  private ListUtilities() {
+
   }
 
   /**
@@ -84,12 +82,10 @@ public class ListUtilities {
     Files.write(path, toWrite, characterEncoding, StandardOpenOption.WRITE, option);
   }
 
-  
-  
   // SELECTION SORT METHOD --------------------------------------------------------------------------------
   /**
-   * sorts a List of objects in ascending natural order using selection sort
-   * precondition: assumes that the List is not null and that the List's capacity is equal to the List's size
+   * sorts a List of objects in ascending natural order using selection sort precondition: assumes
+   * that the List is not null and that the List's capacity is equal to the List's size
    * 
    * @param list a list of objects. assumes that the list's capacity is equal to the list's size
    * @throws IllegalArgumentException if the parameter is not full to capacity
@@ -123,9 +119,6 @@ public class ListUtilities {
 }
 
   
-
-  // TODO merge method -----------------------------------------------------------------------------------------
-
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public static void sort(Comparable[] list, Comparator sortOrder)
    throws IllegalArgumentException, NullPointerException {
@@ -136,5 +129,4 @@ public class ListUtilities {
   }
  }
 
-
-
+}
