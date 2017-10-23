@@ -87,7 +87,9 @@ public class ElectionFileLoader {
 
 								for(int b=0; b< result.length; b++) {
 
-									String tally[] = l.get(i).split("*"); 
+									String[] tally = l.get(i+1).split("*"); 
+									
+									
 									for (int a=0; a<tally.length ; a++) {
 
 
@@ -95,8 +97,8 @@ public class ElectionFileLoader {
 										result[b][a]=Tally;
 									}
 
-								}
-								setExistingTally(result,elections[r]); 
+								}	
+								DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result,elections[r]); 
 
 							}
 
