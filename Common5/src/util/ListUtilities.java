@@ -122,6 +122,7 @@ public class ListUtilities {
       throws IllegalArgumentException, NullPointerException {
     if (list == null) {
       throw new NullPointerException("Cannot sort null array");
+
     }
     Arrays.sort(list, sortOrder);
 
