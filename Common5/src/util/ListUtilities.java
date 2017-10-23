@@ -8,8 +8,6 @@ import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Comparator;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +18,8 @@ public class ListUtilities {
   private static final Charset CHARACTER_ENCODING = StandardCharsets.UTF_8;
 
   // TODO constructor here
-  private ListUtilities () {
-	  
+  private ListUtilities() {
+
   }
 
   /**
@@ -83,35 +81,76 @@ public class ListUtilities {
     Files.write(path, toWrite, characterEncoding, StandardOpenOption.WRITE, option);
   }
 
-  
-  
-  // TODO selection sort method --------------------------------------------------------------------------------
+
+
+  // TODO selection sort method
+  // --------------------------------------------------------------------------------
   /**
-   * sorts a List of objects in ascending natural order using selection sort
-   * precondition: assumes that the List is not null and that the List's capacity is equal to the List's size
+   * sorts a List of objects in ascending natural order using selection sort precondition: assumes
+   * that the List is not null and that the List's capacity is equal to the List's size
    * 
    * @param list a list of objects. assumes that the list's capacity is equal to the list's size
    * @throws IllegalArgumentException if the parameter is not full to capacity
    * @throws NullPointerException if the list is null
    */
- 
-  @SuppressWarnings({"rawtypes","unchecked"})
-  public static void sort(Comparable[] list) throws IllegalArgumentException, NullPointerException{
-	  if(list == null) {
-		  throw new NullPointerException("Cannot sort null array");
-	  }
-	  for(int i = 0; i < list.length; i++) {
-		  if(list[i] == null) {
-			  throw new IllegalArgumentException("Cannot sort. Array not full to capacity.");
-		  }
-	  }
-	  
-	  
+
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public static void sort(Comparable[] list) throws IllegalArgumentException, NullPointerException {
+    if (list == null) {
+      throw new NullPointerException("Cannot sort null array");
+    }
+    for (int i = 0; i < list.length; i++) {
+      if (list[i] == null) {
+        throw new IllegalArgumentException("Cannot sort. Array not full to capacity.");
+      }
+    }
+
+
   }
-  
 
-  // TODO merge method -----------------------------------------------------------------------------------------
 
-  // TODO Comparator sort --------------------------------------------------------------------------------------
+  /*
+   * Efficiently merges two sorted lists of objects in ascending natural order. If the duplicate
+   * objects are in both lists, the object from list1 is merged into the resulting list, and both
+   * objects are written to the duplicate file.
+   *
+   * Precondition: Assumes that the lists are not null and that both lists contain objects that can
+   * be compared to each other and are filled to capacity.
+   *
+   *
+   * @param list1 A naturally sorted list of objects. Assumes that the list contains no duplicates
+   * and that its capacity is equal to its size.
+   * 
+   * @param list2 A naturally sorted list of objects. Assumes that the list contains no duplicates
+   * and that its capacity is equal to its size.
+   * 
+   * @param duplicateFileName The name of the file in datafilesduplicates to which duplicate pairs
+   * will be appended.
+   *
+   * @throws IllegalArgumentException if either parameter is not full to capacity.
+   *
+   * @throws NullPointerException if the either list is null.
+   */
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public static Comparable[] merge(Comparable[] list1, Comparable[] list2, String duplicateFileName)
+      throws IOException {
+
+    /*
+     * check list1 and list2 are full to capacity (size() == capacity) and non-null (list == null,
+     * throw)
+     * 
+     * List<Comparable> l3 = new ArrayList<Comparable>();
+     * 
+     * for { if(l1 > l2) { l3.add(l2); } else { if(l1 == l2) { writeintofile } l3.add(l1) } }
+     * 
+     * return l3.toArray(Comparable[]);
+     */
+
+    return null;
+  }
+
+
+  // TODO Comparator sort
+  // --------------------------------------------------------------------------------------
 }
 
