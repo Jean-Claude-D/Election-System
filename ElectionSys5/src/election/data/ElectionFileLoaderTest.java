@@ -140,8 +140,6 @@ public class ElectionFileLoaderTest {
             "curtis-Rocks@gmail.com", "V1J 0C8"),
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Noel", "Lawrence",
             "LawNoGotNoRules@outlook.com", "H9J 2P0"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Kailyn", "Curry",
-            "currysmeller17@yahoo.ca", "L4T 0R3"),
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Avah", "Walsh", "avah386@gmail.com",
             "E7B 0W2"),
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Fiona", "Quinn",
