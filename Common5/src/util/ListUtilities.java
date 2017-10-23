@@ -8,11 +8,10 @@ import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Comparator;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 
 // skeleton provides the imports, plus methods saveListToTextFile and the Comparator sort overload
@@ -21,8 +20,8 @@ public class ListUtilities {
   private static final Charset CHARACTER_ENCODING = StandardCharsets.UTF_8;
 
   // TODO constructor here
-  private ListUtilities () {
-	  
+  private ListUtilities() {
+
   }
 
   /**
@@ -84,57 +83,48 @@ public class ListUtilities {
     Files.write(path, toWrite, characterEncoding, StandardOpenOption.WRITE, option);
   }
 
-  
-  
-  // SELECTION SORT METHOD --------------------------------------------------------------------------------
   /**
-   * sorts a List of objects in ascending natural order using selection sort
-   * precondition: assumes that the List is not null and that the List's capacity is equal to the List's size
+   * sorts a List of objects in ascending natural order using selection sort precondition: assumes
+   * that the List is not null and that the List's capacity is equal to the List's size
    * 
    * @param list a list of objects. assumes that the list's capacity is equal to the list's size
    * @throws IllegalArgumentException if the parameter is not full to capacity
    * @throws NullPointerException if the list is null
    */
- 
-  @SuppressWarnings({"rawtypes","unchecked"})
-  public static void sort(Comparable[] list) throws IllegalArgumentException, NullPointerException{
-	  if(list == null) {
-		  throw new NullPointerException("Cannot sort null array");
-	  }
-	  for(int i = 0; i < list.length; i++) {
-		  if(list[i] == null) {
-			  throw new IllegalArgumentException("Cannot sort. Array not full to capacity.");
-		  }
-	  }
-	  
-	  for (int i = 0; i < list.length; i++) {   
-		  int min = i;
-		  for (int j = i +1; j < list.length; j++) {
-		     if (list[j].compareTo(list[min]) < 0) {
-		        min = j;  
-		     }
-		  }
-		  Comparable temp = list[min];
-		  list[min] = list[i];
-		  list[i] = temp;
 
-	  }
-  }
-}
-
-  
-
-  // TODO merge method -----------------------------------------------------------------------------------------
-
-  @SuppressWarnings({ "rawtypes", "unchecked" })
-  public static void sort(Comparable[] list, Comparator sortOrder)
-   throws IllegalArgumentException, NullPointerException {
-    if(list == null) {
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public static void sort(Comparable[] list) throws IllegalArgumentException, NullPointerException {
+    if (list == null) {
       throw new NullPointerException("Cannot sort null array");
+    }
+    for (int i = 0; i < list.length; i++) {
+      if (list[i] == null) {
+        throw new IllegalArgumentException("Cannot sort. Array not full to capacity.");
+      }
+    }
+
+    for (int i = 0; i < list.length; i++) {
+      int min = i;
+      for (int j = i + 1; j < list.length; j++) {
+        if (list[j].compareTo(list[min]) < 0) {
+          min = j;
+        }
+      }
+      Comparable temp = list[min];
+      list[min] = list[i];
+      list[i] = temp;
+
+    }
   }
+
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public static void sort(Comparable[] list, Comparator sortOrder)
+      throws IllegalArgumentException, NullPointerException {
+    if (list == null) {
+      throw new NullPointerException("Cannot sort null array");
+    }
     Arrays.sort(list, sortOrder);
   }
- }
-
+}
 
 
