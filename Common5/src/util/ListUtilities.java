@@ -1,6 +1,7 @@
 package util;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -195,16 +196,12 @@ public class ListUtilities {
       }
     }
 
+    ((ArrayList) list3).trimToSize();
 
+    Comparable[] resultList = list3.toArray(
+        (Comparable[]) Array.newInstance(list1.getClass().getComponentType(), list3.size()));
 
-    /*
-     * 
-     * for { if(l1 > l2) { l3.add(l2); } else { if(l1 == l2) { writeintofile } l3.add(l1) } }
-     * 
-     * return l3.toArray(Comparable[]);
-     */
-
-    return null;
+    return resultList;
   }
  }
 
