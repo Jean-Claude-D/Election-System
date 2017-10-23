@@ -124,7 +124,6 @@ public class ListUtilities {
       throw new NullPointerException("Cannot sort null array");
     }
     Arrays.sort(list, sortOrder);
-
   }
 }
 
