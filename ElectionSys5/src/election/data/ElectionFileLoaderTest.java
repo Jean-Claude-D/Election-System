@@ -109,6 +109,48 @@ public class ElectionFileLoaderTest {
 
     testGetVoterListFromSequentialFile("datafiles/voters21.txt", validVoter21, true, null);
 
+    /*
+     * Test GetVoterListFromSequentialFile with voters21.txt :
+     * 
+     * AronB43@hotmail.com*Aron*Bauer*H9S M2K
+     * 
+     * HarpPlayer45@gmail.com*Romeo*Harper*E7C V6T
+     * 
+     * Burkanator@yahoo.ca*Anthony*Burke*E3N L9G
+     * 
+     * warnerjaylene@gmail.com*Jaylene*Warner*K7A 3Y8
+     * 
+     * curtis-Rocks@gmail.com*Summer*Curtis*V1J 0C8
+     * 
+     * LawNoGotNoRules@outlook.com*Noel*Lawrence*H9J 2P0
+     * 
+     * currysmeller17@yahoo.ca*Kailyn*Curry*L4T 0R3
+     * 
+     * avah386@gmail.com*Avah*Walsh*E7B 0W2
+     * 
+     * queen.Fiona@hotmail.com*Fiona*Quinn*T9C 1P7
+     * 
+     * josh_matthew99@outlook.com*Josh*Mathews*E9B 2Y5
+     */
+
+    Voter[] validVoter7 = {
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Jaylene", "Warner",
+            "warnerjaylene@gmail.com", "K7A 3Y8"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Summer", "Curtis",
+            "curtis-Rocks@gmail.com", "V1J 0C8"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Noel", "Lawrence",
+            "LawNoGotNoRules@outlook.com", "H9J 2P0"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Kailyn", "Curry",
+            "currysmeller17@yahoo.ca", "L4T 0R3"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Avah", "Walsh", "avah386@gmail.com",
+            "E7B 0W2"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Fiona", "Quinn",
+            "queen.Fiona@hotmail.com", "T9C 1P7"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Josh", "Mathews",
+            "josh_matthew99@outlook.com", "E9B 2Y5")};
+
+    testGetVoterListFromSequentialFile("datafiles/voters7.txt", validVoter7, true, null);
+
 
     /*
      * Test GetVoterListFromSequentialFile with null and "":

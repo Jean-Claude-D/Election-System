@@ -58,6 +58,7 @@ public class ElectionFileLoader {
       } catch (IllegalArgumentException e) {
         System.err.println("Could not create [" + tempVoter[1] + ',' + tempVoter[2] + "] on line #"
             + (i + 1) + " because of : " + e.getMessage());
+        e.printStackTrace();
       }
     }
     return voters.toArray(new Voter[voters.size()]);
