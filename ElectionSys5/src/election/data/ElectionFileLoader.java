@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
 
@@ -70,32 +71,56 @@ public class ElectionFileLoader {
 //
 //  }
   
-public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
-try {
-  Path p = Paths.get(filename);
-  List<String> temp = Files.readAllLines(p);
-  List<Election> electionList = new ArrayList<Election>();
+//public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
+//try {
+//  Path p = Paths.get(filename);
+//  List<String> temp = Files.readAllLines(p);
+//  List<Election> electionList = new ArrayList<Election>();
+//
+//  for (int i = 0; i <temp.size(); i++) {
+//      Optional<Election> electionTemp1= parseFields(temp.get(i).split("\\*"));
+//      Optional<Election> electionTemp2 = parseFields(temp.get(i).split("\\r?\\n"));
+//      if (electionTemp1.isPresent()) {
+//          electionList(i) = electionTemp1[i].
+//      }
+//      if (electionTemp2.isPresent()) {
+//          electionList(i) = electionTemp2[i].
+//      }
+//  }
+//  Election[] finalList = new Election[electionList.length();
+//  return finalList = electionList.toAray(finalList);
+//}
+//catch (NoSuchFileException e) {
+//  System.err.println("File not found: " +  e.getMessage());
+//  return new Election[];
+//}
 
-  for (int i = 0; i <temp.size(); i++) {
-      Optional<Election> electionTemp1= parseFields(temp.get(i).split("\\*"));
-      Optional<Election> electionTemp2 = parseFields(temp.get(i).split("\\r?\\n"));
-      if (electionTemp1.isPresent()) {
-          electionList(i) = electionTemp1[i].
-      }
-      if (electionTemp2.isPresent()) {
-          electionList(i) = electionTemp2[i].
-      }
+
+
+
+  public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
+
+
+    Path p = Paths.get(filename);
+    List<String> allLines = Files.readAllLines(p);
+    ArrayList<Election> list = new ArrayList<Election>();
+    String[] tactical = (allLines.get(0).split("\\*"));
+    
+    ArrayList<String> tacticalList = new ArrayList<String>();
+    
+    for (int i = 0; i < tactical.length; i++) {
+      tacticalList.add(tactical[i]);
+      //System.out.print(tactical[i]);
+
+    }
+
+    for (int i = 1; i - 1 < Integer.parseInt(tactical[10]); i++) {
+      tacticalList.add(allLines.get(i));
+      //System.out.println(allLines.get(i));
+    }
+    
   }
-  Election[] finalList = new Election[electionList.length();
-  return finalList = electionList.toAray(finalList);
-}
-catch (NoSuchFileException e) {
-  System.err.println("File not found: " +  e.getMessage());
-  return new Election[];
-}
 
-
-}
 
 
 
