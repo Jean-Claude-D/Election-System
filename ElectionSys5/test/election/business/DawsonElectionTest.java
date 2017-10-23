@@ -8,7 +8,7 @@ public class DawsonElectionTest {
 
   public static void main(String[] args) {
 	  
-    DawsonTally tally = new DawsonTally(2,"Name of election"); 
+    DawsonTally tally = new DawsonTally(1, "none");
 
     testConstructor("Canada Election", "single", 2017, 11, 25, 2018, 2, 20, "A", "J7E", tally, "H",
         "Jean Claude", "Felicia", "Maria");
@@ -64,8 +64,16 @@ public class DawsonElectionTest {
       int startDay, int endYear, int endMonth, int endDay, String startRange, String endRange,
       Tally tally, String... items) {
     try {
+      DawsonTally realTally = new DawsonTally(0, name);
+      
       DawsonElection newElection = new DawsonElection(name, type, startYear, startMonth, startDay,
-          endYear, endMonth, endDay, startRange, endRange, tally, items);
+          endYear, endMonth, endDay, startRange, endRange, realTally, items);
+      
+      tally = new DawsonTally(newElection.getElectionChoices().length, newElection.getName());
+      
+      newElection.setTally(tally);
+      
+      
       System.out.println(
           "Creating a DawsonElection with all valid arguments \t\t\t\t\t\t\t === TEST PASSED ===\n");
     } catch (Exception e) {
@@ -79,6 +87,10 @@ public class DawsonElectionTest {
     try {
       DawsonElection newElection = new DawsonElection(name, type, startYear, startMonth, startDay,
           endYear, endMonth, endDay, startRange, endRange, tally, items);
+      
+      tally = new DawsonTally(newElection.getElectionChoices().length, newElection.getName());
+      
+      newElection.setTally(tally);
 
       System.out.println("TEST FAILED");
     } catch (Exception e) {
@@ -102,6 +114,10 @@ public class DawsonElectionTest {
     DawsonElection newElection =
         new DawsonElection(name, type, startYear, startMonth, startDay, endYear, endMonth, endDay,
             startRange, endRange, tally, "H", "Jean Claude", "Felicia", "Maria");
+    
+    tally = new DawsonTally(newElection.getElectionChoices().length, newElection.getName());
+    
+    newElection.setTally(tally);
 
     String[] test = newElection.getElectionChoices();
 

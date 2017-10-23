@@ -9,6 +9,8 @@ public class ListUtilitiesTest {
 //----- Variables for Jean-Claude ---------------------------------------------------------------------------------
 		
 //----- Variables for Cao Hoang -----------------------------------------------------------------------------------
+	  
+
 		
 //----- Variables for Felicia -------------------------------------------------------------------------------------		
 		
@@ -32,6 +34,7 @@ public class ListUtilitiesTest {
 	//comparator, part 5
 	@SuppressWarnings({"rawtypes","unchecked"})
 	private static void sortTest(Comparable[] list, Comparator sortOrder, boolean expectedResult) {
+	  ListUtilities.sort(list, sortOrder);
 		
 	}
 	
