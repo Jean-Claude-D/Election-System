@@ -64,7 +64,7 @@ public class ElectionFileLoader {
 
 	public static void setExistingTallyFromSequentialFile(String filename,Election[] elections) throws IOException {
 		{
-			Path p= Paths.get("ElectionSys5/datafiles/unsorted/elections5.txt");
+			Path p= Paths.get("filename");
 
 			List<String> l= Files.readAllLines(p);
 
