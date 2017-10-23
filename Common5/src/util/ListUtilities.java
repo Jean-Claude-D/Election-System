@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 
 // skeleton provides the imports, plus methods saveListToTextFile and the Comparator sort overload
@@ -112,6 +113,15 @@ public class ListUtilities {
 
   // TODO merge method -----------------------------------------------------------------------------------------
 
-  // TODO Comparator sort --------------------------------------------------------------------------------------
-}
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public static void sort(Comparable[] list, Comparator sortOrder)
+   throws IllegalArgumentException, NullPointerException {
+    if(list == null) {
+      throw new NullPointerException("Cannot sort null array");
+  }
+    Arrays.sort(list, sortOrder);
+  }
+ }
+
+
 
