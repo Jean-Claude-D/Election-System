@@ -16,15 +16,18 @@ public class VoterPostalCodeComparatorTest {
         new DawsonVoter("Reaper", "Of Sovereign", "DeepSpace@Void.Galaxy", "H5J 2G9");
     DawsonVoter voter6 =
         new DawsonVoter("Collector", "Keeper Of Secret", "GrimDark@40k.uk", "T4J 2W9");
+    DawsonVoter voter7 = voter1;
+
 
     testVoterPostalCodeComparator(voter1, voter2, -1);
     testVoterPostalCodeComparator(voter1, voter3, -1);
     testVoterPostalCodeComparator(voter1, voter4, 1);
-    testVoterPostalCodeComparator(voter1, voter5, 0);
+    testVoterPostalCodeComparator(voter1, voter5, -1);
     testVoterPostalCodeComparator(voter1, voter6, -1);
-    testVoterPostalCodeComparator(voter5, voter1, 0);
+    testVoterPostalCodeComparator(voter5, voter1, 1);
     testVoterPostalCodeComparator(voter4, voter3, -1);
     testVoterPostalCodeComparator(voter3, voter4, 1);
+    testVoterPostalCodeComparator(voter7, voter1, 0);
   }
 
   public static void testVoterPostalCodeComparator(DawsonVoter voter1, DawsonVoter voter2, int confirm) {
@@ -37,17 +40,16 @@ public class VoterPostalCodeComparatorTest {
     System.out.println();
     System.out.println("voter2's postal code :" + b);
     System.out.println();
+    System.out.println(check.compare(voter1, voter2));
+    System.out.println();
 
-    if ( (check.compare(voter1, voter2) == 0) && (check.compare(voter1, voter2) == confirm) ) {
-      System.out.println(check.compare(voter1, voter2));
+    if ( (check.compare(voter1, voter2) == 0) && (confirm == 0) ) {
       System.out.println(a + " Is Equal To " + b + "\t\t\t\t\t TEST PASSED\n");
       System.out.println("==================================\n");
-    } else if ( (check.compare(voter1, voter2) > 0) && (check.compare(voter1, voter2) >= confirm)) {
-      System.out.println(check.compare(voter1, voter2));
+    } else if ( (check.compare(voter1, voter2) > 0) && (confirm > 0) ) {
       System.out.println(a + " Is Greater Than " + b + "\t\t\t\t\t TEST PASSED\n");
       System.out.println("==================================\n");
-    } else if ( (check.compare(voter1, voter2) < 0) && (check.compare(voter1, voter2) <= confirm)) {
-      System.out.println(check.compare(voter1, voter2));
+    } else if ( (check.compare(voter1, voter2) < 0) && (confirm < 0) ) {
       System.out.println(a + " Is Smaller Than " + b + "\t\t\t\t\t TEST PASSED\n");
       System.out.println("==================================\n");
     } else
