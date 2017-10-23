@@ -102,13 +102,13 @@ public class ListUtilities {
         throw new IllegalArgumentException("Cannot sort. Array not full to capacity.");
       }
     }
-
     for (int i = 0; i < list.length; i++) {
       int min = i;
       for (int j = i + 1; j < list.length; j++) {
         if (list[j].compareTo(list[min]) < 0) {
           min = j;
         }
+
       }
       Comparable temp = list[min];
       list[min] = list[i];
@@ -124,6 +124,7 @@ public class ListUtilities {
       throw new NullPointerException("Cannot sort null array");
     }
     Arrays.sort(list, sortOrder);
+
   }
 }
 
