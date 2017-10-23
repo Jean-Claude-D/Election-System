@@ -102,11 +102,6 @@ public class ElectionFileLoader {
 
 							}
 
-
-							else {
-
-								break;
-							}
 						}
 					}
 
