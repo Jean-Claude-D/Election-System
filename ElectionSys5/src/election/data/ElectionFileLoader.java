@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
 
@@ -103,7 +104,7 @@ public class ElectionFileLoader {
                 }
               }
 
-
+              DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
             }
 
           }
@@ -111,9 +112,11 @@ public class ElectionFileLoader {
         }
 
 
-
       }
+
     }
+
+
   }
 }
 
