@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 
 // skeleton provides the imports, plus methods saveListToTextFile and the Comparator sort overload
@@ -105,6 +106,8 @@ public class ListUtilities {
 			  throw new IllegalArgumentException("Cannot sort. Array not full to capacity.");
 		  }
 	  }
+	  
+	  Arrays.sort(list);
 	  
 	  
   }
