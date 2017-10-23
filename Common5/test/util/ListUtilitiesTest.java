@@ -1,6 +1,7 @@
 package util;
 
 import java.util.Comparator;
+import lib.Name;
 
 public class ListUtilitiesTest {
 	
@@ -8,7 +9,11 @@ public class ListUtilitiesTest {
 		
 //----- Variables for Jean-Claude ---------------------------------------------------------------------------------
 		
-//----- Variables for Cao Hoang -----------------------------------------------------------------------------------
+	  Name person1 = new Name("Jean-Claude", "French");
+	  Name person2 = new Name("Cao Hoang", "Vietnam");
+	  Name person1 = new Name("Maria", "Morocco");
+	  Name person1 = new Name("Felicia", "Bulgaria");
+	  Name person1 = new Name("Our-Team", "Canada");
 		
 //----- Variables for Felicia -------------------------------------------------------------------------------------		
 		
@@ -32,6 +37,7 @@ public class ListUtilitiesTest {
 	//comparator, part 5
 	@SuppressWarnings({"rawtypes","unchecked"})
 	private static void sortTest(Comparable[] list, Comparator sortOrder, boolean expectedResult) {
+	  ListUtilities.sort(list, sortOrder);
 		
 	}
 	
