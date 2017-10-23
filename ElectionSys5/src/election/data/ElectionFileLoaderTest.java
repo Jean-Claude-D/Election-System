@@ -65,13 +65,63 @@ public class ElectionFileLoaderTest {
     testGetVoterListFromSequentialFile("datafiles/voters1.txt", validVoter1, true, null);
 
     /*
-     * Test GetVoterListFromSequentialFile with null and "":
+     * Test GetVoterListFromSequentialFile with voters21.txt :
      * 
-     * Should raise an IllegalArgumentException
+     * IsaacSFinch@teleworm.us*Isaac*Finch*K7S2R5
+     * 
+     * 1-3_5678910121416182022242628303@abc1-2-3.b.com*Koodo Moodo*Tentucky*H5S 2J5
+     * 
+     * Michelle.Obama@Whitehouse.gov*Mich'elle*Obama*T2K0P7
+     * 
+     * maryjgarcia@dayrep.com*Mary*Garcia*M5H1P6
+     * 
+     * RandallDRabin@teleworm.us*Randall*Rabin*V9T5H3
+     * 
+     * SimonCroteau@gmail.com*Simon*Croteau*J2C 4N1
+     * 
+     * julietAssange12@hello.ca*Juliet*Assange*J4R9S1
+     * 
+     * SebStrol_89@kayak_com*Sebastian*Strol*J6L5T9
+     * 
+     * PaulS74@word*Paul*S*J8O2E6
+     * 
+     * RayanMars@lobster*Rayan*Mars*W8D9W2
      */
 
-    testGetVoterListFromSequentialFile(null, null, false, IllegalArgumentException.class);
-    testGetVoterListFromSequentialFile("", null, false, IllegalArgumentException.class);
+    Voter[] validVoter21 = {
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Isaac", "Finch",
+            "1-3_5678910121416182022242628303@abc1-2-3.b.com", "H5S 2J5"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Koodo Moodo", "Tentucky",
+            "IsaacSFinch@teleworm.us", "K7S2R5"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Mich'elle", "Obama",
+            "Michelle.Obama@Whitehouse.gov", "T2K0P7"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Mary", "Garcia",
+            "maryjgarcia@dayrep.com", "M5H1P6"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Randall", "Rabin",
+            "RandallDRabin@teleworm.us", "V9T5H3"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Simon", "Croteau",
+            "SimonCroteau@gmail.com", "J2C 4N1"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
+            "julietAssange12@hello.ca", "J4R9S1"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
+            "julietAssange12@hello.ca", "J4R9S1"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
+            "julietAssange12@hello.ca", "J4R9S1"),
+        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
+            "julietAssange12@hello.ca", "J4R9S1")};
+
+
+    testGetVoterListFromSequentialFile("datafiles/voters1.txt", validVoter21, true, null);
+
+
+    /*
+     * Test GetVoterListFromSequentialFile with null and "":
+     * 
+     * Should raise an InvalidPathException
+     */
+
+    testGetVoterListFromSequentialFile(null, null, false, InvalidPathException.class);
+    testGetVoterListFromSequentialFile("", null, false, InvalidPathException.class);
 
     /*
      * Test GetVoterListFromSequentialFile with a path that leads no where :
@@ -82,15 +132,8 @@ public class ElectionFileLoaderTest {
     testGetVoterListFromSequentialFile("There/is/no/file/at.txt", null, false,
         NoSuchFileException.class);
 
-    /*
-     * Test GetVoterListFromSequentialFile with an invalid path :
-     * 
-     * Should raise an InvalidPathException
-     */
-
-    testGetVoterListFromSequentialFile("", null, false, IllegalArgumentException.class);
-
-    testGetVoterListFromSequentialFile(null, null, false, InvalidPathException.class);
+    testGetVoterListFromSequentialFile("datafiles/voters34.txt", null, false,
+        NoSuchFileException.class);
 
 
     // Variable Team mate 2
