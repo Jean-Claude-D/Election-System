@@ -61,6 +61,7 @@ public class ElectionFileLoaderTest {
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Sabrina", "Carpenter",
             "sabrinacarpenter@gmail.com", "V3Y0K1")};
 
+
     testGetVoterListFromSequentialFile("datafiles/voters1.txt", validVoter1, true, null);
 
     /*
@@ -78,6 +79,8 @@ public class ElectionFileLoaderTest {
      * Should raise an NoSuchFileException
      */
 
+    testGetVoterListFromSequentialFile("There/is/no/file/at.txt", null, false,
+        NoSuchFileException.class);
 
     /*
      * Test GetVoterListFromSequentialFile with an invalid path :
@@ -85,9 +88,9 @@ public class ElectionFileLoaderTest {
      * Should raise an InvalidPathException
      */
 
-    testGetVoterListFromSequentialFile("There/is/no/file/at.txt", null, false,
-        InvalidPathException.class);
+    testGetVoterListFromSequentialFile("", null, false, IllegalArgumentException.class);
 
+    testGetVoterListFromSequentialFile(null, null, false, InvalidPathException.class);
 
 
     // Variable Team mate 2
@@ -105,8 +108,10 @@ public class ElectionFileLoaderTest {
     final String FAIL = "\n\t\t\t\t\t\t\t\t\t\t\t\t\tTEST FAILED";
     final String PASS = "\n\t\t\t\t\t\t\t\t\t\t\t\t\tTEST PASS";
 
+    System.out.println(
+        "==================================================================================================================");
     System.out.println("BEGIN testGetVoterListFromSequentialFile with :");
-    System.out.println(fileNameTest);
+    System.out.println("fileNameTest : " + fileNameTest);
     if (expectedVoters == null || expectedVoters.length == 0) {
       System.out.println("expectedVoters is empty");
     } else {

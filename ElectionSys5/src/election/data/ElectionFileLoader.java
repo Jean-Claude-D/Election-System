@@ -32,9 +32,6 @@ public class ElectionFileLoader {
    *         Voter Object with that following information.
    */
   public static Voter[] GetVoterListFromSequentialFile(String filename) throws IOException {
-    if (filename == null || filename.isEmpty()) {
-      throw new IllegalArgumentException("The filename parameter must not be null or empty");
-    }
 
     Path pathToVoterFile = Paths.get(filename);
 
