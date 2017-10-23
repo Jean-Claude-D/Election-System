@@ -20,7 +20,9 @@ public class ListUtilities {
   private static final Charset CHARACTER_ENCODING = StandardCharsets.UTF_8;
 
   // TODO constructor here
-
+  private ListUtilities () {
+	  
+  }
 
   /**
    * Takes in a list of objects and writes them to a given file. This method overwrites data in file
@@ -81,10 +83,35 @@ public class ListUtilities {
     Files.write(path, toWrite, characterEncoding, StandardOpenOption.WRITE, option);
   }
 
-  // TODO selection sort method
+  
+  
+  // TODO selection sort method --------------------------------------------------------------------------------
+  /**
+   * sorts a List of objects in ascending natural order using selection sort
+   * precondition: assumes that the List is not null and that the List's capacity is equal to the List's size
+   * 
+   * @param list a list of objects. assumes that the list's capacity is equal to the list's size
+   * @throws IllegalArgumentException if the parameter is not full to capacity
+   * @throws NullPointerException if the list is null
+   */
+ 
+  @SuppressWarnings({"rawtypes","unchecked"})
+  public static void sort(Comparable[] list) throws IllegalArgumentException, NullPointerException{
+	  if(list == null) {
+		  throw new NullPointerException("Cannot sort null array");
+	  }
+	  for(int i = 0; i < list.length; i++) {
+		  if(list[i] == null) {
+			  throw new IllegalArgumentException("Cannot sort. Array not full to capacity.");
+		  }
+	  }
+	  
+	  
+  }
+  
 
-  // TODO merge method
+  // TODO merge method -----------------------------------------------------------------------------------------
 
-  // TODO Comparator sort
+  // TODO Comparator sort --------------------------------------------------------------------------------------
 }
 
