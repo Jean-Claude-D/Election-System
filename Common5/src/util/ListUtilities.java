@@ -155,27 +155,6 @@ public class ListUtilities {
   public static Comparable[] merge(Comparable[] list1, Comparable[] list2, String duplicateFileName)
       throws IOException {
 
-    // Verifications
-    if (list1 == null) {
-      throw new NullPointerException("The list1 parameter must not be null");
-    }
-
-    if (list2 == null) {
-      throw new NullPointerException("The list2 parameter must not be null");
-    }
-
-    for (Comparable c : list1) {
-      if (c == null) {
-        throw new IllegalArgumentException("The list1 parameter must be filled to capacity");
-      }
-    }
-
-    for (Comparable c : list2) {
-      if (c == null) {
-        throw new IllegalArgumentException("The list2 parameter must be filled to capacity");
-      }
-    }
-
     // To use resizeable feature of ArrayList (the .trimToSize() used at the end)
     List<Comparable> list3 = new ArrayList<Comparable>(list1.length + list2.length);
 
@@ -197,6 +176,13 @@ public class ListUtilities {
         list3.add(list1[iterat1++]);
 
       }
+
+      if (iterat1 == list1.length && iterat2 != list2.length) {
+
+      } else if (iterat1 != list1.length && iterat2 == list2.length) {
+
+      }
+
     }
 
     ((ArrayList) list3).trimToSize();
