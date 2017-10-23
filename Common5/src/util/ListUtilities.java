@@ -126,6 +126,85 @@ public class ListUtilities {
       throw new NullPointerException("Cannot sort null array");
   }
     Arrays.sort(list, sortOrder);
+
+
+  /*
+   * Efficiently merges two sorted lists of objects in ascending natural order. If the duplicate
+   * objects are in both lists, the object from list1 is merged into the resulting list, and both
+   * objects are written to the duplicate file.
+   *
+   * Precondition: Assumes that the lists are not null and that both lists contain objects that can
+   * be compared to each other and are filled to capacity.
+   *
+   *
+   * @param list1 A naturally sorted list of objects. Assumes that the list contains no duplicates
+   * and that its capacity is equal to its size.
+   * 
+   * @param list2 A naturally sorted list of objects. Assumes that the list contains no duplicates
+   * and that its capacity is equal to its size.
+   * 
+   * @param duplicateFileName The name of the file in datafilesduplicates to which duplicate pairs
+   * will be appended.
+   *
+   * @throws IllegalArgumentException if either parameter is not full to capacity.
+   *
+   * @throws NullPointerException if the either list is null.
+   */
+  @SuppressWarnings({"rawtypes", "unchecked"})
+  public static Comparable[] merge(Comparable[] list1, Comparable[] list2, String duplicateFileName)
+      throws IOException {
+
+    if (list1 == null) {
+      throw new NullPointerException("The list1 parameter must not be null");
+    }
+
+    if (list2 == null) {
+      throw new NullPointerException("The list2 parameter must not be null");
+    }
+
+    for (Comparable c : list1) {
+      if (c == null) {
+        throw new IllegalArgumentException("The list1 parameter must be filled to capacity");
+      }
+    }
+
+    for (Comparable c : list2) {
+      if (c == null) {
+        throw new IllegalArgumentException("The list2 parameter must be filled to capacity");
+      }
+    }
+
+    List<Comparable> list3 = new ArrayList<Comparable>(list1.length);
+
+    for (int iterat1 = 0, iterat2 = 0; (iterat1 < list1.length) && (iterat2 < list2.length);) {
+      int comparison = list1[iterat1].compareTo(list2[iterat2]);
+
+      if (comparison == 1) { // If list1 > list2
+        list3.add(list2[iterat2++]);
+      } else {
+        if (comparison == 0) { // If list1 == list2
+          String[] duplicate = {list1[iterat1].toString() + " (merged)", list2[iterat2].toString()};
+
+          saveListToTextFile(duplicate, duplicateFileName, true, CHARACTER_ENCODING);
+
+          iterat2++; // If we find a duplicate, no need to check list2 again
+        }
+
+        list3.add(list1[iterat1++]);
+
+      }
+    }
+
+
+
+    /*
+     * 
+     * for { if(l1 > l2) { l3.add(l2); } else { if(l1 == l2) { writeintofile } l3.add(l1) } }
+     * 
+     * return l3.toArray(Comparable[]);
+     */
+
+    return null;
   }
  }
 
