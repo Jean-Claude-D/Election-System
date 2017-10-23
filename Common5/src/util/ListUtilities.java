@@ -135,11 +135,34 @@ public class ListUtilities {
   public static Comparable[] merge(Comparable[] list1, Comparable[] list2, String duplicateFileName)
       throws IOException {
 
+    if (list1 == null) {
+      throw new NullPointerException("The list1 parameter must not be null");
+    }
+
+    if (list2 == null) {
+      throw new NullPointerException("The list2 parameter must not be null");
+    }
+
+    for (Comparable c : list1) {
+      if (c == null) {
+        throw new IllegalArgumentException("The list1 parameter must be filled to capacity");
+      }
+    }
+
+    for (Comparable c : list2) {
+      if (c == null) {
+        throw new IllegalArgumentException("The list2 parameter must be filled to capacity");
+      }
+    }
+
+    List<Comparable> list3 = new ArrayList<Comparable>(list1.length);
+
+    for (int iterator1 = 0, iterator2 = 0; (iterator1 < list1.length)
+        && (iterator2 < list2.length);) {
+
+    }
+
     /*
-     * check list1 and list2 are full to capacity (size() == capacity) and non-null (list == null,
-     * throw)
-     * 
-     * List<Comparable> l3 = new ArrayList<Comparable>();
      * 
      * for { if(l1 > l2) { l3.add(l2); } else { if(l1 == l2) { writeintofile } l3.add(l1) } }
      * 
