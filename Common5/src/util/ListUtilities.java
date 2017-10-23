@@ -108,7 +108,6 @@ public class ListUtilities {
         if (list[j].compareTo(list[min]) < 0) {
           min = j;
         }
-
       }
       Comparable temp = list[min];
       list[min] = list[i];
@@ -122,6 +121,7 @@ public class ListUtilities {
       throws IllegalArgumentException, NullPointerException {
     if (list == null) {
       throw new NullPointerException("Cannot sort null array");
+
 
     }
     Arrays.sort(list, sortOrder);
