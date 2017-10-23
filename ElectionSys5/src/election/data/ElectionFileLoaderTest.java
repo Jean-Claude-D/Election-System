@@ -3,6 +3,7 @@ package election.data;
 import java.io.IOException;
 import election.business.DawsonElection;
 import election.business.DawsonTally;
+import election.business.interfaces.Election;
 
 public class ElectionFileLoaderTest {
 
@@ -23,7 +24,10 @@ public class ElectionFileLoaderTest {
     testGetElectionListFromSequentialFile(nameOfFile, expectedResult);
 
     // Variable Team mate 3
-    testsetExistingTallyFromSequentialFile(nameOfFile, expectedResult);
+
+    String nameOfFile3 = "datafiles/tally.txt";
+    Boolean expectedResult3 = true;
+    testsetExistingTallyFromSequentialFile(nameOfFile3, expectedResult3);
 
 
 
@@ -51,20 +55,20 @@ public class ElectionFileLoaderTest {
     String type3 = "Ranked";
 
     int startYear1 = 2017;
-    int startYear2 = 2016;
-    int startYear3 = 2015;
+    int startYear2 = 2017;
+    int startYear3 = 2017;
 
-    int startMonth1 = 5;
-    int startMonth2 = 6;
-    int startMonth3 = 7;
+    int startMonth1 = 10;
+    int startMonth2 = 11;
+    int startMonth3 = 12;
 
-    int startDay1 = 15;
+    int startDay1 = 28;
     int startDay2 = 16;
     int startDay3 = 17;
 
     int endYear1 = 2018;
-    int endYear2 = 2017;
-    int endYear3 = 2016;
+    int endYear2 = 2018;
+    int endYear3 = 2018;
 
     int endMonth1 = 5;
     int endMonth2 = 6;
@@ -82,24 +86,50 @@ public class ElectionFileLoaderTest {
     String endRang2 = null;
     String endRang3 = null;
 
-    int choice;
+    int choice = 0;
 
-    DawsonTally tally1 = new DawsonTally((Integer) null, nameElection1);
-    DawsonTally tally2 = new DawsonTally((Integer) null, nameElection2);
-    DawsonTally tally3 = new DawsonTally((Integer) null, nameElection3);
+    DawsonTally tally1 = new DawsonTally(choice, nameElection1);
+    DawsonTally tally2 = new DawsonTally(choice, nameElection2);
+    DawsonTally tally3 = new DawsonTally(choice, nameElection3);
 
-    DawsonElection election1 = new DawsonElection(nameElection1, type1, startYear1, startMonth1,
-        startDay1, endYear1, endMonth1, endDay1, startRange1, endRang1, tally1);
-    DawsonElection election2 = new DawsonElection(nameElection2, type2, startYear2, startMonth2,
-        startDay2, endYear2, endMonth2, endDay2, startRange2, endRang2, tally2);
-    DawsonElection election3 = new DawsonElection(nameElection3, type3, startYear3, startMonth3,
-        startDay3, endYear3, endMonth3, endDay3, startRange3, endRang3, tally3);
+    Election election1 = new DawsonElection(nameElection1, type1, startYear1, startMonth1,
+        startDay1, endYear1, endMonth1, endDay1, startRange1, endRang1, tally1, "H", "Jean Claude",
+        "Felicia", "Maria");
+    Election election2 = new DawsonElection(nameElection2, type2, startYear2, startMonth2,
+        startDay2, endYear2, endMonth2, endDay2, startRange2, endRang2, tally2, "H", "Jean Claude",
+        "Felicia", "Maria");
+    Election election3 = new DawsonElection(nameElection3, type3, startYear3, startMonth3,
+        startDay3, endYear3, endMonth3, endDay3, startRange3, endRang3, tally3, "H", "Jean Claude",
+        "Felicia", "Maria");
 
-    DawsonElection[] allElectionCreated = {election1, election2, election3};
+    Election[] allElectionCreated = {election1, election2, election3};
 
+
+
+    try {
+      ElectionFileLoader.setExistingTallyFromSequentialFile(fileNameTest, allElectionCreated);
+
+      if (!(election1.getTally() == null)) {
+        System.out
+            .println("==================================PASS=================================");
+      }
+
+      else {
+
+        System.out.println("=================================FAIL================================");
+      }
+
+    } catch (IOException e) {
+
+      System.out.println("Error");
+      System.out.println("=================================FAIL================================");
+    }
 
 
   }// End of testing SetExistingTallyFromSequentialFile
 
 
+
 }
+
+

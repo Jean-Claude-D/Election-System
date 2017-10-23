@@ -110,11 +110,11 @@ public class ElectionFileLoader {
 
         while (linePositionElectionList < electionList.size()) {
 
-          String[] arrayOfLineInTxtFile = electionList.get(i).split("*");
+          String[] arrayOfLineInTxtFile = electionList.get(i).split("\\*");
 
           for (int w = 0; w < arrayOfLineInTxtFile.length; w++) {
 
-            String choice = arrayOfLineInTxtFile[w + 1];
+            String choice = arrayOfLineInTxtFile[1];
             int choiceInt = Integer.parseInt(choice);
             linePositionElectionList = choiceInt + linePositionElectionList;
 
