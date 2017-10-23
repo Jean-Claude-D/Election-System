@@ -155,6 +155,7 @@ public class ListUtilities {
   public static Comparable[] merge(Comparable[] list1, Comparable[] list2, String duplicateFileName)
       throws IOException {
 
+    // Verifications
     if (list1 == null) {
       throw new NullPointerException("The list1 parameter must not be null");
     }
@@ -175,12 +176,13 @@ public class ListUtilities {
       }
     }
 
-    List<Comparable> list3 = new ArrayList<Comparable>(list1.length);
+    // To use resizeable feature of ArrayList (the .trimToSize() used at the end)
+    List<Comparable> list3 = new ArrayList<Comparable>(list1.length + list2.length);
 
     for (int iterat1 = 0, iterat2 = 0; (iterat1 < list1.length) && (iterat2 < list2.length);) {
       int comparison = list1[iterat1].compareTo(list2[iterat2]);
 
-      if (comparison == 1) { // If list1 > list2
+      if (comparison > 0) { // If list1 > list2
         list3.add(list2[iterat2++]);
       } else {
         if (comparison == 0) { // If list1 == list2
@@ -188,9 +190,10 @@ public class ListUtilities {
 
           saveListToTextFile(duplicate, duplicateFileName, true, CHARACTER_ENCODING);
 
-          iterat2++; // If we find a duplicate, no need to check list2 again
+          iterat2++; // If we find a duplicate, no need to check list2 in next iteration
         }
 
+        // If list1 >= list2, then we add list1 to list3
         list3.add(list1[iterat1++]);
 
       }
@@ -198,6 +201,10 @@ public class ListUtilities {
 
     ((ArrayList) list3).trimToSize();
 
+    /*
+     * Because Comparable is an interface, we cannot instantiate an array of it, so we instantiate
+     * an array with the same base type of list1 by using reflection
+     */
     Comparable[] resultList = list3.toArray(
         (Comparable[]) Array.newInstance(list1.getClass().getComponentType(), list3.size()));
 
