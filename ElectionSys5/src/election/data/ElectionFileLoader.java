@@ -66,13 +66,13 @@ public class ElectionFileLoader {
 		{
 			Path p= Paths.get("filename");
 
-			List<String> l= Files.readAllLines(p);
+			List<String> electionList= Files.readAllLines(p);
 
 			for (int r= 0; r< elections.length ; r++) {
 
-				for (int i= 0; i <l.size(); i++) {
+				for (int i= 0; i <electionList.size(); i++) {
 
-					String[] arrayOfLineInTxtFile = l.get(i).split("*");
+					String[] arrayOfLineInTxtFile = electionList.get(i).split("*");
 
 					for(int q= 0; q <arrayOfLineInTxtFile.length; q++) {
 
@@ -87,7 +87,7 @@ public class ElectionFileLoader {
 
 								for(int b=0; b< result.length; b++) {
 
-									String[] tally = l.get(i+1).split("*"); 
+									String[] tally = electionList.get(i+1).split("*"); 
 									
 									
 									for (int a=0; a<tally.length ; a++) {
