@@ -7,7 +7,8 @@ import election.business.interfaces.Tally;
 public class DawsonElectionTest {
 
   public static void main(String[] args) {
-    DawsonTally tally = new DawsonTally(); 
+	  
+    DawsonTally tally = new DawsonTally(2,"Name of election"); 
 
     testConstructor("Canada Election", "single", 2017, 11, 25, 2018, 2, 20, "A", "J7E", tally, "H",
         "Jean Claude", "Felicia", "Maria");
