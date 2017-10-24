@@ -52,7 +52,6 @@ public class ListUtilitiesTest {
     c3[7] = 790;
     c3[8] = 893;
 
-
     /*
      * mergeTest(Comparable[] list1, Comparable[] list2, Comparable[] expectedList, String
      * duplicateFileNameTest, boolean expectedValid, Class expectedException)
@@ -101,17 +100,45 @@ public class ListUtilitiesTest {
     cb[17] = 790;
     cb[18] = 893;
 
-    mergeTest(c1, c2, ca, "datafiles/duplicates/duplicates.txt", true, null);
+    Comparable[] cc = new Integer[18];
+    cc[0] = -876;
+    cc[1] = -640;
+    cc[2] = -421;
+    cc[3] = -404;
+    cc[4] = -356;
+    cc[5] = -213;
+    cc[6] = -147;
+    cc[7] = -96;
+    cc[8] = -22;
+    cc[9] = 324;
+    cc[10] = 338;
+    cc[11] = 383;
+    cc[12] = 536;
+    cc[13] = 669;
+    cc[14] = 785;
+    cc[15] = 790;
+    cc[16] = 811;
+    cc[17] = 893; // Duplicate
 
-    mergeTest(c1, c3, cb, "datafiles/duplicate/duplicate.txt", true, null);
-    //
-    // mergeTest(c1, c2Copy, null, null, false, null);
-    //
-    // mergeTest(c2, c3, null, null, false, null);
-    //
-    // mergeTest(c2, c2Copy, null, null, false, null);
-    //
-    // mergeTest(c3, c2Copy, null, null, false, null);
+    mergeTest(c1, c2, ca, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c2, c1, ca, "datafiles/duplicates/dupplicates.txt", true, null);
+
+    mergeTest(c1, c3, cb, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c3, c1, cb, "datafiles/duplicates/dupplicates.txt", true, null);
+
+    mergeTest(c1, c2Copy, ca, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c2Copy, c1, ca, "datafiles/duplicates/dupplicates.txt", true, null);
+
+    mergeTest(c2, c3, cc, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c3, c2, cc, "datafiles/duplicates/dupplicates.txt", true, null);
+
+    mergeTest(c2, c2Copy, c2, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c2Copy, c2, c2, "datafiles/duplicates/dupplicates.txt", true, null);
+
+    mergeTest(c3, c2Copy, cc, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c2Copy, c3, cc, "datafiles/duplicates/dupplicates.txt", true, null);
+
+
     /*
      * // ----- Variables for Cao Hoang //
      * -----------------------------------------------------------------------------------
