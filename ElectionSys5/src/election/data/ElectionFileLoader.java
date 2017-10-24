@@ -116,16 +116,16 @@ public class ElectionFileLoader {
 
             String choice = arrayOfLineInTxtFile[1];
             int choiceInt = Integer.parseInt(choice);
-            linePositionElectionList = choiceInt + linePositionElectionList;
-
-            if (arrayOfLineInTxtFile[w].equals(elections[i])) {
 
 
-              int[][] result = new int[choiceInt][];
+            if (arrayOfLineInTxtFile[w].equals(elections[i].getName())) {
 
-              for (int b = 0; 0 < choiceInt; b++) {
 
-                String[] tally = electionList.get(linePositionElectionList + 1).split("*");
+              int[][] result = new int[choiceInt][choiceInt];
+
+              for (int b = 0; b < choiceInt; b++) {
+
+                String[] tally = electionList.get(linePositionElectionList + 1).split("\\*");
 
                 for (int a = 0; a < tally.length; a++) {
 
@@ -134,9 +134,11 @@ public class ElectionFileLoader {
                   result[b][a] = Tally;
 
                 }
+
               }
 
               DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
+              linePositionElectionList = choiceInt + linePositionElectionList;
             }
 
           }

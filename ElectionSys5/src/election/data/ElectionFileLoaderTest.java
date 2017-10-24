@@ -26,25 +26,14 @@ public class ElectionFileLoaderTest {
     // Variable Team mate 3
 
     String nameOfFile3 = "datafiles/tally.txt";
+    String nameofFile4 = "datafiles/elections25";
+    String nameofFile5 = "";
+    String nameofFile6 = "abejck";
+
     Boolean expectedResult3 = true;
-    testsetExistingTallyFromSequentialFile(nameOfFile3, expectedResult3);
-
-
-
-  }// Main
-
-  public static void testGetVoterListFromSequentialFile(String fileNameTest,
-      boolean expectedValid) {
-
-  }// End of Testing GetVoterListFromSequentialFile
-
-  public static void testGetElectionListFromSequentialFile(String fileNameTest,
-      boolean expectedValid) {
-
-  }// End of Testing GetElectionListFromSequentialFile
-
-  public static void testsetExistingTallyFromSequentialFile(String fileNameTest,
-      boolean expectedValid) {
+    Boolean expectedResult4 = false;
+    Boolean expectedResult5 = false;
+    Boolean expectedResult6 = false;
 
     String nameElection1 = "Dawson Color Election 2020";
     String nameElection2 = "Prom Queen";
@@ -105,30 +94,64 @@ public class ElectionFileLoaderTest {
     Election[] allElectionCreated = {election1, election2, election3};
 
 
+    testsetExistingTallyFromSequentialFile(nameOfFile3, expectedResult3, allElectionCreated);
+    testsetExistingTallyFromSequentialFile(nameofFile4, expectedResult4, allElectionCreated);
+    testsetExistingTallyFromSequentialFile(nameofFile5, expectedResult5, allElectionCreated);
+    testsetExistingTallyFromSequentialFile(nameofFile6, expectedResult6, allElectionCreated);
+
+
+
+  }// Main
+
+  public static void testGetVoterListFromSequentialFile(String fileNameTest,
+      boolean expectedValid) {
+
+  }// End of Testing GetVoterListFromSequentialFile
+
+  public static void testGetElectionListFromSequentialFile(String fileNameTest,
+      boolean expectedValid) {
+
+  }// End of Testing GetElectionListFromSequentialFile
+
+  public static void testsetExistingTallyFromSequentialFile(String fileNameTest,
+      boolean expectedValid, Election[] allElectionCreated) throws IOException {
+
+
 
     try {
       ElectionFileLoader.setExistingTallyFromSequentialFile(fileNameTest, allElectionCreated);
 
-      if (!(election1.getTally() == null)) {
+      if ((allElectionCreated[0].getTally() != null) == expectedValid) {
+
+        System.out.println(fileNameTest + "is a valid file and the tally is filled");
+        System.out.println();
         System.out
             .println("==================================PASS=================================");
+        System.out.println();
       }
 
       else {
 
+        System.out.println(fileNameTest + "The tally is not filled. There is a problem");
         System.out.println("=================================FAIL================================");
+        System.out.println();
       }
 
-    } catch (IOException e) {
+    }
 
-      System.out.println("Error");
-      System.out.println("=================================FAIL================================");
+    catch (IOException e) {
+
+      System.out.println();
+      System.out.println(fileNameTest + "is not a valid file");
+      System.out.println("==================================PASS=================================");
+      System.out.println(
+          "The only valid file is the tally.txt. Everything else is not valid and should throw and error");
+      System.out.println();
+
     }
 
 
-  }// End of testing SetExistingTallyFromSequentialFile
-
-
+  }
 
 }
 
