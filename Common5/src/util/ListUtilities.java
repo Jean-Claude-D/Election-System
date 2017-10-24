@@ -192,9 +192,9 @@ public class ListUtilities {
       }
 
       if (iterat1 == list1.length && iterat2 != list2.length) {
-
+        list3.addAll(iterat2, Arrays.asList(list2));
       } else if (iterat1 != list1.length && iterat2 == list2.length) {
-
+        list3.addAll(iterat1, Arrays.asList(list1));
       }
 
     }
