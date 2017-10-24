@@ -13,7 +13,87 @@ public class ListUtilitiesTest {
     // ----- Variables for Jean-Claude
     // ---------------------------------------------------------------------------------
 
-    mergeTest(null, null, null, null, false, null);
+    Comparable[] c1 = new Integer[10];
+    c1[0] = -936;
+    c1[1] = -615;
+    c1[2] = -501;
+    c1[3] = -268;
+    c1[4] = 30;
+    c1[5] = 520;
+    c1[6] = 568;
+    c1[7] = 607;
+    c1[8] = 757;
+    c1[9] = 778;
+
+    Comparable[] c2 = new Integer[10];
+    c2[0] = -640;
+    c2[1] = -421;
+    c2[2] = -356;
+    c2[3] = -213;
+    c2[4] = -147;
+    c2[5] = 324;
+    c2[6] = 383;
+    c2[7] = 669;
+    c2[8] = 811;//
+    c2[9] = 893;
+
+
+
+    Comparable[] c2Copy = new Integer[c2.length];
+    for (int i = 0; i < c2.length; i++) {
+      c2Copy[i] = c2[i];
+    }
+
+    Comparable[] c3 = new Integer[9];
+    c3[0] = -876;
+    c3[1] = -404;
+    c3[2] = -96;
+    c3[3] = 22;
+    c3[4] = 338;
+    c3[5] = 536;
+    c3[6] = 785;
+    c3[7] = 790;
+    c3[8] = 893;
+
+
+    /*
+     * mergeTest(Comparable[] list1, Comparable[] list2, Comparable[] expectedList, String
+     * duplicateFileNameTest, boolean expectedValid, Class expectedException)
+     */
+
+    Comparable[] ca = new Comparable[20];
+    ca[0] = -936;
+    ca[1] = -640;
+    ca[2] = -615;
+    ca[3] = -501;
+    ca[4] = -421;
+    ca[5] = -356;
+    ca[6] = -268;
+    ca[7] = -213;
+    ca[8] = -147;
+    ca[9] = 30;
+    ca[10] = 324;
+    ca[11] = 383;
+    ca[12] = 520;
+    ca[13] = 568;
+    ca[14] = 607;
+    ca[15] = 669;
+    ca[16] = 757;
+    ca[17] = 778;
+    ca[18] = 811;
+    ca[19] = 897;
+
+    mergeTest(c1, c2, ca, "datafiles/duplicates/duplicates.txt", true, null);
+
+    // mergeTest(c1, c3, null, null, false, null);
+    //
+    // mergeTest(c1, c2Copy, null, null, false, null);
+    //
+    // mergeTest(c2, c3, null, null, false, null);
+    //
+    // mergeTest(c2, c2Copy, null, null, false, null);
+    //
+    // mergeTest(c3, c2Copy, null, null, false, null);
 
     // ----- Variables for Cao Hoang
     // -----------------------------------------------------------------------------------
@@ -206,12 +286,17 @@ public class ListUtilitiesTest {
       System.out.println("null");
     }
 
+
     System.out.println("expected : ");
-    System.out.println('[');
-    for (Comparable c : expectedList) {
-      System.out.println(c == null ? "null" : c);
+    if (expectedList != null) {
+      System.out.println('[');
+      for (Comparable c : expectedList) {
+        System.out.println(c == null ? "null" : c);
+      }
+      System.out.println(']');
+    } else {
+      System.out.println("null");
     }
-    System.out.println(']');
 
     System.out.println(expectedValid ? "Expected to be valid" : "Should not be valid");
 
@@ -221,6 +306,9 @@ public class ListUtilitiesTest {
     try {
 
       Comparable[] list3 = ListUtilities.merge(list1, list2, duplicateFileNameTest);
+
+      for (Comparable c : list3)
+        System.out.println(c);
 
       if (list3.length == expectedList.length && expectedValid) {
         for (int i = 0; i < list3.length; i++) {
@@ -246,7 +334,7 @@ public class ListUtilitiesTest {
       if (expectedValid) {
         System.out
             .println("Data was supposed to be valid, but throwed " + e.getClass().getName() + FAIL);
-        e.getStackTrace();
+        e.printStackTrace();
 
         return;
       }
