@@ -86,7 +86,7 @@ public class ListUtilities {
 
   
   
-  // TODO selection sort method --------------------------------------------------------------------------------
+  // SELECTION SORT METHOD --------------------------------------------------------------------------------
   /**
    * sorts a List of objects in ascending natural order using selection sort
    * precondition: assumes that the List is not null and that the List's capacity is equal to the List's size
