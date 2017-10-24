@@ -86,7 +86,7 @@ public class ListUtilities {
 
   
   
-  // TODO selection sort method --------------------------------------------------------------------------------
+  // SELECTION SORT METHOD --------------------------------------------------------------------------------
   /**
    * sorts a List of objects in ascending natural order using selection sort
    * precondition: assumes that the List is not null and that the List's capacity is equal to the List's size
@@ -107,8 +107,21 @@ public class ListUtilities {
 		  }
 	  }
 	  
-	  
+	  for (int i = 0; i < list.length; i++) {   
+		  int min = i;
+		  for (int j = i +1; j < list.length; j++) {
+		     if (list[j].compareTo(list[min]) < 0) {
+		        min = j;  
+		     }
+		  }
+		  Comparable temp = list[min];
+		  list[min] = list[i];
+		  list[i] = temp;
+
+	  }
   }
+}
+
   
 
   // TODO merge method -----------------------------------------------------------------------------------------
