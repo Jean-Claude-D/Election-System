@@ -99,9 +99,50 @@ public class ElectionFileLoader {
       throws IOException {
     {
 
+      Path path = Paths.get(filename);
+
+      List<String> allLines = Files.readAllLines(path);
+
+      int numChoice;
+
+      String[] line;
+
+      int[][] result;
+
+      String[] choice;
+      int ranking;
+
+      for (int i = 0; i < elections.length; i++) { // Going through every Election object
+        for (int linePositionElectionList = 0; linePositionElectionList < allLines
+            .size(); linePositionElectionList += (numChoice + 1)) { // Going through every line with
+                                                                    // election names
+
+          line = allLines.get(linePositionElectionList).split("\\*"); // [nameOfElection][choices]
+
+          numChoice = Integer.parseInt(line[1]); // number of choices for this election
+
+          if (line[0].equals(elections[i].getName())) { //
+
+            result = new int[numChoice][numChoice];
+
+            for (int b = 0; b < numChoice; b++) {
+
+              choice = allLines.get(b + 1).split("\\*");
+
+              for (int a = 0; a < choice.length; a++) {
+                ranking = Integer.parseInt(choice[a]);
+                result[b][a] = ranking;
+
+              }
+
+            }
+            DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
+          }
+
+        }
+      }
     }
-
-
-
   }
 }
+
+

@@ -45,7 +45,7 @@ public class DawsonElection implements Election {
 
     startEndDateChecker(startDate, endDate);
     tallyChecker(tally);
-    
+
     this.name = nullChecker(name);
     this.type = nullChecker(type);
     this.startRange = startRange;
@@ -55,7 +55,7 @@ public class DawsonElection implements Election {
     this.ballotItems = checkItem(items);
   }
 
-  // =========== CHECKER VALIDATE METHODS ===========  \\
+  // =========== CHECKER VALIDATE METHODS =========== \\
 
   /**
    * Check to see if a String is null or not
@@ -144,7 +144,8 @@ public class DawsonElection implements Election {
     BallotItem[] choices = new BallotItem[items.length];
 
     for (int i = 0; i < items.length; i++) {
-      choices[i] = DawsonElectionFactory.DAWSON_ELECTION.getBallotItem(items[i], electType, items.length);
+      choices[i] =
+          DawsonElectionFactory.DAWSON_ELECTION.getBallotItem(items[i], electType, items.length);
     }
     return choices;
   }
@@ -215,8 +216,8 @@ public class DawsonElection implements Election {
     for (int i = 0; i < this.ballotItems.length; i++) {
       temp[i] = this.ballotItems[i];
     }
-    Ballot ballot = DawsonElectionFactory.DAWSON_ELECTION.getBallot
-        (temp, this.electType, DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(this));
+    Ballot ballot = DawsonElectionFactory.DAWSON_ELECTION.getBallot(temp, this.electType,
+        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(this));
     return ballot;
   }
 
@@ -273,8 +274,7 @@ public class DawsonElection implements Election {
    * @param tally the Tally object
    */
   public void setTally(Tally tally) { // setTally
-    tallyChecker(tally);
-    if (tally.getElectionName().equals(this.tally.getElectionName())) {
+    if (!tally.getElectionName().equals(this.name)) {
       throw new IllegalArgumentException("Name must be equal");
     }
     this.tally = tally;
@@ -283,7 +283,7 @@ public class DawsonElection implements Election {
   // ============ END SETTERS METHODS ============ \\
 
 
-  // ============ OTHERS METHODS ============  \\
+  // ============ OTHERS METHODS ============ \\
 
   /**
    * Update tally if voter isEligible
