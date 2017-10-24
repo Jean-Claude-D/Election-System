@@ -126,6 +126,15 @@ public class ListUtilities {
 
   // TODO merge method -----------------------------------------------------------------------------------------
 
-  // TODO Comparator sort --------------------------------------------------------------------------------------
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public static void sort(Comparable[] list, Comparator sortOrder)
+   throws IllegalArgumentException, NullPointerException {
+    if(list == null) {
+      throw new NullPointerException("Cannot sort null array");
+  }
+    Arrays.sort(list, sortOrder);
+  }
+ }
+
 
 
