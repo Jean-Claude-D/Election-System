@@ -172,8 +172,7 @@ public class ListUtilities {
     // To use resizeable feature of ArrayList (the .trimToSize() used at the end)
     List<Comparable> list3 = new ArrayList<Comparable>(list1.length + list2.length);
 
-    for (int iterat1 = 0, iterat2 = 0, i =
-        0; !((iterat1 >= list1.length) && (iterat2 >= list2.length)); i++) {
+    for (int iterat1 = 0, iterat2 = 0; !((iterat1 >= list1.length) && (iterat2 >= list2.length));) {
 
       int comparison = list1[iterat1].compareTo(list2[iterat2]);
 
