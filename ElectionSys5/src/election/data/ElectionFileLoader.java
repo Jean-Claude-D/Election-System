@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
 
@@ -31,53 +32,70 @@ public class ElectionFileLoader {
 
 
   public static Voter[] GetVoterListFromSequentialFile(String filename) throws IOException {
+    return null;
+  }
 
+
+
+  /**
+   * 
+   * @param filename
+   * @return Election[] that contains usually 3 El
+   * @throws IOException
+   * 
+   *         This method iterate through the text file and extract the different elections and will
+   *         put it into a an array of Elections
+   */
+  public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
     Path p = Paths.get(filename);
     List<String> allLines = Files.readAllLines(p);
-    ArrayList<Election> list = new ArrayList<Election>();
-    Election placeHolder;
-    ArrayList<String> listString = new ArrayList<String>();
+    ArrayList<Election> listElection = new ArrayList<>();
+    ArrayList<String> listString = new ArrayList<>();
 
-    int i = 0;
-    int m = 1;
-    int n = 0;
-    int x = 0;
+    int lineOrder = 1;
+    int numberOfChoices = 0;
+    int lineOffset = 0;
 
     // Info line: 0, 6, 12
 
-    while (i < allLines.size()) {
+    String[] split;
 
-      String[] split = (allLines.get(i).split("\\*"));
+    for (int i = 0; i < allLines.size(); i += Integer.parseInt(split[10]) + 1) {
+
+      split = (allLines.get(i).split("\\*"));
 
       for (int j = 0; j < split.length; j++) {
         listString.add(split[j]);
       }
       listString.add("\n");
 
-      n += Integer.parseInt(split[10]);
+      numberOfChoices += Integer.parseInt(split[10]);
 
-      for (int k = m; k <= n + x; k++) {
+      for (int k = lineOrder; k <= numberOfChoices + lineOffset; k++) {
         listString.add(allLines.get(k) + "\n");
         // System.out.println("( " + k + " ) ");
       }
-      x++;
-      i += Integer.parseInt(split[10]) + 1;
-      m += Integer.parseInt(split[10]) + 1;
+
+      String[] choices = allLines.subList(i + 1, i + Integer.parseInt(split[10]) + 1)
+          .toArray(new String[Integer.parseInt(split[10])]);
+
+      try {
+        listElection.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
+            listString.get(0), listString.get(9), Integer.parseInt(listString.get(1)),
+            Integer.parseInt(listString.get(2)), Integer.parseInt(listString.get(3)),
+            Integer.parseInt(listString.get(4)), Integer.parseInt(listString.get(5)),
+            Integer.parseInt(listString.get(6)), listString.get(7), listString.get(8), choices));
+
+        listString.clear();
+      } catch (Exception e) {
+        System.out.println("One of the variable is invalid" + e);
+      }
+
+      lineOffset++;
+      lineOrder += Integer.parseInt(split[10]) + 1;
     }
-
-
-
+    return listElection.toArray(new Election[listElection.size()]);
   }
-
-  /**
-   * 
-   * @param filename
-   * @return Election[]
-   * @throws IOException
-   * 
-   *         This method iterate through the text file and extract the different elections and will
-   *         put it into a an array of Elections
-   */
 
 
 
