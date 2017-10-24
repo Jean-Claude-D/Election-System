@@ -84,7 +84,6 @@ public class ListUtilities {
     Files.write(path, toWrite, characterEncoding, StandardOpenOption.WRITE, option);
   }
 
-  // SELECTION SORT METHOD
   // --------------------------------------------------------------------------------
   /**
    * sorts a List of objects in ascending natural order using selection sort precondition: assumes
@@ -145,7 +144,7 @@ public class ListUtilities {
     Arrays.sort(list, sortOrder);
   }
 
-  /*
+  /**
    * Efficiently merges two sorted lists of objects in ascending natural order. If the duplicate
    * objects are in both lists, the object from list1 is merged into the resulting list, and both
    * objects are written to the duplicate file.
@@ -155,13 +154,13 @@ public class ListUtilities {
    *
    *
    * @param list1 A naturally sorted list of objects. Assumes that the list contains no duplicates
-   * and that its capacity is equal to its size.
+   *        and that its capacity is equal to its size.
    * 
    * @param list2 A naturally sorted list of objects. Assumes that the list contains no duplicates
-   * and that its capacity is equal to its size.
+   *        and that its capacity is equal to its size.
    * 
    * @param duplicateFileName The name of the file in datafilesduplicates to which duplicate pairs
-   * will be appended.
+   *        will be appended.
    *
    * @throws IllegalArgumentException if either parameter is not full to capacity.
    *
@@ -212,5 +211,6 @@ public class ListUtilities {
 
     return resultList;
   }
+
 }
 
