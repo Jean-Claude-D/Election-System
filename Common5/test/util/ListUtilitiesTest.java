@@ -55,11 +55,6 @@ public class ListUtilitiesTest {
     c3[7] = 790;
     c3[8] = 893;
 
-    /*
-     * mergeTest(Comparable[] list1, Comparable[] list2, Comparable[] expectedList, String
-     * duplicateFileNameTest, boolean expectedValid, Class expectedException)
-     */
-
     Comparable[] ca = new Comparable[20];
     ca[0] = -936;
     ca[1] = -640;
@@ -112,7 +107,7 @@ public class ListUtilitiesTest {
     cc[5] = -213;
     cc[6] = -147;
     cc[7] = -96;
-    cc[8] = -22;
+    cc[8] = 22;
     cc[9] = 324;
     cc[10] = 338;
     cc[11] = 383;
@@ -123,23 +118,23 @@ public class ListUtilitiesTest {
     cc[16] = 811;
     cc[17] = 893; // Duplicate
 
-    mergeTest(c1, c2, ca, "datafiles/duplicates/dupplicates.txt", true, null);
-    mergeTest(c2, c1, ca, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c1, c2, ca, "datafiles/duplicates/duplicate.txt", true, null);
+    mergeTest(c2, c1, ca, "datafiles/duplicates/duplicate.txt", true, null);
 
-    mergeTest(c1, c3, cb, "datafiles/duplicates/dupplicates.txt", true, null);
-    mergeTest(c3, c1, cb, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c1, c3, cb, "datafiles/duplicates/duplicate.txt", true, null);
+    mergeTest(c3, c1, cb, "datafiles/duplicates/duplicate.txt", true, null);
 
-    mergeTest(c1, c2Copy, ca, "datafiles/duplicates/dupplicates.txt", true, null);
-    mergeTest(c2Copy, c1, ca, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c1, c2Copy, ca, "datafiles/duplicates/duplicate.txt", true, null);
+    mergeTest(c2Copy, c1, ca, "datafiles/duplicates/duplicate.txt", true, null);
 
-    mergeTest(c2, c3, cc, "datafiles/duplicates/dupplicates.txt", true, null);
-    mergeTest(c3, c2, cc, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c2, c3, cc, "datafiles/duplicates/duplicate.txt", true, null);
+    mergeTest(c3, c2, cc, "datafiles/duplicates/duplicate.txt", true, null);
 
-    mergeTest(c2, c2Copy, c2, "datafiles/duplicates/dupplicates.txt", true, null);
-    mergeTest(c2Copy, c2, c2, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c2, c2Copy, c2, "datafiles/duplicates/duplicate.txt", true, null);
+    mergeTest(c2Copy, c2, c2, "datafiles/duplicates/duplicate.txt", true, null);
 
-    mergeTest(c3, c2Copy, cc, "datafiles/duplicates/dupplicates.txt", true, null);
-    mergeTest(c2Copy, c3, cc, "datafiles/duplicates/dupplicates.txt", true, null);
+    mergeTest(c3, c2Copy, cc, "datafiles/duplicates/duplicate.txt", true, null);
+    mergeTest(c2Copy, c3, cc, "datafiles/duplicates/duplicate.txt", true, null);
 
 
 
@@ -157,6 +152,8 @@ public class ListUtilitiesTest {
 
     Name[] listNameCheck = new Name[] {person4, person5, person6, person1, person3, person2};
 
+
+    System.out.print("Testing sort with comparator :  ");
     sortTest(listNameTest, new NameByFirstComparator(), listNameCheck, true);
 
     // ----- Variables for Felicia //
@@ -207,6 +204,9 @@ public class ListUtilitiesTest {
     Email[] emailSortTestNull = {null, null, null, null, null};
 
     Email[] emailPrediction = {email4, email1, email3, email5, email2, email7, email6};
+    Email[] emailPrediction2 = {email1, email3, email5, email2, email7, email6};
+    Email[] emailPrediction3 = {email1, email3, email2, email7};
+    Email[] emailPrediction4 = {email4, email5, email6};
 
     System.out.println(
         "\n-------NAME------------------------------------------------------------------------------------------------------------------");
@@ -225,9 +225,9 @@ public class ListUtilitiesTest {
     System.out.println(
         "\n-------EMAIL------------------------------------------------------------------------------------------------------------------");
     sortTest(emailSortTestGood, emailPrediction, expectValid);
-    sortTest(emailSortTestGood2, emailPrediction, expectValid);
-    sortTest(emailSortTestGood3, emailPrediction, expectValid);
-    sortTest(emailSortTestGood4, emailPrediction, expectValid);
+    sortTest(emailSortTestGood2, emailPrediction2, expectValid);
+    sortTest(emailSortTestGood3, emailPrediction3, expectValid);
+    sortTest(emailSortTestGood4, emailPrediction4, expectValid);
     sortTest(emailSortTestNotFull, predictException, expectInvalid);
     sortTest(emailSortTestNull, predictException, expectInvalid);
 
@@ -366,10 +366,10 @@ public class ListUtilitiesTest {
           }
         }
 
-        System.out.println("All Voters successfully have been read from " + duplicateFileNameTest
-            + " and matched expectedVoters" + PASS);
+        System.out.println(PASS);
+
       } else if (expectedValid) {
-        System.out.println("voters length (" + list3.length + ") and expectedVoters length ("
+        System.out.println("list3 length (" + list3.length + ") and expectedList length ("
             + expectedList.length + ") are not equal" + FAIL);
       } else if (!expectedValid) {
         System.out
