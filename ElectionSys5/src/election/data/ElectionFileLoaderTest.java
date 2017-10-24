@@ -12,42 +12,58 @@ public class ElectionFileLoaderTest {
 
   public static void main(String[] args) throws IOException {
 
-
-    String filename = "datafiles/unsorted/elections5.txt";
+    // "datafiles/unsorted/elections5.txt"
+    String filename = "datafiles/elections2.txt";
     Path p = Paths.get(filename);
     List<String> allLines = Files.readAllLines(p);
     ArrayList<Election> list = new ArrayList<Election>();
     Election placeHolder;
-    ArrayList<String> tacticalList = new ArrayList<String>();
-    
-    System.out.println(allLines.size());
+    ArrayList<String> listString = new ArrayList<String>();
 
-    
-    String[] tactical = (allLines.get(0).split("\\*"));
-    for (int i = 0, k = 0; i < allLines.size(); i += Integer.parseInt(tactical[10]) + 1 , k++) { 
-      System.out.println(i);
-      tactical = (allLines.get(k).split("\\*"));
-      
-      for (String s: tactical) {
-        System.out.println(s);
-      }
-      
-      for (int j = 0; j < tactical.length; j++) {
-        tacticalList.add(tactical[j]);
-        // System.out.print(tactical[i]);
+    int i = 0;
+    int m = 1;
+    int n = 0;
+    int x = 0;
 
+    // Info line: 0, 6, 12
+
+    while (i < allLines.size()) {
+
+      String[] split = (allLines.get(i).split("\\*"));
+
+      for (int j = 0; j < split.length; j++) {
+        listString.add(split[j]);
+      }
+      listString.add("\n");
+
+      n += Integer.parseInt(split[10]);
+
+      for (int k = m; k <= n + x; k++) {
+        listString.add(allLines.get(k) + "\n");
+        // System.out.println("( " + k + " ) ");
       }
 
-      for (int j = 1; j - 1 < Integer.parseInt(tactical[10]); j++) {
-        tacticalList.add(allLines.get(j));
-        // System.out.println(allLines.get(i));
-      }
-     // System.out.println(Integer.parseInt(tactical[10]));
+      x++;
+      i += Integer.parseInt(split[10]) + 1;
+      System.out.println("(- " + i + " -) ");
+      System.out.println("= " + Integer.parseInt(split[10]) + " = ");
+      m += Integer.parseInt(split[10]) + 1;
+      System.out.println("( " + m + " ) ");
     }
 
-    System.out.println(tacticalList);
+    System.out.println(listString);
+    System.out.println();
+    System.out.println("====================");
+
+    for (int z = 0; z < listString.size(); z++) {
+      System.out.println(listString.get(z));
+    }
+    System.out.println(listString.size());
 
 
+    // for (String s : split) {
+    // System.out.println(s);
+    // }
 
     // Variables
     String nameOfFile = null;
@@ -64,10 +80,11 @@ public class ElectionFileLoaderTest {
 
     // Variable Team mate 3
     testsetExistingTallyFromSequentialFile(nameOfFile, expectedResult);
+  }
 
 
 
-  }// Main
+  // Main
 
   public static void testGetVoterListFromSequentialFile(String fileNameTest,
       boolean expectedValid) {

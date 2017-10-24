@@ -1,19 +1,11 @@
 package election.data;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-<<<<<<< HEAD
-import election.business.DawsonElectionFactory;
-=======
->>>>>>> 99d1898c79f517015665df97fe07a26e534ae286
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
 
@@ -40,7 +32,40 @@ public class ElectionFileLoader {
 
   public static Voter[] GetVoterListFromSequentialFile(String filename) throws IOException {
 
-    return null;
+    Path p = Paths.get(filename);
+    List<String> allLines = Files.readAllLines(p);
+    ArrayList<Election> list = new ArrayList<Election>();
+    Election placeHolder;
+    ArrayList<String> listString = new ArrayList<String>();
+
+    int i = 0;
+    int m = 1;
+    int n = 0;
+    int x = 0;
+
+    // Info line: 0, 6, 12
+
+    while (i < allLines.size()) {
+
+      String[] split = (allLines.get(i).split("\\*"));
+
+      for (int j = 0; j < split.length; j++) {
+        listString.add(split[j]);
+      }
+      listString.add("\n");
+
+      n += Integer.parseInt(split[10]);
+
+      for (int k = m; k <= n + x; k++) {
+        listString.add(allLines.get(k) + "\n");
+        // System.out.println("( " + k + " ) ");
+      }
+      x++;
+      i += Integer.parseInt(split[10]) + 1;
+      m += Integer.parseInt(split[10]) + 1;
+    }
+
+
 
   }
 
@@ -53,107 +78,6 @@ public class ElectionFileLoader {
    *         This method iterate through the text file and extract the different elections and will
    *         put it into a an array of Elections
    */
-
-//  public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
-//
-//    Path p = Paths.get(filename);
-//    List<String> temp = Files.readAllLines(p);
-//    List<String> electionList = new ArrayList<String>();
-//
-//    BufferedReader reader = new BufferedReader(new FileReader(filename));
-//    int lines = 0;
-//    while (reader.readLine() != null)
-//      lines++;
-//    reader.close();
-//
-//    int i = 0;
-//
-//    while (i < lines) {
-//      electionList.add(temp.get(i).split("\\*"));
-//    }
-//
-//  }
-  
-<<<<<<< HEAD
-//public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
-//try {
-//  Path p = Paths.get(filename);
-//  List<String> temp = Files.readAllLines(p);
-//  List<Election> electionList = new ArrayList<Election>();
-//
-//  for (int i = 0; i <temp.size(); i++) {
-//      Optional<Election> electionTemp1= parseFields(temp.get(i).split("\\*"));
-//      Optional<Election> electionTemp2 = parseFields(temp.get(i).split("\\r?\\n"));
-//      if (electionTemp1.isPresent()) {
-//          electionList(i) = electionTemp1[i].
-//      }
-//      if (electionTemp2.isPresent()) {
-//          electionList(i) = electionTemp2[i].
-//      }
-//  }
-//  Election[] finalList = new Election[electionList.length();
-//  return finalList = electionList.toAray(finalList);
-//}
-//catch (NoSuchFileException e) {
-//  System.err.println("File not found: " +  e.getMessage());
-//  return new Election[];
-//}
-
-
-
-
-  public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
-
-
-    Path p = Paths.get(filename);
-    List<String> allLines = Files.readAllLines(p);
-    ArrayList<Election> list = new ArrayList<Election>();
-    String[] tactical = (allLines.get(0).split("\\*"));
-    
-    ArrayList<String> tacticalList = new ArrayList<String>();
-    
-    for (int i = 0; i < tactical.length; i++) {
-      tacticalList.add(tactical[i]);
-      //System.out.print(tactical[i]);
-
-    }
-
-    for (int i = 1; i - 1 < Integer.parseInt(tactical[10]); i++) {
-      tacticalList.add(allLines.get(i));
-      //System.out.println(allLines.get(i));
-    }
-    
-  }
-
-=======
-public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
-try {
-  Path p = Paths.get(filename);
-  List<String> temp = Files.readAllLines(p);
-  List<Election> electionList = new ArrayList<Election>();
-
-  for (int i = 0; i <temp.size(); i++) {
-      Optional<Election> electionTemp1= parseFields(temp.get(i).split("\\*"));
-      Optional<Election> electionTemp2 = parseFields(temp.get(i).split("\\r?\\n"));
-      if (electionTemp1.isPresent()) {
-          electionList(i) = electionTemp1[i].
-      }
-      if (electionTemp2.isPresent()) {
-          electionList(i) = electionTemp2[i].
-      }
-  }
-  Election[] finalList = new Election[electionList.length();
-  return finalList = electionList.toAray(finalList);
-}
-catch (NoSuchFileException e) {
-  System.err.println("File not found: " +  e.getMessage());
-  return new Election[];
-}
-
-
-}
->>>>>>> 99d1898c79f517015665df97fe07a26e534ae286
-
 
 
 
