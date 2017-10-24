@@ -232,6 +232,7 @@ public class ListUtilitiesTest {
     sortTest(emailSortTestNull, predictException, expectInvalid);
 
 
+
   }// end main
 
   // TEST METHODS
@@ -298,6 +299,7 @@ public class ListUtilitiesTest {
 
   }
 
+  @SuppressWarnings({"rawtypes", "unchecked"})
   private static void mergeTest(Comparable[] list1, Comparable[] list2, Comparable[] expectedList,
       String duplicateFileNameTest, boolean expectedValid, Class expectedException) {
     final String FAIL = "\n\t\t\t\t\t\t\t\t\t\t\t\t\tTEST FAILED";
@@ -365,6 +367,7 @@ public class ListUtilitiesTest {
             return;
           }
         }
+
 
         System.out.println(PASS);
 

@@ -132,18 +132,17 @@ public class ListUtilities {
    *
    * @throws NullPointerException if the list or sortOrder \* are null.
    */
+
   @SuppressWarnings({"rawtypes", "unchecked"})
   public static void sort(Comparable[] list, Comparator sortOrder)
       throws IllegalArgumentException, NullPointerException {
     if (list == null) {
       throw new NullPointerException("Cannot sort null array");
-
-
     }
     Arrays.sort(list, sortOrder);
   }
 
-  /*
+  /**
    * Efficiently merges two sorted lists of objects in ascending natural order. If the duplicate
    * objects are in both lists, the object from list1 is merged into the resulting list, and both
    * objects are written to the duplicate file.
@@ -153,13 +152,13 @@ public class ListUtilities {
    *
    *
    * @param list1 A naturally sorted list of objects. Assumes that the list contains no duplicates
-   * and that its capacity is equal to its size.
+   *        and that its capacity is equal to its size.
    * 
    * @param list2 A naturally sorted list of objects. Assumes that the list contains no duplicates
-   * and that its capacity is equal to its size.
+   *        and that its capacity is equal to its size.
    * 
    * @param duplicateFileName The name of the file in datafilesduplicates to which duplicate pairs
-   * will be appended.
+   *        will be appended.
    *
    * @throws IllegalArgumentException if either parameter is not full to capacity.
    *
@@ -200,6 +199,7 @@ public class ListUtilities {
       } else if (iterat2 == list2.length) {
         list3.addAll(Arrays.asList(list1).subList(iterat1, list1.length));
         iterat1 = list1.length + 1;
+
       }
 
     }
@@ -212,8 +212,6 @@ public class ListUtilities {
      */
     Comparable[] resultList = list3.toArray(
         (Comparable[]) Array.newInstance(list1.getClass().getComponentType(), list3.size()));
-
-
     return resultList;
   }
 
