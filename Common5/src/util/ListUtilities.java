@@ -172,91 +172,38 @@ public class ListUtilities {
     // To use resizeable feature of ArrayList (the .trimToSize() used at the end)
     List<Comparable> list3 = new ArrayList<Comparable>(list1.length + list2.length);
 
-    System.out.println(
-        "Starting Loop with list1 (" + list1.length + ") and list2 (" + list2.length + ")");
-    System.out.println(
-        "================================================================================");
-
     for (int iterat1 = 0, iterat2 = 0, i =
         0; !((iterat1 >= list1.length) && (iterat2 >= list2.length)); i++) {
 
-      System.out.println("\n\n\nAt itaration : " + i);
-
-      System.out.println("iterator1 = " + iterat1);
-      System.out.println("iterator2 = " + iterat2 + "\n");
-
       int comparison = list1[iterat1].compareTo(list2[iterat2]);
 
-      System.out.println("Result of comparison : " + comparison);
-
       if (comparison > 0) { // If list1 > list2
-        System.out.println("\tlist1 at [" + iterat1 + "] ( " + list1[iterat1]
-            + ") is greater than list2 at [" + iterat2 + "] (" + list2[iterat2] + ")");
-
-
-        System.out
-            .println("\tWill add list2 at [" + iterat2 + "] (" + list2[iterat2] + ") into list3");
 
         list3.add(list2[iterat2++]);
 
-        System.out.println(
-            "\tNow, iterat2 = " + iterat2 + " And, iterat1 has not changed (" + iterat1 + ")");
-
       } else {
-        System.out.print("\tlist1 at [" + iterat1 + "] ( " + list1[iterat1]
-            + ") is smaller or equal to list2 at [" + iterat2 + "] (" + list2[iterat2] + ")");
         if (comparison == 0) { // If list1 == list2
-          System.out.print(". It is equal!");
           String[] duplicate = {list1[iterat1].toString() + " (merged)", list2[iterat2].toString()};
 
           saveListToTextFile(duplicate, duplicateFileName, true, CHARACTER_ENCODING);
 
           iterat2++; // If we find a duplicate, no need to check list2 in next iteration
-          System.out.println(
-              "\t\tNow, iterat2 = " + iterat2 + " And, iterat1 has not changed (" + iterat1 + ")");
         }
-        System.out.println();
-
-
-        System.out
-            .println("\tWill add list1 at [" + iterat1 + "] (" + list1[iterat1] + ") into list3");
 
         // If list1 >= list2, then we add list1 to list3
         list3.add(list1[iterat1++]);
 
-
-        System.out.println(
-            "\tNow, iterat1 = " + iterat1 + " And, iterat2 has not changed (" + iterat2 + ")");
-
       }
 
       if (iterat1 == list1.length) {
-        System.out.println("\tReached end of list1 (" + list1.length + "), iterat1 = " + iterat1);
-        System.out.println("\tGoing to copy list2 into list3 from [" + iterat2 + "]");
         list3.addAll(Arrays.asList(list2).subList(iterat2, list2.length));
         iterat2 = list2.length + 1;
-        System.out.println(
-            "\tNow, iterat2 = " + iterat2 + " And, iterat1 has not changed (" + iterat1 + ")");
       } else if (iterat2 == list2.length) {
-        System.out.println("\tReached end of list2 (" + list2.length + "), iterat2 = " + iterat2);
-        System.out.println("\tGoing to copy list1 into list3 from [" + iterat1 + "]");
         list3.addAll(Arrays.asList(list1).subList(iterat1, list1.length));
         iterat1 = list1.length + 1;
-        System.out.println(
-            "\tNow, iterat1 = " + iterat1 + " And, iterat2 has not changed (" + iterat2 + ")");
       }
 
     }
-
-    System.out.println();
-    System.out.println();
-    System.out.println();
-    System.out.println();
-    System.out.println(list3);
-    System.out.println();
-    System.out.println();
-    System.out.println();
-    System.out.println();
 
     ((ArrayList) list3).trimToSize();
 
