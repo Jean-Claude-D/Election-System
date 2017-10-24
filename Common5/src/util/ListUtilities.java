@@ -107,14 +107,25 @@ public class ListUtilities {
 		  }
 	  }
 	  
-	  Arrays.sort(list);
-	  
-	  
+	  for (int i = 0; i < list.length; i++) {   
+		  int min = i;
+		  for (int j = i +1; j < list.length; j++) {
+		     if (list[j].compareTo(list[min]) < 0) {
+		        min = j;  
+		     }
+		  }
+		  Comparable temp = list[min];
+		  list[min] = list[i];
+		  list[i] = temp;
+
+	  }
   }
+}
+
   
 
   // TODO merge method -----------------------------------------------------------------------------------------
 
   // TODO Comparator sort --------------------------------------------------------------------------------------
-}
+
 

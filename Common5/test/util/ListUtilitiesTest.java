@@ -47,15 +47,15 @@ public class ListUtilitiesTest {
 		PostalCode[] pcSortTestNotFull = { pc3, null, pc1, null };
 		PostalCode[] pcSortTestNull = { null, null, null, null, null };
 		
-		PostalCode[] postalCodePrediction = {pc2, pc3, pc1, pc4, pc5};
+		PostalCode[] postalCodePrediction = {pc2, pc3, pc1, pc5, pc4};
 
-		Email email1 = new Email("felicia.gorgatchov@gmail.com"); 
-		Email email2 = new Email("rick_C-137@ricksanchez.com"); 
-		Email email3 = new Email("mclovin81@memes.fr"); 
-		Email email4 = new Email("12zebulon34@");
-		Email email5 = new Email("78hola@mexico.mx"); 
-		Email email6 = new Email("42@whatislife.com"); 
-		Email email7 = new Email("zebulon@somehostID.ca"); 
+		Email email1 = new Email("felicia.gorgatchov@gmail.com"); //2
+		Email email2 = new Email("rick_C-137@ricksanchez.com"); //5
+		Email email3 = new Email("mclovin81@memes.fr"); //3
+		Email email4 = new Email("12zebulon34@bruh.uk");//1
+		Email email5 = new Email("78hola@mexico.mx"); //4
+		Email email6 = new Email("42@whatislife.com"); //7
+		Email email7 = new Email("zebulon@somehostID.ca"); // 6
 		
 		Email[] emailSortTestGood = { email1, email2, email3, email4, email5, email6, email7 };
 		Email[] emailSortTestGood2 = { email3, email5, email1, email7, email2, email6 };
@@ -64,7 +64,7 @@ public class ListUtilitiesTest {
 		Email[] emailSortTestNotFull = { email1, email5, email4, email7, email2, null, email3 };
 		Email[] emailSortTestNull = { null, null, null, null, null };
 		
-		Email[] emailPrediction = { email4, email6, email5, email1, email3, email2, email7 };
+		Email[] emailPrediction = { email4, email1, email3, email5, email2, email7, email6 };
 
 		System.out.println(
 				"\n-------NAME------------------------------------------------------------------------------------------------------------------");
@@ -82,10 +82,10 @@ public class ListUtilitiesTest {
 
 		System.out.println(
 				"\n-------EMAIL------------------------------------------------------------------------------------------------------------------");
-		sortTest(emailSortTestGood, postalCodePrediction, expectValid);
-		sortTest(emailSortTestGood2, postalCodePrediction, expectValid);
-		sortTest(emailSortTestGood3, postalCodePrediction, expectValid);
-		sortTest(emailSortTestGood4, postalCodePrediction, expectValid);
+		sortTest(emailSortTestGood, emailPrediction, expectValid);
+		sortTest(emailSortTestGood2, emailPrediction, expectValid);
+		sortTest(emailSortTestGood3, emailPrediction, expectValid);
+		sortTest(emailSortTestGood4, emailPrediction, expectValid);
 		sortTest(emailSortTestNotFull, predictException, expectInvalid);
 		sortTest(emailSortTestNull, predictException, expectInvalid);
 
@@ -118,23 +118,21 @@ public class ListUtilitiesTest {
 			
 		}catch(IllegalArgumentException iae) {
 			if (expectedResult == true) {
-		        System.out.println("\n\tPassing: " + Arrays.toString(list));
-		        System.out.println("\tResult: " + iae);
+		        System.out.println("\n\tResult: " + iae);
 		        System.out.println("\n\t ==== TEST FAILED exception thrown when data is valid ==== ");
 		      } else {
-		        System.out.println("\n\tPassing: " + Arrays.toString(list));
-		        System.out.println("\tResult: " + iae);
+		        System.out.println("\n\tResult: " + iae);
 		        System.out.println("\n\t ==== PASSED TEST exception caught successfully ==== ");
 		      }
 			
 		}catch(NullPointerException npe) {
 			if (expectedResult == true) {
 		        System.out.println("\n\tPassing: " + Arrays.toString(list));
-		        System.out.println("\tResult: " + npe);
+		        System.out.println("\n\tResult: " + npe);
 		        System.out.println("\n\t ==== TEST FAILED exception thrown when data is valid ==== ");
 		      } else {
 		        System.out.println("\n\tPassing: " + Arrays.toString(list));
-		        System.out.println("\tResult: " + npe);
+		        System.out.println("\n\tResult: " + npe);
 		        System.out.println("\n\t ==== PASSED TEST exception caught successfully ==== ");
 		      }
 		}
