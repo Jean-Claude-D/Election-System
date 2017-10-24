@@ -103,6 +103,7 @@ public class ListUtilities {
         throw new IllegalArgumentException("Cannot sort. Array not full to capacity.");
       }
     }
+
     for (int i = 0; i < list.length; i++) {
       int min = i;
       for (int j = i + 1; j < list.length; j++) {
@@ -117,6 +118,20 @@ public class ListUtilities {
     }
   }
 
+  /**
+   * Sorts a list of objects in the given order.
+   *
+   * Precondition: Assumes that the list is not null and that the list's capacity is equal to the
+   * list's size.
+   *
+   *
+   * @param list A list of objects. Assumes that the list's capacity is equal to the list's size.
+   * @param sortOrder A Comparator object that defines the sort order
+   *
+   * @throws IllegalArgumentException if the parameter is \* not full to capacity.
+   *
+   * @throws NullPointerException if the list or sortOrder \* are null.
+   */
   @SuppressWarnings({"rawtypes", "unchecked"})
   public static void sort(Comparable[] list, Comparator sortOrder)
       throws IllegalArgumentException, NullPointerException {
@@ -127,7 +142,6 @@ public class ListUtilities {
     }
     Arrays.sort(list, sortOrder);
   }
-
 
   /*
    * Efficiently merges two sorted lists of objects in ascending natural order. If the duplicate
