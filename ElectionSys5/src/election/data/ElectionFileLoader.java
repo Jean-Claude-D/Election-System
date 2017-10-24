@@ -99,48 +99,44 @@ public class ElectionFileLoader {
       throws IOException {
     {
 
-      Path p = Paths.get(filename);
+      Path path = Paths.get(filename);
 
-      List<String> electionList = Files.readAllLines(p);
+      List<String> allLines = Files.readAllLines(path);
 
-      int linePositionElectionList = 0;
+      int numChoice;
 
-      for (int i = 0; i < elections.length; i++) {
+      String[] line;
 
+      int[][] result;
 
-        while (linePositionElectionList < electionList.size()) {
+      String[] choice;
+      int ranking;
 
-          String[] arrayOfLineInTxtFile = electionList.get(i).split("\\*");
+      for (int i = 0; i < elections.length; i++) { // Going through every Election object
+        for (int linePositionElectionList = 0; linePositionElectionList < allLines
+            .size(); linePositionElectionList += (numChoice + 1)) { // Going through every line with
+                                                                    // election names
 
-          for (int w = 0; w < arrayOfLineInTxtFile.length; w++) {
+          line = allLines.get(linePositionElectionList).split("\\*"); // [nameOfElection][choices]
 
-            String choice = arrayOfLineInTxtFile[1];
-            int choiceInt = Integer.parseInt(choice);
+          numChoice = Integer.parseInt(line[1]); // number of choices for this election
 
+          if (line[0].equals(elections[i].getName())) { //
 
-            if (arrayOfLineInTxtFile[w].equals(elections[i].getName())) {
+            result = new int[numChoice][numChoice];
 
+            for (int b = 0; b < numChoice; b++) {
 
-              int[][] result = new int[choiceInt][choiceInt];
+              choice = allLines.get(b + 1).split("\\*");
 
-              for (int b = 0; b < choiceInt; b++) {
-
-                String[] tally = electionList.get(linePositionElectionList + 1).split("\\*");
-
-                for (int a = 0; a < tally.length; a++) {
-
-
-                  int Tally = Integer.parseInt(tally[a]);
-                  result[b][a] = Tally;
-
-                }
+              for (int a = 0; a < choice.length; a++) {
+                ranking = Integer.parseInt(choice[a]);
+                result[b][a] = ranking;
 
               }
 
-              DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
-              linePositionElectionList = choiceInt + linePositionElectionList;
             }
-
+            DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
           }
 
         }
