@@ -54,10 +54,10 @@ public class SortMergeApp {
 		for(int i = 0; i < listOfFiles.length; i++) {
 			//check if file name contains "voters"
 			if(listOfFiles[i].matches("voters.\\.txt")) {
-				path = path + "/voters" + i + ".txt";
-				File voterFile = new File(path);
+				String newPath = path + "/voters" + i + ".txt";
+				File voterFile = new File(newPath);
 				if (voterFile.exists()) {
-					Path p = Paths.get(path);
+					Path p = Paths.get(newPath);
 					unsortedArray = Files.readAllLines(p);
 					String[] sortedArray = unsortedArray.toArray(new String[unsortedArray.size()]);
 					ListUtilities.sort(sortedArray);
@@ -65,10 +65,10 @@ public class SortMergeApp {
 				}
 			}
 			else if(listOfFiles[i].matches("elections.\\.txt")) {
-				path = path + "/elections" + i + ".txt";
-				File electionFile = new File(path);
+				String newPath = path + "/elections" + i + ".txt";
+				File electionFile = new File(newPath);
 				if (electionFile.exists()) {
-					Path p = Paths.get(path);
+					Path p = Paths.get(newPath);
 					unsortedArray = Files.readAllLines(p);
 					String[] sortedArray = unsortedArray.toArray(new String[unsortedArray.size()]);
 					ListUtilities.sort(sortedArray);
