@@ -88,6 +88,7 @@ public class ListUtilities {
    * sorts a List of objects in ascending natural order using selection sort precondition: assumes
    * that the List is not null and that the List's capacity is equal to the List's size
    * 
+   * @author Felicia Gorgatchov
    * @param list a list of objects. assumes that the list's capacity is equal to the list's size
    * @throws IllegalArgumentException if the parameter is not full to capacity
    * @throws NullPointerException if the list is null
@@ -125,6 +126,7 @@ public class ListUtilities {
    * Precondition: Assumes that the list is not null and that the list's capacity is equal to the
    * list's size.
    *
+   *@author Cao Hoang Nguyen
    *
    * @param list A list of objects. Assumes that the list's capacity is equal to the list's size.
    * @param sortOrder A Comparator object that defines the sort order
@@ -151,6 +153,7 @@ public class ListUtilities {
    * Precondition: Assumes that the lists are not null and that both lists contain objects that can
    * be compared to each other and are filled to capacity.
    *
+   *@author Jean-Claude Desrosiers
    *
    * @param list1 A naturally sorted list of objects. Assumes that the list contains no duplicates
    *        and that its capacity is equal to its size.
