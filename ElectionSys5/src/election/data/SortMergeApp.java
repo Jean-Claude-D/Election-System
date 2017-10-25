@@ -8,12 +8,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
 import util.ListUtilities;
 
 public class SortMergeApp {
 	
 	public static void main (String [] args) {
+		
+		System.out.println("Fetching voter and election files from ElectionSys\\ElectionSys5\\datafiles\\unsorted");
+		
+		System.out.println("\n\t1. Create a new directory called sorted in the datafiles directory");
+		
+		new File("ElectionSys\\ElectionSys5\\datafiles\\sorted").mkdir();
+		
+		System.out.println("\n\t2. Sort all the files, place the result in new files, and place those result files in the new sorted directory");
+		
+		
 		
 	}
 	
@@ -44,7 +53,7 @@ public class SortMergeApp {
 		
 		for(int i = 0; i < listOfFiles.length; i++) {
 			//check if file name contains "voters"
-			if(listOfFiles[i].matches("voters")) {
+			if(listOfFiles[i].matches("voters.\\.txt")) {
 				path = path + "/voters" + i + ".txt";
 				File voterFile = new File(path);
 				if (voterFile.exists()) {
@@ -55,7 +64,7 @@ public class SortMergeApp {
 					ListUtilities.saveListToTextFile(sortedArray, "sortedVoters" + i + ".txt");
 				}
 			}
-			else if(listOfFiles[i].matches("elections")) {
+			else if(listOfFiles[i].matches("elections.\\.txt")) {
 				path = path + "/elections" + i + ".txt";
 				File electionFile = new File(path);
 				if (electionFile.exists()) {
