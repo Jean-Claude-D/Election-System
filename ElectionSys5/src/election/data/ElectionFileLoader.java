@@ -1,12 +1,15 @@
 package election.data;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
@@ -31,12 +34,40 @@ public class ElectionFileLoader {
    *         Voter Object with that following information.
    */
 
-
   public static Voter[] GetVoterListFromSequentialFile(String filename) throws IOException {
-    return null;
+    if (filename == null || filename.isEmpty()) {
+      throw new InvalidPathException("", "Path is null or empty");
+    }
+
+    Path pathToVoterFile = Paths.get(filename);
+
+    List<String> fileVoters = Files.readAllLines(pathToVoterFile, StandardCharsets.UTF_8);
+
+    List<Voter> voters = new ArrayList<Voter>();
+
+    Optional<Voter> voter;
+
+    for (int i = 0; i < fileVoters.size(); i++) {
+      String[] tempVoter = fileVoters.get(i).split("\\*");
+
+      try {
+        // No need to use ofNullable, since exception would've been thrown
+        voter = Optional.of(DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance(tempVoter[1],
+            tempVoter[2], tempVoter[0], tempVoter[3]));
+
+        // No need to verify Voter is present, since exception would've been thrown
+        voters.add(voter.get());
+      }
+      // Voter not created because either firstname/lastname/email/pcode was invalid
+      catch (IllegalArgumentException e) {
+        System.err.println("Could not create [" + tempVoter[1] + ',' + tempVoter[2] + "] on line #"
+            + (i + 1) + " because of : " + e.getMessage());
+      }
+    }
+    ((ArrayList<Voter>) voters).trimToSize();
+
+    return voters.toArray(new Voter[voters.size()]);
   }
-
-
 
   /**
    * 
@@ -103,8 +134,6 @@ public class ElectionFileLoader {
     }
   }
 
-
-
   /**
    * 
    * @param filename
@@ -121,9 +150,49 @@ public class ElectionFileLoader {
       throws IOException {
     {
 
+      Path path = Paths.get(filename);
+
+      List<String> allLines = Files.readAllLines(path);
+
+      int numChoice;
+
+      String[] line;
+
+      int[][] result;
+
+      String[] choice;
+      int ranking;
+
+      for (int i = 0; i < elections.length; i++) { // Going through every Election object
+        for (int linePositionElectionList = 0; linePositionElectionList < allLines
+            .size(); linePositionElectionList += (numChoice + 1)) { // Going through every line with
+                                                                    // election names
+
+          line = allLines.get(linePositionElectionList).split("\\*"); // [nameOfElection][choices]
+          numChoice = Integer.parseInt(line[1]); // number of choices for this election
+
+          if (line[0].equals(elections[i].getName())) { //
+
+            result = new int[numChoice][numChoice];
+
+            for (int b = 0; b < numChoice; b++) {
+
+              choice = allLines.get(b + 1).split("\\*");
+
+              for (int a = 0; a < choice.length; a++) {
+                ranking = Integer.parseInt(choice[a]);
+                result[b][a] = ranking;
+
+              }
+
+            }
+            DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
+          }
+
+        }
+      }
     }
-
-
-
   }
 }
+
+

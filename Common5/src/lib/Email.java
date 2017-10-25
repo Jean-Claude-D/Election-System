@@ -220,6 +220,10 @@ public class Email implements Serializable, Comparable<Email> {
 
     }
 
+    if (hostid.isEmpty()) {
+      throw new IllegalArgumentException("HostId cannot be empty.");
+    }
+
     if (hostid.charAt(0) == '-' || hostid.charAt((hostid.length()) - 1) == '-') {
 
       throw new IllegalArgumentException("HostId Cannot start or end with a dash");
