@@ -232,8 +232,21 @@ public class ListUtilitiesTest {
 
   }// end main ----------------------------------------------------------------------------------------------
 
-  // TEST METHODS -------------------------------------------------------------------------------------------
-  
+  // TEST METHODS
+  // -------------------------------------------------------------------------------------------------
+  // part 4
+  /**
+   * test the sort method from ListUtilities
+   * returns the name of the class, tries to sort an array by comparing with a prediction array, test passed if true, false if otherwise
+   * if valid data passed but didn't work, test fail
+   * if error throw appropriately, test passed
+   * 
+   * @author Felicia Gorgatchov
+   * 
+   * @param list (array): array you want to sort
+   * @param prediction (array): expectation of the sort result on the passed array
+   * @param expectedResult: true for valid data on which sort should work, false on wrong data which should throw exceptions
+   */
   @SuppressWarnings({"rawtypes", "unchecked"})
   private static void sortTest(Comparable[] list, Comparable[] prediction, boolean expectedResult) {
     String uglyClassName = list.getClass().getName();
@@ -280,6 +293,16 @@ public class ListUtilitiesTest {
   }
 
   // comparator, part 5
+  /**
+   * 
+   * 
+   * @author Cao Hoang Nguyen
+   * 
+   * @param list (array): list you want to sort
+   * @param sortOrder: ordering that should replace natural order
+   * @param expectList (array): expected result of what the list should look like after sorting with this method
+   * @param expectedResult: true for data on which sort should work, false on data that should throw an exception
+   */
   @SuppressWarnings({"rawtypes", "unchecked"})
   private static void sortTest(Comparable[] list, Comparator sortOrder, Comparable[] expectList,
       boolean expectedResult) {
@@ -294,7 +317,19 @@ public class ListUtilitiesTest {
     System.out.println("TEST PASSED");
 
   }
+  
 
+  /**
+   * 
+   * @author Jean-Claude Desrosiers
+   * 
+   * @param list1: first array
+   * @param list2: second array
+   * @param expectedList (array): prediction of what the result will be after merging the first two arrays
+   * @param duplicateFileNameTest: 
+   * @param expectedValid: true if data passed should work with the method, false if you expect an error
+   * @param expectedException: what error is expected to be thrown
+   */
   @SuppressWarnings({"rawtypes", "unchecked"})
   private static void mergeTest(Comparable[] list1, Comparable[] list2, Comparable[] expectedList,
       String duplicateFileNameTest, boolean expectedValid, Class expectedException) {

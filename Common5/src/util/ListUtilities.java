@@ -21,6 +21,9 @@ public class ListUtilities {
   private static final Charset CHARACTER_ENCODING = StandardCharsets.UTF_8;
 
   // TODO constructor here
+  /**
+   * @author Felicia Gorgatchov
+   */
   private ListUtilities() {
 
   }
@@ -89,6 +92,7 @@ public class ListUtilities {
    * that the List is not null and that the List's capacity is equal to the List's size
    * 
    * @author Felicia Gorgatchov
+   * 
    * @param list a list of objects. assumes that the list's capacity is equal to the list's size
    * @throws IllegalArgumentException if the parameter is not full to capacity
    * @throws NullPointerException if the list is null
