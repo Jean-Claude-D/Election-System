@@ -1,16 +1,20 @@
 package election.data;
 
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
+import java.nio.file.NoSuchFileException;
 import election.business.DawsonElection;
+import election.business.DawsonElectionFactory;
 import election.business.DawsonTally;
 import election.business.interfaces.Election;
+import election.business.interfaces.Voter;
 
 public class ElectionFileLoaderTest {
 
   public static void main(String[] args) throws IOException {
-      
-      
-      String nameOfFile3 = "datafiles/tally.txt";
+
+
+    String nameOfFile3 = "datafiles/tally.txt";
     String nameofFile4 = "datafiles/elections25";
     String nameofFile5 = "";
     String nameofFile6 = "abejck";
@@ -83,7 +87,7 @@ public class ElectionFileLoaderTest {
     testsetExistingTallyFromSequentialFile(nameofFile4, expectedResult4, allElectionCreated);
     testsetExistingTallyFromSequentialFile(nameofFile5, expectedResult5, allElectionCreated);
     testsetExistingTallyFromSequentialFile(nameofFile6, expectedResult6, allElectionCreated);
-      
+
     /*
      * Test GetVoterListFromSequentialFile with voters1.txt :
      * 
@@ -229,7 +233,7 @@ public class ElectionFileLoaderTest {
 
     testGetVoterListFromSequentialFile("datafiles/voters34.txt", null, false,
         NoSuchFileException.class);
-      
+
     DawsonTally tally = new DawsonTally(1, "null");
 
     DawsonElection test1 = new DawsonElection("Federal Canadian Election 2017-18", "ranked", 2017,
