@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import election.business.interfaces.Election;
+import election.business.interfaces.Voter;
 import util.ListUtilities;
 
 public class SortMergeApp {
@@ -103,36 +104,49 @@ public class SortMergeApp {
    * datafiles\database\duplicatevoters.txt
    */
   public static void mergeAll() throws IOException {
-
-    String path = "/ElectionSys/ElectionSys5/datafiles/sorted";
-    List<String> superSaiyanArray = new ArrayList<>();
+    String path = "datafiles/sorted";
+    List<Election[]> superSaiyanArrayOfElection = new ArrayList<Election[]>();
+    Election[] resultElection = new Election[1];
+    List<Voter[]> superSaiyanArrayOfVoter = new ArrayList<Voter[]>();
+    Voter[] resultVoter = new Voter[1];
 
     File files = new File(path);
     String[] listOfFiles = files.list();
 
     for (int i = 0; i < listOfFiles.length; i++) {
-      if (listOfFiles[i].matches("voters")) {
-        path = path + "/voters" + i + ".txt";
+      if (listOfFiles[i].matches("voters.\\.txt")) {
+        String path2 = path + "/voters" + i + ".txt";
         File voterFile = new File(path);
         if (voterFile.exists()) {
           Path p = Paths.get(path);
-          superSaiyanArray = Files.readAllLines(p);
-          String[] sortedArray = superSaiyanArray.toArray(new String[superSaiyanArray.size()]);
-
+          superSaiyanArrayOfVoter.add(ElectionFileLoader.GetVoterListFromSequentialFile(path2));
         }
-      } else if (listOfFiles[i].matches("elections")) {
-        path = path + "/elections" + i + ".txt";
+      } else if (listOfFiles[i].matches("elections.\\.txt")) {
+        String path2 = path + "/elections" + i + ".txt";
         File electionFile = new File(path);
         if (electionFile.exists()) {
           Path p = Paths.get(path);
-          superSaiyanArray = Files.readAllLines(p);
-          String[] sortedArray = superSaiyanArray.toArray(new String[superSaiyanArray.size()]);
-          ListUtilities.sort(sortedArray);
-          ListUtilities.saveListToTextFile(sortedArray, "sortedElections" + i + ".txt");
+          superSaiyanArrayOfElection
+              .add(ElectionFileLoader.getElectionListFromSequentialFile(path2));
         }
-
       }
     }
+
+    for (int i = 0; i < superSaiyanArrayOfElection.size(); i++) {
+      ListUtilities.merge(resultElection, superSaiyanArrayOfElection.get(i),
+          "datafiles/duplicates/duplicate.txt");
+    }
+
+    for (int i = 0; i < superSaiyanArrayOfVoter.size(); i++) {
+      ListUtilities.merge(resultVoter, superSaiyanArrayOfVoter.get(i),
+          "datafiles/duplicates/duplicate.txt");
+    }
+
+    ListUtilities.saveListToTextFile(resultElection, "datafiles/database/elections.txt", false);
+
+    ListUtilities.saveListToTextFile(resultVoter, "datafiles/database/elections.txt", false);
+
+
   }// end merge all method
 
 
