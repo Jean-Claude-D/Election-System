@@ -91,6 +91,7 @@ public class SortMergeApp {
 					
 				}
 			}
+			
 			else if(listOfFiles[i].matches("elections")) {
 				path = path + "/elections" + i + ".txt";
 				File electionFile = new File(path);
@@ -104,6 +105,10 @@ public class SortMergeApp {
 				
 			} 
 		}
-	}
-}
+	}//end merge all method
+	
+	
+	//Tally method
+	
+}//end class
 
