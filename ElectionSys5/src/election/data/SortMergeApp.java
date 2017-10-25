@@ -16,7 +16,7 @@ public class SortMergeApp {
 
 	
 	
-	/*
+	/**
 	 * This method creates a File object that contains all the files from the unsorted directory and stores their name in a String array
 	 * In a for loop that goes through all the names in the array: 
 	 * 		check if the name contains "voters" 
@@ -26,7 +26,12 @@ public class SortMergeApp {
 	 * 
 	 * 		if it doesn't contain "voters", see if it contains "elections"
 	 * 		repeat the same steps
+	 * 
+	 * @author Felicia Gorgatchov
+	 * @throws IOException
+	 * 
 	 */
+
 	public static void sortAndStore() throws IOException{
 		
 		String path = "/ElectionSys/ElectionSys5/datafiles/unsorted";
@@ -36,7 +41,7 @@ public class SortMergeApp {
 		String[] listOfFiles = files.list();
 		
 		for(int i = 0; i < listOfFiles.length; i++) {
-			//checkif file name contains "voters"
+			//check if file name contains "voters"
 			if(listOfFiles[i].matches("voters")) {
 				path = path + "/voters" + i + ".txt";
 				File voterFile = new File(path);
@@ -73,14 +78,13 @@ public class SortMergeApp {
 	 */
 	public static void mergeAll() throws IOException{
 		
-		String path = "/ElectionSys/ElectionSys5/datafiles/unsorted";
+		String path = "/ElectionSys/ElectionSys5/datafiles/sorted";
 		List<String> superSaiyanArray = new ArrayList<>();
 
 		File files = new File(path);
 		String[] listOfFiles = files.list();
 		
 		for(int i = 0; i < listOfFiles.length; i++) {
-			//check if file name contains "voters"
 			if(listOfFiles[i].matches("voters")) {
 				path = path + "/voters" + i + ".txt";
 				File voterFile = new File(path);
@@ -91,7 +95,6 @@ public class SortMergeApp {
 					
 				}
 			}
-			
 			else if(listOfFiles[i].matches("elections")) {
 				path = path + "/elections" + i + ".txt";
 				File electionFile = new File(path);
