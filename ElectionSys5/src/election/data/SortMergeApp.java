@@ -13,7 +13,9 @@ import util.ListUtilities;
 
 public class SortMergeApp {
 	
-
+	public static void main (String [] args) {
+		
+	}
 	
 	
 	/**
