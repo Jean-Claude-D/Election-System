@@ -8,17 +8,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import election.business.interfaces.Election;
 import util.ListUtilities;
 
 public class SortMergeApp {
-
   /**
    * @author Felicia Gorgatchov
    */
   public static void main(String[] args) throws IOException {
 
-    System.out.println(
-        "Fetching voter and election files from datafiles\\unsorted");
+    System.out.println("Fetching voter and election files from datafiles\\unsorted");
 
     System.out.println("\n\t1. Create a new directory called sorted in the datafiles directory.");
 
@@ -28,19 +27,20 @@ public class SortMergeApp {
         "\n\t2. Sort all the files, place the result in new files, and place those result files in the new sorted directory.");
 
     sortAndStore();
-    
+
     System.out.println("\n\t3. Create a new directory called database in the datafiles directory.");
-    
+
     new File("datafiles\\database").mkdir();
-    
-    System.out.print("\n\t4. Merge all the sorted files together in one single file for each; one for all voters and one for all elections.");
+
+    System.out.print(
+        "\n\t4. Merge all the sorted files together in one single file for each; one for all voters and one for all elections.");
 
     mergeAll();
-    
-    System.out.println("\n\t4. Make sure that all the tallies associate with the appropriate Elections.");
-    
-    //associateTally();
-    
+
+    System.out
+        .println("\n\t4. Make sure that all the tallies associate with the appropriate Elections.");
+
+    // associateTally();
   }
 
 
@@ -59,7 +59,6 @@ public class SortMergeApp {
    */
 
   public static void sortAndStore() throws IOException {
-
     String path = "datafiles/unsorted";
     List<String> unsortedArray = new ArrayList<>();
 
@@ -138,6 +137,13 @@ public class SortMergeApp {
 
 
   // Tally method
+  public static void loadTally(String filePath) throws IOException {
 
+    String pathToElec = "datafiles/database/elections.txt";
+
+    Election[] check = ElectionFileLoader.getElectionListFromSequentialFile(pathToElec);
+
+    ElectionFileLoader.setExistingTallyFromSequentialFile(filePath, check);
+  }
 }// end class
 
