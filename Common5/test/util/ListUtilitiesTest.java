@@ -10,8 +10,7 @@ public class ListUtilitiesTest {
 
   public static void main(String[] args) {
 
-    // ----- Variables for Jean-Claude
-    // ---------------------------------------------------------------------------------
+    // ----- Variables for Jean-Claude -------------------------------------------------------------------------------
 
     Comparable[] c1 = new Integer[10];
     c1[0] = -936;
@@ -138,8 +137,7 @@ public class ListUtilitiesTest {
 
 
 
-    // ----- Variables for Cao Hoang //
-    // -----------------------------------------------------------------------------------
+    // ----- Variables for Cao Hoang -------------------------------------------------------------------------------
 
     Name person1 = new Name("Jean-Claude", "French");
     Name person2 = new Name("Cao Hoang", "Vietnam");
@@ -156,8 +154,7 @@ public class ListUtilitiesTest {
     System.out.print("Testing sort with comparator :  ");
     sortTest(listNameTest, new NameByFirstComparator(), listNameCheck, true);
 
-    // ----- Variables for Felicia //
-    // -------------------------------------------------------------------------------------
+    // ----- Variables for Felicia ----------------------------------------------------------------------------------
 
     boolean expectInvalid = false;
     boolean expectValid = true;
@@ -209,21 +206,21 @@ public class ListUtilitiesTest {
     Email[] emailPrediction4 = {email4, email5, email6};
 
     System.out.println(
-        "\n-------NAME------------------------------------------------------------------------------------------------------------------");
+        "\n-----NAME--------------------------------------------------------------------------------------------------");
     sortTest(nameSortTestGood1, namePrediction, expectValid);
     sortTest(nameSortTestGood2, namePrediction, expectValid);
     sortTest(nameSortTestNotFull, predictException, expectInvalid);
     sortTest(nameSortTestNull, predictException, expectInvalid);
 
     System.out.println(
-        "\n-------POSTALCODE-------------------------------------------------------------------------------------------------------------------");
+        "\n-----POSTALCODE--------------------------------------------------------------------------------------------");
     sortTest(pcSortTestGood, postalCodePrediction, expectValid);
     sortTest(pcSortTestGood2, postalCodePrediction, expectValid);
     sortTest(pcSortTestNotFull, predictException, expectInvalid);
     sortTest(pcSortTestNull, predictException, expectInvalid);
 
     System.out.println(
-        "\n-------EMAIL------------------------------------------------------------------------------------------------------------------");
+        "\n-----EMAIL-------------------------------------------------------------------------------------------------");
     sortTest(emailSortTestGood, emailPrediction, expectValid);
     sortTest(emailSortTestGood2, emailPrediction2, expectValid);
     sortTest(emailSortTestGood3, emailPrediction3, expectValid);
@@ -233,7 +230,7 @@ public class ListUtilitiesTest {
 
 
 
-  }// end main
+  }// end main ----------------------------------------------------------------------------------------------
 
   // TEST METHODS
   // -------------------------------------------------------------------------------------------------
