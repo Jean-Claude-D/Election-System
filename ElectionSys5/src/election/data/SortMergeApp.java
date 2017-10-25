@@ -8,43 +8,60 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.ListUtilities;
+
 public class SortMergeApp {
 	
-	private static String path = "/ElectionSys/ElectionSys5/datafiles/unsorted";
-	static List<String> arrayOfVoters = new ArrayList<>();
+
 	
 	
 	/*
-	 * load(read) 9 voter files and sort and put in new file datafiles\sorted\sorteVotersX where X 
-	 * is the number of the voter file
+	 * This method creates a File object that contains all the files from the unsorted directory and stores their name in a String array
+	 * In a for loop that goes through all the names in the array: 
+	 * 		check if the name contains "voters" 
+	 * 		if it does, modify the path so it includes the text file's name and verify if it exists
+	 * 		if it exists, read and place all the lines in an array
+	 * 		sort that array and place the sorted array in a new file using savelistToTextFile(array,fileName)
+	 * 
+	 * 		if it doesn't contain "voters", see if it contains "elections"
+	 * 		repeat the same steps
 	 */
-	public static void sortVoters() throws IOException{
-		//read and place in array
-		//sort array
-		//put sorted array in new file
-		//repeat
-		File voters = new File(path);
-		String[] listOfVoters = voters.list();
-		for(int i = 0; i < listOfVoters.length; i++) {
-			//checkif file nate containes "voters"
-			if(listOfVoters[i].matches("voters")) {
+	public static void sortAndStore() throws IOException{
+		
+		String path = "/ElectionSys/ElectionSys5/datafiles/unsorted";
+		List<String> unsortedArray = new ArrayList<>();
+
+		File files = new File(path);
+		String[] listOfFiles = files.list();
+		
+		for(int i = 0; i < listOfFiles.length; i++) {
+			//checkif file name contains "voters"
+			if(listOfFiles[i].matches("voters")) {
 				path = path + "/voters" + i + ".txt";
 				File voterFile = new File(path);
 				if (voterFile.exists()) {
 					Path p = Paths.get(path);
-					arrayOfVoters = Files.readAllLines(p);
-					String[] sortedArray = arrayOfVoters.toArray(new String[arrayOfVoters.size()]);
+					unsortedArray = Files.readAllLines(p);
+					String[] sortedArray = unsortedArray.toArray(new String[unsortedArray.size()]);
 					ListUtilities.sort(sortedArray);
+					ListUtilities.saveListToTextFile(sortedArray, "sortedVoters" + i + ".txt");
+				}
+			}
+			else if(listOfFiles[i].matches("elections")) {
+				path = path + "/elections" + i + ".txt";
+				File electionFile = new File(path);
+				if (electionFile.exists()) {
+					Path p = Paths.get(path);
+					unsortedArray = Files.readAllLines(p);
+					String[] sortedArray = unsortedArray.toArray(new String[unsortedArray.size()]);
+					ListUtilities.sort(sortedArray);
+					ListUtilities.saveListToTextFile(sortedArray, "sortedElections" + i + ".txt");
 				}
 				
-			}
-			//call this method
-			ElectionFileLoader.GetVoterListFromSequentialFile(listOfVoters[i]);
-		}
+			} 
+		}	
 		
-		
-		
-	}
+	}//end sort and store
 	
 	
 	/*
@@ -53,8 +70,39 @@ public class SortMergeApp {
 	 * place the final result in datafiles\database\voters.txt
 	 * duplicate voters must be stored in datafiles\database\duplicatevoters.txt
 	 */
-	public static void mergeVoters(Path sortedVorters) {
+	public static void mergeAll() throws IOException{
 		
+		String path = "/ElectionSys/ElectionSys5/datafiles/unsorted";
+		List<String> superSaiyanArray = new ArrayList<>();
+
+		File files = new File(path);
+		String[] listOfFiles = files.list();
+		
+		for(int i = 0; i < listOfFiles.length; i++) {
+			//check if file name contains "voters"
+			if(listOfFiles[i].matches("voters")) {
+				path = path + "/voters" + i + ".txt";
+				File voterFile = new File(path);
+				if (voterFile.exists()) {
+					Path p = Paths.get(path);
+					superSaiyanArray = Files.readAllLines(p);
+					String[] sortedArray = superSaiyanArray.toArray(new String[superSaiyanArray.size()]);
+					
+				}
+			}
+			else if(listOfFiles[i].matches("elections")) {
+				path = path + "/elections" + i + ".txt";
+				File electionFile = new File(path);
+				if (electionFile.exists()) {
+					Path p = Paths.get(path);
+					superSaiyanArray = Files.readAllLines(p);
+					String[] sortedArray = superSaiyanArray.toArray(new String[superSaiyanArray.size()]);
+					ListUtilities.sort(sortedArray);
+					ListUtilities.saveListToTextFile(sortedArray, "sortedElections" + i + ".txt");
+				}
+				
+			} 
+		}
 	}
 }
 	
