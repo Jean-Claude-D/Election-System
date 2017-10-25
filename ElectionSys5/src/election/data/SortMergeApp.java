@@ -1,5 +1,6 @@
 package election.data;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,7 +24,6 @@ public class SortMergeApp {
 		//sort array
 		//put sorted array in new file
 		//repeat
-		ListUtilities a = new ListUtilities();
 		File voters = new File(path);
 		String[] listOfVoters = voters.list();
 		for(int i = 0; i < listOfVoters.length; i++) {
