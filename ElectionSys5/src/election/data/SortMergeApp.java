@@ -12,21 +12,35 @@ import util.ListUtilities;
 
 public class SortMergeApp {
 
+  /**
+   * @author Felicia Gorgatchov
+   */
   public static void main(String[] args) throws IOException {
 
     System.out.println(
         "Fetching voter and election files from datafiles\\unsorted");
 
-    System.out.println("\n\t1. Create a new directory called sorted in the datafiles directory");
+    System.out.println("\n\t1. Create a new directory called sorted in the datafiles directory.");
 
     new File("datafiles\\sorted").mkdir();
 
     System.out.println(
-        "\n\t2. Sort all the files, place the result in new files, and place those result files in the new sorted directory.\nVo");
+        "\n\t2. Sort all the files, place the result in new files, and place those result files in the new sorted directory.");
 
     sortAndStore();
+    
+    System.out.println("\n\t3. Create a new directory called database in the datafiles directory.");
+    
+    new File("datafiles\\database").mkdir();
+    
+    System.out.print("\n\t4. Merge all the sorted files together in one single file for each; one for all voters and one for all elections.");
 
-
+    mergeAll();
+    
+    System.out.println("\n\t4. Make sure that all the tallies associate with the appropriate Elections.");
+    
+    //associateTally();
+    
   }
 
 
