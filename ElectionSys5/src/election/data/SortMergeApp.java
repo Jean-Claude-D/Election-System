@@ -1,6 +1,5 @@
 package election.data;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -57,6 +56,7 @@ public class SortMergeApp {
 	public static void mergeVoters(Path sortedVorters) {
 		
 	}
+}
 	
 	
 	/*
@@ -65,4 +65,3 @@ public class SortMergeApp {
 	
 	
 	
-}
