@@ -7,18 +7,21 @@ public class DuplicateVoterException extends Exception {
    */
   private static final long serialVersionUID = 1L;
 
-  private static final String DEFAULT = "defaultMsg";
+  private static final String DEFAULT = "There cannot be two identical Voter objects";
 
   public DuplicateVoterException() {
     super(DEFAULT);
   }
 
   public DuplicateVoterException(String message) {
+    // If message is empty, replace it with DEFAULT
     super(message == null || message.isEmpty() ? DEFAULT : message);
   }
 
   public DuplicateVoterException(Throwable cause) {
-    super(cause == null ? DEFAULT : cause.toString(), cause);
+    // If cause's message is empty, replace it with DEFAULT
+    super(cause == null || cause.toString().isEmpty() || cause.toString() == null ? DEFAULT
+        : cause.toString(), cause);
   }
 
   public DuplicateVoterException(String message, Throwable cause) {
