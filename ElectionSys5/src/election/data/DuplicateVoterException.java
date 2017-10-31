@@ -44,7 +44,7 @@ public class DuplicateVoterException extends Exception {
    */
   public DuplicateVoterException(Throwable cause) {
     // If cause's message is empty, replace it with DEFAULT
-    super(cause == null || cause.toString().isEmpty() || cause.toString() == null ? DEFAULT
+    super(cause == null || cause.getMessage().isEmpty() || cause.getMessage() == null ? DEFAULT
         : cause.toString(), cause);
   }
 
