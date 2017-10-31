@@ -25,9 +25,14 @@ public class DuplicateVoterException extends Exception {
     super(message == null || message.isEmpty() ? DEFAULT : message, cause);
   }
 
-  public DuplicateVoterException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
-    super(arg0, arg1, arg2, arg3);
-    // TODO Auto-generated constructor stub
+  public DuplicateVoterException(String message, Throwable cause, boolean enableSupress,
+      boolean writableStackTrace) {
+    super((message == null || message.isEmpty() ? DEFAULT : message), cause, enableSupress,
+        writableStackTrace);
+  }
+
+  public String getLocalizedMessage() {
+    return ("DuplicateVoterException : " + this.getMessage());
   }
 
 }
