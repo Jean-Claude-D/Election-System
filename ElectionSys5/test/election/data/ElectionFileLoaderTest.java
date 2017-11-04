@@ -281,7 +281,7 @@ public class ElectionFileLoaderTest {
 
 
     try {
-      Voter[] voters = ElectionFileLoader.GetVoterListFromSequentialFile(fileNameTest);
+      Voter[] voters = ElectionFileLoader.getVoterListFromSequentialFile(fileNameTest);
 
       if (voters.length == expectedVoters.length && expectedValid) {
         for (int i = 0; i < voters.length; i++) {

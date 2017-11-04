@@ -72,7 +72,7 @@ public class SortMergeApp {
         String newPath = path + "/voters" + i + ".txt";
         File voterFile = new File(newPath);
         if (voterFile.exists()) {
-          Voter[] voters = ElectionFileLoader.GetVoterListFromSequentialFile(newPath);
+          Voter[] voters = ElectionFileLoader.getVoterListFromSequentialFile(newPath);
           ListUtilities.sort(voters);
           ListUtilities.saveListToTextFile(voters, "datafiles/sorted/sortedVoters" + i + ".txt");
         }
@@ -114,7 +114,7 @@ public class SortMergeApp {
         File voterFile = new File(path);
         if (voterFile.exists()) {
           Path p = Paths.get(path);
-          superSaiyanArrayOfVoter.add(ElectionFileLoader.GetVoterListFromSequentialFile(path2));
+          superSaiyanArrayOfVoter.add(ElectionFileLoader.getVoterListFromSequentialFile(path2));
         }
       } else if (listOfFiles[i].matches("elections.\\.txt")) {
         String path2 = path + "/elections" + i + ".txt";
