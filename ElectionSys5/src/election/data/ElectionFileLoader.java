@@ -1,10 +1,10 @@
 package election.data;
 
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -148,50 +148,50 @@ public class ElectionFileLoader {
 
   public static void setExistingTallyFromSequentialFile(String filename, Election[] elections)
       throws IOException {
-    {
 
-      Path path = Paths.get(filename);
 
-      List<String> allLines = Files.readAllLines(path);
+    Path path = Paths.get(filename);
 
-      int numChoice;
+    List<String> allLines = Files.readAllLines(path);
 
-      String[] line;
+    int numChoice;
 
-      int[][] result;
+    String[] line;
 
-      String[] choice;
-      int ranking;
+    int[][] result;
 
-      for (int i = 0; i < elections.length; i++) { // Going through every Election object
-        for (int linePositionElectionList = 0; linePositionElectionList < allLines
-            .size(); linePositionElectionList += (numChoice + 1)) { // Going through every line with
-                                                                    // election names
+    String[] choice;
+    int ranking;
 
-          line = allLines.get(linePositionElectionList).split("\\*"); // [nameOfElection][choices]
-          numChoice = Integer.parseInt(line[1]); // number of choices for this election
+    for (int i = 0; i < elections.length; i++) { // Going through every Election object
+      for (int linePositionElectionList = 0; linePositionElectionList < allLines
+          .size(); linePositionElectionList += (numChoice + 1)) { // Going through every line with
+                                                                  // election names
 
-          if (line[0].equals(elections[i].getName())) { //
+        line = allLines.get(linePositionElectionList).split("\\*"); // [nameOfElection][choices]
+        numChoice = Integer.parseInt(line[1]); // number of choices for this election
 
-            result = new int[numChoice][numChoice];
+        if (line[0].equals(elections[i].getName())) { //
 
-            for (int b = 0; b < numChoice; b++) {
+          result = new int[numChoice][numChoice];
 
-              choice = allLines.get(b + 1).split("\\*");
+          for (int b = 0; b < numChoice; b++) {
 
-              for (int a = 0; a < choice.length; a++) {
-                ranking = Integer.parseInt(choice[a]);
-                result[b][a] = ranking;
+            choice = allLines.get(b + 1).split("\\*");
 
-              }
+            for (int a = 0; a < choice.length; a++) {
+              ranking = Integer.parseInt(choice[a]);
+              result[b][a] = ranking;
 
             }
-            DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
-          }
 
+          }
+          DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
         }
+
       }
     }
+
   }
 }
 
