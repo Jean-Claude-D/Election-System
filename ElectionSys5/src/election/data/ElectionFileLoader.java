@@ -139,6 +139,7 @@ public class ElectionFileLoader {
    * @param filename
    * @param elections
    * @throws IOException
+   * @author Maria Hossain
    * 
    *         This method takes in a file and an election array. It will basically match the name of
    *         the election in that array and match it with the matching name and display the result
@@ -175,24 +176,38 @@ public class ElectionFileLoader {
 
           result = new int[numChoice][numChoice];
 
-          for (int b = 0; b < numChoice; b++) {
+          result = fillingTally(choice, ranking, result, numChoice);
 
-            choice = allLines.get(b + 1).split("\\*");
-
-            for (int a = 0; a < choice.length; a++) {
-              ranking = Integer.parseInt(choice[a]);
-              result[b][a] = ranking;
-
-            }
-
-          }
-          DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
         }
 
       }
+      DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
     }
 
   }
+
+  }
+
+  }
+
+  // **************************************************HELPER
+  // METHOD****************************************//
+
+
+  public static int[][] fillingTally(String[] choice, int ranking, int[][] result, int numChoice) {
+
+    for (int b = 0; b < numChoice; b++) {
+      for (int a = 0; a < choice.length; a++) {
+        ranking = Integer.parseInt(choice[a]);
+        result[b][a] = ranking;
+
+      }
+
+    }
+
+    return result;
+  }
+
 }
 
 
