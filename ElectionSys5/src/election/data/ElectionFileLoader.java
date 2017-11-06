@@ -1,10 +1,10 @@
 package election.data;
 
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -70,13 +70,12 @@ public class ElectionFileLoader {
   }
 
   /**
+   * This method iterate through the text file and extract the different elections and will put it
+   * into a an array of Elections
    * 
    * @param filename
    * @return Election[] that contains usually 3 El
    * @throws IOException
-   * 
-   *         This method iterate through the text file and extract the different elections and will
-   *         put it into a an array of Elections
    */
   public static Election[] getElectionListFromSequentialFile(String filename) throws IOException {
     try {
@@ -89,13 +88,16 @@ public class ElectionFileLoader {
       int numberOfChoices = 0;
       int lineOffset = 0;
 
-      // Info line: 0, 6, 12
-
       String[] split;
 
       for (int i = 0; i < allLines.size(); i += Integer.parseInt(split[10]) + 1) {
 
+
         split = (allLines.get(i).split("\\*"));
+
+        if (split.length != 10) {
+          break;
+        }
 
         for (int j = 0; j < split.length; j++) {
           listString.add(split[j]);
@@ -106,7 +108,6 @@ public class ElectionFileLoader {
 
         for (int k = lineOrder; k <= numberOfChoices + lineOffset; k++) {
           listString.add(allLines.get(k) + "\n");
-          // System.out.println("( " + k + " ) ");
         }
 
         String[] choices = allLines.subList(i + 1, i + Integer.parseInt(split[10]) + 1)

@@ -1,10 +1,7 @@
 package election.data;
 
 import java.io.IOException;
-import java.nio.file.InvalidPathException;
-import java.nio.file.NoSuchFileException;
 import election.business.DawsonElection;
-import election.business.DawsonElectionFactory;
 import election.business.DawsonTally;
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
@@ -14,79 +11,79 @@ public class ElectionFileLoaderTest {
   public static void main(String[] args) throws IOException {
 
 
-    String nameOfFile3 = "datafiles/tally.txt";
-    String nameofFile4 = "datafiles/elections25";
-    String nameofFile5 = "";
-    String nameofFile6 = "abejck";
+    // String nameOfFile3 = "datafiles/tally.txt";
+    // String nameofFile4 = "datafiles/elections25";
+    // String nameofFile5 = "";
+    // String nameofFile6 = "abejck";
+    //
+    // Boolean expectedResult3 = true;
+    // Boolean expectedResult4 = false;
+    // Boolean expectedResult5 = false;
+    // Boolean expectedResult6 = false;
+    //
+    // String nameElection1 = "Dawson Color Election 2020";
+    // String nameElection2 = "Prom Queen";
+    // String nameElection3 = "Favourite Food";
+    //
+    // String type1 = "Ranked";
+    // String type2 = "Ranked";
+    // String type3 = "Ranked";
+    //
+    // int startYear1 = 2017;
+    // int startYear2 = 2017;
+    // int startYear3 = 2017;
+    //
+    // int startMonth1 = 10;
+    // int startMonth2 = 11;
+    // int startMonth3 = 12;
+    //
+    // int startDay1 = 28;
+    // int startDay2 = 16;
+    // int startDay3 = 17;
+    //
+    // int endYear1 = 2018;
+    // int endYear2 = 2018;
+    // int endYear3 = 2018;
+    //
+    // int endMonth1 = 5;
+    // int endMonth2 = 6;
+    // int endMonth3 = 7;
+    //
+    // int endDay1 = 15;
+    // int endDay2 = 16;
+    // int endDay3 = 17;
+    //
+    // String startRange1 = null;
+    // String startRange2 = null;
+    // String startRange3 = null;
+    //
+    // String endRang1 = null;
+    // String endRang2 = null;
+    // String endRang3 = null;
+    //
+    // int choice = 0;
 
-    Boolean expectedResult3 = true;
-    Boolean expectedResult4 = false;
-    Boolean expectedResult5 = false;
-    Boolean expectedResult6 = false;
-
-    String nameElection1 = "Dawson Color Election 2020";
-    String nameElection2 = "Prom Queen";
-    String nameElection3 = "Favourite Food";
-
-    String type1 = "Ranked";
-    String type2 = "Ranked";
-    String type3 = "Ranked";
-
-    int startYear1 = 2017;
-    int startYear2 = 2017;
-    int startYear3 = 2017;
-
-    int startMonth1 = 10;
-    int startMonth2 = 11;
-    int startMonth3 = 12;
-
-    int startDay1 = 28;
-    int startDay2 = 16;
-    int startDay3 = 17;
-
-    int endYear1 = 2018;
-    int endYear2 = 2018;
-    int endYear3 = 2018;
-
-    int endMonth1 = 5;
-    int endMonth2 = 6;
-    int endMonth3 = 7;
-
-    int endDay1 = 15;
-    int endDay2 = 16;
-    int endDay3 = 17;
-
-    String startRange1 = null;
-    String startRange2 = null;
-    String startRange3 = null;
-
-    String endRang1 = null;
-    String endRang2 = null;
-    String endRang3 = null;
-
-    int choice = 0;
-
-    DawsonTally tally1 = new DawsonTally(choice, nameElection1);
-    DawsonTally tally2 = new DawsonTally(choice, nameElection2);
-    DawsonTally tally3 = new DawsonTally(choice, nameElection3);
-
-    Election election1 = new DawsonElection(nameElection1, type1, startYear1, startMonth1,
-        startDay1, endYear1, endMonth1, endDay1, startRange1, endRang1, tally1, "H", "Jean Claude",
-        "Felicia", "Maria");
-    Election election2 = new DawsonElection(nameElection2, type2, startYear2, startMonth2,
-        startDay2, endYear2, endMonth2, endDay2, startRange2, endRang2, tally2, "H", "Jean Claude",
-        "Felicia", "Maria");
-    Election election3 = new DawsonElection(nameElection3, type3, startYear3, startMonth3,
-        startDay3, endYear3, endMonth3, endDay3, startRange3, endRang3, tally3, "H", "Jean Claude",
-        "Felicia", "Maria");
-
-    Election[] allElectionCreated = {election1, election2, election3};
-
-
-    testsetExistingTallyFromSequentialFile(nameOfFile3, expectedResult3, allElectionCreated);
-    testsetExistingTallyFromSequentialFile(nameofFile4, expectedResult4, allElectionCreated);
-    testsetExistingTallyFromSequentialFile(nameofFile5, expectedResult5, allElectionCreated);
-    testsetExistingTallyFromSequentialFile(nameofFile6, expectedResult6, allElectionCreated);
+    // DawsonTally tally1 = new DawsonTally(choice, nameElection1);
+    // DawsonTally tally2 = new DawsonTally(choice, nameElection2);
+    // DawsonTally tally3 = new DawsonTally(choice, nameElection3);
+    //
+    // Election election1 = new DawsonElection(nameElection1, type1, startYear1, startMonth1,
+    // startDay1, endYear1, endMonth1, endDay1, startRange1, endRang1, tally1, "H", "Jean Claude",
+    // "Felicia", "Maria");
+    // Election election2 = new DawsonElection(nameElection2, type2, startYear2, startMonth2,
+    // startDay2, endYear2, endMonth2, endDay2, startRange2, endRang2, tally2, "H", "Jean Claude",
+    // "Felicia", "Maria");
+    // Election election3 = new DawsonElection(nameElection3, type3, startYear3, startMonth3,
+    // startDay3, endYear3, endMonth3, endDay3, startRange3, endRang3, tally3, "H", "Jean Claude",
+    // "Felicia", "Maria");
+    //
+    // Election[] allElectionCreated = {election1, election2, election3};
+    //
+    //
+    // testsetExistingTallyFromSequentialFile(nameOfFile3, expectedResult3, allElectionCreated);
+    // testsetExistingTallyFromSequentialFile(nameofFile4, expectedResult4, allElectionCreated);
+    // testsetExistingTallyFromSequentialFile(nameofFile5, expectedResult5, allElectionCreated);
+    // testsetExistingTallyFromSequentialFile(nameofFile6, expectedResult6, allElectionCreated);
 
     /*
      * Test GetVoterListFromSequentialFile with voters1.txt :
@@ -112,20 +109,20 @@ public class ElectionFileLoaderTest {
      * fastestmanalive@bell.ca*Grant*Gustin*F3N7G8
      */
 
-    Voter[] validVoter1 = {
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Daisy", "Johnson",
-            "djflower@hotmail.com", "H7N9L0"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Emily", "Andras",
-            "andrasemily@outlook.ca", "T3K7V6"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Margaret", "Carter",
-            "callmepeggy@gmail.com", "C1K9G6"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Andrew", "Belle",
-            "blackbears@live.ca", "K4W4P7"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Sabrina", "Carpenter",
-            "sabrinacarpenter@gmail.com", "V3Y0K1")};
-
-
-    testGetVoterListFromSequentialFile("datafiles/voters1.txt", validVoter1, true, null);
+    // Voter[] validVoter1 = {
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Daisy", "Johnson",
+    // "djflower@hotmail.com", "H7N9L0"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Emily", "Andras",
+    // "andrasemily@outlook.ca", "T3K7V6"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Margaret", "Carter",
+    // "callmepeggy@gmail.com", "C1K9G6"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Andrew", "Belle",
+    // "blackbears@live.ca", "K4W4P7"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Sabrina", "Carpenter",
+    // "sabrinacarpenter@gmail.com", "V3Y0K1")};
+    //
+    //
+    // testGetVoterListFromSequentialFile("datafiles/voters1.txt", validVoter1, true, null);
 
     /*
      * Test GetVoterListFromSequentialFile with voters21.txt :
@@ -151,26 +148,26 @@ public class ElectionFileLoaderTest {
      * RayanMars@lobster*Rayan*Mars*W8D9W2
      */
 
-    Voter[] validVoter21 = {
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Isaac", "Finch",
-            "IsaacSFinch@teleworm.us", "H5S 2J5"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Koodo Moodo", "Tentucky",
-            "1-3_5678910121416182022242628303@abc1-2-3.b.com", "K7S2R5"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Mich'elle", "Obama",
-            "Michelle.Obama@Whitehouse.gov", "T2K0P7"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Mary", "Garcia",
-            "maryjgarcia@dayrep.com", "M5H1P6"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Randall", "Rabin",
-            "RandallDRabin@teleworm.us", "V9T5H3"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Simon", "Croteau",
-            "SimonCroteau@gmail.com", "J2C 4N1"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
-            "julietAssange12@hello.ca", "J4R9S1"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Sebastian", "Strol",
-            "SebStrol_89@kayak_com", "J6L5T9")};
-
-
-    testGetVoterListFromSequentialFile("datafiles/voters21.txt", validVoter21, true, null);
+    // Voter[] validVoter21 = {
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Isaac", "Finch",
+    // "IsaacSFinch@teleworm.us", "H5S 2J5"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Koodo Moodo", "Tentucky",
+    // "1-3_5678910121416182022242628303@abc1-2-3.b.com", "K7S2R5"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Mich'elle", "Obama",
+    // "Michelle.Obama@Whitehouse.gov", "T2K0P7"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Mary", "Garcia",
+    // "maryjgarcia@dayrep.com", "M5H1P6"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Randall", "Rabin",
+    // "RandallDRabin@teleworm.us", "V9T5H3"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Simon", "Croteau",
+    // "SimonCroteau@gmail.com", "J2C 4N1"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Juliet", "Assange",
+    // "julietAssange12@hello.ca", "J4R9S1"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Sebastian", "Strol",
+    // "SebStrol_89@kayak_com", "J6L5T9")};
+    //
+    //
+    // testGetVoterListFromSequentialFile("datafiles/voters21.txt", validVoter21, true, null);
 
     /*
      * Test GetVoterListFromSequentialFile with voters21.txt :
@@ -196,21 +193,21 @@ public class ElectionFileLoaderTest {
      * josh_matthew99@outlook.com*Josh*Mathews*E9B 2Y5
      */
 
-    Voter[] validVoter7 = {
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Jaylene", "Warner",
-            "warnerjaylene@gmail.com", "K7A 3Y8"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Summer", "Curtis",
-            "curtis-Rocks@gmail.com", "V1J 0C8"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Noel", "Lawrence",
-            "LawNoGotNoRules@outlook.com", "H9J 2P0"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Avah", "Walsh", "avah386@gmail.com",
-            "E7B 0W2"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Fiona", "Quinn",
-            "queen.Fiona@hotmail.com", "T9C 1P7"),
-        DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Josh", "Mathews",
-            "josh_matthew99@outlook.com", "E9B 2Y5")};
-
-    testGetVoterListFromSequentialFile("datafiles/voters7.txt", validVoter7, true, null);
+    // Voter[] validVoter7 = {
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Jaylene", "Warner",
+    // "warnerjaylene@gmail.com", "K7A 3Y8"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Summer", "Curtis",
+    // "curtis-Rocks@gmail.com", "V1J 0C8"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Noel", "Lawrence",
+    // "LawNoGotNoRules@outlook.com", "H9J 2P0"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Avah", "Walsh", "avah386@gmail.com",
+    // "E7B 0W2"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Fiona", "Quinn",
+    // "queen.Fiona@hotmail.com", "T9C 1P7"),
+    // DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Josh", "Mathews",
+    // "josh_matthew99@outlook.com", "E9B 2Y5")};
+    //
+    // testGetVoterListFromSequentialFile("datafiles/voters7.txt", validVoter7, true, null);
 
 
     /*
@@ -219,8 +216,8 @@ public class ElectionFileLoaderTest {
      * Should raise an InvalidPathException
      */
 
-    testGetVoterListFromSequentialFile(null, null, false, InvalidPathException.class);
-    testGetVoterListFromSequentialFile("", null, false, InvalidPathException.class);
+    // testGetVoterListFromSequentialFile(null, null, false, InvalidPathException.class);
+    // testGetVoterListFromSequentialFile("", null, false, InvalidPathException.class);
 
     /*
      * Test GetVoterListFromSequentialFile with a path that leads no where :
@@ -228,16 +225,16 @@ public class ElectionFileLoaderTest {
      * Should raise an NoSuchFileException
      */
 
-    testGetVoterListFromSequentialFile("There/is/no/file/at.txt", null, false,
-        NoSuchFileException.class);
-
-    testGetVoterListFromSequentialFile("datafiles/voters34.txt", null, false,
-        NoSuchFileException.class);
+    // testGetVoterListFromSequentialFile("There/is/no/file/at.txt", null, false,
+    // NoSuchFileException.class);
+    //
+    // testGetVoterListFromSequentialFile("datafiles/voters34.txt", null, false,
+    // NoSuchFileException.class);
 
     DawsonTally tally = new DawsonTally(1, "null");
 
-    DawsonElection test1 = new DawsonElection("Federal Canadian Election 2017-18", "ranked", 2017,
-        11, 1, 2017, 11, 4, "", "", tally, "randomPoliticalNo1", "randomPoliticalNo2");
+    DawsonElection test1 = new DawsonElection("Federal Canadian Election 2017-18", "ranked", 2018,
+        11, 1, 2019, 11, 4, "", "", tally, "randomPoliticalNo1", "randomPoliticalNo2");
     test1.setTally(new DawsonTally(test1.getElectionChoices().length, test1.getName()));
 
     DawsonElection test2 = new DawsonElection("Dawson Color Election 2020", "ranked", 2020, 12, 20,
@@ -247,11 +244,11 @@ public class ElectionFileLoaderTest {
     DawsonElection test3 =
         new DawsonElection("National Hair Style Election", "ranked", 3017, 6, 23, 3017, 9, 29, "",
             "", tally, "Crew", "Mullet", "Afro", "YoungDicaprio", "Dreads", "Undercut", "Ombre");
+
     test3.setTally(new DawsonTally(test3.getElectionChoices().length, test3.getName()));
 
-    testGetElectionListFromSequentialFile("datafiles/elections3.txt", test1, test2, test3);
+    testGetElectionListFromSequentialFile("datafiles/unsorted/elections3.txt", test1, test2, test3);
 
-    testGetElectionListFromSequentialFile("datafiles/elections3.txt", test1, test2, test3);
   }
 
   public static void testGetVoterListFromSequentialFile(String fileNameTest, Voter[] expectedVoters,
@@ -323,13 +320,12 @@ public class ElectionFileLoaderTest {
     }
   }// End of Testing GetVoterListFromSequentialFile
 
-  public static void testGetElectionListFromSequentialFile(String fileNameTest,
-      boolean expectedValid) {
 
-  }// End of Testing GetElectionListFromSequentialFile
-
+  // Start of method testGetElectionFromSequentialFile
   public static void testGetElectionListFromSequentialFile(String fileNameTest,
       DawsonElection check1, DawsonElection check2, DawsonElection check3) throws IOException {
+
+    System.out.println("Hello");
 
     Election[] list = ElectionFileLoader.getElectionListFromSequentialFile(fileNameTest);
 

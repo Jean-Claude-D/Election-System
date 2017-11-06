@@ -131,7 +131,7 @@ public class ListUtilities {
    * Precondition: Assumes that the list is not null and that the list's capacity is equal to the
    * list's size.
    *
-   *@author Cao Hoang Nguyen
+   * @author Cao Hoang Nguyen
    *
    * @param list A list of objects. Assumes that the list's capacity is equal to the list's size.
    * @param sortOrder A Comparator object that defines the sort order
@@ -147,6 +147,12 @@ public class ListUtilities {
     if (list == null) {
       throw new NullPointerException("Cannot sort null array");
     }
+
+    for (int i = 0; i < list.length; i++) {
+      if (list[i] == null) {
+        throw new IllegalArgumentException("Your Array Is Not Filled To Capacity");
+      }
+    }
     Arrays.sort(list, sortOrder);
   }
 
@@ -158,7 +164,7 @@ public class ListUtilities {
    * Precondition: Assumes that the lists are not null and that both lists contain objects that can
    * be compared to each other and are filled to capacity.
    *
-   *@author Jean-Claude Desrosiers
+   * @author Jean-Claude Desrosiers
    *
    * @param list1 A naturally sorted list of objects. Assumes that the list contains no duplicates
    *        and that its capacity is equal to its size.
