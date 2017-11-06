@@ -164,13 +164,23 @@ public class ElectionFileLoader {
     String[] choice = null;
     int ranking = 0;
 
-    for (int i = 0; i < elections.length; i++) { // Going through every Election object
+    for (int i = 0; i < elections.length; i++) {// Going through every Election object
+
+      if (elections[i].equals(null)) {
+
+        System.out.println("This election is not valid ");
+      }
       for (int linePositionElectionList = 0; linePositionElectionList < allLines
           .size(); linePositionElectionList += (numChoice + 1)) { // Going through every line with
                                                                   // election names
 
         line = allLines.get(linePositionElectionList).split("\\*"); // [nameOfElection][choices]
         numChoice = Integer.parseInt(line[1]); // number of choices for this election
+
+        if (line[0].equals(null)) {
+
+          System.out.print("There is no valid on that election");
+        }
 
         if (line[0].equals(elections[i].getName())) { //
 
