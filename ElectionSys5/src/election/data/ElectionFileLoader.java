@@ -95,7 +95,8 @@ public class ElectionFileLoader {
 
         split = (allLines.get(i).split("\\*"));
 
-        if (split.length != 10) {
+        // Check If The First Line Of Every Election Have All The Required Fields Or Not.
+        if (split.length != 11) {
           break;
         }
 
@@ -114,11 +115,10 @@ public class ElectionFileLoader {
             .toArray(new String[Integer.parseInt(split[10])]);
 
         try {
-          listElection.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
-              listString.get(0), listString.get(9), Integer.parseInt(listString.get(1)),
-              Integer.parseInt(listString.get(2)), Integer.parseInt(listString.get(3)),
-              Integer.parseInt(listString.get(4)), Integer.parseInt(listString.get(5)),
-              Integer.parseInt(listString.get(6)), listString.get(7), listString.get(8), choices));
+          listElection.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(split[0],
+              split[9], Integer.parseInt(split[1]), Integer.parseInt(split[2]),
+              Integer.parseInt(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]),
+              Integer.parseInt(split[6]), split[7], split[8], choices));
 
           listString.clear();
         } catch (Exception e) {
