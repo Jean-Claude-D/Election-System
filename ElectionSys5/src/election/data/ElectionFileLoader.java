@@ -22,6 +22,10 @@ import election.business.interfaces.Voter;
 
 public class ElectionFileLoader {
 
+  private ElectionFileLoader() {
+
+  }
+
 
   /**
    * 
