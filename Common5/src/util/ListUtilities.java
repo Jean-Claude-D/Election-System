@@ -131,7 +131,7 @@ public class ListUtilities {
    * Precondition: Assumes that the list is not null and that the list's capacity is equal to the
    * list's size.
    *
-   *@author Cao Hoang Nguyen
+   * @author Cao Hoang Nguyen
    *
    * @param list A list of objects. Assumes that the list's capacity is equal to the list's size.
    * @param sortOrder A Comparator object that defines the sort order
@@ -158,7 +158,7 @@ public class ListUtilities {
    * Precondition: Assumes that the lists are not null and that both lists contain objects that can
    * be compared to each other and are filled to capacity.
    *
-   *@author Jean-Claude Desrosiers
+   * @author Jean-Claude Desrosiers
    *
    * @param list1 A naturally sorted list of objects. Assumes that the list contains no duplicates
    *        and that its capacity is equal to its size.
@@ -177,51 +177,73 @@ public class ListUtilities {
   public static Comparable[] merge(Comparable[] list1, Comparable[] list2, String duplicateFileName)
       throws IOException {
 
-    // To use resizeable feature of ArrayList (the .trimToSize() used at the end)
-    List<Comparable> list3 = new ArrayList<Comparable>(list1.length + list2.length);
+    /*
+     * Because Comparable is an interface, we cannot instantiate an array of it, so we instantiate
+     * an array with the same base type of list1 by using reflection
+     */
+    Comparable[] finalList = (Comparable[]) Array.newInstance(list1.getClass().getComponentType(),
+        list1.length + list2.length);
 
-    for (int iterat1 = 0, iterat2 = 0; !((iterat1 >= list1.length) && (iterat2 >= list2.length));) {
+
+    for (int iterat1 = 0, iterat2 = 0, iteratFinal =
+        0; !((iterat1 >= list1.length) && (iterat2 >= list2.length));) {
 
       int comparison = list1[iterat1].compareTo(list2[iterat2]);
 
-      if (comparison > 0) { // If list1 > list2
+      // If list1 > list2
+      if (comparison > 0) {
 
-        list3.add(list2[iterat2++]);
+        finalList[iteratFinal++] = (list2[iterat2++]);
 
       } else {
-        if (comparison == 0) { // If list1 == list2
+        // If list1 == list2
+        if (comparison == 0) {
           String[] duplicate = {list1[iterat1].toString() + " (merged)", list2[iterat2].toString()};
 
           saveListToTextFile(duplicate, duplicateFileName, true, CHARACTER_ENCODING);
 
-          iterat2++; // If we find a duplicate, no need to check list2 in next iteration
+          // If we find a duplicate, no need to check list2 in next iteration
+          iterat2++;
         }
 
         // If list1 >= list2, then we add list1 to list3
-        list3.add(list1[iterat1++]);
+        finalList[iteratFinal++] = (list1[iterat1++]);
 
       }
 
       if (iterat1 == list1.length) {
-        list3.addAll(Arrays.asList(list2).subList(iterat2, list2.length));
+        while (iterat2 < list2.length) {
+          finalList[iteratFinal++] = list2[iterat2++];
+        }
         iterat2 = list2.length + 1;
+
       } else if (iterat2 == list2.length) {
-        list3.addAll(Arrays.asList(list1).subList(iterat1, list1.length));
+        while (iterat1 < list1.length) {
+          finalList[iteratFinal++] = list1[iterat1++];
+        }
         iterat1 = list1.length + 1;
 
       }
 
     }
 
-    ((ArrayList) list3).trimToSize();
+    Comparable[] trimmed = finalList;
 
-    /*
-     * Because Comparable is an interface, we cannot instantiate an array of it, so we instantiate
-     * an array with the same base type of list1 by using reflection
-     */
-    Comparable[] resultList = list3.toArray(
-        (Comparable[]) Array.newInstance(list1.getClass().getComponentType(), list3.size()));
-    return resultList;
+    for (int i = 0; i < finalList.length; i++) {
+      if (finalList[i] == null) {
+        trimmed = (Comparable[]) Array.newInstance(list1.getClass().getComponentType(), i);
+
+        // copy every non-null entry of finalList into trimmed
+        for (int j = 0; j < trimmed.length; j++) {
+          trimmed[j] = finalList[j];
+        }
+
+        // End for loop
+        i = finalList.length;
+      }
+    }
+
+    return trimmed;
   }
 
 }
