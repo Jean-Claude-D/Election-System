@@ -141,6 +141,7 @@ public class ElectionFileLoader {
    * @param filename
    * @param elections
    * @throws IOException
+   * @author Maria Hossain
    * 
    *         This method takes in a file and an election array. It will basically match the name of
    *         the election in that array and match it with the matching name and display the result
@@ -150,51 +151,76 @@ public class ElectionFileLoader {
 
   public static void setExistingTallyFromSequentialFile(String filename, Election[] elections)
       throws IOException {
-    {
 
-      Path path = Paths.get(filename);
 
-      List<String> allLines = Files.readAllLines(path);
+    Path path = Paths.get(filename);
 
-      int numChoice;
+    List<String> allLines = Files.readAllLines(path);
 
-      String[] line;
+    int numChoice;
 
-      int[][] result;
+    String[] line;
 
-      String[] choice;
-      int ranking;
+    int[][] result = null;
 
-      for (int i = 0; i < elections.length; i++) { // Going through every Election object
-        for (int linePositionElectionList = 0; linePositionElectionList < allLines
-            .size(); linePositionElectionList += (numChoice + 1)) { // Going through every line with
-                                                                    // election names
+    String[] choice = null;
+    int ranking = 0;
 
-          line = allLines.get(linePositionElectionList).split("\\*"); // [nameOfElection][choices]
-          numChoice = Integer.parseInt(line[1]); // number of choices for this election
+    for (int i = 0; i < elections.length; i++) {// Going through every Election object
 
-          if (line[0].equals(elections[i].getName())) { //
+      if (elections[i].equals(null)) {
 
-            result = new int[numChoice][numChoice];
+        System.out.println("This election is not valid ");
+      }
+      for (int linePositionElectionList = 0; linePositionElectionList < allLines
+          .size(); linePositionElectionList += (numChoice + 1)) { // Going through every line with
+                                                                  // election names
 
-            for (int b = 0; b < numChoice; b++) {
+        line = allLines.get(linePositionElectionList).split("\\*"); // [nameOfElection][choices]
+        numChoice = Integer.parseInt(line[1]); // number of choices for this election
 
-              choice = allLines.get(b + 1).split("\\*");
+        if (line[0].equals(null)) {
 
-              for (int a = 0; a < choice.length; a++) {
-                ranking = Integer.parseInt(choice[a]);
-                result[b][a] = ranking;
+          System.out.print("There is no valid on that election");
+        }
 
-              }
+        if (line[0].equals(elections[i].getName())) { //
 
-            }
-            DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
-          }
+          result = fillingTally(choice, ranking, result, numChoice, allLines);
 
         }
+
       }
+      DawsonElectionFactory.DAWSON_ELECTION.setExistingTally(result, elections[i]);
     }
+
   }
+
+
+
+  // **************************************************HELPER
+  // METHOD****************************************//
+
+
+  public static int[][] fillingTally(String[] choice, int ranking, int numChoice,
+      List<String> allLines) {
+
+	  int[][] result = null;
+	  
+    for (int b = 0; b < numChoice; b++) {
+
+      choice = allLines.get(b + 1).split("\\*");
+      for (int a = 0; a < choice.length; a++) {
+        ranking = Integer.parseInt(choice[a]);
+        result[b][a] = ranking;
+
+      }
+
+    }
+
+    return result;
+  }
+
 }
 
 
