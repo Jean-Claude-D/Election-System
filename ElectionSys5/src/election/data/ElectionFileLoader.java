@@ -184,9 +184,7 @@ public class ElectionFileLoader {
 
         if (line[0].equals(elections[i].getName())) { //
 
-          result = new int[numChoice][numChoice];
-          fillingTally(choice, ranking, result, numChoice, allLines);
-
+          result = fillingTally(choice, ranking, result, numChoice, allLines);
 
         }
 
@@ -202,9 +200,11 @@ public class ElectionFileLoader {
   // METHOD****************************************//
 
 
-  public static int[][] fillingTally(String[] choice, int ranking, int[][] result, int numChoice,
+  public static int[][] fillingTally(String[] choice, int ranking, int numChoice,
       List<String> allLines) {
 
+	  int[][] result = null;
+	  
     for (int b = 0; b < numChoice; b++) {
 
       choice = allLines.get(b + 1).split("\\*");
