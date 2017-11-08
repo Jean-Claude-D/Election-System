@@ -171,10 +171,25 @@ public class DawsonVoterTest {
     test.getter();
     test.equalsHash();
     test.tostring();
-    test.eligible(new DawsonElection("test1", "SINGLE", now.getYear(), now.getMonthValue(),
-        now.getDayOfMonth(), 2018, 12, 23, "", "", new StubTally(), "hello", "hi"), true);
-    test.eligible(new DawsonElection("test1", "SINGLE", now.getYear(), now.getMonthValue(),
-        now.getDayOfMonth(), 2018, 12, 23, "A", "A", new StubTally(), "hello", "hi"), false);
+
+    DawsonTally tally = new DawsonTally(0, "election");
+
+    DawsonElection testElect1 = new DawsonElection("test1", "SINGLE", now.getYear(),
+        now.getMonthValue(), now.getDayOfMonth(), 2018, 12, 23, "", "", tally, "hello", "hi");
+
+    testElect1
+        .setTally(new DawsonTally(testElect1.getElectionChoices().length, testElect1.getName()));
+
+    test.eligible(testElect1, true);
+
+
+    DawsonElection testElect2 = new DawsonElection("test1", "SINGLE", now.getYear(),
+        now.getMonthValue(), now.getDayOfMonth(), 2018, 12, 23, "A", "A", tally, "hello", "hi");
+
+    testElect2
+        .setTally(new DawsonTally(testElect2.getElectionChoices().length, testElect2.getName()));
+
+    test.eligible(testElect2, false);
     test.compareto();
 
     System.out.println();

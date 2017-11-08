@@ -14,8 +14,8 @@ public class ElectionFileLoaderTest {
   public static void main(String[] args) throws IOException {
 
 
-    String nameOfFile3 = "datafiles/tally.txt";
-    String nameofFile4 = "datafiles/elections25";
+    String nameOfFile3 = "datafiles/unsorted/tally.txt";
+    String nameofFile4 = "datafiles/unsorted/elections25";
     String nameofFile5 = "";
     String nameofFile6 = "abejck";
 
@@ -125,7 +125,7 @@ public class ElectionFileLoaderTest {
             "sabrinacarpenter@gmail.com", "V3Y0K1")};
 
 
-    testGetVoterListFromSequentialFile("datafiles/voters1.txt", validVoter1, true, null);
+    testGetVoterListFromSequentialFile("datafiles/unsorted/voters1.txt", validVoter1, true, null);
 
     /*
      * Test GetVoterListFromSequentialFile with voters21.txt :
@@ -170,7 +170,7 @@ public class ElectionFileLoaderTest {
             "SebStrol_89@kayak_com", "J6L5T9")};
 
 
-    testGetVoterListFromSequentialFile("datafiles/voters21.txt", validVoter21, true, null);
+    testGetVoterListFromSequentialFile("datafiles/unsorted/voters21.txt", validVoter21, true, null);
 
     /*
      * Test GetVoterListFromSequentialFile with voters21.txt :
@@ -210,7 +210,7 @@ public class ElectionFileLoaderTest {
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Josh", "Mathews",
             "josh_matthew99@outlook.com", "E9B 2Y5")};
 
-    testGetVoterListFromSequentialFile("datafiles/voters7.txt", validVoter7, true, null);
+    testGetVoterListFromSequentialFile("datafiles/unsorted/voters7.txt", validVoter7, true, null);
 
 
     /*
@@ -231,7 +231,7 @@ public class ElectionFileLoaderTest {
     testGetVoterListFromSequentialFile("There/is/no/file/at.txt", null, false,
         NoSuchFileException.class);
 
-    testGetVoterListFromSequentialFile("datafiles/voters34.txt", null, false,
+    testGetVoterListFromSequentialFile("datafiles/unsorted/voters34.txt", null, false,
         NoSuchFileException.class);
 
     DawsonTally tally = new DawsonTally(1, "null");
@@ -249,9 +249,9 @@ public class ElectionFileLoaderTest {
             "", tally, "Crew", "Mullet", "Afro", "YoungDicaprio", "Dreads", "Undercut", "Ombre");
     test3.setTally(new DawsonTally(test3.getElectionChoices().length, test3.getName()));
 
-    testGetElectionListFromSequentialFile("datafiles/elections3.txt", test1, test2, test3);
+    testGetElectionListFromSequentialFile("datafiles/unsorted/elections3.txt", test1, test2, test3);
 
-    testGetElectionListFromSequentialFile("datafiles/elections3.txt", test1, test2, test3);
+    testGetElectionListFromSequentialFile("datafiles/unsorted/elections3.txt", test1, test2, test3);
   }
 
   public static void testGetVoterListFromSequentialFile(String fileNameTest, Voter[] expectedVoters,
@@ -281,7 +281,7 @@ public class ElectionFileLoaderTest {
 
 
     try {
-      Voter[] voters = ElectionFileLoader.GetVoterListFromSequentialFile(fileNameTest);
+      Voter[] voters = ElectionFileLoader.getVoterListFromSequentialFile(fileNameTest);
 
       if (voters.length == expectedVoters.length && expectedValid) {
         for (int i = 0; i < voters.length; i++) {

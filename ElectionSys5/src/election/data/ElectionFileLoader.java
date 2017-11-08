@@ -1,10 +1,10 @@
 package election.data;
 
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class ElectionFileLoader {
    *         Voter Object with that following information.
    */
 
-  public static Voter[] GetVoterListFromSequentialFile(String filename) throws IOException {
+  public static Voter[] getVoterListFromSequentialFile(String filename) throws IOException {
     if (filename == null || filename.isEmpty()) {
       throw new InvalidPathException("", "Path is null or empty");
     }
@@ -50,18 +50,23 @@ public class ElectionFileLoader {
     for (int i = 0; i < fileVoters.size(); i++) {
       String[] tempVoter = fileVoters.get(i).split("\\*");
 
-      try {
-        // No need to use ofNullable, since exception would've been thrown
-        voter = Optional.of(DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance(tempVoter[1],
-            tempVoter[2], tempVoter[0], tempVoter[3]));
+      if (tempVoter.length == 4) {
+        try {
+          // No need to use ofNullable, since exception would've been thrown
+          voter = Optional.of(DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance(tempVoter[1],
+              tempVoter[2], tempVoter[0], tempVoter[3]));
 
-        // No need to verify Voter is present, since exception would've been thrown
-        voters.add(voter.get());
-      }
-      // Voter not created because either firstname/lastname/email/pcode was invalid
-      catch (IllegalArgumentException e) {
-        System.err.println("Could not create [" + tempVoter[1] + ',' + tempVoter[2] + "] on line #"
-            + (i + 1) + " because of : " + e.getMessage());
+          // No need to verify Voter is present, since exception would've been thrown
+          voters.add(voter.get());
+        }
+        // Voter not created because either firstname/lastname/email/pcode was invalid
+        catch (IllegalArgumentException e) {
+          System.err.println("Could not create [" + tempVoter[1] + ',' + tempVoter[2]
+              + "] on line #" + (i + 1) + " because of : " + e.getMessage());
+        }
+      } else {
+        System.err.println("Could not create voter #" + i
+            + ", missing some information, only length of " + tempVoter.length);
       }
     }
     ((ArrayList<Voter>) voters).trimToSize();
