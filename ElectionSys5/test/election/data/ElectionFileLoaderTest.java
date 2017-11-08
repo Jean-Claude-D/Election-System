@@ -3,6 +3,7 @@ package election.data;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
+import java.time.LocalDateTime;
 import election.business.DawsonElection;
 import election.business.DawsonElectionFactory;
 import election.business.DawsonTally;
@@ -13,6 +14,7 @@ public class ElectionFileLoaderTest {
 
   public static void main(String[] args) throws IOException {
 
+    LocalDateTime currentDate = LocalDateTime.now();
 
     String nameOfFile3 = "datafiles/unsorted/tally.txt";
     String nameofFile4 = "datafiles/unsorted/elections25";
@@ -32,29 +34,14 @@ public class ElectionFileLoaderTest {
     String type2 = "Ranked";
     String type3 = "Ranked";
 
-    int startYear1 = 2017;
-    int startYear2 = 2017;
-    int startYear3 = 2017;
+    int startYear1 = currentDate.getYear();
+    int startMonth1 = currentDate.getMonthValue();
+    int startDay1 = currentDate.getDayOfMonth();
 
-    int startMonth1 = 10;
-    int startMonth2 = 11;
-    int startMonth3 = 12;
+    int endYear1 = currentDate.getYear() + 1;
+    int endMonth1 = currentDate.getMonthValue();
+    int endDay1 = currentDate.getDayOfMonth();
 
-    int startDay1 = 28;
-    int startDay2 = 16;
-    int startDay3 = 17;
-
-    int endYear1 = 2018;
-    int endYear2 = 2018;
-    int endYear3 = 2018;
-
-    int endMonth1 = 5;
-    int endMonth2 = 6;
-    int endMonth3 = 7;
-
-    int endDay1 = 15;
-    int endDay2 = 16;
-    int endDay3 = 17;
 
     String startRange1 = null;
     String startRange2 = null;
@@ -73,11 +60,11 @@ public class ElectionFileLoaderTest {
     Election election1 = new DawsonElection(nameElection1, type1, startYear1, startMonth1,
         startDay1, endYear1, endMonth1, endDay1, startRange1, endRang1, tally1, "H", "Jean Claude",
         "Felicia", "Maria");
-    Election election2 = new DawsonElection(nameElection2, type2, startYear2, startMonth2,
-        startDay2, endYear2, endMonth2, endDay2, startRange2, endRang2, tally2, "H", "Jean Claude",
+    Election election2 = new DawsonElection(nameElection2, type2, startYear1, startMonth1,
+        startDay1, endYear1, endMonth1, endDay1, startRange2, endRang2, tally2, "H", "Jean Claude",
         "Felicia", "Maria");
-    Election election3 = new DawsonElection(nameElection3, type3, startYear3, startMonth3,
-        startDay3, endYear3, endMonth3, endDay3, startRange3, endRang3, tally3, "H", "Jean Claude",
+    Election election3 = new DawsonElection(nameElection3, type3, startYear1, startMonth1,
+        startDay1, endYear1, endMonth1, endDay1, startRange3, endRang3, tally3, "H", "Jean Claude",
         "Felicia", "Maria");
 
     Election[] allElectionCreated = {election1, election2, election3};
