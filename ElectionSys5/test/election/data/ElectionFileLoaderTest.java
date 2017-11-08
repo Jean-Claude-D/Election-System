@@ -328,11 +328,7 @@ public class ElectionFileLoaderTest {
   public static void testGetElectionListFromSequentialFile(String fileNameTest,
       DawsonElection check1, DawsonElection check2, DawsonElection check3) throws IOException {
 
-    System.out.println("Hello");
-
     Election[] list = ElectionFileLoader.getElectionListFromSequentialFile(fileNameTest);
-
-    System.out.println(list.length);
 
     for (int i = 0; i < list.length; i++) {
       if (list[i].getName().equals(check1.getName())) {

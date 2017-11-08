@@ -82,7 +82,6 @@ public class ElectionFileLoader {
       Path p = Paths.get(filename);
       List<String> allLines = Files.readAllLines(p);
       ArrayList<Election> listElection = new ArrayList<>();
-      ArrayList<String> listString = new ArrayList<>();
 
       int lineOrder = 1;
       int numberOfChoices = 0;
@@ -100,15 +99,9 @@ public class ElectionFileLoader {
           break;
         }
 
-        for (int j = 0; j < split.length; j++) {
-          listString.add(split[j]);
-        }
-        listString.add("\n");
-
         numberOfChoices += Integer.parseInt(split[10]);
 
         for (int k = lineOrder; k <= numberOfChoices + lineOffset; k++) {
-          listString.add(allLines.get(k) + "\n");
         }
 
         String[] choices = allLines.subList(i + 1, i + Integer.parseInt(split[10]) + 1)
@@ -120,7 +113,6 @@ public class ElectionFileLoader {
               Integer.parseInt(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]),
               Integer.parseInt(split[6]), split[7], split[8], choices));
 
-          listString.clear();
         } catch (Exception e) {
           System.out.println("One of the variable is invalid" + e);
         }
