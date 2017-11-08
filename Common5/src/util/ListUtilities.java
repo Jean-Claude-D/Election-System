@@ -147,6 +147,12 @@ public class ListUtilities {
     if (list == null) {
       throw new NullPointerException("Cannot sort null array");
     }
+
+    for (int i = 0; i < list.length; i++) {
+      if (list[i] == null) {
+        throw new IllegalArgumentException("Your Array Is Not Filled To Capacity");
+      }
+    }
     Arrays.sort(list, sortOrder);
   }
 

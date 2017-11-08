@@ -223,8 +223,8 @@ public class ElectionFileLoaderTest {
 
     DawsonTally tally = new DawsonTally(1, "null");
 
-    DawsonElection test1 = new DawsonElection("Federal Canadian Election 2017-18", "ranked", 2017,
-        11, 1, 2017, 11, 4, "", "", tally, "randomPoliticalNo1", "randomPoliticalNo2");
+    DawsonElection test1 = new DawsonElection("Federal Canadian Election 2017-18", "ranked", 2018,
+        11, 1, 2019, 11, 4, "", "", tally, "randomPoliticalNo1", "randomPoliticalNo2");
     test1.setTally(new DawsonTally(test1.getElectionChoices().length, test1.getName()));
 
     DawsonElection test2 = new DawsonElection("Dawson Color Election 2020", "ranked", 2020, 12, 20,
@@ -234,11 +234,11 @@ public class ElectionFileLoaderTest {
     DawsonElection test3 =
         new DawsonElection("National Hair Style Election", "ranked", 3017, 6, 23, 3017, 9, 29, "",
             "", tally, "Crew", "Mullet", "Afro", "YoungDicaprio", "Dreads", "Undercut", "Ombre");
+
     test3.setTally(new DawsonTally(test3.getElectionChoices().length, test3.getName()));
 
     testGetElectionListFromSequentialFile("datafiles/unsorted/elections3.txt", test1, test2, test3);
 
-    testGetElectionListFromSequentialFile("datafiles/unsorted/elections3.txt", test1, test2, test3);
   }
 
   public static void testGetVoterListFromSequentialFile(String fileNameTest, Voter[] expectedVoters,
@@ -310,11 +310,8 @@ public class ElectionFileLoaderTest {
     }
   }// End of Testing GetVoterListFromSequentialFile
 
-  public static void testGetElectionListFromSequentialFile(String fileNameTest,
-      boolean expectedValid) {
 
-  }// End of Testing GetElectionListFromSequentialFile
-
+  // Start of method testGetElectionFromSequentialFile
   public static void testGetElectionListFromSequentialFile(String fileNameTest,
       DawsonElection check1, DawsonElection check2, DawsonElection check3) throws IOException {
 
@@ -464,12 +461,9 @@ public class ElectionFileLoaderTest {
       System.out.println(
           "The only valid file is the tally.txt. Everything else is not valid and should throw and error");
       System.out.println();
-
     }
 
-
   }
-
 }
 
 
