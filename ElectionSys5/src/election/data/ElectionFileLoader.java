@@ -105,6 +105,8 @@ public class ElectionFileLoader {
 
         // Check If The First Line Of Every Election Have All The Required Fields Or Not.
         if (split.length != 11) {
+          System.err.println(
+              "One or more required fields for an Election are missing. This Election cannot be created.");
           break;
         }
 
@@ -205,8 +207,8 @@ public class ElectionFileLoader {
   public static int[][] fillingTally(String[] choice, int ranking, int numChoice,
       List<String> allLines) {
 
-	  int[][] result = null;
-	  
+    int[][] result = null;
+
     for (int b = 0; b < numChoice; b++) {
 
       choice = allLines.get(b + 1).split("\\*");
