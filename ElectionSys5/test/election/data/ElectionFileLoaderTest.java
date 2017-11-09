@@ -3,6 +3,7 @@ package election.data;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
+import java.time.LocalDateTime;
 import election.business.DawsonElection;
 import election.business.DawsonElectionFactory;
 import election.business.DawsonTally;
@@ -13,9 +14,10 @@ public class ElectionFileLoaderTest {
 
   public static void main(String[] args) throws IOException {
 
+    LocalDateTime currentDate = LocalDateTime.now();
 
-    String nameOfFile3 = "datafiles/tally.txt";
-    String nameofFile4 = "datafiles/elections25";
+    String nameOfFile3 = "datafiles/unsorted/tally.txt";
+    String nameofFile4 = "datafiles/unsorted/elections25";
     String nameofFile5 = "";
     String nameofFile6 = "abejck";
 
@@ -32,29 +34,14 @@ public class ElectionFileLoaderTest {
     String type2 = "Ranked";
     String type3 = "Ranked";
 
-    int startYear1 = 2017;
-    int startYear2 = 2017;
-    int startYear3 = 2017;
+    int startYear1 = currentDate.getYear();
+    int startMonth1 = currentDate.getMonthValue();
+    int startDay1 = currentDate.getDayOfMonth();
 
-    int startMonth1 = 10;
-    int startMonth2 = 11;
-    int startMonth3 = 12;
+    int endYear1 = currentDate.getYear() + 1;
+    int endMonth1 = currentDate.getMonthValue();
+    int endDay1 = currentDate.getDayOfMonth();
 
-    int startDay1 = 28;
-    int startDay2 = 16;
-    int startDay3 = 17;
-
-    int endYear1 = 2018;
-    int endYear2 = 2018;
-    int endYear3 = 2018;
-
-    int endMonth1 = 5;
-    int endMonth2 = 6;
-    int endMonth3 = 7;
-
-    int endDay1 = 15;
-    int endDay2 = 16;
-    int endDay3 = 17;
 
     String startRange1 = null;
     String startRange2 = null;
@@ -73,11 +60,11 @@ public class ElectionFileLoaderTest {
     Election election1 = new DawsonElection(nameElection1, type1, startYear1, startMonth1,
         startDay1, endYear1, endMonth1, endDay1, startRange1, endRang1, tally1, "H", "Jean Claude",
         "Felicia", "Maria");
-    Election election2 = new DawsonElection(nameElection2, type2, startYear2, startMonth2,
-        startDay2, endYear2, endMonth2, endDay2, startRange2, endRang2, tally2, "H", "Jean Claude",
+    Election election2 = new DawsonElection(nameElection2, type2, startYear1, startMonth1,
+        startDay1, endYear1, endMonth1, endDay1, startRange2, endRang2, tally2, "H", "Jean Claude",
         "Felicia", "Maria");
-    Election election3 = new DawsonElection(nameElection3, type3, startYear3, startMonth3,
-        startDay3, endYear3, endMonth3, endDay3, startRange3, endRang3, tally3, "H", "Jean Claude",
+    Election election3 = new DawsonElection(nameElection3, type3, startYear1, startMonth1,
+        startDay1, endYear1, endMonth1, endDay1, startRange3, endRang3, tally3, "H", "Jean Claude",
         "Felicia", "Maria");
 
     Election[] allElectionCreated = {election1, election2, election3};
@@ -125,7 +112,7 @@ public class ElectionFileLoaderTest {
             "sabrinacarpenter@gmail.com", "V3Y0K1")};
 
 
-    testGetVoterListFromSequentialFile("datafiles/voters1.txt", validVoter1, true, null);
+    testGetVoterListFromSequentialFile("datafiles/unsorted/voters1.txt", validVoter1, true, null);
 
     /*
      * Test GetVoterListFromSequentialFile with voters21.txt :
@@ -170,7 +157,7 @@ public class ElectionFileLoaderTest {
             "SebStrol_89@kayak_com", "J6L5T9")};
 
 
-    testGetVoterListFromSequentialFile("datafiles/voters21.txt", validVoter21, true, null);
+    testGetVoterListFromSequentialFile("datafiles/unsorted/voters21.txt", validVoter21, true, null);
 
     /*
      * Test GetVoterListFromSequentialFile with voters21.txt :
@@ -210,7 +197,7 @@ public class ElectionFileLoaderTest {
         DawsonElectionFactory.DAWSON_ELECTION.getVoterInstance("Josh", "Mathews",
             "josh_matthew99@outlook.com", "E9B 2Y5")};
 
-    testGetVoterListFromSequentialFile("datafiles/voters7.txt", validVoter7, true, null);
+    testGetVoterListFromSequentialFile("datafiles/unsorted/voters7.txt", validVoter7, true, null);
 
 
     /*
@@ -231,13 +218,13 @@ public class ElectionFileLoaderTest {
     testGetVoterListFromSequentialFile("There/is/no/file/at.txt", null, false,
         NoSuchFileException.class);
 
-    testGetVoterListFromSequentialFile("datafiles/voters34.txt", null, false,
+    testGetVoterListFromSequentialFile("datafiles/unsorted/voters34.txt", null, false,
         NoSuchFileException.class);
 
     DawsonTally tally = new DawsonTally(1, "null");
 
-    DawsonElection test1 = new DawsonElection("Federal Canadian Election 2017-18", "ranked", 2017,
-        11, 1, 2017, 11, 4, "", "", tally, "randomPoliticalNo1", "randomPoliticalNo2");
+    DawsonElection test1 = new DawsonElection("Federal Canadian Election 2017-18", "ranked", 2018,
+        11, 1, 2019, 11, 4, "", "", tally, "randomPoliticalNo1", "randomPoliticalNo2");
     test1.setTally(new DawsonTally(test1.getElectionChoices().length, test1.getName()));
 
     DawsonElection test2 = new DawsonElection("Dawson Color Election 2020", "ranked", 2020, 12, 20,
@@ -247,11 +234,11 @@ public class ElectionFileLoaderTest {
     DawsonElection test3 =
         new DawsonElection("National Hair Style Election", "ranked", 3017, 6, 23, 3017, 9, 29, "",
             "", tally, "Crew", "Mullet", "Afro", "YoungDicaprio", "Dreads", "Undercut", "Ombre");
+
     test3.setTally(new DawsonTally(test3.getElectionChoices().length, test3.getName()));
 
-    testGetElectionListFromSequentialFile("datafiles/elections3.txt", test1, test2, test3);
+    testGetElectionListFromSequentialFile("datafiles/unsorted/elections3.txt", test1, test2, test3);
 
-    testGetElectionListFromSequentialFile("datafiles/elections3.txt", test1, test2, test3);
   }
 
   public static void testGetVoterListFromSequentialFile(String fileNameTest, Voter[] expectedVoters,
@@ -281,7 +268,7 @@ public class ElectionFileLoaderTest {
 
 
     try {
-      Voter[] voters = ElectionFileLoader.GetVoterListFromSequentialFile(fileNameTest);
+      Voter[] voters = ElectionFileLoader.getVoterListFromSequentialFile(fileNameTest);
 
       if (voters.length == expectedVoters.length && expectedValid) {
         for (int i = 0; i < voters.length; i++) {
@@ -323,11 +310,8 @@ public class ElectionFileLoaderTest {
     }
   }// End of Testing GetVoterListFromSequentialFile
 
-  public static void testGetElectionListFromSequentialFile(String fileNameTest,
-      boolean expectedValid) {
 
-  }// End of Testing GetElectionListFromSequentialFile
-
+  // Start of method testGetElectionFromSequentialFile
   public static void testGetElectionListFromSequentialFile(String fileNameTest,
       DawsonElection check1, DawsonElection check2, DawsonElection check3) throws IOException {
 
@@ -477,12 +461,9 @@ public class ElectionFileLoaderTest {
       System.out.println(
           "The only valid file is the tally.txt. Everything else is not valid and should throw and error");
       System.out.println();
-
     }
 
-
   }
-
 }
 
 
