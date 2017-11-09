@@ -201,6 +201,7 @@ public class ElectionFileLoader {
 
 
 
+  @SuppressWarnings("null")
   public static int[][] fillingTally(int numChoice, List<String> allLines) {
 
     int[][] result = null;
