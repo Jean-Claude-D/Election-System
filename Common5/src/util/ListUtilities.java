@@ -184,16 +184,18 @@ public class ListUtilities {
       throws IOException {
 
     /*
-     * Because Comparable is an interface, we cannot instantiate an array of it, so we instantiate
-     * an array with the same base type of list1 by using reflection
+     * We want the returned array to be of the same base type than the lists passed, in order to
+     * cast the result when this method is called, so we instantiate an array with the same base
+     * type of list1 by using reflection.
      */
     Comparable[] finalList = (Comparable[]) Array.newInstance(list1.getClass().getComponentType(),
         list1.length + list2.length);
 
+    int iteratFinal = 0;
+    int iterat1 = 0;
+    int iterat2 = 0;
 
-    for (int iterat1 = 0, iterat2 = 0, iteratFinal =
-        0; !((iterat1 >= list1.length) && (iterat2 >= list2.length));) {
-
+    while (iterat1 < list1.length && iterat2 < list2.length) {
       int comparison = list1[iterat1].compareTo(list2[iterat2]);
 
       // If list1 > list2
@@ -216,38 +218,23 @@ public class ListUtilities {
         finalList[iteratFinal++] = (list1[iterat1++]);
 
       }
-
-      if (iterat1 == list1.length) {
-        while (iterat2 < list2.length) {
-          finalList[iteratFinal++] = list2[iterat2++];
-        }
-        iterat2 = list2.length + 1;
-
-      } else if (iterat2 == list2.length) {
-        while (iterat1 < list1.length) {
-          finalList[iteratFinal++] = list1[iterat1++];
-        }
-        iterat1 = list1.length + 1;
-
-      }
-
     }
 
-    Comparable[] trimmed = finalList;
-
-    for (int i = 0; i < finalList.length; i++) {
-      if (finalList[i] == null) {
-        trimmed = (Comparable[]) Array.newInstance(list1.getClass().getComponentType(), i);
-
-        // copy every non-null entry of finalList into trimmed
-        for (int j = 0; j < trimmed.length; j++) {
-          trimmed[j] = finalList[j];
-        }
-
-        // End for loop
-        i = finalList.length;
-      }
+    /*
+     * Copy the rest of list1 or list2 into finalList (if either is not already copied into
+     * finalList)
+     */
+    if (iterat1 != list1.length) {
+      System.arraycopy(list1, iterat1, finalList, iteratFinal, list1.length - iterat1);
+      iteratFinal += (list1.length - iterat1);
+    } else if (iterat2 != list2.length) {
+      System.arraycopy(list2, iterat2, finalList, iteratFinal, list2.length - iterat2);
+      iteratFinal += (list2.length - iterat2);
     }
+
+    Comparable[] trimmed = new Comparable[iteratFinal];
+
+    System.arraycopy(finalList, 0, trimmed, 0, iteratFinal);
 
     return trimmed;
   }
