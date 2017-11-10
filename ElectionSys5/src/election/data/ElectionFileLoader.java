@@ -165,9 +165,6 @@ public class ElectionFileLoader {
 
     int[][] result = null;
 
-    String[] choice = null;
-    int ranking = 0;
-
     for (int i = 0; i < elections.length; i++) {// Going through every Election object
 
       if (elections[i].equals(null)) {
@@ -188,7 +185,7 @@ public class ElectionFileLoader {
 
         if (line[0].equals(elections[i].getName())) { //
 
-          result = fillingTally(choice, ranking, result, numChoice, allLines);
+          result = fillingTally(numChoice, allLines);
 
         }
 
@@ -203,17 +200,15 @@ public class ElectionFileLoader {
   // **************************************************HELPER
   // METHOD****************************************//
 
+  public static int[][] fillingTally(int numChoice, List<String> allLines) {
 
-  public static int[][] fillingTally(String[] choice, int ranking, int numChoice,
-      List<String> allLines) {
-
-    int[][] result = null;
+    int[][] result = new int[numChoice][numChoice];
 
     for (int b = 0; b < numChoice; b++) {
 
-      choice = allLines.get(b + 1).split("\\*");
+      String[] choice = allLines.get(b + 1).split("\\*");
       for (int a = 0; a < choice.length; a++) {
-        ranking = Integer.parseInt(choice[a]);
+        int ranking = Integer.parseInt(choice[a]);
         result[b][a] = ranking;
 
       }
