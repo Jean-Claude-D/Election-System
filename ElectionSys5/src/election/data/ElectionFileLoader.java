@@ -165,9 +165,6 @@ public class ElectionFileLoader {
 
     int[][] result = null;
 
-    String[] choice = null;
-    int ranking = 0;
-
     for (int i = 0; i < elections.length; i++) {// Going through every Election object
 
       if (elections[i].equals(null)) {
@@ -203,12 +200,9 @@ public class ElectionFileLoader {
   // **************************************************HELPER
   // METHOD****************************************//
 
-
-
-  @SuppressWarnings("null")
   public static int[][] fillingTally(int numChoice, List<String> allLines) {
 
-    int[][] result = null;
+    int[][] result = new int[numChoice][numChoice];
 
     for (int b = 0; b < numChoice; b++) {
 
