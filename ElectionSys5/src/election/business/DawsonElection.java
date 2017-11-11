@@ -2,12 +2,15 @@ package election.business;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import election.business.interfaces.Ballot;
 import election.business.interfaces.BallotItem;
 import election.business.interfaces.Election;
 import election.business.interfaces.Tally;
 import election.business.interfaces.Voter;
+import util.ListUtilities;
 
 /**
  * Name Class represents by 4 Strings: name, type, startRange, endRange. 2 LocalDate objects:
@@ -27,6 +30,9 @@ public class DawsonElection implements Election {
   private String endRange;
   private Tally tally;
   private BallotItem[] ballotItems;
+  private int invalidVoteAttempts;
+  private List<Voter> gotBallot;
+  private List<Voter> castBallot;
 
   public DawsonElection(String name, String type, int startYear, int startMonth, int startDay,
       int endYear, int endMonth, int endDay, String startRange, String endRange, Tally tally,
@@ -53,6 +59,10 @@ public class DawsonElection implements Election {
     this.tally = tally;
     this.electType = electionTypeChecker(type);
     this.ballotItems = checkItem(items);
+    this.invalidVoteAttempts = 0;
+    gotBallot = new ArrayList<Voter>();
+    castBallot = new ArrayList<Voter>();
+
   }
 
   // =========== CHECKER VALIDATE METHODS =========== \\
@@ -292,12 +302,29 @@ public class DawsonElection implements Election {
    * @param b the Ballot object
    * @param v the Voter bject
    */
-  public void castBallot(Ballot b, Voter v) { // castBallot
+  public void castBallot(Ballot b, Voter v) {
     if (!v.isEligible(this)) {
-      throw new UnsupportedOperationException("VOTER IS NOT ELIGIBLE");
+      throw new InvalidVoterException(
+          "You Are Not Eligible To Practicipate In This Election. Please Check The Election Date and Your Postal Code Again");
     }
-    b.validateSelections();
-    this.tally.update(b);
+    if (ListUtilities.binarySearch(gotBallot, v) == -1) {
+      invalidVoteAttempts++;
+      throw new InvalidVoterException(
+          "You Haven't Request A Ballot To Vote. This Incident Will Be Reported.");
+    }
+
+    else if (ListUtilities.binarySearch(castBallot, v) == -1) {
+      invalidVoteAttempts++;
+      throw new InvalidVoterException("You Have Already Voted. This Incide Will Be Reported.");
+
+    } else {
+      castBallot.add(v);
+    }
+    if (b.validateSelections()) {
+      this.tally.update(b);
+    } else {
+      throw new IllegalArgumentException("Your Ballot Is NOT Valid, Git Gud Next Time");
+    }
   }
 
   /**
@@ -305,8 +332,8 @@ public class DawsonElection implements Election {
    * 
    * @throws UnsupportedOperationException
    */
-  public int getTotalVotesCast() { // getTotalVotesCast
-    throw new UnsupportedOperationException("THIS METHOD IS NOT SUPPORTED");
+  public int getTotalVotesCast() {
+    return castBallot.size();
   }
 
   /**
@@ -315,7 +342,7 @@ public class DawsonElection implements Election {
    * @throws UnsupportedOperationException
    */
   public int getInvalidVoteAttempts() { // getInvalidVoteAttempts
-    throw new UnsupportedOperationException("THIS METHOD IS NOT SUPPORTED");
+    return invalidVoteAttempts;
   }
 
   // ========== END OTHERS METHODS ========== \\

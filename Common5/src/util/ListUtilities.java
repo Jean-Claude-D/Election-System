@@ -28,6 +28,38 @@ public class ListUtilities {
 
   }
 
+
+  /**
+   * Takes a List and search for the element that matched the key
+   * 
+   * @param database which is the List that will be searched.
+   * @param key the element that the method looks for in the List.
+   * @return an int. -1 if there is no match. Otherwise the index position of the List that matched
+   *         the key
+   */
+  public static <T extends Comparable<? super T>> int binarySearch(List<T> database, T key) {
+    if (database.size() == 0) {
+      return -1;
+    }
+
+    int mid = database.size() / 2;
+
+    if (database.get(mid).compareTo(key) == 0) {
+      return mid;
+    }
+
+    if (database.get(mid).compareTo(key) > 0) {
+
+      List<T> cutHalf = database.subList(0, mid);
+      return binarySearch(cutHalf, key);
+    } else {
+      List<T> cutHalf = database.subList(mid + 1, database.size());
+      return binarySearch(cutHalf, key);
+    }
+  }
+
+
+
   /**
    * Takes in a list of objects and writes them to a given file. This method overwrites data in file
    * and uses UTF8 character set.
