@@ -286,19 +286,15 @@ public class DawsonElection implements Election {
    * @throws IllegalArgumentException when voter is not eligible
    */
   public Ballot getBallot(Voter v) { // getBallot
-    if (v.isEligible(this)) {
-      return (Ballot) this.getBallot();
-    }
-    throw new IllegalArgumentException("Voter is not eligible");
-    
+
 //--------------------------------------------------------------------------------------------------------------------------------   
     
     if (!v.isEligible(this)) {
-      throw new InvalidVoterException("This voter is not eligible");
+      throw new IllegalArgumentException("This voter is not eligible");
     }
     
-    if (binarySearch(gotBallot, v.getName()) >= 0){
-      if(binarySearch(castBallot, v.getName()) >= 0) {
+    if (ListUtilities.binarySearch(gotBallot, v) >= 0){
+      if(ListUtilities.binarySearch(castBallot, v) >= 0) {
           throw new InvalidVoterException("This voter is not eligible");
       }
       else {
@@ -308,9 +304,12 @@ public class DawsonElection implements Election {
     else {
       gotBallot.add(v);
     }
+    
+    return (Ballot) this.getBallot();
+    
 //---------------------------------------------------------------------------------------------------------------------------------
     
-  }
+  }//end getBallot method
 
   // =========== END GETTERS METHODS =========== \\
 
