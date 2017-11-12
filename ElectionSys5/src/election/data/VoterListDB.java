@@ -53,11 +53,12 @@ public class VoterListDB implements VoterDAO {
 
   }
 
-  public Voter getVoter(String email) throws InexistentVoterException {
-
+  // SUPPOSE TO THROW InexistentVoterException
+  public Voter getVoter(String email) {
+    return null;
   }
 
-  public void update(Email email, PostalCode postalCode) throws InexistentVoterException {
+  public void update(Email email, PostalCode postalCode) throws IllegalArgumentException {
 
   }
 

@@ -8,14 +8,14 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import election.business.interfaces.*;
 import util.ListUtilities;
 
 public class VoterListDBTest {
 
   public static void main(String[] args) {
-    testGetVoter();
+    // testGetVoter();
     // TODO Add more method invocations to test all methods
+    testToString();
   }
 
   private static void setup() {
@@ -75,31 +75,46 @@ public class VoterListDBTest {
 
   }
 
-  private static void testGetVoter() {
+  private static void testToString() {
     setup();
-    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+
+    SequentialTextFileList file = new SequentialTextFileList("datafiles/database/voters.txt",
         "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
-    VoterListDB db = new VoterListDB(file);
 
-    System.out.println("\n** test getVoter ** ");
-    System.out.println("\nTest case 1: Voter in database:");
-    try {
-      Voter voter = db.getVoter("raj@test.ru");
-      System.out.println("SUCCESS: Voter found " + voter.toString());
-    } catch (InexistentVoterException e) {
-      System.out.println("FAILING TEST CASE: voter should be fould");
-    }
+    VoterListDB voterDatabase = new VoterListDB(file);
 
-    System.out.println("\nTest case 2: Voter not in database:");
-    try {
-      Voter voter = db.getVoter("jar@test.ru");
-      System.out.println("FAILING TEST CASE: Voter found " + voter.toString());
-    } catch (InexistentVoterException e) {
-      System.out.println("SUCCESS: voter not found");
-    }
+    System.out.println(voterDatabase.toString());
 
-    teardown();
+
+
   }
+
+
+  // private static void testGetVoter() {
+  // setup();
+  // SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+  // "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+  // VoterListDB db = new VoterListDB(file);
+  //
+  // System.out.println("\n** test getVoter ** ");
+  // System.out.println("\nTest case 1: Voter in database:");
+  // try {
+  // Voter voter = db.getVoter("raj@test.ru");
+  // System.out.println("SUCCESS: Voter found " + voter.toString());
+  // } catch (IllegalArgumentException e) { // TEMPORARY EXCEPTION <===
+  // System.out.println("FAILING TEST CASE: voter should be fould");
+  // }
+  //
+  // System.out.println("\nTest case 2: Voter not in database:");
+  // try {
+  // Voter voter = db.getVoter("jar@test.ru");
+  // System.out.println("FAILING TEST CASE: Voter found " + voter.toString());
+  // } catch (IllegalArgumentException e) { // TEMPORARY EXCEPTION <===
+  // System.out.println("SUCCESS: voter not found");
+  // }
+  //
+  // teardown();
+  // }
 
 }
 
