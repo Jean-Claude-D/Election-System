@@ -31,13 +31,23 @@ public class DawsonElection implements Election {
   private Tally tally;
   private BallotItem[] ballotItems;
   private int invalidVoteAttempts;
-  private List<Voter> gotBallot;
-  private List<Voter> castBallot;
 
+  /** ----------------------------------------------------------------------------------------------------------
+   * Phase 3 modification: add 3 new instance variables
+   * Lists are instantiated as Arraylists in the constructor
+   * @author Felicia Gorgatchov
+   */
+  private List<Voter> gotBallot; 
+  private List<Voter> castBallot; 
+  private int invalidAttemptsCounter = 0;
+
+  //-------------------------------------------------------------------------------------------------------------
+  
+  
   public DawsonElection(String name, String type, int startYear, int startMonth, int startDay,
       int endYear, int endMonth, int endDay, String startRange, String endRange, Tally tally,
       String... items) { // Constructor
-
+    
     try {
       this.startDate = LocalDate.of(startYear, startMonth, startDay);
       this.endDate = LocalDate.of(endYear, endMonth, endDay);
@@ -60,8 +70,18 @@ public class DawsonElection implements Election {
     this.electType = electionTypeChecker(type);
     this.ballotItems = checkItem(items);
     this.invalidVoteAttempts = 0;
-    gotBallot = new ArrayList<Voter>();
-    castBallot = new ArrayList<Voter>();
+
+
+    /**
+     * list instantiation, empty arraylists
+     * @author Felicia Gorgatchov --------------------------------------------------------------------------------
+     */
+    
+    gotBallot = new ArrayList<>();
+    castBallot = new ArrayList<>();
+    
+    //-----------------------------------------------------------------------------------------------------------
+    
 
   }
 
@@ -270,6 +290,26 @@ public class DawsonElection implements Election {
       return (Ballot) this.getBallot();
     }
     throw new IllegalArgumentException("Voter is not eligible");
+    
+//--------------------------------------------------------------------------------------------------------------------------------   
+    
+    if (!v.isEligible(this)) {
+      throw new InvalidVoterException("This voter is not eligible");
+    }
+    
+    if (binarySearch(gotBallot, v.getName()) >= 0){
+      if(binarySearch(castBallot, v.getName()) >= 0) {
+          throw new InvalidVoterException("This voter is not eligible");
+      }
+      else {
+        castBallot.add(v.getName());
+      }
+    }
+    else {
+      gotBallot.add(v.getName());
+    }
+//---------------------------------------------------------------------------------------------------------------------------------
+    
   }
 
   // =========== END GETTERS METHODS =========== \\
