@@ -302,11 +302,11 @@ public class DawsonElection implements Election {
           throw new InvalidVoterException("This voter is not eligible");
       }
       else {
-        castBallot.add(v.getName());
+        castBallot.add(v);
       }
     }
     else {
-      gotBallot.add(v.getName());
+      gotBallot.add(v);
     }
 //---------------------------------------------------------------------------------------------------------------------------------
     
