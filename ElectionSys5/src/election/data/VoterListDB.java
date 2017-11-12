@@ -5,7 +5,6 @@ import java.util.List;
 import election.business.DawsonElectionFactory;
 import election.business.interfaces.ElectionFactory;
 import election.business.interfaces.Voter;
-import election.data.interfaces.InexistentVoterException;
 import election.data.interfaces.ListPersistenceObject;
 import election.data.interfaces.VoterDAO;
 import lib.Email;
