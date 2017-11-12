@@ -52,6 +52,7 @@ public class ElectionListDB implements ElectionDAO {
    */
   @Override
   public void disconnect() throws IOException {
+<<<<<<< HEAD
     // TODO implement disconnect()
   }
 
@@ -104,3 +105,5 @@ public class ElectionListDB implements ElectionDAO {
   }
 
 }
+
+
