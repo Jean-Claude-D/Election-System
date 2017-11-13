@@ -274,44 +274,45 @@ public class ListUtilities {
   /**
    * 
    * This Binary search method uses loops through the array of comparable by starting from the
-   * middle index and see if matches with the parameter. If it does not match it returns -1. The key
-   * parameter that we pass matches than it will return the index in which the key is located in the
-   * Comparable Array.
+   * middle index and see if matches with the parameter. If it does not match it returns the point
+   * of insertion which is a negative number . The key parameter that we pass matches than it will
+   * return the index in which the key is located in the Comparable Array.
    * 
    * @author Maria Hossain
    * @param database parameter is a Comparable ARRAY
    * @param key must be of the comparable object
-   * @return index of the matching key
+   * @return middle in negative, which is the point of insertion
    */
 
   @SuppressWarnings({"unchecked", "rawtypes"})
   public static int binarySearch(Comparable[] database, Comparable key) {
 
     int low = 0;
-    int high = database.length - 1;
+    int high = database.length;
+    int middle = (low + high) / 2;
 
     while (high > low) {
 
-      int middle = (low + high) / 2;
+      middle = (low + high) / 2;
 
 
-      if (database[middle] == key) {
+      if (database[middle].compareTo(key) == 0) {
 
         return middle;
       }
 
       if (database[middle].compareTo(key) >= 1) {
 
-        low = middle - 1;
+        high = middle;
       }
 
       if (database[middle].compareTo(key) <= -1) {
 
-        high = middle + 1;
+        low = middle + 1;
       }
     }
 
-    return -1;
+    return -(middle);
 
   }
 
