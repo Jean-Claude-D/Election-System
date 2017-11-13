@@ -67,18 +67,12 @@ public class VoterListDB implements VoterDAO {
 
     Voter instantiateVoter = factory.getVoterInstance(voter);
 
-    if (ListUtilities.binarySearch(database, voter) >= 0) {
+    int index = ListUtilities.binarySearch(database, voter);
+
+    if (index >= 0) {
       throw new DuplicateVoterException("This voter is already existed in the database");
     }
-
-    for (int i = 0; i < database.size(); i++) {
-
-      if (instantiateVoter.compareTo(database.get(i)) <= 0) {
-        database.add(i, instantiateVoter);
-        return;
-      }
-    }
-    database.add(instantiateVoter);
+    database.add(-(index), instantiateVoter);
   }
 
   public void disconnect() throws IOException {
