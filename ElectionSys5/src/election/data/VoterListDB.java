@@ -51,14 +51,13 @@ public class VoterListDB implements VoterDAO {
    * @param email : String email that the maethod will use to look through the database of voters
    */
   public Voter getVoter(String email) throws InexistentVoterException {
-    Voter dummy = this.factory.getVoterInstance(null, null, email, null);
+    Voter dummy = this.factory.getVoterInstance("Glados", "Chell", email, "J4X2G3");
     if(ListUtilities.binarySearch(this.database, dummy) < 0) {
       throw new InexistentVoterException();
     }
-    else {
-      int voterIndex = ListUtilities.binarySearch(this.database, dummy);
-      return this.database.get(voterIndex);
-    }
+    
+    int voterIndex = ListUtilities.binarySearch(this.database, dummy);
+    return this.database.get(voterIndex);
 
   }//end getVoter 
 
