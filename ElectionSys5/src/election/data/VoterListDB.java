@@ -10,6 +10,7 @@ import election.data.interfaces.ListPersistenceObject;
 import election.data.interfaces.VoterDAO;
 import lib.Email;
 import lib.PostalCode;
+import util.ListUtilities;
 
 public class VoterListDB implements VoterDAO {
 
@@ -41,6 +42,8 @@ public class VoterListDB implements VoterDAO {
   }
 
   public Voter getVoter(String email) throws InexistentVoterException {
+    Voter dummy = this.factory.getVoterInstance(null, null, email, null); 
+    ListUtilities.binarySearch(this, dummy);
 
   }
 
