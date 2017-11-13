@@ -24,10 +24,16 @@ public class VoterListDBTest {
     DawsonVoter badVoter = new DawsonVoter("Joe", "Mancini", "aoe.mancini@mail.me", "H3C4B7");
 
     // testToString();
+    
     testAdd(aWildVoterAppear);
     
+    //Felicia Gorgatchov
     //testGetVoter();
     testGetVoter();
+    
+    //Felicia Gorgatchov
+    //testUpdate();
+    //testUpdate();
   }
 
   private static void setup() {
@@ -159,30 +165,37 @@ public class VoterListDBTest {
    VoterListDB db = new VoterListDB(file);
   
    System.out.println("\n** test getVoter ** ");
-   System.out.println("\nTest case 1: Voter in database:");
+   System.out.println("\n\tTest case 1: Voter in database:");
    
    try {
      Voter voter = db.getVoter("raj@test.ru");
-     System.out.println("SUCCESS: Voter found " + voter.toString());
+     System.out.println("\tSUCCESS: Voter found " + voter.toString());
    } 
-   catch (IllegalArgumentException e) { // TEMPORARY EXCEPTION <===
-     System.out.println("FAILING TEST CASE: voter should be fould");
+   catch (InexistentVoterException e) { 
+     System.out.println("\tFAILING TEST CASE: voter should be fould");
+     System.out.println(e);
    }
   
-   System.out.println("\nTest case 2: Voter not in database:");
+   System.out.println("\n\tTest case 2: Voter not in database:");
    
    try {
      Voter voter = db.getVoter("jar@test.ru");
-     System.out.println("FAILING TEST CASE: Voter found " + voter.toString());
+     System.out.println("\tFAILING TEST CASE: Voter found " + voter.toString());
    } 
-   catch (InexistentVoterException e) { // TEMPORARY EXCEPTION <===
-     System.out.println("SUCCESS: voter not found");
+   catch (InexistentVoterException e) { 
+     System.out.println("\tSUCCESS: voter not found");
+     System.out.println("\t" + e);
    }
   
    teardown();
    }
    
    private static void testUpdate() {
+     setup();
+     
+     
+     
+     teardown();
      
    }
 
