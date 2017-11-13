@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import election.business.DawsonElectionFactory;
-import election.business.DawsonTally;
 import election.business.ElectionType;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionFactory;
-import election.business.interfaces.Tally;
 // import election.data.interfaces.DuplicateElectionException;
 import election.data.interfaces.ElectionDAO;
 import election.data.interfaces.ListPersistenceObject;
@@ -67,8 +65,10 @@ public class ElectionListDB implements ElectionDAO {
     }
 
     boolean found = false;
-    for (int i = 0; i < this.database.size() && !found;) {
+    for (int i = 0; i < this.database.size() && !found; i++) {
       if (election.compareTo(this.database.get(i)) <= 0) {
+        System.out
+            .println(election.getName() + " is smaller than " + this.database.get(i).getName());
         this.database.add(i, this.factory.getElectionInstance(election));
         found = true;
       }
@@ -82,7 +82,6 @@ public class ElectionListDB implements ElectionDAO {
   public Election getElection(String name) /* throws InexistentElectionException */ {
     LocalDate now = LocalDate.now();
 
-    Tally tally = new DawsonTally(0, name);
     Election dummy = this.factory.getElectionInstance(name, ElectionType.SINGLE.toString(),
         now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getYear(), now.getMonthValue(),
         now.getDayOfMonth(), null, null, "1", "2", "3");

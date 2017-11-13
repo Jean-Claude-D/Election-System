@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import election.business.DawsonElectionFactory;
 import election.data.interfaces.ListPersistenceObject;
 import util.ListUtilities;
 
@@ -20,6 +21,14 @@ public class ElectionListDBTest {
 
   public static void main(String[] args) {
     testToString();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    try {
+      testAdd();
+    } catch (DuplicateElectionException e) {
+      e.printStackTrace();
+    }
   }
 
   public static void testToString() {
@@ -35,11 +44,38 @@ public class ElectionListDBTest {
     teardown();
   }
 
+  public static void testAdd() throws DuplicateElectionException {
+    setup();
+
+    ListPersistenceObject file = new SequentialTextFileList(null,
+        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+    ElectionListDB electionDB = new ElectionListDB(file);
+
+    /*
+     * Centenial Worldwide Elections*2000*12*20*2010*12*4*H1A*H2C*single*10 Florence McCrady Cary
+     * Fee Angie Johnson Dorothy Ouimet Bronislaw Selezneva Martha Vasilieva Rahman Ganem Nashah
+     * Naser Chen Kung Rachelle Leduc
+     */
+
+    electionDB
+        .add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
+            "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green", "Orange", "Blue", "Pink", "Cyan"));
+
+    electionDB.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
+        "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
+        "Yes, I want independence", "No, I do not want independence"));
+
+    System.out.println(electionDB + "");
+
+    teardown();
+  }
+
   public static void setup() {
     String[] elecs = new String[2];
-    elecs[0] =
-        "Presidental race*2020*11*1*2020*11*1***single*2" + "\nDonald Trump" + "\nAnyone Else";
     elecs[1] =
+        "Presidental race*2020*11*1*2020*11*1***single*2" + "\nDonald Trump" + "\nAnyone Else";
+    elecs[0] =
         "Favourite program*2018*5*1*2019*5*31*H4G*H4G*single*2" + "\nGame of Thrones" + "\nNarcos";
     // TODO add more elections if needed, but the must be in sorted order
 
