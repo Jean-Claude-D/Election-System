@@ -63,8 +63,8 @@ public class VoterListDB implements VoterDAO {
 
 
 
-  public void update(Email email, PostalCode postalCode) throws IllegalArgumentException {
-
+  public void update(Email email, PostalCode postalCode) throws IllegalArgumentException { 
+    getVoter(email).setPostalCode(postalCode);
   }
 
   @Override
