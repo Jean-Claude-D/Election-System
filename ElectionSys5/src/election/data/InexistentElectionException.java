@@ -51,6 +51,8 @@ public class InexistentElectionException extends Exception {
 
   /**
    * 
+   * Constructs a new InexistentElectionException with the String message and throwable
+   * 
    * @param message
    * @param cause
    */
@@ -61,10 +63,16 @@ public class InexistentElectionException extends Exception {
 
   /**
    * 
-   * @param message
-   * @param cause
-   * @param enableSuppress
-   * @param writableStackTrace
+   * Constructs a new DuplicateVoterException with the message, cause, enableSuppress and
+   * writableStackTrace parameters.
+   * 
+   * @param message message the String message for this InexistentElectionException, if non-null and
+   *        non-empty, else the DEFAULT is used.
+   * @param cause the Throwable object that caused this InexistentElectionException to be
+   *        instantiated.
+   * @param enableSuppress whether this InexistentElectionException is suppressed or not. If this
+   *        object is suppressed, it may not always be thrown when multiple exceptions occur.
+   * @param writableStackTrace whether this InexistentElectionException has a stackTrace or not.
    */
 
   protected InexistentElectionException(String message, Throwable cause, boolean enableSuppress,
@@ -74,7 +82,7 @@ public class InexistentElectionException extends Exception {
   }
 
   /**
-   * 
+   * Returns a localized description of this InexistentElectionException
    */
 
   public String getLocalizedMessage() {
