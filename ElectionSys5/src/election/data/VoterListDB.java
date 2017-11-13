@@ -1,6 +1,7 @@
 package election.data;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import election.business.DawsonElectionFactory;
 import election.business.interfaces.ElectionFactory;
@@ -41,11 +42,25 @@ public class VoterListDB implements VoterDAO {
 
   }
 
+  /**
+   * Takes an email string and looks for it in the voter database. If a match is found it returns the voter who's email it belongs to.
+   * If no match found, it throws an InexistentVoterException.
+   * 
+   * @author Felicia Gorgatchov
+   * @return Voter : the reference of the voter who's email belongs to
+   * @param email : String email that the maethod will use to look through the database of voters
+   */
   public Voter getVoter(String email) throws InexistentVoterException {
-    Voter dummy = this.factory.getVoterInstance(null, null, email, null); 
-    ListUtilities.binarySearch(this, dummy);
+    Voter dummy = this.factory.getVoterInstance(null, null, email, null);
+    if(ListUtilities.binarySearch(this.database, dummy) < 0) {
+      throw new InexistentVoterException();
+    }
+    else {
+      int voterIndex = ListUtilities.binarySearch(this.database, dummy);
+      return this.database.get(voterIndex);
+    }
 
-  }
+  }//end getVoter 
 
 
 
