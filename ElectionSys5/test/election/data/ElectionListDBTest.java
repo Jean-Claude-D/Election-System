@@ -6,7 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import election.business.DawsonElectionFactory;
+import election.business.interfaces.Election;
 import election.data.interfaces.ListPersistenceObject;
 import util.ListUtilities;
 
@@ -23,6 +25,58 @@ public class ElectionListDBTest {
     // Workspace for DesJC
 
     // Workspace for hoss_m
+    // Testing the getElection method.
+
+    String type = "SINGLE";
+    int startYear = LocalDateTime.now().getYear();
+    int startMonth = LocalDateTime.now().getMonthValue();
+    int startDay = LocalDateTime.now().getDayOfMonth();
+    int endYear = LocalDateTime.now().getYear() + 1;
+    int endMonth = LocalDateTime.now().getMonthValue();
+    int endDay = LocalDateTime.now().getDayOfMonth();
+    String startRange = null;
+    String endRange = null;
+    String choice = "MARIA";
+    String choice2 = "FEL";
+    String name = "Prom Queen";
+
+    String type1 = "SINGLE";
+    int startYear1 = LocalDateTime.now().getYear();
+    int startMonth1 = LocalDateTime.now().getMonthValue();
+    int startDay1 = LocalDateTime.now().getDayOfMonth();
+    int endYear1 = LocalDateTime.now().getYear() + 1;
+    int endMonth1 = LocalDateTime.now().getMonthValue();
+    int endDay1 = LocalDateTime.now().getDayOfMonth();
+    String startRange1 = null;
+    String endRange1 = null;
+    String choice3 = "JC";
+    String choice4 = "H";
+    String name1 = "Prom King";
+
+    String type3 = "SINGLE";
+    int startYear3 = LocalDateTime.now().getYear();
+    int startMonth3 = LocalDateTime.now().getMonthValue();
+    int startDay3 = LocalDateTime.now().getDayOfMonth();
+    int endYear3 = LocalDateTime.now().getYear() + 1;
+    int endMonth3 = LocalDateTime.now().getMonthValue();
+    int endDay3 = LocalDateTime.now().getDayOfMonth();
+    String startRange3 = null;
+    String endRange3 = null;
+    String choice5 = "MARIA";
+    String choice6 = "FEL";
+    String name3 = "Prom Queen";
+
+    Election election1 =
+        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(name, type, startYear, startMonth,
+            startDay, endYear, endMonth, endDay, startRange, endRange, choice, choice2);
+
+    Election election2 = DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(name1, type1,
+        startYear1, startMonth1, startDay1, endYear1, endMonth1, endDay1, startRange1, endRange1,
+        choice3, choice4);
+
+    Election election3 = DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(name3, type3,
+        startYear3, startMonth3, startDay3, endYear3, endMonth3, endDay3, startRange3, endRange3,
+        choice5, choice6);
   }
 
   public static void testToString() {
