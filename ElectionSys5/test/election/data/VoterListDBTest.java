@@ -2,7 +2,6 @@ package election.data;
 
 import java.io.IOException;
 import java.nio.file.DirectoryNotEmptyException;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
@@ -53,12 +52,8 @@ public class VoterListDBTest {
       ListUtilities.saveListToTextFile(voters, "datafiles/testfiles/testVoters.txt");
       ListUtilities.saveListToTextFile(elecs, "datafiles/testfiles/testElections.txt");
       ListUtilities.saveListToTextFile(tallies, "datafiles/testfiles/testTally.txt");
-    } catch (InvalidPathException e) {
+    } catch (InvalidPathException | IOException e) {
       System.err.println("could not create testfiles directory " + e.getMessage());
-    } catch (FileAlreadyExistsException e) {
-      System.err.println("could not create testfiles directory " + e.getMessage());
-    } catch (IOException e) {
-      System.err.println("could not create testfiles in setup() " + e.getMessage());
     }
 
   }
