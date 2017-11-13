@@ -1,12 +1,12 @@
 package election.data;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionFactory;
 import election.data.interfaces.ElectionDAO;
-import election.data.interfaces.InexistentElectionException;
 import election.data.interfaces.ListPersistenceObject;
 import util.ListUtilities;
 
@@ -32,28 +32,32 @@ public class ElectionListDB implements ElectionDAO {
   }
 
   @Override
-  public Election getElection(String name) throws InexistentElectionException {
+  public Election getElection(String name) /* throws InexistentElectionException */ {
 
-    String type = null;
-    int startYear = 0;
-    int startMonth = 0;
-    int startDay = 0;
-    int endYear = 0;
-    int endMonth = 0;
-    int endDay = 0;
+
+    String type = "SINGLE";
+    int startYear = LocalDateTime.now().getYear();
+    int startMonth = LocalDateTime.now().getMonthValue();
+    int startDay = LocalDateTime.now().getDayOfMonth();
+    int endYear = LocalDateTime.now().getYear() + 1;
+    int endMonth = LocalDateTime.now().getMonthValue();
+    int endDay = LocalDateTime.now().getDayOfMonth();
     String startRange = null;
     String endRange = null;
-    String choice = null;
+    String choice = "A";
+    String choice2 = "B";
 
-    Election dummy = DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(name, type,
-        startYear, startMonth, startDay, endYear, endMonth, endDay, startRange, endRange, choice);
+    Election dummy =
+        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(name, type, startYear, startMonth,
+            startDay, endYear, endMonth, endDay, startRange, endRange, choice, choice2);
 
 
     int index = ListUtilities.binarySearch(database, dummy);
 
     if (index == -1) {
 
-      throw new InexistentElectionException("This election does not exist.");
+      throw new IllegalArgumentException(
+          "This election does not exist."); /* jjjjjjjjjjjjjjjjjjjjjjjj */
 
     }
 
