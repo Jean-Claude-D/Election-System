@@ -301,45 +301,49 @@ public class DawsonElection implements Election {
    * @throws IllegalArgumentException when voter is not eligible
    * @param b the Ballot object
    * @param v the Voter bject
+   * @author Cao Hoang
    */
   public void castBallot(Ballot b, Voter v) {
+    int gotIndex = ListUtilities.binarySearch(gotBallot, v);
+    int castIndex = ListUtilities.binarySearch(castBallot, v);
+
     if (!v.isEligible(this)) {
       throw new InvalidVoterException(
           "You Are Not Eligible To Practicipate In This Election. Please Check The Election Date and Your Postal Code Again");
     }
-    if (ListUtilities.binarySearch(gotBallot, v) == -1) {
+
+    if (gotIndex < 0) {
       invalidVoteAttempts++;
       throw new InvalidVoterException(
           "You Haven't Request A Ballot To Vote. This Incident Will Be Reported.");
-    }
-
-    else if (ListUtilities.binarySearch(castBallot, v) == -1) {
+    } else if (castIndex >= 0) {
       invalidVoteAttempts++;
-      throw new InvalidVoterException("You Have Already Voted. This Incide Will Be Reported.");
+      throw new InvalidVoterException("You Have Already Voted. This Incident Will Be Reported.");
 
     } else {
-      castBallot.add(v);
+      castBallot.add(castIndex, v);
     }
+
     if (b.validateSelections()) {
       this.tally.update(b);
     } else {
-      throw new IllegalArgumentException("Your Ballot Is NOT Valid, Git Gud Next Time");
+      throw new IllegalArgumentException("Your Ballot Is NOT Valid, \"Git Gud\" Next Time");
     }
   }
 
   /**
-   * Method is not yet available
+   * Give us the sum of all the cast ballt so far.
    * 
-   * @throws UnsupportedOperationException
+   * @return return the List size of castBallot
    */
   public int getTotalVotesCast() {
     return castBallot.size();
   }
 
   /**
-   * Method is not yet available
+   * Give us the sum of all the Invalid Vote Attempts so far
    * 
-   * @throws UnsupportedOperationException
+   * return the counter that keep track the number of invalid vote attempts
    */
   public int getInvalidVoteAttempts() { // getInvalidVoteAttempts
     return invalidVoteAttempts;
