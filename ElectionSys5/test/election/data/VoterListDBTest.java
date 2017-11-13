@@ -143,7 +143,7 @@ public class VoterListDBTest {
       System.out.println(
           "Failed to add the new Voter to Database, Error: " + e + "/t/t === TEST PASSED ===\n");
     }
-
+    teardown();
   }
 
   private static void testToString(String voterFilePath, String electionFilePath,

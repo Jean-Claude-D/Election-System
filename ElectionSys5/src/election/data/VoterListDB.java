@@ -52,6 +52,14 @@ public class VoterListDB implements VoterDAO {
     this.database = this.listPersistenceObject.getVoterDatabase();
   }
 
+  /**
+   * This method will take a Voter, check if the Voter is in the database or not. If it is, it
+   * throws a DuplicateVoterException. If not it adds the Voter into the correct place in the
+   * database (in a sorted order)
+   * 
+   * @param voter The Voter Object that we want to put inside the database.
+   * @exception DuplicateVoterException
+   */
   public void add(Voter voter) throws DuplicateVoterException {
 
     Voter instantiateVoter = factory.getVoterInstance(voter);
@@ -74,8 +82,7 @@ public class VoterListDB implements VoterDAO {
 
   }
 
-  // SUPPOSE TO THROW InexistentVoterException
-  public Voter getVoter(String email) {
+  public Voter getVoter(String email) throws InexistentVoterException {
     return null;
   }
 
