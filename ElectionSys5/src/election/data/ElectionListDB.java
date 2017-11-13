@@ -1,10 +1,14 @@
 package election.data;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import election.business.DawsonElectionFactory;
+import election.business.DawsonTally;
+import election.business.ElectionType;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionFactory;
+import election.business.interfaces.Tally;
 // import election.data.interfaces.DuplicateElectionException;
 import election.data.interfaces.ElectionDAO;
 import election.data.interfaces.ListPersistenceObject;
@@ -49,8 +53,8 @@ public class ElectionListDB implements ElectionDAO {
    */
   @Override
   public void disconnect() throws IOException {
-    // TODO Auto-generated method stub
-
+    this.listPersistenceObject.saveElectionDatabase(this.database);
+    this.database = null;
   }
 
   /**
@@ -76,8 +80,19 @@ public class ElectionListDB implements ElectionDAO {
    */
   @Override
   public Election getElection(String name) /* throws InexistentElectionException */ {
-    // TODO Auto-generated method stub
-    return null;
+    LocalDate now = LocalDate.now();
+
+    Tally tally = new DawsonTally(0, name);
+    Election dummy = this.factory.getElectionInstance(name, ElectionType.SINGLE.toString(),
+        now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getYear(), now.getMonthValue(),
+        now.getDayOfMonth(), null, null, "1", "2", "3");
+
+    int index = ListUtilities.binarySearch(this.database, dummy);
+    if (index < 0) {
+      throw new IllegalArgumentException("Election with name \'" + name + "\' was not found");
+    }
+
+    return this.factory.getElectionInstance(this.database.get(index));
   }
 
   @Override
