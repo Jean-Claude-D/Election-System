@@ -8,6 +8,9 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import election.business.DawsonVoter;
+import election.business.interfaces.Voter;
 import util.ListUtilities;
 
 public class VoterListDBTest {
@@ -15,7 +18,13 @@ public class VoterListDBTest {
   public static void main(String[] args) {
     // testGetVoter();
     // TODO Add more method invocations to test all methods
-    testToString();
+
+    DawsonVoter aWildVoterAppear = new DawsonVoter("Yarrick", "Sebastian", "zaj@test.ru", "H3G5J1");
+
+    DawsonVoter badVoter = new DawsonVoter("Joe", "Mancini", "aoe.mancini@mail.me", "H3C4B7");
+
+    // testToString();
+    testAdd(aWildVoterAppear);
   }
 
   private static void setup() {
@@ -72,21 +81,71 @@ public class VoterListDBTest {
     } catch (IOException e) {
       System.err.println("could not delete test files " + e.getMessage());
     }
+  }
+
+  private static void testAdd(Voter v) {
+    setup();
+    System.out.println("========= ** Test add method of VoterListDB ** ========= \n\n");
+
+    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+    VoterListDB voterDatabase = new VoterListDB(file);
+
+
+    System.out.println(voterDatabase.toString());
+
+    try {
+      voterDatabase.add(v);
+      // voterDatabase.add(badVoter);
+      System.out.println(voterDatabase.toString());
+
+    } catch (DuplicateVoterException e) {
+      System.out.println("Failed to add the new Voter to Database, Error: " + e);
+    }
 
   }
 
   private static void testToString() {
     setup();
 
-    SequentialTextFileList file = new SequentialTextFileList("datafiles/database/voters.txt",
+    System.out.println("========= ** Test toString method of VoterListDB ** ========= \n\n");
+
+    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
         "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
 
     VoterListDB voterDatabase = new VoterListDB(file);
 
+    System.out.println("==> Content of Voter text files as seen by VoterListDB: \n");
     System.out.println(voterDatabase.toString());
 
+    Path testVoterPath = Paths.get("datafiles/testfiles/testVoters.txt");
 
+    /*
+     * This try catch will read the Voters directly from file, then convert it to a String using
+     * StringBuilder. This String will be compared to the String that is produced from the toString
+     * method for voterDatabase
+     */
+    try {
+      List<String> lines = Files.readAllLines(testVoterPath);
+      StringBuilder voters =
+          new StringBuilder("Number of voters in database: " + lines.size() + "\n");
 
+      for (String line : lines) {
+        voters.append(line + "\n");
+      }
+      System.out.println("==> Content of Voter text files as seen by readAllLines: \n");
+      System.out.println(voters.toString());
+
+      if (voterDatabase.toString().equals(voters.toString())) {
+        System.out.println("========> TEST PASSED <========");
+      } else {
+        System.out.println("========> TEST FAILED <========");
+      }
+    } catch (IOException e) {
+      System.out.println("Failed to read the file, error code: " + e);
+    }
+    teardown();
   }
 
 
