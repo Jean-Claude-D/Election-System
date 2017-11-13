@@ -158,7 +158,12 @@ public class VoterListDBTest {
     teardown();
   }
 
-
+   /**
+    * getVoter returns the voter ref of a provided email if found or throws an exception if the email was not found.
+    * testGetVoter test if getVoter returns the right voter if an existing email is given or if it throws an exception when an inexistent email is passed to it.
+    * @author Maja original template, Felicia filled out with specific test cases
+    * @throws InexistentVoterException
+    */
    private static void testGetVoter() throws InexistentVoterException {
    setup();
    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
@@ -191,8 +196,12 @@ public class VoterListDBTest {
    teardown();
    }
    
-   //joe.mancini@mail.me*Joe*Mancini*H3C4B7
-   
+   /**
+    * update takes an email and a postal code. uses the email to find the voter and updates the postal code with the one provided
+    * testUpdate tests if update() properly changes the postal code of an existing voter or if it throws an inexistenVoterException when the email is not found.
+    * @author Maja original template, Felicia filled out specific test cases
+    * @throws InexistentVoterException
+    */
    private static void testUpdate() throws InexistentVoterException {
      setup();
      
