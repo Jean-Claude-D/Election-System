@@ -11,6 +11,14 @@ import lib.Email;
 import lib.PostalCode;
 import util.ListUtilities;
 
+/**
+ * VoterListDB creates a database of Voter that is read from a .txt file, This include using:
+ * listPersistenceObject: Interface that defines all behaviour required by a class that loads from
+ * disk -- Factory: Instantiate an Election -- Database: List of all Voter
+ * 
+ * @author Cao Hoang and Felicia
+ * @version 1.1.0.1
+ */
 public class VoterListDB implements VoterDAO {
 
   private List<Voter> database;
@@ -18,6 +26,11 @@ public class VoterListDB implements VoterDAO {
   private final ElectionFactory factory;
 
 
+  /**
+   * This constructor is used when you want to use the default factory
+   * 
+   * @param listPersistenceObject define the interface that is used to read the file
+   */
   public VoterListDB(ListPersistenceObject listPersistenceObject) {
 
     this.factory = DawsonElectionFactory.DAWSON_ELECTION;
@@ -25,6 +38,13 @@ public class VoterListDB implements VoterDAO {
     this.database = this.listPersistenceObject.getVoterDatabase();
   }
 
+  /**
+   * This constructor is used when you want to use a custom factory to create elections from the
+   * database
+   * 
+   * @param listPersistenceObject define the interface that is used to read the file
+   * @param factory the Election that you want to be instantiate according to database.
+   */
   public VoterListDB(ListPersistenceObject listPersistenceObject, ElectionFactory factory) {
 
     this.listPersistenceObject = listPersistenceObject;
