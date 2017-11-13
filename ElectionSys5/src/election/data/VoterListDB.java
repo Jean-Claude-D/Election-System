@@ -72,9 +72,8 @@ public class VoterListDB implements VoterDAO {
    * @throws InexistentVoterException 
    * @see getVoter for exception
    */
-  public void update(Email email, PostalCode postalCode) throws IllegalArgumentException, InexistentVoterException { 
-    String emailStr = email.toString();
-    getVoter(emailStr).setPostalCode(postalCode);
+  public void update(Email email, PostalCode postalCode) throws InexistentVoterException { 
+    getVoter(email.toString()).setPostalCode(postalCode);
     
   }//end update
 
