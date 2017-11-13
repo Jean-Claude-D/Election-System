@@ -34,6 +34,10 @@ public class ElectionListDBTest {
     teardown();
   }
 
+  public static void testToString() {
+    System.out.println();
+  }
+
   public static void setup() {
     String[] elecs = new String[2];
     elecs[0] =
