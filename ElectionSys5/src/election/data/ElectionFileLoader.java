@@ -169,7 +169,8 @@ public class ElectionFileLoader {
 
       if (elections[i].equals(null)) {
 
-        System.out.println("This election is not valid ");
+        System.err.println("This election is not valid ");
+        break;
       }
       for (int linePositionElectionList = 0; linePositionElectionList < allLines
           .size(); linePositionElectionList += (numChoice + 1)) { // Going through every line with
