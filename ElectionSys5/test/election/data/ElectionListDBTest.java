@@ -22,6 +22,10 @@ public class ElectionListDBTest {
 
   }
 
+  public static void testToString() {
+    System.out.println();
+  }
+
   public static void setup() {
     String[] elecs = new String[2];
     elecs[0] =
