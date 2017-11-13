@@ -7,6 +7,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import election.business.DawsonElectionFactory;
+import election.business.interfaces.Election;
 import election.data.interfaces.ListPersistenceObject;
 import util.ListUtilities;
 
@@ -22,6 +23,27 @@ public class ElectionListDBTest {
   public static void main(String[] args) {
     // Workspace for DesJC
 
+    testToString();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
+        "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green", "Orange", "Blue", "Pink", "Cyan"));
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
+        "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
+        "Yes, I want independence", "No, I do not want independence"));
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    /*
+     * Centenial Worldwide Elections*2000*12*20*2010*12*4*H1A*H2C*single*10 Florence McCrady Cary
+     * Fee Angie Johnson Dorothy Ouimet Bronislaw Selezneva Martha Vasilieva Rahman Ganem Nashah
+     * Naser Chen Kung Rachelle Leduc
+     */
+
     // Workspace for hoss_m
   }
 
@@ -34,11 +56,15 @@ public class ElectionListDBTest {
 
     ElectionListDB electionDB = new ElectionListDB(file);
 
+    if (electionDB.toString().equals("Number of elections in database: " + 2 + "\n")) {
+
+    }
+
     System.out.println(electionDB.toString());
     teardown();
   }
 
-  public static void testAdd() {
+  public static void testAdd(Election election) {
     setup();
 
     ListPersistenceObject file = new SequentialTextFileList(null,
@@ -46,20 +72,8 @@ public class ElectionListDBTest {
 
     ElectionListDB electionDB = new ElectionListDB(file);
 
-    /*
-     * Centenial Worldwide Elections*2000*12*20*2010*12*4*H1A*H2C*single*10 Florence McCrady Cary
-     * Fee Angie Johnson Dorothy Ouimet Bronislaw Selezneva Martha Vasilieva Rahman Ganem Nashah
-     * Naser Chen Kung Rachelle Leduc
-     */
-
     try {
-      electionDB.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
-          "Dawson Color Election 2020", "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green",
-          "Orange", "Blue", "Pink", "Cyan"));
-
-      electionDB.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
-          "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
-          "Yes, I want independence", "No, I do not want independence"));
+      electionDB.add(election);
     } catch (DuplicateElectionException e) {
       e.printStackTrace();
     }
