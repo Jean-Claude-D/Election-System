@@ -35,7 +35,15 @@ public class ElectionListDBTest {
   }
 
   public static void testToString() {
-    System.out.println();
+    setup();
+
+    ListPersistenceObject file = new SequentialTextFileList(null,
+        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+    ElectionListDB electionDB = new ElectionListDB(file);
+
+    System.out.println(electionDB.toString());
+    teardown();
   }
 
   public static void setup() {
