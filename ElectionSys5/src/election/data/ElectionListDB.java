@@ -8,6 +8,7 @@ import election.business.interfaces.ElectionFactory;
 // import election.data.interfaces.DuplicateElectionException;
 import election.data.interfaces.ElectionDAO;
 import election.data.interfaces.ListPersistenceObject;
+import util.ListUtilities;
 // import election.data.interfaces.InexistentElectionException;
 
 /**
@@ -48,17 +49,27 @@ public class ElectionListDB implements ElectionDAO {
    */
   @Override
   public void disconnect() throws IOException {
-    // TODO Auto-generated method stub
-
+    // TODO implement disconnect()
   }
 
   /**
    * 
    */
   @Override
-  public void add(Election election)/* throws DuplicateElectionException */ {
-    // TODO Auto-generated method stub
+  public void add(Election election) throws DuplicateElectionException {
+    if (ListUtilities.binarySearch(this.database, election) >= 0) {
+      throw new DuplicateElectionException(election.toString() + "\nIs already in the database");
+    }
 
+    boolean found = false;
+    for (int i = 0; i < this.database.size() && !found; i++) {
+      if (election.compareTo(this.database.get(i)) <= 0) {
+        System.out
+            .println(election.getName() + " is smaller than " + this.database.get(i).getName());
+        this.database.add(i, this.factory.getElectionInstance(election));
+        found = true;
+      }
+    }
   }
 
   /**
@@ -66,10 +77,9 @@ public class ElectionListDB implements ElectionDAO {
    */
   @Override
   public Election getElection(String name) /* throws InexistentElectionException */ {
-    // TODO Auto-generated method stub
+    // TODO implement getElection(Election)
     return null;
   }
-
 
   @Override
   public String toString() {
@@ -83,6 +93,5 @@ public class ElectionListDB implements ElectionDAO {
 
     return result.toString();
   }
-
 
 }
