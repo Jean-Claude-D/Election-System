@@ -24,6 +24,7 @@ public class ElectionListDB implements ElectionDAO {
 
   /**
    * 
+   * @author DesJC
    */
   public ElectionListDB(ListPersistenceObject listPersistenceObject) {
     this(listPersistenceObject, DawsonElectionFactory.DAWSON_ELECTION);
@@ -31,6 +32,7 @@ public class ElectionListDB implements ElectionDAO {
 
   /**
    * 
+   * @author DesJC
    */
   public ElectionListDB(ListPersistenceObject listPersistenceObject, ElectionFactory factory) {
     if (listPersistenceObject == null) {
@@ -46,6 +48,7 @@ public class ElectionListDB implements ElectionDAO {
 
   /**
    * 
+   * @author hoss_m
    */
   @Override
   public void disconnect() throws IOException {
@@ -54,6 +57,7 @@ public class ElectionListDB implements ElectionDAO {
 
   /**
    * 
+   * @author DesJC
    */
   @Override
   public void add(Election election) throws DuplicateElectionException {
@@ -74,6 +78,7 @@ public class ElectionListDB implements ElectionDAO {
 
   /**
    * 
+   * @author hoss_m
    */
   @Override
   public Election getElection(String name) /* throws InexistentElectionException */ {
@@ -81,6 +86,10 @@ public class ElectionListDB implements ElectionDAO {
     return null;
   }
 
+  /**
+   * 
+   * @author DesJC
+   */
   @Override
   public String toString() {
     StringBuilder result =
