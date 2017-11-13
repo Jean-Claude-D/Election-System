@@ -2,6 +2,7 @@ package election.data;
 
 import java.io.IOException;
 import java.util.List;
+import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionFactory;
 // import election.data.interfaces.DuplicateElectionException;
@@ -24,14 +25,21 @@ public class ElectionListDB implements ElectionDAO {
    * 
    */
   public ElectionListDB(ListPersistenceObject listPersistenceObject) {
-    // TODO Auto-generated constructor stub
+    this(listPersistenceObject, DawsonElectionFactory.DAWSON_ELECTION);
   }
 
   /**
    * 
    */
   public ElectionListDB(ListPersistenceObject listPersistenceObject, ElectionFactory factory) {
-    // TODO Auto-generated constructor stub
+    if (listPersistenceObject == null) {
+      throw new IllegalArgumentException("The listPersistenceObject parameter must be non-null");
+    } else if (factory == null) {
+      throw new IllegalArgumentException("The factory parameter must be non-null");
+    }
+
+    this.listPersistenceObject = listPersistenceObject;
+    this.factory = factory;
   }
 
   /**
