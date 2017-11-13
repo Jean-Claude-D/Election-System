@@ -22,6 +22,8 @@ public class VoterListDBTest {
         new DawsonVoter("Joe", "Mancini", "koe.mancini@mail.me", "H3C4B7");
     DawsonVoter badVoter = new DawsonVoter("Joe", "Mancini", "joe.mancini@mail.me", "H3C4B7");
 
+    DawsonVoter newValidVoter = new DawsonVoter("Raj", "Wong", "zaj@test.ru", "H3E1B4");
+
     String voterFilePath = "datafiles/testfiles/testVoters.txt";
     String electionFilePath = "datafiles/testfiles/testElections.txt";
     String tallyFilePath = "datafiles/testfiles/testTally.txt";
@@ -31,11 +33,19 @@ public class VoterListDBTest {
     confirm.append("koe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
     confirm.append("raj@test.ru*Raj*Wong*H3E1B4\n");
 
+    StringBuilder confirm2 = new StringBuilder("Number of voters in database: 3\n");
+    confirm2.append("joe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
+    confirm2.append("raj@test.ru*Raj*Wong*H3E1B4\n");
+    confirm2.append("zaj@test.ru*Raj*Wong*H3E1B4\n");
+
     System.out.println(
         "<><><><><><><><><><> ** TEST add METHOD OF VoterListDB ** <><><><><><><><><><> \n");
-    // Passing a brand new valid Voter
+
+    // Passing a brand new valid Voter. Expect the Voter to be added between the 2 exist Voter
     testAdd(aWildVoterAppear, voterFilePath, electionFilePath, tallyFilePath, confirm.toString());
-    // Passing an existed Voter
+    // Passing a brand new valid Voter. Expect the Voter to be added at the end of the database
+    testAdd(newValidVoter, voterFilePath, electionFilePath, tallyFilePath, confirm2.toString());
+    // Passing an existed Voter (Expect to throw exception)
     testAdd(badVoter, voterFilePath, electionFilePath, tallyFilePath, "FAILED");
 
     System.out.println("<><><><><><><><><><> ** TEST END ** <><><><><><><><><><> \n");
@@ -115,10 +125,25 @@ public class VoterListDBTest {
     }
   }
 
+  /**
+   * Testing add method to make sure it works correctly. It is supposed to throw exception when
+   * Voter is already exists Otherwise, it needs to add the Voter into the CORRECT place in the
+   * database.
+   * 
+   * @param v The Voter that we want to add
+   * @param voterFilePath The file path of Voter .txt file
+   * @param electionFilePath The file path of Election .txt file
+   * @param tallyFilePath The file path of Tally .txt file
+   * @param toValid A String to verify if the add method works correctly or not
+   * 
+   * @author Cao Hoang
+   */
   private static void testAdd(Voter v, String voterFilePath, String electionFilePath,
       String tallyFilePath, String toValid) {
 
     setup();
+    System.out.println("***** STARTING NEW TEST *****\n");
+
     SequentialTextFileList file =
         new SequentialTextFileList(voterFilePath, electionFilePath, tallyFilePath);
 
@@ -129,7 +154,6 @@ public class VoterListDBTest {
 
     try {
       voterDatabase.add(v);
-
       System.out.println("Voter Database AFTER adding new Voter: \n");
       System.out.println(voterDatabase.toString());
 
@@ -141,11 +165,23 @@ public class VoterListDBTest {
 
     } catch (DuplicateVoterException e) {
       System.out.println(
-          "Failed to add the new Voter to Database, Error: " + e + "/t/t === TEST PASSED ===\n");
+          "Failed to add the new Voter to Database, Error: " + e + "\t\t === TEST PASSED ===\n");
     }
     teardown();
   }
 
+  /**
+   * Test toString method to see if it's working or not. It is supposed to return the total number
+   * of Voter in the database and listing out all the Voter in the database in a certain format
+   * (Please check the method in VoterListDB.java for detail)
+   * 
+   * @param voterFilePath The file path of Voter .txt file
+   * @param electionFilePath The file path of Election .txt file
+   * @param tallyFilePath The file path of Tally .txt file
+   * @param toValid A String to verify if the toString works correctly or not
+   * 
+   * @author Cao Hoang
+   */
   private static void testToString(String voterFilePath, String electionFilePath,
       String tallyFilePath, String toValid) {
     setup();
@@ -157,7 +193,7 @@ public class VoterListDBTest {
     System.out.println("==> Content of Voter text files as seen by VoterListDB: \n");
     System.out.println(voterDatabase.toString());
 
-    System.out.println("==> Content of Voter text files as seen by readAllLines: \n");
+    System.out.println("==> Content of Voter text files as seen by creating a valid String: \n");
     System.out.println(toValid.toString());
 
     if (voterDatabase.toString().equals(toValid.toString())) {
@@ -165,7 +201,6 @@ public class VoterListDBTest {
     } else {
       System.out.println("========> TEST FAILED <========\n");
     }
-
     teardown();
   }
 

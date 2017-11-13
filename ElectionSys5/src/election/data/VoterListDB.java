@@ -30,6 +30,7 @@ public class VoterListDB implements VoterDAO {
    * This constructor is used when you want to use the default factory
    * 
    * @param listPersistenceObject define the interface that is used to read the file
+   * @author Cao Hoang
    */
   public VoterListDB(ListPersistenceObject listPersistenceObject) {
 
@@ -44,6 +45,7 @@ public class VoterListDB implements VoterDAO {
    * 
    * @param listPersistenceObject define the interface that is used to read the file
    * @param factory the Election that you want to be instantiate according to database.
+   * @author Cao Hoang
    */
   public VoterListDB(ListPersistenceObject listPersistenceObject, ElectionFactory factory) {
 
@@ -59,6 +61,7 @@ public class VoterListDB implements VoterDAO {
    * 
    * @param voter The Voter Object that we want to put inside the database.
    * @exception DuplicateVoterException
+   * @author Cao Hoang
    */
   public void add(Voter voter) throws DuplicateVoterException {
 
@@ -90,6 +93,14 @@ public class VoterListDB implements VoterDAO {
 
   }
 
+  /**
+   * Return the database in the String format, which the first line showing how many Voter in the
+   * database, and the subsequent lines are the list of Voter. Each line is one Voter, in the
+   * format: email*firstName*lastName*postalCode. e.g.: Number of voters in database: 2
+   * joe.mancini@mail.me*Joe*Mancini*H3C4B7 raj@test.ru*Raj*Wong*H3E1B4
+   * 
+   * @author Cao Hoang
+   */
   @Override
   public String toString() {
 
@@ -97,12 +108,8 @@ public class VoterListDB implements VoterDAO {
         new StringBuilder("Number of voters in database: " + this.database.size() + "\n");
 
     for (int i = 0; i < this.database.size(); i++) {
-      voterDatabase.append(database.get(i).getEmail() + "*"
-          + database.get(i).getName().getFirstName() + "*" + database.get(i).getName().getLastName()
-          + "*" + database.get(i).getPostalCode() + "\n");
+      voterDatabase.append(database.get(i) + "\n");
     }
     return voterDatabase.toString();
   }
-
-
 }
