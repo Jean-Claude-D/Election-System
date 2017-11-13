@@ -272,9 +272,15 @@ public class ListUtilities {
   }
 
   /**
+   * 
+   * This Binary search method uses loops through the array of comparable by starting from the
+   * middle index and see if matches with the parameter. If it does not match it returns -1. The key
+   * parameter that we pass matches than it will return the index in which the key is located in the
+   * Comparable Array.
+   * 
    * @author Maria Hossain
-   * @param database
-   * @param key
+   * @param database parameter is a Comparable ARRAY
+   * @param key must be of the comparable object
    * @return index of the matching key
    */
 
