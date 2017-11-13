@@ -70,6 +70,7 @@ public class ElectionListDB implements ElectionDAO {
     return null;
   }
 
+
   @Override
   public String toString() {
     StringBuilder result =
@@ -82,5 +83,6 @@ public class ElectionListDB implements ElectionDAO {
 
     return result.toString();
   }
+
 
 }
