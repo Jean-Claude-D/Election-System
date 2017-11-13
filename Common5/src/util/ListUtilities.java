@@ -17,6 +17,8 @@ import java.util.List;
 
 // skeleton provides the imports, plus methods saveListToTextFile and the Comparator sort overload
 
+
+
 public class ListUtilities {
   private static final Charset CHARACTER_ENCODING = StandardCharsets.UTF_8;
 
@@ -46,8 +48,8 @@ public class ListUtilities {
   private static <T extends Comparable<? super T>> int helperRecursive(List<T> database, T key,
       int low, int high) {
 
-    if (database.size() == 0) {
-      return -(low + 1);
+    if (high - low == 0) {
+      return -(low);
     }
 
     int mid = (high + low) / 2;
