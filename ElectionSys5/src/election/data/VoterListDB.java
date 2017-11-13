@@ -6,7 +6,7 @@ import java.util.List;
 import election.business.DawsonElectionFactory;
 import election.business.interfaces.ElectionFactory;
 import election.business.interfaces.Voter;
-import election.data.interfaces.InexistentVoterException;
+import election.data.InexistentVoterException;
 import election.data.interfaces.ListPersistenceObject;
 import election.data.interfaces.VoterDAO;
 import lib.Email;
@@ -54,7 +54,7 @@ public class VoterListDB implements VoterDAO {
   public Voter getVoter(String email) throws InexistentVoterException {
     Voter dummy = this.factory.getVoterInstance("Glados", "Chell", email, "J4X2G3");
     if(ListUtilities.binarySearch(this.database, dummy) < 0) {
-      throw new InexistentVoterException();
+      throw new InexistentVoterException("Sorry. There are no corresponding voters to the email you have entered.");
     }
     
     int voterIndex = ListUtilities.binarySearch(this.database, dummy);
@@ -69,15 +69,17 @@ public class VoterListDB implements VoterDAO {
    * @author Felicia Gorgatchov
    * @param email : email object used to find a voter in the database
    * @param postalCode : postalCode object used to replace the voter's existing postal code with a new one
+   * @throws InexistentVoterException 
    * @see getVoter for exception
    */
-  public void update(Email email, PostalCode postalCode) throws IllegalArgumentException { 
-    getVoter(email).setPostalCode(postalCode);
+  public void update(Email email, PostalCode postalCode) throws IllegalArgumentException, InexistentVoterException { 
+    String emailStr = email.toString();
+    getVoter(emailStr).setPostalCode(postalCode);
     
   }//end update
 
   @Override
   public String toString() {
-
+    return "hello";
   }
 }
