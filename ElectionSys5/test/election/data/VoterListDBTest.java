@@ -7,7 +7,6 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import election.business.DawsonVoter;
 import election.business.interfaces.Voter;
 import util.ListUtilities;
@@ -15,16 +14,54 @@ import util.ListUtilities;
 public class VoterListDBTest {
 
   public static void main(String[] args) {
-    // testGetVoter();
     // TODO Add more method invocations to test all methods
 
-    DawsonVoter aWildVoterAppear = new DawsonVoter("Yarrick", "Sebastian", "zaj@test.ru", "H3G5J1");
+    // ==========================> Data And Method Called To Test add Method
 
-    DawsonVoter badVoter = new DawsonVoter("Joe", "Mancini", "aoe.mancini@mail.me", "H3C4B7");
+    DawsonVoter aWildVoterAppear =
+        new DawsonVoter("Joe", "Mancini", "koe.mancini@mail.me", "H3C4B7");
+    DawsonVoter badVoter = new DawsonVoter("Joe", "Mancini", "joe.mancini@mail.me", "H3C4B7");
 
-    // testToString();
-    testAdd(aWildVoterAppear);
+    String voterFilePath = "datafiles/testfiles/testVoters.txt";
+    String electionFilePath = "datafiles/testfiles/testElections.txt";
+    String tallyFilePath = "datafiles/testfiles/testTally.txt";
+
+    StringBuilder confirm = new StringBuilder("Number of voters in database: 3\n");
+    confirm.append("joe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
+    confirm.append("koe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
+    confirm.append("raj@test.ru*Raj*Wong*H3E1B4\n");
+
+    System.out.println(
+        "<><><><><><><><><><> ** TEST add METHOD OF VoterListDB ** <><><><><><><><><><> \n");
+    // Passing a brand new valid Voter
+    testAdd(aWildVoterAppear, voterFilePath, electionFilePath, tallyFilePath, confirm.toString());
+    // Passing an existed Voter
+    testAdd(badVoter, voterFilePath, electionFilePath, tallyFilePath, "FAILED");
+
+    System.out.println("<><><><><><><><><><> ** TEST END ** <><><><><><><><><><> \n");
+
+    // Data And Method Called To Test add Method <==========================
+
+
+    // ==========================> Data And Method Called To Test toString Method
+
+    System.out.println(
+        "<><><><><><><><><><> ** TEST toString METHOD OF VoterListDB ** <><><><><><><><><><> \n");
+
+    StringBuilder check = new StringBuilder("Number of voters in database: 2\n");
+    check.append("joe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
+    check.append("raj@test.ru*Raj*Wong*H3E1B4\n");
+
+    testToString(voterFilePath, electionFilePath, tallyFilePath, check.toString());
+
+    System.out.println("<><><><><><><><><><> ** TEST END ** <><><><><><><><><><> \n");
+
+    // Data And Method Called To Test toString Method <==========================
+
+
   }
+
+
 
   private static void setup() {
     String[] voters = new String[2];
@@ -78,68 +115,57 @@ public class VoterListDBTest {
     }
   }
 
-  private static void testAdd(Voter v) {
-    setup();
-    System.out.println("========= ** Test add method of VoterListDB ** ========= \n\n");
+  private static void testAdd(Voter v, String voterFilePath, String electionFilePath,
+      String tallyFilePath, String toValid) {
 
-    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    setup();
+    SequentialTextFileList file =
+        new SequentialTextFileList(voterFilePath, electionFilePath, tallyFilePath);
 
     VoterListDB voterDatabase = new VoterListDB(file);
 
-
+    System.out.println("Voter Database BEFORE adding new Voter: \n");
     System.out.println(voterDatabase.toString());
 
     try {
       voterDatabase.add(v);
-      // voterDatabase.add(badVoter);
+
+      System.out.println("Voter Database AFTER adding new Voter: \n");
       System.out.println(voterDatabase.toString());
 
+      if (voterDatabase.toString().equals(toValid)) {
+        System.out.println("========> TEST PASSED <========\n");
+      } else {
+        System.out.println("========> TEST FAILED <========\n");
+      }
+
     } catch (DuplicateVoterException e) {
-      System.out.println("Failed to add the new Voter to Database, Error: " + e);
+      System.out.println(
+          "Failed to add the new Voter to Database, Error: " + e + "/t/t === TEST PASSED ===\n");
     }
 
   }
 
-  private static void testToString() {
+  private static void testToString(String voterFilePath, String electionFilePath,
+      String tallyFilePath, String toValid) {
     setup();
-
-    System.out.println("========= ** Test toString method of VoterListDB ** ========= \n\n");
-
-    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    SequentialTextFileList file =
+        new SequentialTextFileList(voterFilePath, electionFilePath, tallyFilePath);
 
     VoterListDB voterDatabase = new VoterListDB(file);
 
     System.out.println("==> Content of Voter text files as seen by VoterListDB: \n");
     System.out.println(voterDatabase.toString());
 
-    Path testVoterPath = Paths.get("datafiles/testfiles/testVoters.txt");
+    System.out.println("==> Content of Voter text files as seen by readAllLines: \n");
+    System.out.println(toValid.toString());
 
-    /*
-     * This try catch will read the Voters directly from file, then convert it to a String using
-     * StringBuilder. This String will be compared to the String that is produced from the toString
-     * method for voterDatabase
-     */
-    try {
-      List<String> lines = Files.readAllLines(testVoterPath);
-      StringBuilder voters =
-          new StringBuilder("Number of voters in database: " + lines.size() + "\n");
-
-      for (String line : lines) {
-        voters.append(line + "\n");
-      }
-      System.out.println("==> Content of Voter text files as seen by readAllLines: \n");
-      System.out.println(voters.toString());
-
-      if (voterDatabase.toString().equals(voters.toString())) {
-        System.out.println("========> TEST PASSED <========");
-      } else {
-        System.out.println("========> TEST FAILED <========");
-      }
-    } catch (IOException e) {
-      System.out.println("Failed to read the file, error code: " + e);
+    if (voterDatabase.toString().equals(toValid.toString())) {
+      System.out.println("========> TEST PASSED <========\n");
+    } else {
+      System.out.println("========> TEST FAILED <========\n");
     }
+
     teardown();
   }
 
