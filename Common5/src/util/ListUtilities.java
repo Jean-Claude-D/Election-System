@@ -271,5 +271,43 @@ public class ListUtilities {
     return trimmed;
   }
 
+  /**
+   * @author Maria Hossain
+   * @param database
+   * @param key
+   * @return index of the matching key
+   */
+
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public static int binarySearch(Comparable[] database, Comparable key) {
+
+    int low = 0;
+    int high = database.length - 1;
+
+    while (high > low) {
+
+      int middle = (low + high) / 2;
+
+
+      if (database[middle] == key) {
+
+        return middle;
+      }
+
+      if (database[middle].compareTo(key) >= 1) {
+
+        low = middle - 1;
+      }
+
+      if (database[middle].compareTo(key) <= -1) {
+
+        high = middle + 1;
+      }
+    }
+
+    return -1;
+
+  }
+
 }
 
