@@ -57,11 +57,18 @@ public class ElectionListDB implements ElectionDAO {
    * 
    */
   @Override
-  public void add(Election election)/* throws DuplicateElectionException */ {
-    if(ListUtilities.binarySearch(this.database, election) >= 0) {
-      throw new
+  public void add(Election election) throws DuplicateElectionException {
+    if (ListUtilities.binarySearch(this.database, election) >= 0) {
+      throw new DuplicateElectionException(election.toString() + "\nIs already in the database");
     }
-    
+
+    boolean found = false;
+    for (int i = 0; i < this.database.size() && !found;) {
+      if (election.compareTo(this.database.get(i)) <= 0) {
+        this.database.add(i, this.factory.getElectionInstance(election));
+        found = true;
+      }
+    }
   }
 
   /**
