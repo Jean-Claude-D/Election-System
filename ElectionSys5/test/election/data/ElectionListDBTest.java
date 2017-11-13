@@ -6,7 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+<<<<<<< HEAD
 import election.data.interfaces.ListPersistenceObject;
+=======
+>>>>>>> Add ElectionListDBTest into test/election.data
 import util.ListUtilities;
 
 /**
@@ -19,6 +22,7 @@ public class ElectionListDBTest {
   private ElectionListDBTest() {}
 
   public static void main(String[] args) {
+<<<<<<< HEAD
     testToString();
   }
 
@@ -32,6 +36,10 @@ public class ElectionListDBTest {
 
     System.out.println(electionDB.toString());
     teardown();
+=======
+    // TODO Auto-generated method stub
+
+>>>>>>> Add ElectionListDBTest into test/election.data
   }
 
   public static void setup() {
@@ -58,7 +66,13 @@ public class ElectionListDBTest {
 
       ListUtilities.saveListToTextFile(elecs, "datafiles/testfiles/testElections.txt");
       ListUtilities.saveListToTextFile(tallies, "datafiles/testfiles/testTally.txt");
+<<<<<<< HEAD
     } catch (InvalidPathException | FileAlreadyExistsException e) {
+=======
+    } catch (InvalidPathException e) {
+      System.err.println("could not create testfiles directory " + e.getMessage());
+    } catch (FileAlreadyExistsException e) {
+>>>>>>> Add ElectionListDBTest into test/election.data
       System.err.println("could not create testfiles directory " + e.getMessage());
     } catch (IOException e) {
       System.err.println("could not create testfiles in setup() " + e.getMessage());
