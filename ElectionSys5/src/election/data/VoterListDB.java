@@ -49,6 +49,7 @@ public class VoterListDB implements VoterDAO {
    * @author Felicia Gorgatchov
    * @return Voter : the reference of the voter who's email belongs to
    * @param email : String email that the maethod will use to look through the database of voters
+   * @throws InexistentVoterException if the email was not found in the database.
    */
   public Voter getVoter(String email) throws InexistentVoterException {
     Voter dummy = this.factory.getVoterInstance("Glados", "Chell", email, "J4X2G3");
@@ -61,11 +62,19 @@ public class VoterListDB implements VoterDAO {
 
   }//end getVoter 
 
-
-
+  /**
+   * Checks if the voter exists using getVoter and if it does, changes the existing postal code with the one specified
+   * in the arguments of the voter that getVoter returns. If the voter does not exist, getVoter throws InexistentVoterException
+   * 
+   * @author Felicia Gorgatchov
+   * @param email : email object used to find a voter in the database
+   * @param postalCode : postalCode object used to replace the voter's existing postal code with a new one
+   * @see getVoter for exception
+   */
   public void update(Email email, PostalCode postalCode) throws IllegalArgumentException { 
     getVoter(email).setPostalCode(postalCode);
-  }
+    
+  }//end update
 
   @Override
   public String toString() {
