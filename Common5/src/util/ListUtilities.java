@@ -38,11 +38,19 @@ public class ListUtilities {
    *         the key
    */
   public static <T extends Comparable<? super T>> int binarySearch(List<T> database, T key) {
+    return helperRecursive(database, key, 0, database.size());
+  }
+
+  // This is a private helper method to help the recursive binary search returns the insertion
+  // index.
+  private static <T extends Comparable<? super T>> int helperRecursive(List<T> database, T key,
+      int low, int high) {
+
     if (database.size() == 0) {
-      return -1;
+      return -(low + 1);
     }
 
-    int mid = database.size() / 2;
+    int mid = (high + low) / 2;
 
     if (database.get(mid).compareTo(key) == 0) {
       return mid;
@@ -50,14 +58,13 @@ public class ListUtilities {
 
     if (database.get(mid).compareTo(key) > 0) {
 
-      List<T> cutHalf = database.subList(0, mid);
-      return binarySearch(cutHalf, key);
+      // List<T> cutHalf = database.subList(0, mid);
+      return helperRecursive(database, key, low, mid);
     } else {
-      List<T> cutHalf = database.subList(mid + 1, database.size());
-      return binarySearch(cutHalf, key);
+      // List<T> cutHalf = database.subList(mid + 1, database.size());
+      return helperRecursive(database, key, mid + 1, high);
     }
   }
-
 
 
   /**
