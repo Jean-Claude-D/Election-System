@@ -62,10 +62,8 @@ public class ElectionListDB implements ElectionDAO {
     }
 
     boolean found = false;
-    for (int i = 0; i < this.database.size() && !found; i++) {
+    for (int i = 0; i < this.database.size() && !found;) {
       if (election.compareTo(this.database.get(i)) <= 0) {
-        System.out
-            .println(election.getName() + " is smaller than " + this.database.get(i).getName());
         this.database.add(i, this.factory.getElectionInstance(election));
         found = true;
       }
