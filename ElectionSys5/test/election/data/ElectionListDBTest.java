@@ -20,15 +20,9 @@ public class ElectionListDBTest {
   private ElectionListDBTest() {}
 
   public static void main(String[] args) {
-    testToString();
-    System.out.println();
-    System.out.println();
-    System.out.println();
-    try {
-      testAdd();
-    } catch (DuplicateElectionException e) {
-      e.printStackTrace();
-    }
+    // Workspace for DesJC
+
+    // Workspace for hoss_m
   }
 
   public static void testToString() {
@@ -44,7 +38,7 @@ public class ElectionListDBTest {
     teardown();
   }
 
-  public static void testAdd() throws DuplicateElectionException {
+  public static void testAdd() {
     setup();
 
     ListPersistenceObject file = new SequentialTextFileList(null,
@@ -58,16 +52,32 @@ public class ElectionListDBTest {
      * Naser Chen Kung Rachelle Leduc
      */
 
-    electionDB
-        .add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
-            "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green", "Orange", "Blue", "Pink", "Cyan"));
+    try {
+      electionDB.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
+          "Dawson Color Election 2020", "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green",
+          "Orange", "Blue", "Pink", "Cyan"));
 
-    electionDB.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
-        "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
-        "Yes, I want independence", "No, I do not want independence"));
+      electionDB.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
+          "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
+          "Yes, I want independence", "No, I do not want independence"));
+    } catch (DuplicateElectionException e) {
+      e.printStackTrace();
+    }
 
     System.out.println(electionDB + "");
 
+    teardown();
+  }
+
+  public static void testDisconnect() {
+    setup();
+    // TODO test the disconnect() from ElectionListDB
+    teardown();
+  }
+
+  public static void testGetElection(String testName) {
+    setup();
+    // TODO test the getElection(String) from ElectionListDB
     teardown();
   }
 
