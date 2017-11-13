@@ -8,6 +8,7 @@ import election.business.interfaces.ElectionFactory;
 // import election.data.interfaces.DuplicateElectionException;
 import election.data.interfaces.ElectionDAO;
 import election.data.interfaces.ListPersistenceObject;
+import util.ListUtilities;
 // import election.data.interfaces.InexistentElectionException;
 
 /**
@@ -57,8 +58,10 @@ public class ElectionListDB implements ElectionDAO {
    */
   @Override
   public void add(Election election)/* throws DuplicateElectionException */ {
-    // TODO Auto-generated method stub
-
+    if(ListUtilities.binarySearch(this.database, election) >= 0) {
+      throw new
+    }
+    
   }
 
   /**

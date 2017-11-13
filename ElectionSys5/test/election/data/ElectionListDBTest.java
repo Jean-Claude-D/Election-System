@@ -23,6 +23,7 @@ public class ElectionListDBTest {
   }
 
   public static void testToString() {
+    // TODO an actual test
     setup();
 
     ListPersistenceObject file = new SequentialTextFileList(null,
