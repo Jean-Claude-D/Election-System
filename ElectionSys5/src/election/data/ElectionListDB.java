@@ -38,6 +38,7 @@ public class ElectionListDB implements ElectionDAO {
       throw new IllegalArgumentException("The factory parameter must be non-null");
     }
 
+    this.database = listPersistenceObject.getElectionDatabase();
     this.listPersistenceObject = listPersistenceObject;
     this.factory = factory;
   }
@@ -71,8 +72,15 @@ public class ElectionListDB implements ElectionDAO {
 
   @Override
   public String toString() {
-    // TODO Auto-generated method stub
-    return null;
+    StringBuilder result =
+        new StringBuilder("Number of elections in database: " + this.database.size());
+
+    for (Election e : this.database) {
+      String eStr = e.toString();
+      result.append("\n" + eStr.substring(0, eStr.indexOf('\n')));
+    }
+
+    return result.toString();
   }
 
 }
