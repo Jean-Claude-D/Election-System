@@ -77,7 +77,7 @@ public class ElectionListDB implements ElectionDAO {
           election.toString() + "\nIs already in the " + this.toString());
     }
 
-    this.database.add(-indexInsertion, this.factory.getElectionInstance(election));
+    this.database.add(-(indexInsertion) - 1, this.factory.getElectionInstance(election));
 
   }
 
