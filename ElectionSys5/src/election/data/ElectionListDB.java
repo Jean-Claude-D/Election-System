@@ -49,7 +49,11 @@ public class ElectionListDB implements ElectionDAO {
 
   /**
    * 
+   * Saves the election database and and changes database to null to make sure no one has access to
+   * it
+   * 
    * @author hoss_m
+   * @throws IOException if database is not valid
    */
   @Override
   public void disconnect() throws IOException {
