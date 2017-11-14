@@ -13,8 +13,12 @@ import util.ListUtilities;
 // import election.data.interfaces.InexistentElectionException;
 
 /**
+ * VoterListDB creates a database of Election that is read from a .txt file, This include using:
+ * listPersistenceObject: Interface that defines all behaviour required by a class that loads from
+ * disk -- Factory: Instantiate an Election -- Database: List of all Voter
  * 
  * @author DesJC
+ * @version 1.25252
  *
  */
 public class ElectionListDB implements ElectionDAO {
@@ -24,16 +28,21 @@ public class ElectionListDB implements ElectionDAO {
   private final ElectionFactory factory;
 
   /**
+   * Constructor that will use the default factory to setup the Election
    * 
    * @author DesJC
+   * @param listPersistenceObject define the interface that is used to read the file
    */
   public ElectionListDB(ListPersistenceObject listPersistenceObject) {
     this(listPersistenceObject, DawsonElectionFactory.DAWSON_ELECTION);
   }
 
   /**
+   * Constructor that will use the custom factory to setup the Election
    * 
    * @author DesJC
+   * @param listPersistenceObject define the interface that is used to read the file
+   * @param factory the Election that you want to be instantiate according to database.
    */
   public ElectionListDB(ListPersistenceObject listPersistenceObject, ElectionFactory factory) {
     if (listPersistenceObject == null) {
@@ -136,6 +145,8 @@ public class ElectionListDB implements ElectionDAO {
   }
 
   /**
+   * Return the Election as a String format: Including how many Election in the database plus the
+   * list of all the Election afterward.
    * 
    * @author DesJC
    */
