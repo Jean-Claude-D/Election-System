@@ -57,6 +57,15 @@ public class ElectionListDBTest {
     System.out.println();
     System.out.println();
 
+    testAdd(
+        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Favourite program", "single",
+            2018, 5, 1, 2019, 5, 31, "H4G", "H4G", "Java", "No Java"),
+        expectedDef + "\nFavourite program*2018*5*1*2019*5*31*H4G*H4G*SINGLE*2" + elec1 + elec2,
+        true);
+    System.out.println();
+    System.out.println();
+    System.out.println();
+
     // Workspace for hoss_m
     // Testing the getElection method.
 
