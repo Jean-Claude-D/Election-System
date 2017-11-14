@@ -29,20 +29,14 @@ public class ElectionListDBTest {
     System.out.println();
     System.out.println();
     System.out.println();
-
-    Election[] ele1 = {
-        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
-            "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green", "Orange", "Blue", "Pink", "Cyan"),
-        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
-            "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
-            "Yes, I want independence", "No, I do not want independence")};
-
-
-    testAdd(ele1);
+    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
+        "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green", "Orange", "Blue", "Pink", "Cyan"));
     System.out.println();
     System.out.println();
     System.out.println();
-    // testAdd();
+    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
+        "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
+        "Yes, I want independence", "No, I do not want independence"));
     System.out.println();
     System.out.println();
     System.out.println();
@@ -75,7 +69,7 @@ public class ElectionListDBTest {
     System.out.println("===== END  TOSTRING =====\n");
   }
 
-  public static void testAdd(Election[] election) {
+  public static void testAdd(Election election) {
     setup();
 
     ListPersistenceObject file = new SequentialTextFileList(null,
@@ -83,24 +77,10 @@ public class ElectionListDBTest {
 
     ElectionListDB electionDB = new ElectionListDB(file);
 
-    StringBuilder result = new StringBuilder(electionDB.toString());
-
     try {
-      for (Election e : election) {
-        String currElecStr = e.toString();
-        electionDB.add(e);
-        result.append("\n" + currElecStr.substring(0, currElecStr.indexOf('\n')));
-      }
+      electionDB.add(election);
     } catch (DuplicateElectionException e) {
       e.printStackTrace();
-    }
-
-    if (electionDB.toString().equals(result.toString())) {
-      System.out.println("PASS");
-    } else {
-      System.out.println("FAIL");
-      System.out.println("Was :\n" + electionDB.toString());
-      System.out.println("Should be :\n" + result.toString());
     }
 
     teardown();
