@@ -52,7 +52,10 @@ public class ElectionListDB implements ElectionDAO {
    */
   @Override
   public void disconnect() throws IOException {
-    // TODO implement disconnect()
+
+    listPersistenceObject.saveElectionDatabase(database);
+    database = null;
+
   }
 
   /**

@@ -7,6 +7,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.List;
 import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
 import election.data.interfaces.ListPersistenceObject;
@@ -27,7 +28,9 @@ public class ElectionListDBTest {
     // Workspace for hoss_m
     // Testing the getElection method.
 
-    String type = "SINGLE";
+    List<Election> database;
+
+    String type = "single";
     int startYear = LocalDateTime.now().getYear();
     int startMonth = LocalDateTime.now().getMonthValue();
     int startDay = LocalDateTime.now().getDayOfMonth();
@@ -62,9 +65,9 @@ public class ElectionListDBTest {
     int endDay3 = LocalDateTime.now().getDayOfMonth();
     String startRange3 = null;
     String endRange3 = null;
-    String choice5 = "MARIA";
-    String choice6 = "FEL";
-    String name3 = "Prom Queen";
+    String choice5 = "Brent";
+    String choice6 = "Stephanie";
+    String name3 = "President of Dawson";
 
     Election election1 =
         DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(name, type, startYear, startMonth,
@@ -77,6 +80,15 @@ public class ElectionListDBTest {
     Election election3 = DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(name3, type3,
         startYear3, startMonth3, startDay3, endYear3, endMonth3, endDay3, startRange3, endRange3,
         choice5, choice6);
+
+    testDisconnect(election1);
+
+    // getElection Testing
+
+    String testName1 = "Presidental race";
+    testGetElection(testName1);
+
+
   }
 
   public static void testToString() {
@@ -123,15 +135,85 @@ public class ElectionListDBTest {
     teardown();
   }
 
-  public static void testDisconnect() {
-    setup();
-    // TODO test the disconnect() from ElectionListDB
-    teardown();
+  public static void testDisconnect(Election electionToAdd) {
+
+    try {
+      setup();
+      ListPersistenceObject listPersistenceObject = new SequentialTextFileList(null,
+          "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+      ElectionListDB disconnectingElection = new ElectionListDB(listPersistenceObject);
+
+      int indexNewLine = electionToAdd.toString().indexOf('\n');
+      String newElectionToAdd = electionToAdd.toString().substring(0, indexNewLine);
+
+      String election = "\nPresidental race*2020*11*1*2020*11*1***single*2";
+      String election1 = "\nFavourite program*2018*5*1*2019*5*31*H4G*H4G*single*2";
+      String resultFromToString = "Number of elections in database: ";
+
+      String beforeYouAdd = resultFromToString + 2 + election1 + election;
+      String afterYouAdd = resultFromToString + 3 + election1 + election + '\n' + newElectionToAdd;
+      System.out.println(afterYouAdd);
+
+      disconnectingElection.add(electionToAdd);
+      System.out.println(disconnectingElection);
+
+      disconnectingElection.disconnect();
+
+      disconnectingElection = new ElectionListDB(listPersistenceObject);
+      String result = disconnectingElection.toString();
+      System.out.println(result);
+
+      if (result.compareTo(afterYouAdd) == 0) {
+
+        System.out.println();
+        System.out
+            .println("=================================PASS===================================");
+        System.out.println();
+
+      } else {
+
+        System.out.println();
+        System.out
+            .println("=================================FAIL===================================");
+        System.out.println();
+      }
+
+      teardown();
+
+    }
+
+    catch (IOException | DuplicateElectionException e) {
+      e.printStackTrace();
+    }
+
+
   }
 
   public static void testGetElection(String testName) {
     setup();
-    // TODO test the getElection(String) from ElectionListDB
+
+    ListPersistenceObject listPersistenceObject = new SequentialTextFileList(null,
+        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+    ElectionListDB gettingElection = new ElectionListDB(listPersistenceObject);
+
+    Election result = gettingElection.getElection(testName);
+
+    if (result.getName().compareTo(testName) == 0) {
+
+      System.out.println();
+      System.out.println("===========================PASS===============================");
+      System.out.println();
+    }
+
+    else {
+
+      System.out.println();
+      System.out.println("===========================FAIL===============================");
+      System.out.println();
+    }
+
     teardown();
   }
 
@@ -144,8 +226,8 @@ public class ElectionListDBTest {
     // TODO add more elections if needed, but the must be in sorted order
 
     String[] tallies = new String[2];
-    tallies[0] = "Presidental race*2" + "\n100*0" + "\n0*102";
-    tallies[1] = "Favourite program*2" + "\n1000*0" + "\n0*560";
+    tallies[1] = "Presidental race*2" + "\n100*0" + "\n0*102";
+    tallies[0] = "Favourite program*2" + "\n1000*0" + "\n0*560";
 
     Path dir;
 
