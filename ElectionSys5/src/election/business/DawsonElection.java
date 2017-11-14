@@ -296,8 +296,11 @@ public class DawsonElection implements Election {
     if ((ListUtilities.binarySearch(gotBallot, v) >= 0) && (ListUtilities.binarySearch(castBallot, v) >= 0)){
           throw new InvalidVoterException("This voter is not eligible");
     }
+    else if ((ListUtilities.binarySearch(gotBallot, v) < 0)){
+      gotBallot.add((ListUtilities.binarySearch(gotBallot, v)*1),v);
+      return (Ballot) this.getBallot();
+    }
     else {
-      gotBallot.add(v);
       return (Ballot) this.getBallot();
     }
     
