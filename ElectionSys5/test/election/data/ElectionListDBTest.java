@@ -7,6 +7,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import election.business.DawsonElectionFactory;
+import election.business.interfaces.Election;
 import election.data.interfaces.ListPersistenceObject;
 import util.ListUtilities;
 
@@ -22,49 +23,70 @@ public class ElectionListDBTest {
   public static void main(String[] args) {
     // Workspace for DesJC
 
-    // Workspace for hoss_m
-  }
-
-  public static void testToString() {
-    // TODO an actual test
-    setup();
-
-    ListPersistenceObject file = new SequentialTextFileList(null,
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
-
-    ElectionListDB electionDB = new ElectionListDB(file);
-
-    System.out.println(electionDB.toString());
-    teardown();
-  }
-
-  public static void testAdd() {
-    setup();
-
-    ListPersistenceObject file = new SequentialTextFileList(null,
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
-
-    ElectionListDB electionDB = new ElectionListDB(file);
-
+    testToString("Number of elections in database: " + 2
+        + "\nFavourite program*2018*5*1*2019*5*31*H4G*H4G*single*2"
+        + "\nPresidental race*2020*11*1*2020*11*1***single*2");
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
+        "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green", "Orange", "Blue", "Pink", "Cyan"));
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
+        "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
+        "Yes, I want independence", "No, I do not want independence"));
+    System.out.println();
+    System.out.println();
+    System.out.println();
     /*
      * Centenial Worldwide Elections*2000*12*20*2010*12*4*H1A*H2C*single*10 Florence McCrady Cary
      * Fee Angie Johnson Dorothy Ouimet Bronislaw Selezneva Martha Vasilieva Rahman Ganem Nashah
      * Naser Chen Kung Rachelle Leduc
      */
 
-    try {
-      electionDB.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
-          "Dawson Color Election 2020", "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green",
-          "Orange", "Blue", "Pink", "Cyan"));
+    // Workspace for hoss_m
+  }
 
-      electionDB.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
-          "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
-          "Yes, I want independence", "No, I do not want independence"));
+  public static void testToString(String expected) {
+    System.out.println("\n===== TEST TOSTRING =====");
+    setup();
+
+    ListPersistenceObject file = new SequentialTextFileList(null,
+        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+    ElectionListDB electionDB = new ElectionListDB(file);
+
+    if (electionDB.toString().equals(expected)) {
+      System.out.println("PASS");
+    } else {
+      System.out.println("FAIL, should be :\n" + expected);
+    }
+
+    System.out.println("\n" + electionDB.toString() + "\n");
+    teardown();
+    System.out.println("===== END  TOSTRING =====\n");
+  }
+
+  public static void testAdd(Election election, String expected, boolean exceptionExpected) {
+    setup();
+    boolean testPassed = false;
+
+    ListPersistenceObject file = new SequentialTextFileList(null,
+        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+    ElectionListDB electionDB = new ElectionListDB(file);
+
+    try {
+      electionDB.add(election);
+      testPassed = electionDB.equals(expected);
     } catch (DuplicateElectionException e) {
+      testPassed = exceptionExpected;
       e.printStackTrace();
     }
 
-    System.out.println(electionDB + "");
+    System.out.println(testPassed ? "PASS" : "FAIL");
 
     teardown();
   }
@@ -90,8 +112,8 @@ public class ElectionListDBTest {
     // TODO add more elections if needed, but the must be in sorted order
 
     String[] tallies = new String[2];
-    tallies[0] = "Presidental race*2" + "\n100*0" + "\n0*102";
-    tallies[1] = "Favourite program*2" + "\n1000*0" + "\n0*560";
+    tallies[1] = "Presidental race*2" + "\n100*0" + "\n0*102";
+    tallies[0] = "Favourite program*2" + "\n1000*0" + "\n0*560";
 
     Path dir;
 

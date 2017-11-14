@@ -57,7 +57,7 @@ public class ListUtilities {
       int low, int high) {
 
     if (high - low == 0) {
-      return -(low);
+      return -(low + 1);
     }
 
     int mid = (high + low) / 2;
