@@ -75,8 +75,17 @@ public class VoterListDB implements VoterDAO {
     database.add(-(index) - 1, instantiateVoter);
   }
 
+  /**
+   * Saves the database stored into this VoterListDB object into the files specified by this
+   * VoterListDB's listPersistenceObject and then assign null to this VoterListDB's database
+   * 
+   * @author DesJC
+   * @throws IOException if there was any problem in saving this VoterListDB's database into text
+   *         files
+   */
   public void disconnect() throws IOException {
-
+    this.listPersistenceObject.saveVoterDatabase(this.database);
+    this.database = null;
   }
 
   /**

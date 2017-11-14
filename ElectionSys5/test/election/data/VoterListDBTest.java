@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import election.business.DawsonVoter;
 import election.business.interfaces.Voter;
+import election.data.interfaces.ListPersistenceObject;
 import lib.Email;
 import lib.PostalCode;
 import util.ListUtilities;
@@ -86,6 +87,11 @@ public class VoterListDBTest {
     // Felicia Gorgatchov
     testGetVoter();
     testUpdate();
+
+    // Data and Method Called to disconnect() <==========================
+
+    testDisconnect();
+
   }
 
   private static void setup() {
@@ -137,6 +143,46 @@ public class VoterListDBTest {
     } catch (IOException e) {
       System.err.println("could not delete test files " + e.getMessage());
     }
+  }
+
+  /**
+   * Tests disconnect from VoterListDB
+   * 
+   * @author DesJC
+   * @see election.data.VoterLisDB#disconnect()
+   */
+  private static void testDisconnect() {
+    setup();
+
+    ListPersistenceObject files = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+    VoterListDB voterDB = new VoterListDB(files);
+
+    DawsonVoter toBeSaved = new DawsonVoter("Joe", "Mancini", "aoe.mancini@mail.me", "H3C4B7");
+
+    System.out.println("Before :\n" + voterDB.toString());
+
+    try {
+      voterDB.add(toBeSaved);
+      voterDB.disconnect();
+    } catch (DuplicateVoterException | IOException e) {
+      e.printStackTrace();
+    }
+
+    voterDB = new VoterListDB(files);
+
+    System.out.println("After :\n" + voterDB.toString());
+
+    if (voterDB.toString()
+        .equals("Number of voters in database: 3\n" + "aoe.mancini@mail.me*Joe*Mancini*H3C4B7\n"
+            + "joe.mancini@mail.me*Joe*Mancini*H3C4B7\n" + "raj@test.ru*Raj*Wong*H3E1B4\n")) {
+      System.out.println("PASS !!");
+    } else {
+      System.out.println("FAIL :(");
+    }
+
+    teardown();
   }
 
   /**
