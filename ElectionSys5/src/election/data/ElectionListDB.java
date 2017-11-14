@@ -82,6 +82,11 @@ public class ElectionListDB implements ElectionDAO {
   }
 
   /**
+   * Take a string which represents the name of an election. It then creates a dummy election with
+   * the name of election as the pertinent information. The reason this is done is because the
+   * recursive binary method take a list of election and an election as parameters. Once that dummy
+   * election is put through the binary method it will return the index of the election in the
+   * database if a match is found. If not than it will throw an InexistentElectionException.
    * 
    * Takes a String name of a particular election and will look through the database using the
    * recursive binary search method located in the List Utilities which return the index. Before
@@ -148,3 +153,5 @@ public class ElectionListDB implements ElectionDAO {
   }
 
 }
+
+
