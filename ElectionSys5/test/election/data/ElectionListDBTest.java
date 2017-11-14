@@ -29,22 +29,31 @@ public class ElectionListDBTest {
     System.out.println();
     System.out.println();
     System.out.println();
-    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
-        "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green", "Orange", "Blue", "Pink", "Cyan"));
+
+    String expectedDef = "Number of elections in database: " + 3;
+    String elec1 = "\nFavourite program*2018*5*1*2019*5*31*H4G*H4G*single*2";
+    String elec2 = "\nPresidental race*2020*11*1*2020*11*1***single*2";
+
+    testAdd(
+        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
+            "ranked", 2020, 12, 20, 2022, 1, 20, "", "", "Red", "Green", "Orange", "Blue", "Pink",
+            "Cyan"),
+        expectedDef + "\nDawson Color Election 2020*2020*12*20*2022*1*20***RANKED*6" + elec1
+            + elec2,
+        false);
     System.out.println();
     System.out.println();
     System.out.println();
-    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
-        "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
-        "Yes, I want independence", "No, I do not want independence"));
+    testAdd(
+        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
+            "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
+            "Yes, I want independence", "No, I do not want independence"),
+        expectedDef + "\nBrittany independence referendum*2017*12*6*2018*8*5*H3A*M1Z*SINGLE*2"
+            + elec1 + elec2,
+        false);
     System.out.println();
     System.out.println();
     System.out.println();
-    /*
-     * Centenial Worldwide Elections*2000*12*20*2010*12*4*H1A*H2C*single*10 Florence McCrady Cary
-     * Fee Angie Johnson Dorothy Ouimet Bronislaw Selezneva Martha Vasilieva Rahman Ganem Nashah
-     * Naser Chen Kung Rachelle Leduc
-     */
 
     // Workspace for hoss_m
   }
@@ -80,11 +89,14 @@ public class ElectionListDBTest {
 
     try {
       electionDB.add(election);
-      testPassed = electionDB.equals(expected);
+      testPassed = electionDB.toString().equals(expected);
     } catch (DuplicateElectionException e) {
       testPassed = exceptionExpected;
       e.printStackTrace();
     }
+
+    System.out.println(electionDB);
+    System.out.println(expected);
 
     System.out.println(testPassed ? "PASS" : "FAIL");
 
