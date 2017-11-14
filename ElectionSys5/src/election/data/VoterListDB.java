@@ -72,7 +72,7 @@ public class VoterListDB implements VoterDAO {
     if (index >= 0) {
       throw new DuplicateVoterException("This voter is already existed in the database");
     }
-    database.add(-(index), instantiateVoter);
+    database.add(-(index) - 1, instantiateVoter);
   }
 
   public void disconnect() throws IOException {

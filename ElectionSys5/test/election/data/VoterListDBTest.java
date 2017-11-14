@@ -18,11 +18,13 @@ public class VoterListDBTest {
 
     // ==========================> Data And Method Called To Test add Method
 
-    DawsonVoter aWildVoterAppear =
-        new DawsonVoter("Joe", "Mancini", "koe.mancini@mail.me", "H3C4B7");
-    DawsonVoter badVoter = new DawsonVoter("Joe", "Mancini", "joe.mancini@mail.me", "H3C4B7");
+    DawsonVoter newValidVoter = new DawsonVoter("Joe", "Mancini", "koe.mancini@mail.me", "H3C4B7");
 
-    DawsonVoter newValidVoter = new DawsonVoter("Raj", "Wong", "zaj@test.ru", "H3E1B4");
+    DawsonVoter newValidVoter2 = new DawsonVoter("Raj", "Wong", "zaj@test.ru", "H3E1B4");
+
+    DawsonVoter newValidVoter3 = new DawsonVoter("Joe", "Mancini", "aoe.mancini@mail.me", "H3C4B7");
+
+    DawsonVoter badVoter = new DawsonVoter("Joe", "Mancini", "joe.mancini@mail.me", "H3C4B7");
 
     String voterFilePath = "datafiles/testfiles/testVoters.txt";
     String electionFilePath = "datafiles/testfiles/testElections.txt";
@@ -38,13 +40,23 @@ public class VoterListDBTest {
     confirm2.append("raj@test.ru*Raj*Wong*H3E1B4\n");
     confirm2.append("zaj@test.ru*Raj*Wong*H3E1B4\n");
 
+    StringBuilder confirm3 = new StringBuilder("Number of voters in database: 3\n");
+    confirm3.append("aoe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
+    confirm3.append("joe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
+    confirm3.append("raj@test.ru*Raj*Wong*H3E1B4\n");
+
     System.out.println(
         "<><><><><><><><><><> ** TEST add METHOD OF VoterListDB ** <><><><><><><><><><> \n");
 
     // Passing a brand new valid Voter. Expect the Voter to be added between the 2 exist Voter
-    testAdd(aWildVoterAppear, voterFilePath, electionFilePath, tallyFilePath, confirm.toString());
+    testAdd(newValidVoter, voterFilePath, electionFilePath, tallyFilePath, confirm.toString());
+
     // Passing a brand new valid Voter. Expect the Voter to be added at the end of the database
-    testAdd(newValidVoter, voterFilePath, electionFilePath, tallyFilePath, confirm2.toString());
+    testAdd(newValidVoter2, voterFilePath, electionFilePath, tallyFilePath, confirm2.toString());
+
+    // Passing a brand new valid Voter. Expect the Voter to be added at the start of the database
+    testAdd(newValidVoter3, voterFilePath, electionFilePath, tallyFilePath, confirm3.toString());
+
     // Passing an existed Voter (Expect to throw exception)
     testAdd(badVoter, voterFilePath, electionFilePath, tallyFilePath, "FAILED");
 
@@ -62,16 +74,13 @@ public class VoterListDBTest {
     check.append("joe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
     check.append("raj@test.ru*Raj*Wong*H3E1B4\n");
 
-    testToString(voterFilePath, electionFilePath, tallyFilePath, check.toString());
+    // testToString(voterFilePath, electionFilePath, tallyFilePath, check.toString());
 
     System.out.println("<><><><><><><><><><> ** TEST END ** <><><><><><><><><><> \n");
 
     // Data And Method Called To Test toString Method <==========================
 
-
   }
-
-
 
   private static void setup() {
     String[] voters = new String[2];
