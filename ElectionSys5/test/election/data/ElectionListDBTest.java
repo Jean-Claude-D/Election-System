@@ -23,18 +23,26 @@ public class ElectionListDBTest {
   public static void main(String[] args) {
     // Workspace for DesJC
 
-    testToString();
+    testToString("Number of elections in database: " + 2
+        + "\nFavourite program*2018*5*1*2019*5*31*H4G*H4G*single*2"
+        + "\nPresidental race*2020*11*1*2020*11*1***single*2");
     System.out.println();
     System.out.println();
     System.out.println();
-    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
-        "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green", "Orange", "Blue", "Pink", "Cyan"));
+
+    Election[] ele1 = {
+        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance("Dawson Color Election 2020",
+            "ranked", 2020, 12, 20, 2022, 1, 20, "Red", "Green", "Orange", "Blue", "Pink", "Cyan"),
+        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
+            "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
+            "Yes, I want independence", "No, I do not want independence")};
+
+
+    testAdd(ele1);
     System.out.println();
     System.out.println();
     System.out.println();
-    testAdd(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(
-        "Brittany independence referendum", "single", 2017, 12, 6, 2018, 8, 5, "H3A", "M1Z",
-        "Yes, I want independence", "No, I do not want independence"));
+    // testAdd();
     System.out.println();
     System.out.println();
     System.out.println();
@@ -47,8 +55,8 @@ public class ElectionListDBTest {
     // Workspace for hoss_m
   }
 
-  public static void testToString() {
-    // TODO an actual test
+  public static void testToString(String expected) {
+    System.out.println("\n===== TEST TOSTRING =====");
     setup();
 
     ListPersistenceObject file = new SequentialTextFileList(null,
@@ -56,15 +64,18 @@ public class ElectionListDBTest {
 
     ElectionListDB electionDB = new ElectionListDB(file);
 
-    if (electionDB.toString().equals("Number of elections in database: " + 2 + "\n")) {
-
+    if (electionDB.toString().equals(expected)) {
+      System.out.println("PASS");
+    } else {
+      System.out.println("FAIL, should be :\n" + expected);
     }
 
-    System.out.println(electionDB.toString());
+    System.out.println("\n" + electionDB.toString() + "\n");
     teardown();
+    System.out.println("===== END  TOSTRING =====\n");
   }
 
-  public static void testAdd(Election election) {
+  public static void testAdd(Election[] election) {
     setup();
 
     ListPersistenceObject file = new SequentialTextFileList(null,
@@ -72,13 +83,25 @@ public class ElectionListDBTest {
 
     ElectionListDB electionDB = new ElectionListDB(file);
 
+    StringBuilder result = new StringBuilder(electionDB.toString());
+
     try {
-      electionDB.add(election);
+      for (Election e : election) {
+        String currElecStr = e.toString();
+        electionDB.add(e);
+        result.append("\n" + currElecStr.substring(0, currElecStr.indexOf('\n')));
+      }
     } catch (DuplicateElectionException e) {
       e.printStackTrace();
     }
 
-    System.out.println(electionDB + "");
+    if (electionDB.toString().equals(result.toString())) {
+      System.out.println("PASS");
+    } else {
+      System.out.println("FAIL");
+      System.out.println("Was :\n" + electionDB.toString());
+      System.out.println("Should be :\n" + result.toString());
+    }
 
     teardown();
   }
@@ -104,8 +127,8 @@ public class ElectionListDBTest {
     // TODO add more elections if needed, but the must be in sorted order
 
     String[] tallies = new String[2];
-    tallies[0] = "Presidental race*2" + "\n100*0" + "\n0*102";
-    tallies[1] = "Favourite program*2" + "\n1000*0" + "\n0*560";
+    tallies[1] = "Presidental race*2" + "\n100*0" + "\n0*102";
+    tallies[0] = "Favourite program*2" + "\n1000*0" + "\n0*560";
 
     Path dir;
 
