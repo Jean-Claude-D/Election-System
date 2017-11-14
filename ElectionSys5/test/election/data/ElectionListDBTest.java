@@ -191,30 +191,36 @@ public class ElectionListDBTest {
   }
 
   public static void testGetElection(String testName) {
-    setup();
 
-    ListPersistenceObject listPersistenceObject = new SequentialTextFileList(null,
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    try {
 
-    ElectionListDB gettingElection = new ElectionListDB(listPersistenceObject);
+      setup();
 
-    Election result = gettingElection.getElection(testName);
+      ListPersistenceObject listPersistenceObject = new SequentialTextFileList(null,
+          "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
 
-    if (result.getName().compareTo(testName) == 0) {
+      ElectionListDB gettingElection = new ElectionListDB(listPersistenceObject);
+      Election result = gettingElection.getElection(testName);
+      if (result.getName().compareTo(testName) == 0) {
 
-      System.out.println();
-      System.out.println("===========================PASS===============================");
-      System.out.println();
+        System.out.println();
+        System.out.println("===========================PASS===============================");
+        System.out.println();
+      }
+
+      else {
+
+        System.out.println();
+        System.out.println("===========================FAIL===============================");
+        System.out.println();
+      }
+
+      teardown();
+
+    } catch (InexistentElectionException e) {
+
+      e.printStackTrace();
     }
-
-    else {
-
-      System.out.println();
-      System.out.println("===========================FAIL===============================");
-      System.out.println();
-    }
-
-    teardown();
   }
 
   public static void setup() {

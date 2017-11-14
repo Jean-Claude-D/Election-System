@@ -1,6 +1,7 @@
 package election.data;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
@@ -80,13 +81,47 @@ public class ElectionListDB implements ElectionDAO {
   }
 
   /**
+   * Take a string which represents the name of an election. It then creates a dummy election with
+   * the name of election as the pertinent information. The reason this is done is because the
+   * recursive binary method take a list of election and an election as parameters. Once that dummy
+   * election is put through the binary method it will return the index of the election in the
+   * database if a match is found. If not than it will throw an InexistentElectionException.
    * 
    * @author hoss_m
+   * @param String name of the name of the election is looking for.
+   * @return Election object will be returned if the name of the election matches with the name of
+   *         the election in the database
+   * @throws InexistentElectionException if there is no match in the election database.
    */
   @Override
-  public Election getElection(String name) /* throws InexistentElectionException */ {
-    // TODO implement getElection(Election)
-    return null;
+  public Election getElection(String name) throws InexistentElectionException {
+    String type = "SINGLE";
+    int startYear = LocalDateTime.now().getYear();
+    int startMonth = LocalDateTime.now().getMonthValue();
+    int startDay = LocalDateTime.now().getDayOfMonth();
+    int endYear = LocalDateTime.now().getYear() + 1;
+    int endMonth = LocalDateTime.now().getMonthValue();
+    int endDay = LocalDateTime.now().getDayOfMonth();
+    String startRange = null;
+    String endRange = null;
+    String choice = "A";
+    String choice2 = "B";
+
+    Election dummy =
+        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(name, type, startYear, startMonth,
+            startDay, endYear, endMonth, endDay, startRange, endRange, choice, choice2);
+
+
+    int index = ListUtilities.binarySearch(database, dummy);
+
+    if (index == -1) {
+
+      throw new InexistentElectionException("This election does not exist.");
+
+    }
+
+
+    return database.get(index);
   }
 
   /**
