@@ -76,19 +76,16 @@ public class VoterListDBTest {
     check.append("joe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
     check.append("raj@test.ru*Raj*Wong*H3E1B4\n");
 
-    // testToString(voterFilePath, electionFilePath, tallyFilePath, check.toString());
+    testToString(voterFilePath, electionFilePath, tallyFilePath, check.toString());
 
     System.out.println("<><><><><><><><><><> ** TEST END ** <><><><><><><><><><> \n");
 
     // Data And Method Called To Test toString Method <==========================
 
-    // testToString();
-    
-      testAdd(aWildVoterAppear);
-    
-    //Felicia Gorgatchov
-      testGetVoter();
-      testUpdate();
+
+    // Felicia Gorgatchov
+    testGetVoter();
+    testUpdate();
   }
 
   private static void setup() {
@@ -221,99 +218,102 @@ public class VoterListDBTest {
     teardown();
   }
 
-   /**
-    * getVoter returns the voter ref of a provided email if found or throws an exception if the email was not found.
-    * testGetVoter test if getVoter returns the right voter if an existing email is given or if it throws an exception when an inexistent email is passed to it.
-    * @author Maja original template, Felicia filled out with specific test cases
-    * @throws InexistentVoterException
-    */
-   private static void testGetVoter() {
-   setup();
-   SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
-       "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
-   VoterListDB db = new VoterListDB(file);
-  
-   System.out.println("\n** test getVoter ** ");
-   System.out.println("\n\tTest case 1: Voter in database:");
-   
-   try {
-     Voter voter = db.getVoter("raj@test.ru");
-     System.out.println("\tSUCCESS: Voter found " + voter.toString());
-   } catch (InexistentVoterException e) { 
-     System.out.println("\tFAILING TEST CASE: voter should be fould");
-     System.out.println(e);
-   }
-  
-   System.out.println("\n\tTest case 2: Voter not in database:");
-   
-   try {
-     Voter voter = db.getVoter("jar@test.ru");
-     System.out.println("\tFAILING TEST CASE: Voter found " + voter.toString());
-   } catch (InexistentVoterException e) { 
-     System.out.println("\tSUCCESS: voter not found");
-     System.out.println("\t" + e);
-   }
-  
-   teardown();
-   }
-   
-   /**
-    * update takes an email and a postal code. uses the email to find the voter and updates the postal code with the one provided
-    * testUpdate tests if update() properly changes the postal code of an existing voter or if it throws an inexistenVoterException when the email is not found.
-    * @author Maja original template, Felicia filled out specific test cases
-    * @throws InexistentVoterException
-    */
-   private static void testUpdate() {
-     setup();
-     
-     SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
-         "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
-     VoterListDB db = new VoterListDB(file);
-     
-     Email emailTest1 = new Email("joe.mancini@mail.me");
-     PostalCode pcTest1 = new PostalCode("j4x2g3");
-     
-     System.out.println("\n** test update ** ");
-     
-     try {
-       System.out.println(
-           "\n\tTest case 1: Voter in database: " + db.getVoter(emailTest1.toString()).getName() 
-           + " -- " + db.getVoter(emailTest1.toString()).getPostalCode());
-       System.out.println("\tChange current postal code   " 
-           + db.getVoter(emailTest1.toString()).getPostalCode() + "   to   J4X2G3");
-       db.update(emailTest1, pcTest1);
-       if(db.getVoter(emailTest1.toString()).getPostalCode().equals(pcTest1)) {
-         System.out.println("\tVoter PC after running update() method: " 
-             + db.getVoter(emailTest1.toString()).getPostalCode());
-         System.out.println(
-             "\tSUCCESS: Postal code updated " + db.getVoter(emailTest1.toString()).getPostalCode());
-       }
-       else {
-         System.out.println("\tVoter PC after running update() method: " 
-             + db.getVoter(emailTest1.toString()).getPostalCode());
-         System.out.println("\tFAILING TEST CASE: Postal code should have been updated");
-       }
-     } catch (InexistentVoterException e) { 
-         System.out.println("\tFAILING TEST CASE: voter should be found");
-         System.out.println(e);
-     }
-     
-     Email emailTest2 = new Email("felicia.gorgatchov@gmail.com");
-     PostalCode pcTest2 = new PostalCode("k5c3h4");
-     
-     System.out.println("\n\tTest case 2: Voter not in database: Felicia*Gorgatchov -- J4X2G3");
-     try {
-         db.update(emailTest2, pcTest2);
-         System.out.println("\tFAILING TEST CASE: Voter found when it doesn't exist in the database: " 
-           + db.getVoter(emailTest1.toString()).getName());
-     } catch (InexistentVoterException e) { 
-         System.out.println("\tSUCCESS: voter not found");
-         System.out.println("\t" + e);
-     }  
-     
-     teardown();
-     
-   }// end testUpdate
+  /**
+   * getVoter returns the voter ref of a provided email if found or throws an exception if the email
+   * was not found. testGetVoter test if getVoter returns the right voter if an existing email is
+   * given or if it throws an exception when an inexistent email is passed to it.
+   * 
+   * @author Maja original template, Felicia filled out with specific test cases
+   * @throws InexistentVoterException
+   */
+  private static void testGetVoter() {
+    setup();
+    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    VoterListDB db = new VoterListDB(file);
+
+    System.out.println("\n** test getVoter ** ");
+    System.out.println("\n\tTest case 1: Voter in database:");
+
+    try {
+      Voter voter = db.getVoter("raj@test.ru");
+      System.out.println("\tSUCCESS: Voter found " + voter.toString());
+    } catch (InexistentVoterException e) {
+      System.out.println("\tFAILING TEST CASE: voter should be fould");
+      System.out.println(e);
+    }
+
+    System.out.println("\n\tTest case 2: Voter not in database:");
+
+    try {
+      Voter voter = db.getVoter("jar@test.ru");
+      System.out.println("\tFAILING TEST CASE: Voter found " + voter.toString());
+    } catch (InexistentVoterException e) {
+      System.out.println("\tSUCCESS: voter not found");
+      System.out.println("\t" + e);
+    }
+
+    teardown();
+  }
+
+  /**
+   * update takes an email and a postal code. uses the email to find the voter and updates the
+   * postal code with the one provided testUpdate tests if update() properly changes the postal code
+   * of an existing voter or if it throws an inexistenVoterException when the email is not found.
+   * 
+   * @author Maja original template, Felicia filled out specific test cases
+   * @throws InexistentVoterException
+   */
+  private static void testUpdate() {
+    setup();
+
+    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    VoterListDB db = new VoterListDB(file);
+
+    Email emailTest1 = new Email("joe.mancini@mail.me");
+    PostalCode pcTest1 = new PostalCode("j4x2g3");
+
+    System.out.println("\n** test update ** ");
+
+    try {
+      System.out.println(
+          "\n\tTest case 1: Voter in database: " + db.getVoter(emailTest1.toString()).getName()
+              + " -- " + db.getVoter(emailTest1.toString()).getPostalCode());
+      System.out.println("\tChange current postal code   "
+          + db.getVoter(emailTest1.toString()).getPostalCode() + "   to   J4X2G3");
+      db.update(emailTest1, pcTest1);
+      if (db.getVoter(emailTest1.toString()).getPostalCode().equals(pcTest1)) {
+        System.out.println("\tVoter PC after running update() method: "
+            + db.getVoter(emailTest1.toString()).getPostalCode());
+        System.out.println(
+            "\tSUCCESS: Postal code updated " + db.getVoter(emailTest1.toString()).getPostalCode());
+      } else {
+        System.out.println("\tVoter PC after running update() method: "
+            + db.getVoter(emailTest1.toString()).getPostalCode());
+        System.out.println("\tFAILING TEST CASE: Postal code should have been updated");
+      }
+    } catch (InexistentVoterException e) {
+      System.out.println("\tFAILING TEST CASE: voter should be found");
+      System.out.println(e);
+    }
+
+    Email emailTest2 = new Email("felicia.gorgatchov@gmail.com");
+    PostalCode pcTest2 = new PostalCode("k5c3h4");
+
+    System.out.println("\n\tTest case 2: Voter not in database: Felicia*Gorgatchov -- J4X2G3");
+    try {
+      db.update(emailTest2, pcTest2);
+      System.out.println("\tFAILING TEST CASE: Voter found when it doesn't exist in the database: "
+          + db.getVoter(emailTest1.toString()).getName());
+    } catch (InexistentVoterException e) {
+      System.out.println("\tSUCCESS: voter not found");
+      System.out.println("\t" + e);
+    }
+
+    teardown();
+
+  }// end testUpdate
 
 }
 
