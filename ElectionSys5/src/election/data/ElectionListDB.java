@@ -49,18 +49,18 @@ public class ElectionListDB implements ElectionDAO {
 
   /**
    * 
-   * Saves the election database and and changes database to null to make sure no one has access to
-   * it
+   * Saves the electionDatabase and assigns the database to null so that no one can add or remove
+   * any elections.
    * 
    * @author hoss_m
-   * @throws IOException if database is not valid
+   * @throws IOException will be thrown if the database is empty.
+   * 
    */
   @Override
   public void disconnect() throws IOException {
 
     listPersistenceObject.saveElectionDatabase(database);
     database = null;
-
   }
 
   /**
@@ -91,14 +91,25 @@ public class ElectionListDB implements ElectionDAO {
    * election is put through the binary method it will return the index of the election in the
    * database if a match is found. If not than it will throw an InexistentElectionException.
    * 
+   * Takes a String name of a particular election and will look through the database using the
+   * recursive binary search method located in the List Utilities which return the index. Before
+   * doing that it will create a dummy Election object with the name as the only pertinent
+   * information. The reason we do that is because the Binary Search method only take parameter of
+   * the same type. Since our database is of type List<Election>, the key must be an Election as
+   * well. Once we find the index, it return the whole election found the in the list of election.
+   * If it does not match than it will throw an InexistentElectionException stating that it does not
+   * exist and cannot return any Election.
+   * 
    * @author hoss_m
-   * @param String name of the name of the election is looking for.
-   * @return Election object will be returned if the name of the election matches with the name of
-   *         the election in the database
-   * @throws InexistentElectionException if there is no match in the election database.
+   * @param name is a String representation of the name of the election that we will need to find in
+   *        the database.
+   * @return returns an Election object, once the string that is passed through is matched and found
+   *         in the database, it will return the whole election object that matches that String name
+   * @throws InexistentElectionException if the election name passed does not exist in the database.
    */
   @Override
   public Election getElection(String name) throws InexistentElectionException {
+
     String type = "SINGLE";
     int startYear = LocalDateTime.now().getYear();
     int startMonth = LocalDateTime.now().getMonthValue();
@@ -121,11 +132,10 @@ public class ElectionListDB implements ElectionDAO {
     if (index == -1) {
 
       throw new InexistentElectionException("This election does not exist.");
-
     }
 
-
     return database.get(index);
+
   }
 
   /**
