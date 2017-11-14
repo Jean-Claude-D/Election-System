@@ -334,6 +334,7 @@ public class DawsonElection implements Election {
   /**
    * Give us the sum of all the cast ballt so far.
    * 
+   * @author Cao Hoang
    * @return return the List size of castBallot
    */
   public int getTotalVotesCast() {
@@ -343,7 +344,8 @@ public class DawsonElection implements Election {
   /**
    * Give us the sum of all the Invalid Vote Attempts so far
    * 
-   * return the counter that keep track the number of invalid vote attempts
+   * @author Cao Hoang
+   * @return the counter that keep track the number of invalid vote attempts
    */
   public int getInvalidVoteAttempts() { // getInvalidVoteAttempts
     return invalidVoteAttempts;
