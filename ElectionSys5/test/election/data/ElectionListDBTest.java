@@ -69,8 +69,9 @@ public class ElectionListDBTest {
     System.out.println("===== END  TOSTRING =====\n");
   }
 
-  public static void testAdd(Election election) {
+  public static void testAdd(Election election, String expected, boolean exceptionExpected) {
     setup();
+    boolean testPassed = false;
 
     ListPersistenceObject file = new SequentialTextFileList(null,
         "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
@@ -79,9 +80,13 @@ public class ElectionListDBTest {
 
     try {
       electionDB.add(election);
+      testPassed = electionDB.equals(expected);
     } catch (DuplicateElectionException e) {
+      testPassed = exceptionExpected;
       e.printStackTrace();
     }
+
+    System.out.println(testPassed ? "PASS" : "FAIL");
 
     teardown();
   }
