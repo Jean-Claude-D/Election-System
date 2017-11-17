@@ -2,12 +2,15 @@ package election.business;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import election.business.interfaces.Ballot;
 import election.business.interfaces.BallotItem;
 import election.business.interfaces.Election;
 import election.business.interfaces.Tally;
 import election.business.interfaces.Voter;
+import util.ListUtilities;
 
 /**
  * Name Class represents by 4 Strings: name, type, startRange, endRange. 2 LocalDate objects:
@@ -27,6 +30,21 @@ public class DawsonElection implements Election {
   private String endRange;
   private Tally tally;
   private BallotItem[] ballotItems;
+  private int invalidVoteAttempts;
+
+  /**
+   * ----------------------------------------------------------------------------------------------------------
+   * Phase 3 modification: add 3 new instance variables Lists are instantiated as Arraylists in the
+   * constructor
+   * 
+   * @author Felicia Gorgatchov
+   */
+  private List<Voter> gotBallot;
+  private List<Voter> castBallot;
+  private int invalidAttemptsCounter = 0;
+
+  // -------------------------------------------------------------------------------------------------------------
+
 
   public DawsonElection(String name, String type, int startYear, int startMonth, int startDay,
       int endYear, int endMonth, int endDay, String startRange, String endRange, Tally tally,
@@ -53,6 +71,22 @@ public class DawsonElection implements Election {
     this.tally = tally;
     this.electType = electionTypeChecker(type);
     this.ballotItems = checkItem(items);
+    this.invalidVoteAttempts = 0;
+
+
+    /**
+     * list instantiation, empty arraylists
+     * 
+     * @author Felicia Gorgatchov
+     *         --------------------------------------------------------------------------------
+     */
+
+    gotBallot = new ArrayList<>();
+    castBallot = new ArrayList<>();
+
+    // -----------------------------------------------------------------------------------------------------------
+
+
   }
 
   // =========== CHECKER VALIDATE METHODS =========== \\
@@ -256,11 +290,28 @@ public class DawsonElection implements Election {
    * @throws IllegalArgumentException when voter is not eligible
    */
   public Ballot getBallot(Voter v) { // getBallot
-    if (v.isEligible(this)) {
+
+    // --------------------------------------------------------------------------------------------------------------------------------
+
+    if (!v.isEligible(this)) {
+      throw new IllegalArgumentException("This voter is not eligible");
+    }
+
+    if ((ListUtilities.binarySearch(gotBallot, v) >= 0)
+        && (ListUtilities.binarySearch(castBallot, v) >= 0)) {
+      throw new InvalidVoterException("This voter has already voted.");
+    } else if ((ListUtilities.binarySearch(gotBallot, v) < 0)) {
+      gotBallot.add((ListUtilities.binarySearch(gotBallot, v) * -1 + 1), v);
+      return (Ballot) this.getBallot();
+    } else {
       return (Ballot) this.getBallot();
     }
-    throw new IllegalArgumentException("Voter is not eligible");
-  }
+
+
+  }// end getBallot method
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+
 
   // =========== END GETTERS METHODS =========== \\
 
@@ -291,31 +342,54 @@ public class DawsonElection implements Election {
    * @throws IllegalArgumentException when voter is not eligible
    * @param b the Ballot object
    * @param v the Voter bject
+   * @author Cao Hoang
    */
-  public void castBallot(Ballot b, Voter v) { // castBallot
+  public void castBallot(Ballot b, Voter v) {
+    int gotIndex = ListUtilities.binarySearch(gotBallot, v);
+    int castIndex = ListUtilities.binarySearch(castBallot, v);
+
     if (!v.isEligible(this)) {
-      throw new UnsupportedOperationException("VOTER IS NOT ELIGIBLE");
+      throw new InvalidVoterException(
+          "You Are Not Eligible To Practicipate In This Election. Please Check The Election Date and Your Postal Code Again");
     }
-    b.validateSelections();
-    this.tally.update(b);
+
+    if (gotIndex < 0) {
+      invalidVoteAttempts++;
+      throw new InvalidVoterException(
+          "You Haven't Request A Ballot To Vote. This Incident Will Be Reported.");
+    } else if (castIndex >= 0) {
+      invalidVoteAttempts++;
+      throw new InvalidVoterException("You Have Already Voted. This Incident Will Be Reported.");
+
+    } else {
+      castBallot.add(castIndex, v);
+    }
+
+    if (b.validateSelections()) {
+      this.tally.update(b);
+    } else {
+      throw new IllegalArgumentException("Your Ballot Is NOT Valid, \"Git Gud\" Next Time");
+    }
   }
 
   /**
-   * Method is not yet available
+   * Give us the sum of all the cast ballt so far.
    * 
-   * @throws UnsupportedOperationException
+   * @author Cao Hoang
+   * @return return the List size of castBallot
    */
-  public int getTotalVotesCast() { // getTotalVotesCast
-    throw new UnsupportedOperationException("THIS METHOD IS NOT SUPPORTED");
+  public int getTotalVotesCast() {
+    return castBallot.size();
   }
 
   /**
-   * Method is not yet available
+   * Give us the sum of all the Invalid Vote Attempts so far
    * 
-   * @throws UnsupportedOperationException
+   * @author Cao Hoang
+   * @return the counter that keep track the number of invalid vote attempts
    */
   public int getInvalidVoteAttempts() { // getInvalidVoteAttempts
-    throw new UnsupportedOperationException("THIS METHOD IS NOT SUPPORTED");
+    return invalidVoteAttempts;
   }
 
   // ========== END OTHERS METHODS ========== \\

@@ -10,7 +10,8 @@ public class ListUtilitiesTest {
 
   public static void main(String[] args) {
 
-    // ----- Variables for Jean-Claude -------------------------------------------------------------------------------
+    // ----- Variables for Jean-Claude
+    // -------------------------------------------------------------------------------
 
     Comparable[] c1 = new Integer[10];
     c1[0] = -936;
@@ -137,7 +138,8 @@ public class ListUtilitiesTest {
 
 
 
-    // ----- Variables for Cao Hoang -------------------------------------------------------------------------------
+    // ----- Variables for Cao Hoang
+    // -------------------------------------------------------------------------------
 
     Name person1 = new Name("Jean-Claude", "French");
     Name person2 = new Name("Cao Hoang", "Vietnam");
@@ -154,7 +156,8 @@ public class ListUtilitiesTest {
     System.out.print("Testing sort with comparator :  ");
     sortTest(listNameTest, new NameByFirstComparator(), listNameCheck, true);
 
-    // ----- Variables for Felicia ----------------------------------------------------------------------------------
+    // ----- Variables for Felicia
+    // ----------------------------------------------------------------------------------
 
     boolean expectInvalid = false;
     boolean expectValid = true;
@@ -228,24 +231,37 @@ public class ListUtilitiesTest {
     sortTest(emailSortTestNotFull, predictException, expectInvalid);
     sortTest(emailSortTestNull, predictException, expectInvalid);
 
+    // ----- Variables for Maria Hossain
+    // -------------------------------------------------------------------------------
+
+    Comparable[] c5 = new Integer[4];
+    c5[0] = 3;
+    c5[1] = 4;
+    c5[2] = 5;
+    c5[3] = 7;
+
+    binarySearchTest(c5, 3, 0);
+    binarySearchTest(c5, 6, -3);
 
 
-  }// end main ----------------------------------------------------------------------------------------------
+
+  }// end main
+   // ----------------------------------------------------------------------------------------------
 
   // TEST METHODS
   // -------------------------------------------------------------------------------------------------
   // part 4
   /**
-   * test the sort method from ListUtilities
-   * returns the name of the class, tries to sort an array by comparing with a prediction array, test passed if true, false if otherwise
-   * if valid data passed but didn't work, test fail
-   * if error throw appropriately, test passed
+   * test the sort method from ListUtilities returns the name of the class, tries to sort an array
+   * by comparing with a prediction array, test passed if true, false if otherwise if valid data
+   * passed but didn't work, test fail if error throw appropriately, test passed
    * 
    * @author Felicia Gorgatchov
    * 
    * @param list (array): array you want to sort
    * @param prediction (array): expectation of the sort result on the passed array
-   * @param expectedResult: true for valid data on which sort should work, false on wrong data which should throw exceptions
+   * @param expectedResult: true for valid data on which sort should work, false on wrong data which
+   *        should throw exceptions
    */
   @SuppressWarnings({"rawtypes", "unchecked"})
   private static void sortTest(Comparable[] list, Comparable[] prediction, boolean expectedResult) {
@@ -290,6 +306,8 @@ public class ListUtilitiesTest {
       }
     }
 
+
+
   }
 
   // comparator, part 5
@@ -300,8 +318,10 @@ public class ListUtilitiesTest {
    * 
    * @param list (array): list you want to sort
    * @param sortOrder: ordering that should replace natural order
-   * @param expectList (array): expected result of what the list should look like after sorting with this method
-   * @param expectedResult: true for data on which sort should work, false on data that should throw an exception
+   * @param expectList (array): expected result of what the list should look like after sorting with
+   *        this method
+   * @param expectedResult: true for data on which sort should work, false on data that should throw
+   *        an exception
    */
   @SuppressWarnings({"rawtypes", "unchecked"})
   private static void sortTest(Comparable[] list, Comparator sortOrder, Comparable[] expectList,
@@ -317,7 +337,7 @@ public class ListUtilitiesTest {
     System.out.println("TEST PASSED");
 
   }
-  
+
 
   /**
    * 
@@ -325,9 +345,11 @@ public class ListUtilitiesTest {
    * 
    * @param list1: first array
    * @param list2: second array
-   * @param expectedList (array): prediction of what the result will be after merging the first two arrays
-   * @param duplicateFileNameTest: 
-   * @param expectedValid: true if data passed should work with the method, false if you expect an error
+   * @param expectedList (array): prediction of what the result will be after merging the first two
+   *        arrays
+   * @param duplicateFileNameTest:
+   * @param expectedValid: true if data passed should work with the method, false if you expect an
+   *        error
    * @param expectedException: what error is expected to be thrown
    */
   @SuppressWarnings({"rawtypes", "unchecked"})
@@ -427,6 +449,35 @@ public class ListUtilitiesTest {
 
       System.out.println("The expected error was '" + expectedException.toString() + "' but '"
           + e.getClass().toString() + "' was thrown" + FAIL);
+    }
+
+  }
+
+  /**
+   * 
+   * Take a database
+   * 
+   * @param database
+   * @param key
+   * @param expectedIndex
+   */
+
+  public static void binarySearchTest(Comparable[] database, Comparable key, int expectedIndex) {
+
+    int index = ListUtilities.binarySearch(database, key);
+
+    if (index == expectedIndex) {
+
+      System.out.println("Binary Search---------------------------------------------------------");
+      System.out.println("==================================PASS===============================");
+      System.out.println();
+    }
+
+    else {
+      System.out.println("Binary Search---------------------------------------------------------");
+      System.out.println("==================================FAIL===============================");
+      System.out.println();
+
     }
 
   }

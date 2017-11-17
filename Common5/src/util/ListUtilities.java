@@ -17,6 +17,8 @@ import java.util.List;
 
 // skeleton provides the imports, plus methods saveListToTextFile and the Comparator sort overload
 
+
+
 public class ListUtilities {
   private static final Charset CHARACTER_ENCODING = StandardCharsets.UTF_8;
 
@@ -27,6 +29,51 @@ public class ListUtilities {
   private ListUtilities() {
 
   }
+
+
+  /**
+   * Takes a List and search for the element that matched the key
+   * 
+   * @param database which is the List that will be searched.
+   * @param key the element that the method looks for in the List.
+   * @return A negative number if there is no match. Otherwise the index position of the List that
+   *         matched the key
+   */
+  public static <T extends Comparable<? super T>> int binarySearch(List<T> database, T key) {
+    return helperRecursive(database, key, 0, database.size());
+  }
+
+  /**
+   * This is a private helper method to help the recursive binary search returns the insertion index
+   * 
+   * @param database which is the List that will be searched.
+   * @param key the element that the method looks for in the List.
+   * @param low the starting index
+   * @param high the ending index
+   * @return A negative number (indicates the insertion point) if there is no match. Otherwise the
+   *         index position of the List that matched the key
+   */
+  private static <T extends Comparable<? super T>> int helperRecursive(List<T> database, T key,
+      int low, int high) {
+
+    if (high - low == 0) {
+      return -(low + 1);
+    }
+
+    int mid = (high + low) / 2;
+
+    if (database.get(mid).compareTo(key) == 0) {
+      return mid;
+    }
+
+    if (database.get(mid).compareTo(key) > 0) {
+
+      return helperRecursive(database, key, low, mid);
+    } else {
+      return helperRecursive(database, key, mid + 1, high);
+    }
+  }
+
 
   /**
    * Takes in a list of objects and writes them to a given file. This method overwrites data in file
@@ -237,6 +284,51 @@ public class ListUtilities {
     System.arraycopy(finalList, 0, trimmed, 0, iteratFinal);
 
     return trimmed;
+  }
+
+  /**
+   * 
+   * This Binary search method uses loops through the array of comparable by starting from the
+   * middle index and see if matches with the parameter. If it does not match it returns the point
+   * of insertion which is a negative number . The key parameter that we pass matches than it will
+   * return the index in which the key is located in the Comparable Array.
+   * 
+   * @author Maria Hossain
+   * @param database parameter is a Comparable ARRAY
+   * @param key must be of the comparable object
+   * @return middle in negative, which is the point of insertion
+   */
+
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public static int binarySearch(Comparable[] database, Comparable key) {
+
+    int low = 0;
+    int high = database.length;
+    int middle = (low + high) / 2;
+
+    while (high > low) {
+
+      middle = (low + high) / 2;
+
+
+      if (database[middle].compareTo(key) == 0) {
+
+        return middle;
+      }
+
+      if (database[middle].compareTo(key) >= 1) {
+
+        high = middle;
+      }
+
+      if (database[middle].compareTo(key) <= -1) {
+
+        low = middle + 1;
+      }
+    }
+
+    return -(middle);
+
   }
 
 }
