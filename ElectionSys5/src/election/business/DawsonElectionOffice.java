@@ -31,53 +31,55 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
 
   @Override
   public Ballot getBallot(Voter voter, Election election) throws InvalidVoterException {
-    // TODO Auto-generated method stub
-    return null;
+    return election.getBallot(voter);
   }
 
   @Override
   public void castBallot(Voter voter, Ballot b) {
-    // TODO Auto-generated method stub
-
+    b.cast(voter);
   }
 
   @Override
   public void closeOffice() throws IOException {
-    // TODO Auto-generated method stub
-
+    this.elections.disconnect();
+    this.voters.disconnect();
   }
 
   @Override
   public Election createElection(String name, String type, int startYear, int startMonth,
       int startDay, int endYear, int endMonth, int endDay, String startRange, String endRange,
       String... choices) throws DuplicateElectionException {
-    // TODO Auto-generated method stub
-    return null;
+    Election newElection = this.factory.getElectionInstance(name, type, startYear, startMonth,
+        startDay, endYear, endMonth, endDay, startRange, endRange, choices);
+    this.elections.add(newElection);
+    return newElection;
   }
 
   @Override
   public List<String> getWinner(Election election) {
-    // TODO Auto-generated method stub
+    // Need ElectionFactory's getElectionPolicy
+    // return this.factory.getElectionPolicy(election).getWinner();
     return null;
   }
 
   @Override
   public Voter registerVoter(String firstName, String lastName, String email, String postalcode)
       throws DuplicateVoterException {
-    // TODO Auto-generated method stub
-    return null;
+    Voter newVoter = this.factory.getVoterInstance(firstName, lastName, email, postalcode);
+    this.voters.add(newVoter);
+    return newVoter;
   }
 
   @Override
   public Election findElection(String name) throws InexistentElectionException {
-    // TODO Auto-generated method stub
-    return null;
+    Election found = this.elections.getElection(name);
+    return found;
   }
 
   @Override
   public Voter findVoter(String email) throws InexistentVoterException {
-    // TODO Auto-generated method stub
-    return null;
+    Voter found = this.voters.getVoter(email);
+    return found;
   }
 
 }
