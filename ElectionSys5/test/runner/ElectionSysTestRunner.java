@@ -28,24 +28,24 @@ public class ElectionSysTestRunner {
     System.out.println();
 
     System.out.println(
-        "****The following test cases is testing the EMAIL class. The test class is EmailTest.java****");
+        "**The following test cases is testing the EMAIL class. The test class is EmailTest.java**");
     System.out.println();
 
 
     EmailTest.main(args);
 
     System.out.println(
-        "****The following test cases is testing the NAME class. The test class is NameTest.java****");
+        "**The following test cases is testing the NAME class. The test class is NameTest.java**");
     System.out.println();
     NameTest.main(args);
 
     System.out.println(
-        "The following test cases is testing the POSTAL CODE class. The test class is PostalCodeTest.java");
+        "**The following test cases is testing the POSTAL CODE class. The test class is PostalCodeTest.java**");
     System.out.println();
     PostalCodeTest.main(args);
 
     System.out.println(
-        "The following test cases is testing the LISTUTILITIES class. The test class is ListUtilitiesTest.java");
+        "**The following test cases is testing the LISTUTILITIES class. The test class is ListUtilitiesTest.java**");
     System.out.println();
     ListUtilitiesTest.main(args);
 
@@ -55,47 +55,47 @@ public class ElectionSysTestRunner {
 
     System.out.println(
 
-        "All the below test cases are from the test/election.business and test/election.data in the Common5 Project");
+        "****All the below test cases are from the test/election.business and test/election.data in the Common5 Project****");
 
     System.out.println(
-        "The following test cases is testing the DAWSONBALLOTITEM class. The test class name is DawsonBallotItemTest.java");
+        "**The following test cases is testing the DAWSONBALLOTITEM class. The test class name is DawsonBallotItemTest.java**");
     System.out.println();
 
     DawsonBallotItemTest.main(args);
 
     System.out.println(
-        "The following test cases is testing the DAWSONELECTIONTEST class. The test class is DawsonElectionTest.java");
+        "**The following test cases is testing the DAWSONELECTIONTEST class. The test class is DawsonElectionTest.java**");
     System.out.println();
     DawsonElectionTest.main(args);
 
     System.out.println(
-        "The following test cases is testing the DAWSONVOTER class. The test class is DawsonVoterTest.java");
+        "**The following test cases is testing the DAWSONVOTER class. The test class is DawsonVoterTest.java**");
     System.out.println();
     DawsonVoterTest.main(args);
 
     System.out.println(
-        "The following test cases is testing the VOTERNAMECOMPARATOR class. The test class is VoterNameComparatorTest.java");
+        "**The following test cases is testing the VOTERNAMECOMPARATOR class. The test class is VoterNameComparatorTest.java**");
     System.out.println();
     VoterNameComparatorTest.main(args);
 
     System.out.println(
-        "The following test cases is testing the VOTERPOSTALCODECOMPARATOR class. The test class is VoterPostalCodeComparatorTest.java");
+        "**The following test cases is testing the VOTERPOSTALCODECOMPARATOR class. The test class is VoterPostalCodeComparatorTest.java**");
     System.out.println();
     VoterPostalCodeComparatorTest.main(args);
 
     System.out.println(
-        "The following test cases is testing the ELECTIONFILELOADER class. The test class is ElectionFileLoaderTest.java");
+        "**The following test cases is testing the ELECTIONFILELOADER class. The test class is ElectionFileLoaderTest.java**");
     System.out.println();
     ElectionFileLoaderTest.main(args);
 
     System.out.println(
-        "The following test cases is testing the ELECTIONLISTDB class. The test class is ElectionListDBTest.java");
+        "**The following test cases is testing the ELECTIONLISTDB class. The test class is ElectionListDBTest.java**");
     System.out.println();
     ElectionListDBTest.main(args);
 
 
     System.out.println(
-        "The following test cases is testing the VOTERLISTDB class. The test class is VoterListDBTest.java");
+        "**The following test cases is testing the VOTERLISTDB class. The test class is VoterListDBTest.java**");
     System.out.println();
     VoterListDBTest.main(args);
 
