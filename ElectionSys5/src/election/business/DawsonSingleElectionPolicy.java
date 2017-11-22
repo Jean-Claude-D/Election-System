@@ -42,21 +42,22 @@ public class DawsonSingleElectionPolicy implements ElectionPolicy, Serializable 
   }
 
   /**
-   * getWinner return a List of String that contains the "Winner" of this Election. In Type SINGLE,
-   * the Election can ONLY have either 0 or 1 Winner. The choice that has the most vote AND its
-   * amount of vote is greater than half the amount of TOTAL vote PLUS 1 is the WINNER. Else, there
-   * is NO winner.
+   * Return a List of String that contains the "Winner" of this Election. In Type SINGLE, the
+   * Election can ONLY have either 0 or 1 Winner. The winner is the choice that has the most vote
+   * AND its amount of vote is either:
+   * 
+   * 1/ GREATER than half the amount of TOTAL vote
+   * 
+   * OR
+   * 
+   * 2/ GREATER OR EQUAL to half the amount of TOTAL vote PLUS 1.
+   * 
+   * Else, there is NO winner
    * 
    * @return a List of String contains the Winner.
    * @throws IncompleteElectionException if this method is called BEFORE the Election is Finished.
    */
   public List<String> getWinner() {
-
-    List<String> theWinner = new ArrayList<String>();
-
-    // Store the number of Vote for EACH choices in an Election. e.g. [12][5][1] means 1st choice
-    // has 12 vote, 2nd has 5 and last has 1.
-    int[] numbOfVotePerChoice = new int[singleElection.getElectionChoices().length];
 
     // Check if the Election is finished or not. If not, throw IncompleteElectionException.
     if (singleElection.getEndDate().isAfter(LocalDate.now())) {
@@ -64,32 +65,39 @@ public class DawsonSingleElectionPolicy implements ElectionPolicy, Serializable 
           "The Election Is NOT Finished Yet. Democracy is NON-Negotiable");
     }
 
+    List<String> theWinner = new ArrayList<String>();
+
+    // Store the number of Vote for EACH choices in an Election. e.g. [12][5][1] means 1st choice
+    // has 12 vote, 2nd has 5 and last has 1.
+    int[] numbOfVotePerChoice = new int[singleElection.getElectionChoices().length];
+
     for (int i = 0; i < singleElection.getElectionChoices().length; i++) {
       numbOfVotePerChoice[i] = this.singleElection.getTally().getVoteBreakdown()[i][i];
     }
 
     int tempHighestVote = 0;
-    int choiceID = 0;
+    int index = 0;
 
 
     /*
-     * Find the choice that has the highest vote. Then note down its "ID". Note: the
+     * Find the choice that has the highest vote. Then note down its index. Note: the
      * getElectionChoices() method in DawsonElection class return an array of String of all the
-     * choices in an Election, therefore using the "ID" allows us to retrieve the choice.
+     * choices in an Election, therefore using the index allows us to retrieve the choice.
      */
     for (int i = 0; i < numbOfVotePerChoice.length; i++) {
 
       if (numbOfVotePerChoice[i] > tempHighestVote) {
         tempHighestVote = numbOfVotePerChoice[i];
-        choiceID = i;
+        index = i;
       }
     }
 
-    int verifyWinner = (this.singleElection.getTotalVotesCast() / 2) + 1;
+    int verifyWinner1 = (this.singleElection.getTotalVotesCast() / 2);
+    int verifyWinner2 = (this.singleElection.getTotalVotesCast() / 2) + 1;
 
     // Check if the choice is qualify as the "Winner" or not.
-    if (tempHighestVote >= verifyWinner) {
-      theWinner.add(this.singleElection.getElectionChoices()[choiceID]);
+    if ((tempHighestVote > verifyWinner1) || (tempHighestVote >= verifyWinner2)) {
+      theWinner.add(this.singleElection.getElectionChoices()[index]);
       return theWinner;
     }
     return theWinner;
