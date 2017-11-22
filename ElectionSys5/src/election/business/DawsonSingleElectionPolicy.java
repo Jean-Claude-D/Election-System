@@ -92,11 +92,10 @@ public class DawsonSingleElectionPolicy implements ElectionPolicy, Serializable 
       }
     }
 
-    int verifyWinner1 = (this.singleElection.getTotalVotesCast() / 2);
-    int verifyWinner2 = (this.singleElection.getTotalVotesCast() / 2) + 1;
+    int verifyWinner = this.singleElection.getTotalVotesCast() / 2;
 
     // Check if the choice is qualify as the "Winner" or not.
-    if ((tempHighestVote > verifyWinner1) || (tempHighestVote >= verifyWinner2)) {
+    if (tempHighestVote > verifyWinner) {
       theWinner.add(this.singleElection.getElectionChoices()[index]);
       return theWinner;
     }
