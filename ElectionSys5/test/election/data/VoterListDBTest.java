@@ -80,6 +80,10 @@ public class VoterListDBTest {
     testToString(voterFilePath, electionFilePath, tallyFilePath, check.toString());
 
     System.out.println("<><><><><><><><><><> ** TEST END ** <><><><><><><><><><> \n");
+    
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    Date date = new Date();
+    System.out.println(dateFormat.format(date));
 
     // Data And Method Called To Test toString Method <==========================
 
