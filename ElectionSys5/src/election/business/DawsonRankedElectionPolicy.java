@@ -25,6 +25,8 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
    * takes an object of type election and keeps it as a reference
    * 
    * @param electionParam
+   * @throws IllegalArgumentException in the event that the election object is null or in the even
+   *         that it is not of type Ranked
    */
   public DawsonRankedElectionPolicy(DawsonElection electionParam) {
 
@@ -47,7 +49,8 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
    * whichever choice got the most points is placed in a list and returned.
    * 
    * @return a list containing the name of the winning choice
-   * 
+   * @throws IncompleteElectionException in the event that the selected election is still on going.
+   *         The event must be over for the policy to be applied.
    */
 
   @Override
