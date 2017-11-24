@@ -87,12 +87,12 @@ public enum DawsonElectionFactory implements ElectionFactory {
   }
 
   @Override
-  public ElectionPolicy getElectionPolicy(Election e) {
-    switch (e.getElectionType()) {
+  public ElectionPolicy getElectionPolicy(Election election) {
+    switch (election.getElectionType()) {
       case SINGLE:
-        return new DawsonSingleElectionPolicy(e);
+        return new DawsonSingleElectionPolicy(election);
       case RANKED:
-        return new DawsonRankedElectionPolicy(e);
+        return new DawsonRankedElectionPolicy(election);
       default:
         throw new RuntimeException("Added more constants to ElectionType enum?");
     }
