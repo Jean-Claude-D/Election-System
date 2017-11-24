@@ -18,22 +18,18 @@ public class ElectionSysTestRunner {
 
   public static void main(String[] args) throws IOException {
 
-    System.out.println("=================Common5 Project Test Cases=================");
-    System.out.println();
+    System.out.println("=================Common5 Project Test Cases=================" + '\n');
     System.out.println(
 
-        "****All the below test cases are from the test/lib and test/util in the Common5 Project****");
+        "****All the below test cases are from the test/lib and test/util in the Common5 Project****"
+            + '\n');
 
     System.out.println();
-    System.out.println();
-
     System.out.println(
         "**The following test cases is testing the EMAIL class. The test class is EmailTest.java**");
     System.out.println();
 
-
     EmailTest.main(args);
-
     System.out.println(
         "**The following test cases is testing the NAME class. The test class is NameTest.java**");
     System.out.println();
@@ -50,9 +46,7 @@ public class ElectionSysTestRunner {
     ListUtilitiesTest.main(args);
 
 
-    System.out.println("=================ElectionSys5 Project Test Cases=================");
-    System.out.println();
-
+    System.out.println("=================ElectionSys5 Project Test Cases=================" + '\n');
     System.out.println(
 
         "****All the below test cases are from the test/election.business and test/election.data in the Common5 Project****");
@@ -92,7 +86,6 @@ public class ElectionSysTestRunner {
         "**The following test cases is testing the ELECTIONLISTDB class. The test class is ElectionListDBTest.java**");
     System.out.println();
     ElectionListDBTest.main(args);
-
 
     System.out.println(
         "**The following test cases is testing the VOTERLISTDB class. The test class is VoterListDBTest.java**");
