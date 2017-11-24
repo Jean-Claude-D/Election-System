@@ -102,5 +102,16 @@ public interface ElectionFactory extends Serializable {
 
   // Added in Phase 4
   // ElectionPolicy getElectionPolicy(Election e);
+
+  /**
+   * Instantiates an appropriate ElectionPolicy for a given election
+   * 
+   * Felicia Gorgatchov did this part
+   * 
+   * @param election The election we want a policy for.
+   * @return An election policy compatible with the election.
+   */
+  ElectionPolicy getElectionPolicy(Election election);
+
 }
 

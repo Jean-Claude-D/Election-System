@@ -4,6 +4,7 @@ import election.business.interfaces.Ballot;
 import election.business.interfaces.BallotItem;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionFactory;
+import election.business.interfaces.ElectionPolicy;
 import election.business.interfaces.Voter;
 // import election.business.interfaces.ElectionPolicy;
 
@@ -84,5 +85,26 @@ public enum DawsonElectionFactory implements ElectionFactory {
   public BallotItem getBallotItem(BallotItem copy) {
     return new DawsonBallotItem(copy);
   }
+
+  /**
+   * Instantiates an appropriate ElectionPolicy for a given election
+   * 
+   * Felicia Gorgatchov added this
+   * 
+   * @param election The election we want a policy for.
+   * @return An election policy compatible with the election.
+   */
+  @Override
+  public ElectionPolicy getElectionPolicy(Election election) {
+    switch (election.getElectionType()) {
+      case SINGLE:
+        return new DawsonSingleElectionPolicy(election);
+      case RANKED:
+        return new DawsonRankedElectionPolicy(election);
+      default:
+        throw new RuntimeException("Added more constants to ElectionType enum?");
+    }
+  }
+
 
 }
