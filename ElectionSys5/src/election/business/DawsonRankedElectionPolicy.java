@@ -19,7 +19,6 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
   private static final long serialVersionUID = 42031768871L;
   private DawsonElection election;
   private List<String> winnerList = new ArrayList<String>();
-  LocalDate today = LocalDate.now();
 
   /**
    * takes an object of type election and keeps it as a reference
@@ -60,6 +59,8 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
       throw new IncompleteElectionException(
           "The election you've select is not yet complete. To get the winner of an election, the latter must first have been completed.");
     }
+
+    LocalDate today = LocalDate.now();
 
     int[][] results = election.getTally().getVoteBreakdown();
     String[] ballotChoices = election.getElectionChoices();
