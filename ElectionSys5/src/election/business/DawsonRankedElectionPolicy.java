@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import election.business.interfaces.ElectionPolicy;
-import 
+
 
 /**
  * This class takes an object of type Election and gives points to the options that had the most
@@ -19,18 +19,22 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
   private static final long serialVersionUID = 42031768871L;
   private DawsonElection election;
   private List<String> winnerList = new ArrayList<String>();
+  LocalDate today = LocalDate.now();
 
+  /**
+   * takes an object of type election and keeps it as a reference
+   * 
+   * @param electionParam
+   */
   public DawsonRankedElectionPolicy(DawsonElection electionParam) {
-    
-    LocalDate today = LocalDate.now();
-    if(electionParam.getEndDate().isAfter(today)) {
-      throw new IncompleteElectionException();
+
+    if (electionParam == null) {
+      throw new IllegalArgumentException(
+          "The election you've select is null. Please verify the validity of your data.");
     }
-    
+
     this.election = electionParam;
-    
-    
-    
+
   }
 
   /**
@@ -44,6 +48,11 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
 
   @Override
   public List<String> getWinner() {
+
+    if (election.getEndDate().isAfter(today)) {
+      throw new IncompleteElectionException(
+          "The election you've select is not yet complete. To get the winner of an election, the latter must first have been completed.");
+    }
 
     int[][] results = election.getTally().getVoteBreakdown();
     String[] ballotChoices = election.getElectionChoices();
