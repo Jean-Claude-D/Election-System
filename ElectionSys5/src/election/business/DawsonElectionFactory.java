@@ -86,6 +86,14 @@ public enum DawsonElectionFactory implements ElectionFactory {
     return new DawsonBallotItem(copy);
   }
 
+  /**
+   * Instantiates an appropriate ElectionPolicy for a given election
+   * 
+   * Felicia Gorgatchov added this
+   * 
+   * @param election The election we want a policy for.
+   * @return An election policy compatible with the election.
+   */
   @Override
   public ElectionPolicy getElectionPolicy(Election election) {
     switch (election.getElectionType()) {
