@@ -1,6 +1,6 @@
 package election.data;
 
-import java.io.Serializable;
+
 import java.util.List;
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
