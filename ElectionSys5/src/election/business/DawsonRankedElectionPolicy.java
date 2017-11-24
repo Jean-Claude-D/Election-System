@@ -18,10 +18,11 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
   public List<String> getWinner() {
 
     int[][] results = election.getTally().getVoteBreakdown();
+    String[] ballotChoices = election.getElectionChoices();
 
     int winningResult = 0;
     int points;
-    String contestant;
+    String winner == null;
 
     for (int choice = 0; choice < results.length; choice++) {
 
@@ -43,10 +44,12 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
 
       if (points > winningResult) {
         winningResult = points;
-
+        winner = ballotChoices[choice];
       }
 
     }
+    
+    winnerList.add(winner);
 
     return winnerList;
 
