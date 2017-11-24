@@ -55,12 +55,12 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
   @Override
   public List<String> getWinner() {
 
+    LocalDate today = LocalDate.now();
+
     if (election.getEndDate().isAfter(today)) {
       throw new IncompleteElectionException(
           "The election you've select is not yet complete. To get the winner of an election, the latter must first have been completed.");
     }
-
-    LocalDate today = LocalDate.now();
 
     int[][] results = election.getTally().getVoteBreakdown();
     String[] ballotChoices = election.getElectionChoices();
