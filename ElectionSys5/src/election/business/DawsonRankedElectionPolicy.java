@@ -71,35 +71,24 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
     // go through each choice to look at how many votes they got as number 1 and as number 2
     for (int choice = 0; choice < results.length; choice++) {
 
-      // return points to zero every time you go to the next option
+      // return points to zero every time you go to the next choice
       points = 0;
 
 
       /*
-       * Verify how many votes for the current choice as number 1, multiply by 5 and add to points.
-       * In the second itteration, multiply the number of votes for the current choice as number 2,
-       * multiply by 2 and add to points as well
+       * multiply the number of votes for the current choice as number one by 5 and add to the
+       * number of points then multiply the number of votes for the current choice as number two by
+       * 2 and add to the number of points
        */
-      for (int ranking = 0; ranking < results[choice].length; ranking++) {
-        if (ranking == 0) {
-          points += results[choice][ranking] * 5;
-        }
+      points += results[choice][0] * 5;
+      points += results[choice][1] * 2;
 
-        else if (ranking == 1) {
-          points += results[choice][ranking] * 2;
-        }
-
-        else {
-          continue;
-        }
-      }
 
       /*
        * If the number of points for the current choice is greater than than the winning number of
        * points, make winningResult equal to the current number of points for the next choice
        * evaluation and save the name of the current choice in a list.
        */
-
       if (points > winningResult) {
         winningResult = points;
         winner = ballotChoices[choice];
@@ -112,6 +101,6 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
     // return a list containing the name of the winning choice
     return winnerList;
 
-  }
+  }// end getwinner()
 
 }
