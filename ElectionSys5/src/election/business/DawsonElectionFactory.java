@@ -4,6 +4,7 @@ import election.business.interfaces.Ballot;
 import election.business.interfaces.BallotItem;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionFactory;
+import election.business.interfaces.ElectionPolicy;
 import election.business.interfaces.Voter;
 // import election.business.interfaces.ElectionPolicy;
 
@@ -84,5 +85,18 @@ public enum DawsonElectionFactory implements ElectionFactory {
   public BallotItem getBallotItem(BallotItem copy) {
     return new DawsonBallotItem(copy);
   }
+
+  @Override
+  public ElectionPolicy getElectionPolicy(Election e) {
+    switch (e.getElectionType()) {
+      case SINGLE:
+        return new DawsonSingleElectionPolicy(e);
+      case RANKED:
+        return new DawsonRankedElectionPolicy(e);
+      default:
+        throw new RuntimeException("Added more constants to ElectionType enum?");
+    }
+  }
+
 
 }
