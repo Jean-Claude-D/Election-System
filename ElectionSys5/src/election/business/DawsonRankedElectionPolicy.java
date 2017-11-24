@@ -32,6 +32,10 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
       throw new IllegalArgumentException(
           "The election you've select is null. Please verify the validity of your data.");
     }
+    if (e.getElectionType() != ElectionType.RANKED) {
+      throw new IllegalArgumentException(
+          "The election you've selected is not of type Ranked. Please verify the validity of your data.");
+    }
 
     this.election = electionParam;
 
