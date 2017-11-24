@@ -57,9 +57,7 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
 
   @Override
   public List<String> getWinner(Election election) {
-    // Need ElectionFactory's getElectionPolicy
-    // return this.factory.getElectionPolicy(election).getWinner();
-    return null;
+    return this.factory.getElectionPolicy(election).getWinner();
   }
 
   @Override
