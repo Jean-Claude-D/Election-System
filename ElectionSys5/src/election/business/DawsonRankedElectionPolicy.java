@@ -3,6 +3,7 @@ package election.business;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import election.business.interfaces.Election;
 import election.business.interfaces.ElectionPolicy;
 
 
@@ -17,7 +18,7 @@ import election.business.interfaces.ElectionPolicy;
 public class DawsonRankedElectionPolicy implements ElectionPolicy {
 
   private static final long serialVersionUID = 42031768871L;
-  private DawsonElection election;
+  private Election election;
   private List<String> winnerList = new ArrayList<String>();
 
   /**
@@ -27,7 +28,7 @@ public class DawsonRankedElectionPolicy implements ElectionPolicy {
    * @throws IllegalArgumentException in the event that the election object is null or in the even
    *         that it is not of type Ranked
    */
-  public DawsonRankedElectionPolicy(DawsonElection electionParam) {
+  public DawsonRankedElectionPolicy(Election electionParam) {
 
     if (electionParam == null) {
       throw new IllegalArgumentException(
