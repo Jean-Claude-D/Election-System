@@ -1,6 +1,7 @@
 package election.data;
 
 
+
 import java.util.List;
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
