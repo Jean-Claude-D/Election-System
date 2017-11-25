@@ -1,5 +1,6 @@
 package election.data;
 
+import java.io.Serializable;
 import java.util.List;
 import election.business.interfaces.Election;
 import election.business.interfaces.Voter;
@@ -16,6 +17,9 @@ public class SerializedFileLoaderApp {
 
     List<Voter> voterList = lists.getVoterDatabase();
     List<Election> electionList = lists.getElectionDatabase();
+    
+    Utilities.serialize(voterList, String "datafiles/database/voters.ser");
+    Utilities.serialize(electionList, String "datafiles/database/elections.ser");
 
   }
 
