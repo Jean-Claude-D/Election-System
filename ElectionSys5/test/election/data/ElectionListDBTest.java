@@ -12,6 +12,7 @@ import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
 import election.data.interfaces.ListPersistenceObject;
 import util.ListUtilities;
+import util.Utilities;
 
 /**
  * 
@@ -289,6 +290,16 @@ public class ElectionListDBTest {
 
       ListUtilities.saveListToTextFile(elecs, "datafiles/testfiles/testElections.txt");
       ListUtilities.saveListToTextFile(tallies, "datafiles/testfiles/testTally.txt");
+
+      SequentialTextFileList elementOfElection =
+          new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+              "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+      Utilities.serializeObject(elementOfElection.getVoterDatabase(),
+          "datafiles/testfiles/testVoters.txt");
+      Utilities.serializeObject(elementOfElection.getElectionDatabase(),
+          "datafiles/testfiles/testElections.txt");
+
     } catch (InvalidPathException | FileAlreadyExistsException e) {
       System.err.println("could not create testfiles directory " + e.getMessage());
     } catch (IOException e) {

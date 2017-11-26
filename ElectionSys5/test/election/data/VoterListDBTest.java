@@ -16,6 +16,7 @@ import election.data.interfaces.ListPersistenceObject;
 import lib.Email;
 import lib.PostalCode;
 import util.ListUtilities;
+import util.Utilities;
 
 public class VoterListDBTest {
 
@@ -83,7 +84,7 @@ public class VoterListDBTest {
     testToString(voterFilePath, electionFilePath, tallyFilePath, check.toString());
 
     System.out.println("<><><><><><><><><><> ** TEST END ** <><><><><><><><><><> \n");
-    
+
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     Date date = new Date();
     System.out.println(dateFormat.format(date));
@@ -126,6 +127,16 @@ public class VoterListDBTest {
       ListUtilities.saveListToTextFile(voters, "datafiles/testfiles/testVoters.txt");
       ListUtilities.saveListToTextFile(elecs, "datafiles/testfiles/testElections.txt");
       ListUtilities.saveListToTextFile(tallies, "datafiles/testfiles/testTally.txt");
+
+      SequentialTextFileList elementOfElection =
+          new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+              "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+      Utilities.serializeObject(elementOfElection.getVoterDatabase(),
+          "datafiles/testfiles/testVoters.txt");
+      Utilities.serializeObject(elementOfElection.getElectionDatabase(),
+          "datafiles/testfiles/testElections.txt");
+
     } catch (InvalidPathException | IOException e) {
       System.err.println("could not create testfiles directory " + e.getMessage());
     }
