@@ -54,8 +54,8 @@ public class DawsonElection implements Election {
       this.startDate = LocalDate.of(startYear, startMonth, startDay);
       this.endDate = LocalDate.of(endYear, endMonth, endDay);
 
-      if (this.startDate.isBefore(LocalDate.now())) {
-        throw new IllegalArgumentException("YOUR START DATE IS IN THE PASS");
+      if (this.endDate.isBefore(startDate)) {
+        throw new IllegalArgumentException("YOUR END DATE IS BEFORE THE START DATE");
       }
     } catch (DateTimeException e) {
       throw new IllegalArgumentException(e.getMessage());

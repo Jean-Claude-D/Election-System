@@ -10,9 +10,9 @@ public class SerializedFileLoaderApp {
 
   public static void main(String[] args) {
 
-    String voter = "datafiles/databse/voters.txt";
-    String election = "datafiles/databse/elections.txt";
-    String tally = "datafiles/databse/tally.txt";
+    String voter = "datafiles/database/voters.txt";
+    String election = "datafiles/database/elections.txt";
+    String tally = "datafiles/database/tally.txt";
 
     SequentialTextFileList lists = new SequentialTextFileList(voter, election, tally);
 
