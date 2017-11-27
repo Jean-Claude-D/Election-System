@@ -113,6 +113,7 @@ public class VoterListDBTest {
         "Favourite program*2018*5*1*2019*5*31*H4G*H4G*single*2" + "\nGame of Thrones" + "\nNarcos";
     // TODO add more elections if needed, but the must be in sorted order
 
+
     String[] tallies = new String[2];
     tallies[0] = "Presidental race*2" + "\n100*0" + "\n0*102";
     tallies[1] = "Favourite program*2" + "\n1000*0" + "\n0*560";
@@ -151,6 +152,12 @@ public class VoterListDBTest {
       Files.deleteIfExists(file);
       file = Paths.get("datafiles/testfiles/testTally.txt");
       Files.deleteIfExists(file);
+
+      file = Paths.get("datafiles/testfiles/testElections.ser");
+      Files.deleteIfExists(file);
+      file = Paths.get("datafiles/testfiles/testVoters.ser");
+      Files.deleteIfExists(file);
+
     } catch (InvalidPathException e) {
       System.err.println("could not delete test files " + e.getMessage());
     } catch (NoSuchFileException e) {

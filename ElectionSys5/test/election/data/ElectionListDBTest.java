@@ -137,8 +137,8 @@ public class ElectionListDBTest {
     System.out.println("\n===== TEST TOSTRING =====");
     setup();
 
-    ListPersistenceObject file = new SequentialTextFileList(null,
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    ListPersistenceObject file =
+        new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
 
     ElectionListDB electionDB = new ElectionListDB(file);
 
@@ -157,8 +157,8 @@ public class ElectionListDBTest {
     setup();
     boolean testPassed = false;
 
-    ListPersistenceObject file = new SequentialTextFileList(null,
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    ListPersistenceObject file =
+        new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
 
     ElectionListDB electionDB = new ElectionListDB(file);
 
@@ -182,8 +182,8 @@ public class ElectionListDBTest {
 
     try {
       setup();
-      ListPersistenceObject listPersistenceObject = new SequentialTextFileList(null,
-          "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+      ListPersistenceObject listPersistenceObject =
+          new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
 
       ElectionListDB disconnectingElection = new ElectionListDB(listPersistenceObject);
 
@@ -239,8 +239,8 @@ public class ElectionListDBTest {
 
       setup();
 
-      ListPersistenceObject listPersistenceObject = new SequentialTextFileList(null,
-          "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+      ListPersistenceObject listPersistenceObject =
+          new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
 
       ElectionListDB gettingElection = new ElectionListDB(listPersistenceObject);
       Election result = gettingElection.getElection(testName);
@@ -296,9 +296,9 @@ public class ElectionListDBTest {
               "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
 
       Utilities.serializeObject(elementOfElection.getVoterDatabase(),
-          "datafiles/testfiles/testVoters.txt");
+          "datafiles/testfiles/testVoters.ser");
       Utilities.serializeObject(elementOfElection.getElectionDatabase(),
-          "datafiles/testfiles/testElections.txt");
+          "datafiles/testfiles/testElections.");
 
     } catch (InvalidPathException | FileAlreadyExistsException e) {
       System.err.println("could not create testfiles directory " + e.getMessage());
