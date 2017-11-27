@@ -298,7 +298,7 @@ public class ElectionListDBTest {
       Utilities.serializeObject(elementOfElection.getVoterDatabase(),
           "datafiles/testfiles/testVoters.ser");
       Utilities.serializeObject(elementOfElection.getElectionDatabase(),
-          "datafiles/testfiles/testElections.");
+          "datafiles/testfiles/testElections.ser");
 
     } catch (InvalidPathException | FileAlreadyExistsException e) {
       System.err.println("could not create testfiles directory " + e.getMessage());
@@ -317,6 +317,12 @@ public class ElectionListDBTest {
       Files.deleteIfExists(file);
       file = Paths.get("datafiles/testfiles/testTally.txt");
       Files.deleteIfExists(file);
+
+      file = Paths.get("datafiles/testfiles/testElections.ser");
+      Files.deleteIfExists(file);
+      file = Paths.get("datafiles/testfiles/testVoters.ser");
+      Files.deleteIfExists(file);
+
     } catch (InvalidPathException | IOException e) {
       System.err.println("could not delete test files " + e.getMessage());
     }
