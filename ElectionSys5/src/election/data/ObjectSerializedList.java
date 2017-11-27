@@ -2,10 +2,8 @@ package election.data;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import election.business.interfaces.Election;
-import election.business.interfaces.Tally;
 import election.business.interfaces.Voter;
 import election.data.interfaces.ListPersistenceObject;
 import util.Utilities;
@@ -21,22 +19,17 @@ public class ObjectSerializedList implements ListPersistenceObject {
 
   private final String voterSerFilename;
   private final String electionSerFilename;
-  private final String tallySerFilename;
 
   /**
    * Constructs a new <code>ObjectSerializedList</code> from 3 <code>String</code> specifying the
-   * path files of serialized <code>List<Voter></code>, <code>List<Election></code> and
-   * <code>List<Tally></code>.
+   * path files of serialized <code>List<Voter></code> and <code>List<Election></code>.
    * 
    * @param voterSerFilename
    * @param electionSerFilename
-   * @param tallySerFilename
    */
-  public ObjectSerializedList(String voterSerFilename, String electionSerFilename,
-      String tallySerFilename) {
+  public ObjectSerializedList(String voterSerFilename, String electionSerFilename) {
     this.voterSerFilename = voterSerFilename;
     this.electionSerFilename = electionSerFilename;
-    this.tallySerFilename = tallySerFilename;
   }
 
   /**
@@ -46,48 +39,40 @@ public class ObjectSerializedList implements ListPersistenceObject {
    * @return the deserialized <code>List<Voter></code> at <code>this</code>
    *         <code>ObjectSerialized</code>'s <code>voterSerFilename</code>
    */
+  @SuppressWarnings("unchecked")
   @Override
   public List<Voter> getVoterDatabase() {
-    Voter[] voters;
+    List<Voter> voters;
 
     try {
-      voters = (Voter[]) Utilities.deserializeObject(this.voterSerFilename);
+      voters = (List<Voter>) Utilities.deserializeObject(this.voterSerFilename);
     } catch (IOException | ClassNotFoundException e) {
       return new ArrayList<Voter>();
     }
 
-    return Arrays.asList(voters);
+    return voters;
   }
 
   /**
    * Gets a <code>List<Election></code> from the file located at <code>this</code>
-   * <code>ObjectSerialized</code>'s <code>electionSerFilename</code>. Associates the
-   * <code>Tally</code> objects from <code>this</code> <code>ObjectSerialized</code>'s
-   * <code>tallySerFilename</code> to the <code>Election</code> objects.
+   * <code>ObjectSerialized</code>'s <code>electionSerFilename</code>.
    * 
    * @return the deserialized <code>List<Election></code> at <code>this</code>
    *         <code>ObjectSerialized</code>'s <code>electionSerList</code>
    */
+  @SuppressWarnings("unchecked")
   @Override
   public List<Election> getElectionDatabase() {
-    Election[] elections;
-    Tally[] tallies;
+    List<Election> elections;
 
 
     try {
-      elections = (Election[]) Utilities.deserializeObject(this.electionSerFilename);
-      tallies = (Tally[]) Utilities.deserializeObject(this.tallySerFilename);
+      elections = (List<Election>) Utilities.deserializeObject(this.electionSerFilename);
     } catch (IOException | ClassNotFoundException e) {
       return new ArrayList<Election>();
     }
 
-    if (elections.length == tallies.length) {
-      for (int i = 0; i < elections.length; i++) {
-        elections[i].setTally(tallies[i]);
-      }
-    }
-
-    return Arrays.asList(elections);
+    return elections;
   }
 
   /**
@@ -98,28 +83,18 @@ public class ObjectSerializedList implements ListPersistenceObject {
    */
   @Override
   public void saveVoterDatabase(List<Voter> voters) throws IOException {
-    Voter[] voterArray = voters.toArray(new Voter[voters.size()]);
-    Utilities.serializeObject(voterArray, this.voterSerFilename);
+    Utilities.serializeObject(voters, this.voterSerFilename);
   }
 
   /**
    * Serializes the <code>elections</code> parameter into <code>this</code>
-   * <code>ObjectSerialized</code>'s <code>electionSerFilename</code>. Serializes the
-   * <code>Tally</code> objects associated to the <code>elections</code> parameter into
-   * <code>this</code> <code>ObjectSerialized</code>'s <code>tallySerFilename</code>.
+   * <code>ObjectSerialized</code>'s <code>electionSerFilename</code>.
    * 
    * @param elections the <code>List<Election></code> to be serialized
    */
   @Override
   public void saveElectionDatabase(List<Election> elections) throws IOException {
-    Election[] electionArray = elections.toArray(new Election[elections.size()]);
-    Utilities.serializeObject(electionArray, this.electionSerFilename);
-
-    Tally[] tallies = new Tally[electionArray.length];
-    for (int i = 0; i < tallies.length; i++) {
-      tallies[i] = electionArray[i].getTally();
-    }
-    Utilities.serializeObject(tallies, this.tallySerFilename);
+    Utilities.serializeObject(elections, this.electionSerFilename);
   }
 
 }
