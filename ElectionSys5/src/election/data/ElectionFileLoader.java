@@ -209,7 +209,7 @@ public class ElectionFileLoader {
 
     for (int i = 0; i < result.length; i++) {
       String[] choice = choices.get(i).split("\\*");
-      for (int j = 0; j < choice.length; j++) {
+      for (int j = 0; j < result.length; j++) {
         result[i][j] = Integer.parseInt(choice[j]);
       }
     }
