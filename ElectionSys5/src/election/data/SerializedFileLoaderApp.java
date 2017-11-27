@@ -17,53 +17,50 @@ public class SerializedFileLoaderApp {
     SequentialTextFileList lists = new SequentialTextFileList(voter, election, tally);
 
     List<Voter> voterList = lists.getVoterDatabase();
-    
-    try {
     List<Election> electionList = lists.getElectionDatabase();
-    }
     
-    catch(Exception e) {
-      
-      e.S
-    }
+    
+   
 
     String voterSer = "datafiles/database/voters.ser";
     String electionSer = "datafiles/database/elections.ser";
 
     try {
       Utilities.serializeObject(voterList, voterSer);
-    } catch (IOException e) {
+      List<Voter> voterList1 = (List<Voter>) Utilities.deserializeObject(voterSer);
+      
+      for (int i=0; i <voterList.size(); i++ ) {
+        
+        if(voterList.get(i).equals(voterList1.get(i))) {
+          
+          continue;
+        }
+      }
+    } catch (IOException | ClassNotFoundException e) {
 
       e.printStackTrace();
     }
 
     try {
       Utilities.serializeObject(electionList, electionSer);
-    } catch (IOException e) {
+      @SuppressWarnings("unchecked")
+      List<Election> electionList1 = (List<Election>) Utilities.deserializeObject(electionSer);
+      
+for (int i=0; i <voterList.size(); i++ ) {
+        
+        if(electionList.get(i).equals(electionList1.get(i))) {
+          
+          continue;
+        }
+}
+      
+    } catch (IOException | ClassNotFoundException e) {
 
       e.printStackTrace();
     }
 
-    try {
-      Utilities.deserializeObject(voterSer);
-    } catch (ClassNotFoundException e) {
+    
 
-      e.printStackTrace();
-    } catch (IOException e) {
-
-      e.printStackTrace();
-    }
-
-    try {
-      Utilities.deserializeObject(electionSer);
-
-    } catch (ClassNotFoundException e) {
-
-      e.printStackTrace();
-    } catch (IOException e) {
-
-      e.printStackTrace();
-    }
 
 
   }
