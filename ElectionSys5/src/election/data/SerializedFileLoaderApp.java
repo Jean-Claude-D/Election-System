@@ -18,9 +18,8 @@ public class SerializedFileLoaderApp {
 
     List<Voter> voterList = lists.getVoterDatabase();
     List<Election> electionList = lists.getElectionDatabase();
-    
-    
-   
+
+
 
     String voterSer = "datafiles/database/voters.ser";
     String electionSer = "datafiles/database/elections.ser";
@@ -37,6 +36,7 @@ public class SerializedFileLoaderApp {
         }
       }
     } catch (IOException | ClassNotFoundException e) {
+
 
       e.printStackTrace();
     }
@@ -56,10 +56,30 @@ for (int i=0; i <voterList.size(); i++ ) {
       
     } catch (IOException | ClassNotFoundException e) {
 
+
+      e.printStackTrace();
+    }
+    
+    try {
+      Utilities.deserializeObject(voterSer);
+    } catch (ClassNotFoundException e) {
+
+      e.printStackTrace();
+    } catch (IOException e) {
+
       e.printStackTrace();
     }
 
-    
+    try {
+      Utilities.deserializeObject(electionSer);
+
+    } catch (ClassNotFoundException e) {
+
+      e.printStackTrace();
+    } catch (IOException e) {
+
+      e.printStackTrace();
+    }
 
 
 
