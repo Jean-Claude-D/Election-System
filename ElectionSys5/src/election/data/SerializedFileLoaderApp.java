@@ -17,7 +17,15 @@ public class SerializedFileLoaderApp {
     SequentialTextFileList lists = new SequentialTextFileList(voter, election, tally);
 
     List<Voter> voterList = lists.getVoterDatabase();
+    
+    try {
     List<Election> electionList = lists.getElectionDatabase();
+    }
+    
+    catch(Exception e) {
+      
+      e.S
+    }
 
     String voterSer = "datafiles/database/voters.ser";
     String electionSer = "datafiles/database/elections.ser";
