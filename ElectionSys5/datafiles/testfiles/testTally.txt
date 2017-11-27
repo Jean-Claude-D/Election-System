@@ -4,3 +4,4 @@ Presidental race*2
 Favourite program*2
 1000*0
 0*560
+60

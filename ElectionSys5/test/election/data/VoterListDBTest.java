@@ -172,7 +172,7 @@ public class VoterListDBTest {
     setup();
 
     ObjectSerializedList files = new ObjectSerializedList("datafiles/testfiles/testVoters.ser",
-        "datafiles/testfiles/testElections.ser", null);
+        "datafiles/testfiles/testElections.ser");
 
     VoterListDB voterDB = new VoterListDB(files);
 
@@ -221,8 +221,7 @@ public class VoterListDBTest {
     setup();
     System.out.println("***** STARTING NEW TEST *****\n");
 
-    ObjectSerializedList file =
-        new ObjectSerializedList(voterFilePath, electionFilePath, tallyFilePath);
+    ObjectSerializedList file = new ObjectSerializedList(voterFilePath, electionFilePath);
 
     VoterListDB voterDatabase = new VoterListDB(file);
 
@@ -262,8 +261,7 @@ public class VoterListDBTest {
   private static void testToString(String voterFilePath, String electionFilePath,
       String tallyFilePath, String toValid) {
     setup();
-    ObjectSerializedList file =
-        new ObjectSerializedList(voterFilePath, electionFilePath, tallyFilePath);
+    ObjectSerializedList file = new ObjectSerializedList(voterFilePath, electionFilePath);
 
     VoterListDB voterDatabase = new VoterListDB(file);
 
@@ -292,7 +290,7 @@ public class VoterListDBTest {
   private static void testGetVoter() {
     setup();
     ObjectSerializedList file = new ObjectSerializedList("datafiles/testfiles/testVoters.ser",
-        "datafiles/testfiles/testElections.ser", null);
+        "datafiles/testfiles/testElections.ser");
     VoterListDB db = new VoterListDB(file);
 
     System.out.println("\n** test getVoter ** ");
@@ -330,8 +328,8 @@ public class VoterListDBTest {
   private static void testUpdate() {
     setup();
 
-    ObjectSerializedList file = new ObjectSerializedList("datafiles/testfiles/testVoters.txt",
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    ObjectSerializedList file = new ObjectSerializedList("datafiles/testfiles/testVoters.ser",
+        "datafiles/testfiles/testElections.ser");
     VoterListDB db = new VoterListDB(file);
 
     Email emailTest1 = new Email("joe.mancini@mail.me");
