@@ -36,6 +36,28 @@ public class SerializedFileLoaderApp {
       e.printStackTrace();
     }
 
+    try {
+      Utilities.deserializeObject(voterSer);
+    } catch (ClassNotFoundException e) {
+
+      e.printStackTrace();
+    } catch (IOException e) {
+
+      e.printStackTrace();
+    }
+
+    try {
+      Utilities.deserializeObject(electionSer);
+
+    } catch (ClassNotFoundException e) {
+
+      e.printStackTrace();
+    } catch (IOException e) {
+
+      e.printStackTrace();
+    }
+
+
   }
 
 }
