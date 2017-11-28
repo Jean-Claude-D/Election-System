@@ -30,9 +30,8 @@ public class SerializedFileLoaderApp {
 
       for (int i = 0; i < voterList.size(); i++) {
 
-        if (voterList.get(i).equals(voterList1.get(i))) {
-
-          continue;
+        if (!voterList.get(i).equals(voterList1.get(i))) {
+          System.out.println("fail for voter");
         }
       }
     } catch (IOException | ClassNotFoundException e) {
@@ -48,9 +47,8 @@ public class SerializedFileLoaderApp {
 
       for (int i = 0; i < electionList.size(); i++) {
 
-        if (electionList.get(i).equals(electionList1.get(i))) {
-
-          continue;
+        if (!electionList.get(i).equals(electionList1.get(i))) {
+          System.out.println("fail for election");
         }
       }
 
