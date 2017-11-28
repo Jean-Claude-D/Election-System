@@ -7,12 +7,15 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import election.business.DawsonVoter;
 import election.business.interfaces.Voter;
-import election.data.interfaces.ListPersistenceObject;
 import lib.Email;
 import lib.PostalCode;
 import util.ListUtilities;
+import util.Utilities;
 
 public class VoterListDBTest {
 
@@ -29,9 +32,9 @@ public class VoterListDBTest {
 
     DawsonVoter badVoter = new DawsonVoter("Joe", "Mancini", "joe.mancini@mail.me", "H3C4B7");
 
-    String voterFilePath = "datafiles/testfiles/testVoters.txt";
-    String electionFilePath = "datafiles/testfiles/testElections.txt";
-    String tallyFilePath = "datafiles/testfiles/testTally.txt";
+    String voterFilePath = "datafiles/testfiles/testVoters.ser";
+    String electionFilePath = "datafiles/testfiles/testElections.ser";
+    String tallyFilePath = null;
 
     StringBuilder confirm = new StringBuilder("Number of voters in database: 3\n");
     confirm.append("joe.mancini@mail.me*Joe*Mancini*H3C4B7\n");
@@ -81,6 +84,10 @@ public class VoterListDBTest {
 
     System.out.println("<><><><><><><><><><> ** TEST END ** <><><><><><><><><><> \n");
 
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    Date date = new Date();
+    System.out.println(dateFormat.format(date));
+
     // Data And Method Called To Test toString Method <==========================
 
 
@@ -106,6 +113,7 @@ public class VoterListDBTest {
         "Favourite program*2018*5*1*2019*5*31*H4G*H4G*single*2" + "\nGame of Thrones" + "\nNarcos";
     // TODO add more elections if needed, but the must be in sorted order
 
+
     String[] tallies = new String[2];
     tallies[0] = "Presidental race*2" + "\n100*0" + "\n0*102";
     tallies[1] = "Favourite program*2" + "\n1000*0" + "\n0*560";
@@ -119,6 +127,16 @@ public class VoterListDBTest {
       ListUtilities.saveListToTextFile(voters, "datafiles/testfiles/testVoters.txt");
       ListUtilities.saveListToTextFile(elecs, "datafiles/testfiles/testElections.txt");
       ListUtilities.saveListToTextFile(tallies, "datafiles/testfiles/testTally.txt");
+
+      SequentialTextFileList elementOfElection =
+          new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+              "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+      Utilities.serializeObject(elementOfElection.getVoterDatabase(),
+          "datafiles/testfiles/testVoters.ser");
+      Utilities.serializeObject(elementOfElection.getElectionDatabase(),
+          "datafiles/testfiles/testElections.ser");
+
     } catch (InvalidPathException | IOException e) {
       System.err.println("could not create testfiles directory " + e.getMessage());
     }
@@ -134,6 +152,12 @@ public class VoterListDBTest {
       Files.deleteIfExists(file);
       file = Paths.get("datafiles/testfiles/testTally.txt");
       Files.deleteIfExists(file);
+
+      file = Paths.get("datafiles/testfiles/testElections.ser");
+      Files.deleteIfExists(file);
+      file = Paths.get("datafiles/testfiles/testVoters.ser");
+      Files.deleteIfExists(file);
+
     } catch (InvalidPathException e) {
       System.err.println("could not delete test files " + e.getMessage());
     } catch (NoSuchFileException e) {
@@ -154,8 +178,8 @@ public class VoterListDBTest {
   private static void testDisconnect() {
     setup();
 
-    ListPersistenceObject files = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    ObjectSerializedList files = new ObjectSerializedList("datafiles/testfiles/testVoters.ser",
+        "datafiles/testfiles/testElections.ser");
 
     VoterListDB voterDB = new VoterListDB(files);
 
@@ -204,8 +228,7 @@ public class VoterListDBTest {
     setup();
     System.out.println("***** STARTING NEW TEST *****\n");
 
-    SequentialTextFileList file =
-        new SequentialTextFileList(voterFilePath, electionFilePath, tallyFilePath);
+    ObjectSerializedList file = new ObjectSerializedList(voterFilePath, electionFilePath);
 
     VoterListDB voterDatabase = new VoterListDB(file);
 
@@ -245,8 +268,7 @@ public class VoterListDBTest {
   private static void testToString(String voterFilePath, String electionFilePath,
       String tallyFilePath, String toValid) {
     setup();
-    SequentialTextFileList file =
-        new SequentialTextFileList(voterFilePath, electionFilePath, tallyFilePath);
+    ObjectSerializedList file = new ObjectSerializedList(voterFilePath, electionFilePath);
 
     VoterListDB voterDatabase = new VoterListDB(file);
 
@@ -274,8 +296,8 @@ public class VoterListDBTest {
    */
   private static void testGetVoter() {
     setup();
-    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    ObjectSerializedList file = new ObjectSerializedList("datafiles/testfiles/testVoters.ser",
+        "datafiles/testfiles/testElections.ser");
     VoterListDB db = new VoterListDB(file);
 
     System.out.println("\n** test getVoter ** ");
@@ -313,8 +335,8 @@ public class VoterListDBTest {
   private static void testUpdate() {
     setup();
 
-    SequentialTextFileList file = new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    ObjectSerializedList file = new ObjectSerializedList("datafiles/testfiles/testVoters.ser",
+        "datafiles/testfiles/testElections.ser");
     VoterListDB db = new VoterListDB(file);
 
     Email emailTest1 = new Email("joe.mancini@mail.me");

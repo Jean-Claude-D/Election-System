@@ -1,6 +1,8 @@
 package election.business;
 
-import election.business.interfaces.*;
+import election.business.interfaces.Ballot;
+import election.business.interfaces.BallotItem;
+import election.business.interfaces.Tally;
 
 /**
  * Tracks and counts ballot selections.
@@ -42,16 +44,28 @@ public class DawsonTally implements Tally {
 
   public void update(Ballot ballot) {
     BallotItem[] choices = ballot.getBallotItems();
-    if (choices.length != results.length) {
+    if (choices.length != results.length)
       throw new IllegalArgumentException("Tally expeced " + results.length + "choices, ballot had "
           + choices.length + " choices.");
-    }
+
+    // check if only 1 choice
+    int sum = 0;
     for (int i = 0; i < choices.length; i++) {
-      // ranking of n candidates from 0 to n-1
-      if (choices[i].getValue() > results[i].length) {
+      if (choices[i].getValue() > results[i].length) // ranking of n candidates from 0 to n-1
         throw new IllegalArgumentException("Ballot has an invalid value." + choices[i].getValue());
+      sum += choices[i].getValue();
+    }
+    if (sum == 1) {
+      // single ballot
+      for (int i = 0; i < choices.length; i++) {
+        if (choices[i].getValue() > 0)
+          results[i][i]++;
       }
-      results[i][choices[i].getValue()]++;
+    } else {
+      // ranked ballot
+      for (int i = 0; i < choices.length; i++) {
+        results[i][choices[i].getValue()]++;
+      }
     }
   }
 
