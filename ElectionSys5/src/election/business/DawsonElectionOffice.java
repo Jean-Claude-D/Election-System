@@ -59,7 +59,7 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
   }
 
   /**
-   * Casts a the given <code>b</code>
+   * Casts the given <code>b</code>
    * 
    * @param voter the <code>Voter</code> who wants to cast <code>b</code>
    * @param b the <code>Ballot</code> to be casted by <code>voter</code>
