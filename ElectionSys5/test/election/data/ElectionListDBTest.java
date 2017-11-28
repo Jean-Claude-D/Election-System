@@ -72,7 +72,7 @@ public class ElectionListDBTest {
 
     List<Election> database;
 
-    String type = "single";
+    String type = "SINGLE";
     int startYear = LocalDateTime.now().getYear();
     int startMonth = LocalDateTime.now().getMonthValue();
     int startDay = LocalDateTime.now().getDayOfMonth();
@@ -123,7 +123,13 @@ public class ElectionListDBTest {
         startYear3, startMonth3, startDay3, endYear3, endMonth3, endDay3, startRange3, endRange3,
         choice5, choice6);
 
-    testDisconnect(election1);
+    testDisconnect(election1,
+        "Number of elections in database: 3\nFavourite program*2018*5*1*2019*5*31*H4G*H4G*single*2\nPresidental race*2020*11*1*2020*11*1***single*2\n"
+            + name + '*' + startYear + '*' + startMonth + '*' + startDay + '*' + endYear + '*'
+            + endMonth + '*' + endDay + '*' + startRange + '*' + endRange + '*' + type + "*2",
+        false);
+
+    /* Presidental race*2020*11*1*2020*11*1***single*2 */
 
     // getElection Testing
 
@@ -178,59 +184,41 @@ public class ElectionListDBTest {
     teardown();
   }
 
-  public static void testDisconnect(Election electionToAdd) {
+  /**
+   * 
+   * @author DesJC, hoss_m
+   * @param election
+   * @param expected
+   * @param exceptionExpected
+   */
+  public static void testDisconnect(Election election, String expected, boolean exceptionExpected) {
+
+    boolean testPassed = false;
+
+    setup();
+
+    ListPersistenceObject listPersistenceObject =
+        new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
+
+    ElectionListDB disconnectingElection = new ElectionListDB(listPersistenceObject);
 
     try {
-      setup();
-      ListPersistenceObject listPersistenceObject =
-          new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
-
-      ElectionListDB disconnectingElection = new ElectionListDB(listPersistenceObject);
-
-      int indexNewLine = electionToAdd.toString().indexOf('\n');
-      String newElectionToAdd = electionToAdd.toString().substring(0, indexNewLine);
-
-      String election = "\nPresidental race*2020*11*1*2020*11*1***single*2";
-      String election1 = "\nFavourite program*2018*5*1*2019*5*31*H4G*H4G*single*2";
-      String resultFromToString = "Number of elections in database: ";
-
-      String beforeYouAdd = resultFromToString + 2 + election1 + election;
-      String afterYouAdd = resultFromToString + 3 + election1 + election + '\n' + newElectionToAdd;
-      System.out.println(afterYouAdd);
-
-      disconnectingElection.add(electionToAdd);
-      System.out.println(disconnectingElection);
-
+      disconnectingElection.add(election);
       disconnectingElection.disconnect();
-
       disconnectingElection = new ElectionListDB(listPersistenceObject);
-      String result = disconnectingElection.toString();
-      System.out.println(result);
 
-      if (result.compareTo(afterYouAdd) == 0) {
-
-        System.out.println();
-        System.out
-            .println("=================================PASS===================================");
-        System.out.println();
-
-      } else {
-
-        System.out.println();
-        System.out
-            .println("=================================FAIL===================================");
-        System.out.println();
-      }
-
-      teardown();
-
-    }
-
-    catch (IOException | DuplicateElectionException e) {
+      testPassed = disconnectingElection.toString().equals(expected);
+    } catch (IOException | DuplicateElectionException e) {
+      testPassed = exceptionExpected;
       e.printStackTrace();
     }
 
+    System.out.println(disconnectingElection);
+    System.out.println(expected);
 
+    System.out.println(testPassed ? "PASS" : "FAIL");
+
+    teardown();
   }
 
   public static void testGetElection(String testName) {
