@@ -27,11 +27,11 @@ public class SerializedFileLoaderApp {
     try {
       Utilities.serializeObject(voterList, voterSer);
       List<Voter> voterList1 = (List<Voter>) Utilities.deserializeObject(voterSer);
-      
-      for (int i=0; i <voterList.size(); i++ ) {
-        
-        if(voterList.get(i).equals(voterList1.get(i))) {
-          
+
+      for (int i = 0; i < voterList.size(); i++) {
+
+        if (voterList.get(i).equals(voterList1.get(i))) {
+
           continue;
         }
       }
@@ -45,21 +45,21 @@ public class SerializedFileLoaderApp {
       Utilities.serializeObject(electionList, electionSer);
       @SuppressWarnings("unchecked")
       List<Election> electionList1 = (List<Election>) Utilities.deserializeObject(electionSer);
-      
-for (int i=0; i <voterList.size(); i++ ) {
-        
-        if(electionList.get(i).equals(electionList1.get(i))) {
-          
+
+      for (int i = 0; i < electionList.size(); i++) {
+
+        if (electionList.get(i).equals(electionList1.get(i))) {
+
           continue;
         }
-}
-      
+      }
+
     } catch (IOException | ClassNotFoundException e) {
 
 
       e.printStackTrace();
     }
-    
+
     try {
       Utilities.deserializeObject(voterSer);
     } catch (ClassNotFoundException e) {
