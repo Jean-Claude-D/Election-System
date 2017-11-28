@@ -12,6 +12,7 @@ import election.business.DawsonElectionFactory;
 import election.business.interfaces.Election;
 import election.data.interfaces.ListPersistenceObject;
 import util.ListUtilities;
+import util.Utilities;
 
 /**
  * 
@@ -71,7 +72,7 @@ public class ElectionListDBTest {
 
     List<Election> database;
 
-    String type = "single";
+    String type = "SINGLE";
     int startYear = LocalDateTime.now().getYear();
     int startMonth = LocalDateTime.now().getMonthValue();
     int startDay = LocalDateTime.now().getDayOfMonth();
@@ -122,7 +123,13 @@ public class ElectionListDBTest {
         startYear3, startMonth3, startDay3, endYear3, endMonth3, endDay3, startRange3, endRange3,
         choice5, choice6);
 
-    testDisconnect(election1);
+    testDisconnect(election1,
+        "Number of elections in database: 3\nFavourite program*2018*5*1*2019*5*31*H4G*H4G*single*2\nPresidental race*2020*11*1*2020*11*1***single*2\n"
+            + name + '*' + startYear + '*' + startMonth + '*' + startDay + '*' + endYear + '*'
+            + endMonth + '*' + endDay + '*' + startRange + '*' + endRange + '*' + type + "*2",
+        false);
+
+    /* Presidental race*2020*11*1*2020*11*1***single*2 */
 
     // getElection Testing
 
@@ -136,8 +143,8 @@ public class ElectionListDBTest {
     System.out.println("\n===== TEST TOSTRING =====");
     setup();
 
-    ListPersistenceObject file = new SequentialTextFileList(null,
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    ListPersistenceObject file =
+        new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
 
     ElectionListDB electionDB = new ElectionListDB(file);
 
@@ -156,8 +163,8 @@ public class ElectionListDBTest {
     setup();
     boolean testPassed = false;
 
-    ListPersistenceObject file = new SequentialTextFileList(null,
-        "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+    ListPersistenceObject file =
+        new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
 
     ElectionListDB electionDB = new ElectionListDB(file);
 
@@ -177,59 +184,41 @@ public class ElectionListDBTest {
     teardown();
   }
 
-  public static void testDisconnect(Election electionToAdd) {
+  /**
+   * 
+   * @author DesJC, hoss_m
+   * @param election
+   * @param expected
+   * @param exceptionExpected
+   */
+  public static void testDisconnect(Election election, String expected, boolean exceptionExpected) {
+
+    boolean testPassed = false;
+
+    setup();
+
+    ListPersistenceObject listPersistenceObject =
+        new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
+
+    ElectionListDB disconnectingElection = new ElectionListDB(listPersistenceObject);
 
     try {
-      setup();
-      ListPersistenceObject listPersistenceObject = new SequentialTextFileList(null,
-          "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
-
-      ElectionListDB disconnectingElection = new ElectionListDB(listPersistenceObject);
-
-      int indexNewLine = electionToAdd.toString().indexOf('\n');
-      String newElectionToAdd = electionToAdd.toString().substring(0, indexNewLine);
-
-      String election = "\nPresidental race*2020*11*1*2020*11*1***single*2";
-      String election1 = "\nFavourite program*2018*5*1*2019*5*31*H4G*H4G*single*2";
-      String resultFromToString = "Number of elections in database: ";
-
-      String beforeYouAdd = resultFromToString + 2 + election1 + election;
-      String afterYouAdd = resultFromToString + 3 + election1 + election + '\n' + newElectionToAdd;
-      System.out.println(afterYouAdd);
-
-      disconnectingElection.add(electionToAdd);
-      System.out.println(disconnectingElection);
-
+      disconnectingElection.add(election);
       disconnectingElection.disconnect();
-
       disconnectingElection = new ElectionListDB(listPersistenceObject);
-      String result = disconnectingElection.toString();
-      System.out.println(result);
 
-      if (result.compareTo(afterYouAdd) == 0) {
-
-        System.out.println();
-        System.out
-            .println("=================================PASS===================================");
-        System.out.println();
-
-      } else {
-
-        System.out.println();
-        System.out
-            .println("=================================FAIL===================================");
-        System.out.println();
-      }
-
-      teardown();
-
-    }
-
-    catch (IOException | DuplicateElectionException e) {
+      testPassed = disconnectingElection.toString().equals(expected);
+    } catch (IOException | DuplicateElectionException e) {
+      testPassed = exceptionExpected;
       e.printStackTrace();
     }
 
+    System.out.println(disconnectingElection);
+    System.out.println(expected);
 
+    System.out.println(testPassed ? "PASS" : "FAIL");
+
+    teardown();
   }
 
   public static void testGetElection(String testName) {
@@ -238,8 +227,8 @@ public class ElectionListDBTest {
 
       setup();
 
-      ListPersistenceObject listPersistenceObject = new SequentialTextFileList(null,
-          "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+      ListPersistenceObject listPersistenceObject =
+          new ObjectSerializedList(null, "datafiles/testfiles/testElections.ser");
 
       ElectionListDB gettingElection = new ElectionListDB(listPersistenceObject);
       Election result = gettingElection.getElection(testName);
@@ -289,6 +278,16 @@ public class ElectionListDBTest {
 
       ListUtilities.saveListToTextFile(elecs, "datafiles/testfiles/testElections.txt");
       ListUtilities.saveListToTextFile(tallies, "datafiles/testfiles/testTally.txt");
+
+      SequentialTextFileList elementOfElection =
+          new SequentialTextFileList("datafiles/testfiles/testVoters.txt",
+              "datafiles/testfiles/testElections.txt", "datafiles/testfiles/testTally.txt");
+
+      Utilities.serializeObject(elementOfElection.getVoterDatabase(),
+          "datafiles/testfiles/testVoters.ser");
+      Utilities.serializeObject(elementOfElection.getElectionDatabase(),
+          "datafiles/testfiles/testElections.ser");
+
     } catch (InvalidPathException | FileAlreadyExistsException e) {
       System.err.println("could not create testfiles directory " + e.getMessage());
     } catch (IOException e) {
@@ -306,6 +305,12 @@ public class ElectionListDBTest {
       Files.deleteIfExists(file);
       file = Paths.get("datafiles/testfiles/testTally.txt");
       Files.deleteIfExists(file);
+
+      file = Paths.get("datafiles/testfiles/testElections.ser");
+      Files.deleteIfExists(file);
+      file = Paths.get("datafiles/testfiles/testVoters.ser");
+      Files.deleteIfExists(file);
+
     } catch (InvalidPathException | IOException e) {
       System.err.println("could not delete test files " + e.getMessage());
     }
