@@ -3,6 +3,7 @@ package election.business;
 import java.io.IOException;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import election.business.interfaces.Ballot;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionFactory;
@@ -37,10 +38,12 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
    * @param elections the consistent way that <code>Election</code> objects are to accessed/saved
    * @param voters the consistent way that <code>Voter</code> objects are to accessed/saved
    */
-  public DawsonElectionOffice(ElectionFactory factory, ElectionDAO elections, VoterDAO voters) {
+  public DawsonElectionOffice(ElectionFactory factory, ElectionDAO elections, VoterDAO voters,
+      Observer observer) {
     this.factory = factory;
     this.elections = elections;
     this.voters = voters;
+    addObserver(observer);
   }
 
   /**
@@ -120,6 +123,8 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
    */
   @Override
   public List<String> getWinner(Election election) {
+    setChanged();
+    notifyObservers(this.factory.getElectionPolicy(election).getWinner());
     return this.factory.getElectionPolicy(election).getWinner();
   }
 
@@ -138,8 +143,10 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
   @Override
   public Voter registerVoter(String firstName, String lastName, String email, String postalcode)
       throws DuplicateVoterException {
+    setChanged();
     Voter newVoter = this.factory.getVoterInstance(firstName, lastName, email, postalcode);
     this.voters.add(newVoter);
+    notifyObservers(this.voters);
     return newVoter;
   }
 
@@ -153,7 +160,9 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
    */
   @Override
   public Election findElection(String name) throws InexistentElectionException {
+    setChanged();
     Election found = this.elections.getElection(name);
+    notifyObservers(this.factory);
     return found;
   }
 
@@ -167,7 +176,9 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
    */
   @Override
   public Voter findVoter(String email) throws InexistentVoterException {
+    setChanged();
     Voter found = this.voters.getVoter(email);
+    notifyObservers(this.voters);
     return found;
   }
 
