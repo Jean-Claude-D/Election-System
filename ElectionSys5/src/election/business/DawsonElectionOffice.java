@@ -1,6 +1,7 @@
 package election.business;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -124,8 +125,12 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
   @Override
   public List<String> getWinner(Election election) {
     setChanged();
-    notifyObservers(this.factory.getElectionPolicy(election).getWinner());
-    return this.factory.getElectionPolicy(election).getWinner();
+    List<String> theVictor = new ArrayList<String>();
+
+    theVictor = this.factory.getElectionPolicy(election).getWinner();
+    notifyObservers(theVictor);
+
+    return theVictor;
   }
 
   /**
