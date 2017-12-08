@@ -214,13 +214,15 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
         notifyObservers();
         System.out.println(
             "No voter was found with the given email. Please register, or verify the provided email.");
+        throw new InexistentVoterException("Exception thrown: " + ive.getMessage());
+
       } else {
         System.out.println(
             "No voter was found with the given email. Please register, or verify the provided email.");
+        throw new InexistentVoterException("Exception thrown: " + ive.getMessage());
       }
-    }
 
-    return null;
+    }
   }
 
 
