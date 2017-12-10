@@ -1,17 +1,12 @@
 package election.ui.gui;
 
-import election.business.DawsonElectionOffice;
 import election.business.ElectionType;
-import election.business.interfaces.*;
-import javafx.application.Application;
-import javafx.beans.binding.Bindings;
+import election.business.interfaces.Election;
+import election.business.interfaces.ElectionOffice;
 import javafx.event.ActionEvent;
-import javafx.geometry.*;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 /**
  * Form that gets the voter email, finds the Voter in the model If the voter is eligible for the
@@ -22,6 +17,8 @@ public class VoterEmailFormGUI {
   private ElectionOffice model;
   private Election election;
 
+  private Stage primaryStage;
+
   // TODO add any additional properties
 
   /**
@@ -31,7 +28,17 @@ public class VoterEmailFormGUI {
    * @throws IllegalArgumentException if the conditions are not met.
    */
   public VoterEmailFormGUI(ElectionOffice model, Election election) {
-    // TODO
+    if (model == null) {
+      throw new IllegalArgumentException("The model parameter cannot be null");
+    } else if (election == null) {
+      throw new IllegalArgumentException("The election parameter cannot be null");
+    } else if (election.getElectionType() != ElectionType.SINGLE) {
+      throw new IllegalArgumentException("The Election must be of ElectionType SINGLE");
+    }
+
+    this.model = model;
+    this.election = election;
+
   }
 
   /**
@@ -55,7 +62,7 @@ public class VoterEmailFormGUI {
    * @return GridPane with the UI
    */
   private GridPane createUserInterface() {
-    // TODO
+    GridPane grid = new GridPane();
   }
 
   /**
