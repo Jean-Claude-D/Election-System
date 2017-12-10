@@ -51,7 +51,6 @@ public class VoterEmailFormGUI {
     this.election = election;
     this.emailTextField = new TextField();
     this.actionTarget = new Text();
-
   }
 
   /**
