@@ -4,6 +4,8 @@ import election.business.ElectionType;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionOffice;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -63,6 +65,13 @@ public class VoterEmailFormGUI {
    */
   private GridPane createUserInterface() {
     GridPane grid = new GridPane();
+    grid.setAlignment(Pos.CENTER);
+    grid.setHgap(10);
+    grid.setVgap(10);
+    grid.setPadding(new Insets(25, 25, 25, 25));
+
+    return grid;
+
   }
 
   /**
