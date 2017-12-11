@@ -301,6 +301,7 @@ public class DawsonElection implements Election {
         && (ListUtilities.binarySearch(castBallot, v) >= 0)) {
       throw new InvalidVoterException("This voter has already voted.");
     } else if ((ListUtilities.binarySearch(gotBallot, v) < 0)) {
+      System.out.println("Hey");
       gotBallot.add((ListUtilities.binarySearch(gotBallot, v) * -1 - 1), v);
       return (Ballot) this.getBallot();
     } else {
@@ -352,6 +353,9 @@ public class DawsonElection implements Election {
       throw new InvalidVoterException(
           "You Are Not Eligible To Practicipate In This Election. Please Check The Election Date and Your Postal Code Again");
     }
+
+    System.out.println(gotIndex);
+    System.out.println(invalidVoteAttempts);
 
     if (gotIndex < 0) {
       invalidVoteAttempts++;

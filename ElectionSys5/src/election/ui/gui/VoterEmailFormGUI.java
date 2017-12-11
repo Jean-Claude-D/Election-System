@@ -111,7 +111,7 @@ public class VoterEmailFormGUI {
       Voter voter = this.model.findVoter(this.emailTextField.getText());
 
       if (voter.isEligible(this.election)) {
-        Ballot ballot = model.getBallot(voter, this.election);
+        Ballot ballot = election.getBallot(voter);
 
         SingleBallotFormGUI singleBallotFormGUI =
             new SingleBallotFormGUI(this.model, this.election, voter, ballot, this);
@@ -123,9 +123,9 @@ public class VoterEmailFormGUI {
     } catch (InexistentVoterException exc) {
       this.errorTxt.setText(
           "Voter with email (" + this.emailTextField.getText() + ") is not in our database");
-    } catch (Exception exc) {
-      this.errorTxt.setText(exc.getMessage());
-    }
+    } /*
+       * catch (Exception exc) { this.errorTxt.setText(exc.getMessage()); }
+       */
   }
 
   /**

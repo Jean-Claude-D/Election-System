@@ -41,6 +41,7 @@ public class SingleBallotFormGUI {
     this.voter = v;
     this.ballot = b;
     this.gui = gui;
+    this.actionTarget = new Text("");
     initialize();
   }
 
@@ -96,7 +97,6 @@ public class SingleBallotFormGUI {
     // Offset by 1 so button appears below choices
     grid.add(hbBtn, 1, choices.length + 1);
 
-    actionTarget.setText("");
     actionTarget.setId("actiontarget");
     grid.add(actionTarget, 0, choices.length + 2, 2, 1);
 

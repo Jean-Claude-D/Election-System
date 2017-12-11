@@ -1,6 +1,9 @@
 package election.business;
 
-import election.business.interfaces.*;
+import election.business.interfaces.Ballot;
+import election.business.interfaces.BallotItem;
+import election.business.interfaces.Election;
+import election.business.interfaces.Voter;
 
 /**
  * Represents a Ballot where only one BallotItem can be selected.
@@ -93,6 +96,13 @@ public class DawsonSingleBallot implements Ballot {
       throw new IllegalArgumentException("need at least 2 BallotItems");
     }
     return items;
+  }
+
+  public String toString() {
+    String toReturn = "[";
+    for (int i = 0; i < this.choices.length; i++)
+      toReturn += "*" + this.choices[i].toString() + "*";
+    return toReturn + "]";
   }
 
 
