@@ -1,8 +1,11 @@
 package election.ui.gui;
 
 import election.business.ElectionType;
+import election.business.interfaces.Ballot;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionOffice;
+import election.business.interfaces.Voter;
+import election.data.InexistentVoterException;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,7 +31,7 @@ public class VoterEmailFormGUI {
 
   private Stage primaryStage;
   private TextField emailTextField;
-  private Text actionTarget;
+  private Text errorTxt;
 
   // TODO add any additional properties
 
@@ -50,7 +53,7 @@ public class VoterEmailFormGUI {
     this.model = model;
     this.election = election;
     this.emailTextField = new TextField();
-    this.actionTarget = new Text();
+    this.errorTxt = new Text();
   }
 
   /**
@@ -94,9 +97,7 @@ public class VoterEmailFormGUI {
     hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
     hbBtn.getChildren().add(btn);
     grid.add(hbBtn, 1, 4);
-
-    actionTarget.setId("actiontarget");
-    grid.add(actionTarget, 0, 6, 2, 1);
+    grid.add(this.errorTxt, 0, 6, 2, 1);
 
     btn.setOnAction(this::signInButtonHandler);
     return grid;
@@ -108,7 +109,23 @@ public class VoterEmailFormGUI {
    * @param e
    */
   private void signInButtonHandler(ActionEvent e) {
-    actionTarget.setText("Welcome " + this.emailTextField.getText());
+    try {
+      Voter voter = this.model.findVoter(this.emailTextField.getText());
+
+      if (voter.isEligible(this.election)) {
+        Ballot ballot = this.election.getBallot(voter);
+
+        SingleBallotFormGUI singleBallotFormGUI =
+            new SingleBallotFormGUI(this.model, this.election, voter, ballot, this);
+
+        singleBallotFormGUI.start(this.primaryStage);
+      } else {
+        this.errorTxt.setText(voter.toString() + "\nis not eligible");
+      }
+    } catch (InexistentVoterException exc) {
+      this.errorTxt.setText(
+          "Voter with email (" + this.emailTextField.getText() + ") is not in our database");
+    }
   }
 
   /**
