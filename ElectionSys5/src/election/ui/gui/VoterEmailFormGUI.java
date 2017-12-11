@@ -123,7 +123,7 @@ public class VoterEmailFormGUI {
     } catch (InexistentVoterException exc) {
       this.errorTxt.setText(
           "Voter with email (" + this.emailTextField.getText() + ") is not in our database");
-    } catch (IllegalArgumentException exc) {
+    } catch (Exception exc) {
       this.errorTxt.setText(exc.getMessage());
     }
   }
