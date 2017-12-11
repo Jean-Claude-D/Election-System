@@ -1,17 +1,25 @@
 package election.ui.gui;
 
-import election.business.interfaces.*;
+import election.business.interfaces.Ballot;
+import election.business.interfaces.BallotItem;
+import election.business.interfaces.Election;
+import election.business.interfaces.ElectionOffice;
+import election.business.interfaces.Voter;
 import javafx.animation.PauseTransition;
-import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.geometry.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
 
 public class SingleBallotFormGUI {
 
@@ -88,6 +96,7 @@ public class SingleBallotFormGUI {
     // Offset by 1 so button appears below choices
     grid.add(hbBtn, 1, choices.length + 1);
 
+    actionTarget.setText("");
     actionTarget.setId("actiontarget");
     grid.add(actionTarget, 0, choices.length + 2, 2, 1);
 
@@ -126,6 +135,6 @@ public class SingleBallotFormGUI {
    * immediately written to the bean and a change to the bean is immediately shown in the control.
    */
   private void initialize() {
-    actionTarget = new Text();
+    // actionTarget = new Text();
   }
 }

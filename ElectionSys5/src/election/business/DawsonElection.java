@@ -301,7 +301,7 @@ public class DawsonElection implements Election {
         && (ListUtilities.binarySearch(castBallot, v) >= 0)) {
       throw new InvalidVoterException("This voter has already voted.");
     } else if ((ListUtilities.binarySearch(gotBallot, v) < 0)) {
-      gotBallot.add((ListUtilities.binarySearch(gotBallot, v) * -1 + 1), v);
+      gotBallot.add((ListUtilities.binarySearch(gotBallot, v) * -1 - 1), v);
       return (Ballot) this.getBallot();
     } else {
       return (Ballot) this.getBallot();
