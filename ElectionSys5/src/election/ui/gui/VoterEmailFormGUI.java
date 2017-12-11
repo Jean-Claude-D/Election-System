@@ -33,8 +33,6 @@ public class VoterEmailFormGUI {
   private TextField emailTextField;
   private Text errorTxt;
 
-  // TODO add any additional properties
-
   /**
    * Constructor validates that the parameters are not null and the election has
    * ElectionType.SINGLE. Invokes the initialize() method
