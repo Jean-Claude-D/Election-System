@@ -5,6 +5,7 @@ import election.business.interfaces.Ballot;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionOffice;
 import election.business.interfaces.Voter;
+import election.data.InexistentElectionException;
 import election.data.InexistentVoterException;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -111,12 +112,17 @@ public class VoterEmailFormGUI {
       Voter voter = this.model.findVoter(this.emailTextField.getText());
 
       if (voter.isEligible(this.election)) {
-        Ballot ballot = election.getBallot(voter);
+        Ballot ballot = model.getBallot(voter, this.election);
 
-        SingleBallotFormGUI singleBallotFormGUI =
-            new SingleBallotFormGUI(this.model, this.election, voter, ballot, this);
+        SingleBallotFormGUI singleBallotFormGUI = null;
+        try {
+          singleBallotFormGUI = new SingleBallotFormGUI(this.model,
+              this.model.findElection(election.getName()), voter, ballot, this);
 
-        singleBallotFormGUI.start(this.primaryStage);
+          singleBallotFormGUI.start(this.primaryStage);
+        } catch (InexistentElectionException e1) {
+          this.errorTxt.setText(e1.getMessage());
+        }
       } else {
         this.errorTxt.setText(voter.getName().toString() + "\nis not eligible");
       }
