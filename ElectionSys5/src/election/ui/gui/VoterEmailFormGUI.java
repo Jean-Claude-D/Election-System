@@ -111,18 +111,20 @@ public class VoterEmailFormGUI {
       Voter voter = this.model.findVoter(this.emailTextField.getText());
 
       if (voter.isEligible(this.election)) {
-        Ballot ballot = this.election.getBallot(voter);
+        Ballot ballot = model.getBallot(voter, this.election);
 
         SingleBallotFormGUI singleBallotFormGUI =
             new SingleBallotFormGUI(this.model, this.election, voter, ballot, this);
 
         singleBallotFormGUI.start(this.primaryStage);
       } else {
-        this.errorTxt.setText(voter.toString() + "\nis not eligible");
+        this.errorTxt.setText(voter.getName().toString() + "\nis not eligible");
       }
     } catch (InexistentVoterException exc) {
       this.errorTxt.setText(
           "Voter with email (" + this.emailTextField.getText() + ") is not in our database");
+    } catch (IllegalArgumentException exc) {
+      this.errorTxt.setText(exc.getMessage());
     }
   }
 
