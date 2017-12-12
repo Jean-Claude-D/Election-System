@@ -2,10 +2,15 @@ package election.ui.tui;
 
 import java.io.IOException;
 import java.util.Scanner;
-import election.business.*;
-import election.business.interfaces.*;
-import election.data.*;
-import lib.*;
+import election.business.interfaces.Election;
+import election.business.interfaces.ElectionOffice;
+import election.business.interfaces.Voter;
+import election.data.DuplicateVoterException;
+import election.data.InexistentElectionException;
+import election.data.InexistentVoterException;
+import lib.Email;
+import lib.Name;
+import lib.PostalCode;
 
 public class TextController {
   private ElectionOffice model;
@@ -22,8 +27,12 @@ public class TextController {
    * Main loop of the menu system
    * 
    * @author Maja, Jaya
+   * @throws InexistentVoterException
+   * @throws DuplicateVoterException
+   * @throws InexistentElectionException
    **/
-  public void run() {
+  public void run()
+      throws InexistentVoterException, DuplicateVoterException, InexistentElectionException {
     Scanner keyboard = new Scanner(System.in);
     // recall: enum static method values returns an
     // array with all enum values
@@ -60,25 +69,42 @@ public class TextController {
     }
   }
 
-  // Private method used to retrieve a voter from the model based on their
-  // email.
-  // Note that there are other private methods below that can be
-  // helpful.
-  private Voter voterInfo(Scanner keyboard) {
-    keyboard.nextLine(); // consume any previous value
 
-    // TODO
+  /**
+   * Private method used to retrieve a voter from the model based on their email.
+   *
+   * @author Felicia Gorgatchov
+   * 
+   * @param keyboard : input from the user placed into a scanner object
+   * @return Voter object
+   * @throws InexistentVoterException
+   */
+  private Voter voterInfo(Scanner keyboard) throws InexistentVoterException {
+    keyboard.nextLine();
+    String email = getEmail(keyboard);
 
+    return model.findVoter(email);
   }
 
   // Private method that is invoked to create a new Voter object and
   // add to the model.
   // Note that there are other private methods below that can be
   // helpful.
-  private void newVoter(Scanner keyboard) {
-    keyboard.nextLine(); // consume any previous value
+  private void newVoter(Scanner keyboard) throws DuplicateVoterException {
+    keyboard.nextLine();
+    String firstName = getFirstName(keyboard);
 
-    // TODO
+    keyboard.nextLine();
+    String lastName = getLastName(keyboard);
+
+    keyboard.nextLine();
+    String email = getEmail(keyboard);
+
+    keyboard.nextLine();
+    String postalCode = getPostalcode(keyboard);
+
+    model.registerVoter(firstName, lastName, email, postalCode);
+
 
   }
 
@@ -86,12 +112,37 @@ public class TextController {
   // and return the list of winners, if possible.
   // Note that there are other private methods below that can be
   // helpful.
-  private void getWinner(Scanner keyboard) {
+  private void getWinner(Scanner keyboard) throws InexistentElectionException {
     keyboard.nextLine(); // consume any previous value
+    String electionName = getElection(keyboard);
 
-    // TODO
+    Election e = model.findElection(electionName);
 
+    model.getWinner(e);
   }
+
+
+  private String getElection(Scanner keyboard) throws InexistentElectionException {
+
+    boolean invalid;
+    String name;
+
+    do {
+      invalid = false;
+      name = getInput(keyboard, "\nPlease enter the name of the election: ");
+
+      try {
+        this.model.findElection(name);
+      } catch (InexistentElectionException e) {
+        System.out.println("\nNo election found with that name!");
+        System.out.println("Please try again.");
+        invalid = true;
+      }
+    } while (invalid);
+
+    return name;
+  }
+
 
   // Private method used to ask the user for the name of an election
   // and launch the JavaFX voting booth application.
@@ -141,18 +192,85 @@ public class TextController {
       } catch (IllegalArgumentException e) {
         System.out.println("Invalid email!" + e.getMessage());
         System.out.print("Please try again: ");
-
         invalid = true;
       }
     } while (invalid);
     return email;
   }
 
+
+  // Private helper method to ask for first name
+  // Invokes the Email constructor for validation. If the
+  // string is invalid, it repeatedly asks the user
+  private String getFirstName(Scanner keyboard) {
+    boolean invalid;
+    String firstName;
+
+    do {
+      invalid = false;
+      firstName = getInput(keyboard, "Please enter your first name: ");
+      try {
+        @SuppressWarnings("unused")
+        Name nameObject = new Name(firstName, "Test");
+
+      } catch (IllegalArgumentException e) {
+        System.out.println("Invalid name " + e.getMessage());
+        System.out.print("Please try again: ");
+
+        invalid = true;
+      }
+    } while (invalid);
+    return firstName;
+  }
+
+
+  // Private helper method to ask for last name
+  // Invokes the Email constructor for validation. If the
+  // string is invalid, it repeatedly asks the user
+  private String getLastName(Scanner keyboard) {
+    boolean invalid;
+    String lastName;
+
+    do {
+      invalid = false;
+      lastName = getInput(keyboard, "Please enter your last name: ");
+      try {
+        @SuppressWarnings("unused")
+        Name nameObject = new Name("Test", lastName);
+
+      } catch (IllegalArgumentException e) {
+        System.out.println("Invalid name " + e.getMessage());
+        System.out.print("Please try again: ");
+
+        invalid = true;
+      }
+    } while (invalid);
+    return lastName;
+  }
+
   // Private helper method to ask for a postal code string.
   // Invokes the PostalCode constructor for validation. If the
   // string is invalid, it repeatedly asks the user
   private String getPostalcode(Scanner keyboard) {
-    // TODO
+    boolean invalid;
+    String postalCode;
+
+    do {
+      invalid = false;
+      postalCode = getInput(keyboard, "Please enter your postal code: ");
+      try {
+        @SuppressWarnings("unused")
+        PostalCode postal = new PostalCode(postalCode);
+
+      } catch (IllegalArgumentException e) {
+        System.out.println("Invalid postal code " + e.getMessage());
+        System.out.print("Please try again: ");
+
+        invalid = true;
+      }
+    } while (invalid);
+
+    return postalCode;
   }
 
   // Helper method for string input
