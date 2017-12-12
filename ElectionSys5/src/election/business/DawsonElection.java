@@ -69,6 +69,8 @@ public class DawsonElection implements Election {
     this.startRange = startRange;
     this.endRange = endRange;
     this.tally = tally;
+    System.out.println(this.tally);
+    System.out.println(this.name);
     this.electType = electionTypeChecker(type);
     this.ballotItems = checkItem(items);
     this.invalidVoteAttempts = 0;

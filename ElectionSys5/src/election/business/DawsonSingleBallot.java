@@ -56,6 +56,9 @@ public class DawsonSingleBallot implements Ballot {
 
   @Override
   public void cast(Voter v) {
+    for (int i = 0; i < this.choices.length; i++)
+      System.out.println(choices[i]);
+
     this.election.castBallot(this, v);
   }
 
