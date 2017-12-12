@@ -122,25 +122,24 @@ public class TextController {
   // helpful.
   private void getWinner(Scanner keyboard) throws InexistentElectionException {
     keyboard.nextLine(); // consume any previous value
-    String electionName = getElection(keyboard);
-
-    Election e = model.findElection(electionName);
+    Election e = getElection(keyboard);
 
     model.getWinner(e);
   }
 
 
-  private String getElection(Scanner keyboard) throws InexistentElectionException {
+  private Election getElection(Scanner keyboard) throws InexistentElectionException {
 
     boolean invalid;
     String name;
+    Election found = null;
 
     do {
       invalid = false;
       name = getInput(keyboard, "\nPlease enter the name of the election: ");
 
       try {
-        this.model.findElection(name);
+        found = this.model.findElection(name);
       } catch (InexistentElectionException e) {
         System.out.println("\nNo election found with that name!");
         System.out.println("Please try again.");
@@ -148,7 +147,7 @@ public class TextController {
       }
     } while (invalid);
 
-    return name;
+    return found;
   }
 
 
