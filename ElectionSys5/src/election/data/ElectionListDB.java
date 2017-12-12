@@ -135,7 +135,7 @@ public class ElectionListDB implements ElectionDAO {
 
     int index = ListUtilities.binarySearch(database, dummy);
 
-    if (index == -1) {
+    if (index < 0) {
 
       throw new InexistentElectionException("This election does not exist.");
     }
