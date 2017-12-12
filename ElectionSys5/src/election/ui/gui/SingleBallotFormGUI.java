@@ -1,17 +1,25 @@
 package election.ui.gui;
 
-import election.business.interfaces.*;
+import election.business.interfaces.Ballot;
+import election.business.interfaces.BallotItem;
+import election.business.interfaces.Election;
+import election.business.interfaces.ElectionOffice;
+import election.business.interfaces.Voter;
 import javafx.animation.PauseTransition;
-import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.geometry.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
 
 public class SingleBallotFormGUI {
 

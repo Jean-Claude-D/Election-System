@@ -32,7 +32,7 @@ public class DawsonBallotItem implements BallotItem {
     this.maxValue = maxValue;
     this.value = 0;
     validateBallotItem();
-    
+
   }
 
   /**
@@ -45,9 +45,9 @@ public class DawsonBallotItem implements BallotItem {
 
   public DawsonBallotItem(BallotItem item) {
 
-    this.choiceString = getChoice();
-    this.value = getValue();
-    this.maxValue = getMaxValue();
+    this.choiceString = item.getChoice();
+    this.value = item.getValue();
+    this.maxValue = item.getMaxValue();
     validateBallotItem();
 
   }
@@ -61,8 +61,8 @@ public class DawsonBallotItem implements BallotItem {
 
     if (choiceString == null || maxValue < 1) {
 
-      throw new IllegalArgumentException(
-          "The max vlaue is smaller than 1 and the choice is empty. Please enter a valid choice");
+      throw new IllegalArgumentException("The max vlaue is " + maxValue + " and the choice is "
+          + choiceString + ". Please enter a valid choice");
     }
 
   }
@@ -128,7 +128,7 @@ public class DawsonBallotItem implements BallotItem {
 
 
 
-    return (choice + "*" + Value);
+    return (choice + "*" + Value + "*" + maxValue);
 
 
   }

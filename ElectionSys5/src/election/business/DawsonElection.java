@@ -250,8 +250,7 @@ public class DawsonElection implements Election {
     for (int i = 0; i < this.ballotItems.length; i++) {
       temp[i] = this.ballotItems[i];
     }
-    Ballot ballot = DawsonElectionFactory.DAWSON_ELECTION.getBallot(temp, this.electType,
-        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(this));
+    Ballot ballot = DawsonElectionFactory.DAWSON_ELECTION.getBallot(temp, this.electType, this);
     return ballot;
   }
 
@@ -301,7 +300,7 @@ public class DawsonElection implements Election {
         && (ListUtilities.binarySearch(castBallot, v) >= 0)) {
       throw new InvalidVoterException("This voter has already voted.");
     } else if ((ListUtilities.binarySearch(gotBallot, v) < 0)) {
-      gotBallot.add((ListUtilities.binarySearch(gotBallot, v) * -1 + 1), v);
+      gotBallot.add((ListUtilities.binarySearch(gotBallot, v) * -1 - 1), v);
       return (Ballot) this.getBallot();
     } else {
       return (Ballot) this.getBallot();
@@ -362,7 +361,7 @@ public class DawsonElection implements Election {
       throw new InvalidVoterException("You Have Already Voted. This Incident Will Be Reported.");
 
     } else {
-      castBallot.add(castIndex, v);
+      castBallot.add((castIndex * -1) - 1, v);
     }
 
     if (b.validateSelections()) {

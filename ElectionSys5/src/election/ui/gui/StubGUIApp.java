@@ -24,5 +24,6 @@ public class StubGUIApp {
 
     election.ui.gui.MainApp.initContext(model, e);
     javafx.application.Application.launch(election.ui.gui.MainApp.class);
+
   }
 }

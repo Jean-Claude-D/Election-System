@@ -1,6 +1,9 @@
 package election.business;
 
-import election.business.interfaces.*;
+import election.business.interfaces.Ballot;
+import election.business.interfaces.BallotItem;
+import election.business.interfaces.Election;
+import election.business.interfaces.Voter;
 
 /**
  * Represents a Ballot where only one BallotItem can be selected.
