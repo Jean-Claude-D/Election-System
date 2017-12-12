@@ -2,10 +2,12 @@ package election.ui.tui;
 
 import java.io.IOException;
 import java.util.Scanner;
-import election.business.*;
-import election.business.interfaces.*;
-import election.data.*;
-import lib.*;
+import election.business.DawsonElectionOffice;
+import election.business.interfaces.Election;
+import election.business.interfaces.ElectionOffice;
+import election.business.interfaces.Voter;
+import election.data.InexistentElectionException;
+import lib.Email;
 
 public class TextController {
   private ElectionOffice model;
@@ -60,14 +62,21 @@ public class TextController {
     }
   }
 
-  // Private method used to retrieve a voter from the model based on their
-  // email.
-  // Note that there are other private methods below that can be
-  // helpful.
-  private Voter voterInfo(Scanner keyboard) {
-    keyboard.nextLine(); // consume any previous value
 
-    // TODO
+  /**
+   * Private method used to retrieve a voter from the model based on their email.
+   *
+   * @author Felicia Gorgatchov
+   * 
+   * @param keyboard : input from the user placed into a scanner object
+   * @return Voter object
+   */
+  private Voter voterInfo(Scanner keyboard) {
+    String input = keyboard.nextLine(); // consume any previous value
+
+    Voter voter = DawsonElectionOffice.findVoter(input, true);
+
+
 
   }
 
@@ -153,6 +162,7 @@ public class TextController {
   // string is invalid, it repeatedly asks the user
   private String getPostalcode(Scanner keyboard) {
     // TODO
+    return null;
   }
 
   // Helper method for string input
