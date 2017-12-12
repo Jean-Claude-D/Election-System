@@ -48,7 +48,7 @@ public class TextView implements Observer {
 
   @SuppressWarnings("unchecked")
   @Override
-  public void update(Observable observer, Object object) {
+  public void update(Observable model, Object object) {
     System.out.println("Hey I got called!");
     if (object instanceof Voter) {
       voterInfo((Voter) object);
