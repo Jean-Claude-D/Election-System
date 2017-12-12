@@ -41,7 +41,6 @@ public class SingleBallotFormGUI {
     this.voter = v;
     this.ballot = b;
     this.gui = gui;
-    this.actionTarget = new Text("");
     initialize();
   }
 
@@ -116,17 +115,6 @@ public class SingleBallotFormGUI {
       if (group.getSelectedToggle() != null) {
         int chosen = (Integer) group.getSelectedToggle().getUserData();
         this.ballot.selectBallotItem(chosen, 1);
-
-        /*
-         * System.out.println((this.ballot == this.election.getBallot(voter)) ?
-         * ("They equal hdugwv") : ("They dont ksniibfy"));
-         */
-
-        /*
-         * System.out .println((this.model.findElection(this.election.getName()) ==
-         * this.ballot.getElection()) ? ("They equal!") : ("They dont"));
-         */
-
         model.castBallot(this.voter, this.ballot);
         actionTarget.setText("Thank you for voting");
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
@@ -146,6 +134,6 @@ public class SingleBallotFormGUI {
    * immediately written to the bean and a change to the bean is immediately shown in the control.
    */
   private void initialize() {
-    // actionTarget = new Text();
+    actionTarget = new Text();
   }
 }

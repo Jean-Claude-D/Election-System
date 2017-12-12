@@ -20,7 +20,6 @@ public class StubGUIApp {
         new ElectionListDB(new SequentialTextFileList("datafiles/database/voters.txt",
             "datafiles/database/elections.txt", "datafiles/database/tally.txt"));
     Election e = electionDb.getElection("Brittany independence referendum");
-    System.out.println(e.getTally());
     DawsonElectionOffice model = new DawsonElectionOffice(factory, electionDb, voterDb);
 
     election.ui.gui.MainApp.initContext(model, e);

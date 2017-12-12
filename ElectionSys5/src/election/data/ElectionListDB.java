@@ -140,8 +140,6 @@ public class ElectionListDB implements ElectionDAO {
       throw new InexistentElectionException("This election does not exist.");
     }
 
-    System.out.println(database.get(index).getTally() + "hello");
-
     return database.get(index);
 
   }

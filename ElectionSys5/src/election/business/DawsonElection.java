@@ -69,8 +69,6 @@ public class DawsonElection implements Election {
     this.startRange = startRange;
     this.endRange = endRange;
     this.tally = tally;
-    System.out.println(this.tally);
-    System.out.println(this.name);
     this.electType = electionTypeChecker(type);
     this.ballotItems = checkItem(items);
     this.invalidVoteAttempts = 0;
@@ -294,29 +292,17 @@ public class DawsonElection implements Election {
 
     // --------------------------------------------------------------------------------------------------------------------------------
 
-    System.out.println("==== In getBallot() ====");
-    System.out.println(this.hashCode());
-    System.out.println("gotBallot : " + gotBallot);
-    System.out.println("castBallot : " + castBallot);
-
     if (!v.isEligible(this)) {
       throw new IllegalArgumentException("This voter is not eligible");
     }
 
     if ((ListUtilities.binarySearch(gotBallot, v) >= 0)
         && (ListUtilities.binarySearch(castBallot, v) >= 0)) {
-      System.out.println("Exception will be thrown");
-      System.out.println("========================");
       throw new InvalidVoterException("This voter has already voted.");
     } else if ((ListUtilities.binarySearch(gotBallot, v) < 0)) {
       gotBallot.add((ListUtilities.binarySearch(gotBallot, v) * -1 - 1), v);
-      System.out.println("gotBallot : " + gotBallot);
-      System.out.println("castBallot : " + castBallot);
-      System.out.println("========================");
       return (Ballot) this.getBallot();
     } else {
-      System.out.println("Nothing changed");
-      System.out.println("========================");
       return (Ballot) this.getBallot();
     }
 
@@ -361,29 +347,17 @@ public class DawsonElection implements Election {
     int gotIndex = ListUtilities.binarySearch(gotBallot, v);
     int castIndex = ListUtilities.binarySearch(castBallot, v);
 
-    System.out.println("==== In castBallot() ====");
-    System.out.println(this.hashCode());
-    System.out.println("gotIndex : " + gotIndex);
-    System.out.println("castIndex : " + castIndex);
-    System.out.println("gotBallot : " + gotBallot);
-    System.out.println("castBallot : " + castBallot);
-
     if (!v.isEligible(this)) {
-      System.out.println("=========================");
       throw new InvalidVoterException(
           "You Are Not Eligible To Practicipate In This Election. Please Check The Election Date and Your Postal Code Again");
     }
 
     if (gotIndex < 0) {
       invalidVoteAttempts++;
-      System.out.println("Exception will be thrown");
-      System.out.println("=========================");
       throw new InvalidVoterException(
           "You Haven't Request A Ballot To Vote. This Incident Will Be Reported.");
     } else if (castIndex >= 0) {
       invalidVoteAttempts++;
-      System.out.println("Exception will be thrown");
-      System.out.println("=========================");
       throw new InvalidVoterException("You Have Already Voted. This Incident Will Be Reported.");
 
     } else {
@@ -392,14 +366,7 @@ public class DawsonElection implements Election {
 
     if (b.validateSelections()) {
       this.tally.update(b);
-      System.out.println("gotIndex : " + gotIndex);
-      System.out.println("castIndex : " + castIndex);
-      System.out.println("gotBallot : " + gotBallot);
-      System.out.println("castBallot : " + castBallot);
-      System.out.println("=========================");
     } else {
-      System.out.println("Exception will be thrown");
-      System.out.println("=========================");
       throw new IllegalArgumentException("Your Ballot Is NOT Valid, \"Git Gud\" Next Time");
     }
   }

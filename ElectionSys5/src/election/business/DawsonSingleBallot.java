@@ -56,9 +56,6 @@ public class DawsonSingleBallot implements Ballot {
 
   @Override
   public void cast(Voter v) {
-    for (int i = 0; i < this.choices.length; i++)
-      System.out.println(choices[i]);
-
     this.election.castBallot(this, v);
   }
 
@@ -99,13 +96,6 @@ public class DawsonSingleBallot implements Ballot {
       throw new IllegalArgumentException("need at least 2 BallotItems");
     }
     return items;
-  }
-
-  public String toString() {
-    String toReturn = "[";
-    for (int i = 0; i < this.choices.length; i++)
-      toReturn += "*" + this.choices[i].toString() + "*";
-    return toReturn + "]";
   }
 
 

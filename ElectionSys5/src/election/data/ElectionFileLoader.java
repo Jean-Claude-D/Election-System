@@ -109,8 +109,6 @@ public class ElectionFileLoader {
         String[] choices = allLines.subList(i + 1, i + Integer.parseInt(split[10]) + 1)
             .toArray(new String[Integer.parseInt(split[10])]);
 
-        System.out.println(choices.length + split[0]);
-
         try {
           listElection.add(DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(split[0],
               split[9], Integer.parseInt(split[1]), Integer.parseInt(split[2]),
@@ -180,8 +178,6 @@ public class ElectionFileLoader {
               linePositionElectionList + numChoice + 1);
 
           result = fillingTally(choices);
-
-          System.out.println("Hey there debug me... " + numChoice);
 
         }
 
