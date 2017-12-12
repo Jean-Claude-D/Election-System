@@ -105,6 +105,7 @@ public class TextController {
   // Note that there are other private methods below that can be
   // helpful.
   private void newVoter(Scanner keyboard) throws DuplicateVoterException {
+    keyboard.nextLine();
     String firstName = getFirstName(keyboard);
     String lastName = getLastName(keyboard);
     String email = getEmail(keyboard);
