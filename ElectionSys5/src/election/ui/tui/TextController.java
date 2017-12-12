@@ -31,8 +31,7 @@ public class TextController {
    * @throws DuplicateVoterException
    * @throws InexistentElectionException
    **/
-  public void run()
-      throws InexistentVoterException, DuplicateVoterException, InexistentElectionException {
+  public void run() {
     Scanner keyboard = new Scanner(System.in);
     // recall: enum static method values returns an
     // array with all enum values
@@ -45,13 +44,28 @@ public class TextController {
       choice = getUserChoice(commands, keyboard);
       switch (choice) {
         case FIND_VOTER:
-          voterInfo(keyboard);
+          try {
+            voterInfo(keyboard);
+          } catch (InexistentVoterException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
           break;
         case REGISTER_VOTER:
-          newVoter(keyboard);
+          try {
+            newVoter(keyboard);
+          } catch (DuplicateVoterException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
           break;
         case DISPLAY_WINNERS:
-          getWinner(keyboard);
+          try {
+            getWinner(keyboard);
+          } catch (InexistentElectionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
           break;
         case LAUNCH_ELECTION:
           electionInfoLaunch(keyboard);
@@ -91,16 +105,9 @@ public class TextController {
   // Note that there are other private methods below that can be
   // helpful.
   private void newVoter(Scanner keyboard) throws DuplicateVoterException {
-    keyboard.nextLine();
     String firstName = getFirstName(keyboard);
-
-    keyboard.nextLine();
     String lastName = getLastName(keyboard);
-
-    keyboard.nextLine();
     String email = getEmail(keyboard);
-
-    keyboard.nextLine();
     String postalCode = getPostalcode(keyboard);
 
     model.registerVoter(firstName, lastName, email, postalCode);
@@ -215,7 +222,7 @@ public class TextController {
 
       } catch (IllegalArgumentException e) {
         System.out.println("Invalid name " + e.getMessage());
-        System.out.print("Please try again: ");
+        System.out.println("Please try again: ");
 
         invalid = true;
       }

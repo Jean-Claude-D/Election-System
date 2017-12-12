@@ -8,8 +8,8 @@ import election.business.interfaces.Voter;
 
 public class TextView implements Observer {
 
-  public TextView(Observable observer) {
-    observer.addObserver(this);
+  public TextView(Observable model) {
+    model.addObserver(this);
   }
 
   public void voterInfo(Voter v) {
@@ -46,17 +46,14 @@ public class TextView implements Observer {
     }
   }
 
-
   @SuppressWarnings("unchecked")
   @Override
   public void update(Observable observer, Object object) {
+    System.out.println("Hey I got called!");
     if (object instanceof Voter) {
       voterInfo((Voter) object);
-      observer.notify();
-
     } else if (object instanceof Election) {
       electionInfo((Election) object);
-
     } else if (object instanceof List<?>) {
       winnerInfo((List<String>) object);
     }
