@@ -5,7 +5,6 @@ import election.business.interfaces.Ballot;
 import election.business.interfaces.Election;
 import election.business.interfaces.ElectionOffice;
 import election.business.interfaces.Voter;
-import election.data.InexistentElectionException;
 import election.data.InexistentVoterException;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -112,26 +111,21 @@ public class VoterEmailFormGUI {
       Voter voter = this.model.findVoter(this.emailTextField.getText());
 
       if (voter.isEligible(this.election)) {
-        Ballot ballot = model.getBallot(voter, this.election);
+        Ballot ballot = this.model.getBallot(voter, this.election);
 
-        SingleBallotFormGUI singleBallotFormGUI = null;
-        try {
-          singleBallotFormGUI = new SingleBallotFormGUI(this.model,
-              this.model.findElection(election.getName()), voter, ballot, this);
+        SingleBallotFormGUI singleBallotFormGUI =
+            new SingleBallotFormGUI(this.model, this.election, voter, ballot, this);
 
-          singleBallotFormGUI.start(this.primaryStage);
-        } catch (InexistentElectionException e1) {
-          this.errorTxt.setText(e1.getMessage());
-        }
+        singleBallotFormGUI.start(this.primaryStage);
       } else {
         this.errorTxt.setText(voter.getName().toString() + "\nis not eligible");
       }
     } catch (InexistentVoterException exc) {
       this.errorTxt.setText(
           "Voter with email (" + this.emailTextField.getText() + ") is not in our database");
-    } /*
-       * catch (Exception exc) { this.errorTxt.setText(exc.getMessage()); }
-       */
+    } catch (Exception exc) {
+      this.errorTxt.setText(exc.getMessage());
+    }
   }
 
   /**

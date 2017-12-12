@@ -116,6 +116,17 @@ public class SingleBallotFormGUI {
       if (group.getSelectedToggle() != null) {
         int chosen = (Integer) group.getSelectedToggle().getUserData();
         this.ballot.selectBallotItem(chosen, 1);
+
+        /*
+         * System.out.println((this.ballot == this.election.getBallot(voter)) ?
+         * ("They equal hdugwv") : ("They dont ksniibfy"));
+         */
+
+        /*
+         * System.out .println((this.model.findElection(this.election.getName()) ==
+         * this.ballot.getElection()) ? ("They equal!") : ("They dont"));
+         */
+
         model.castBallot(this.voter, this.ballot);
         actionTarget.setText("Thank you for voting");
         PauseTransition pause = new PauseTransition(Duration.seconds(1));

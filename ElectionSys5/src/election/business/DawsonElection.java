@@ -250,8 +250,7 @@ public class DawsonElection implements Election {
     for (int i = 0; i < this.ballotItems.length; i++) {
       temp[i] = this.ballotItems[i];
     }
-    Ballot ballot = DawsonElectionFactory.DAWSON_ELECTION.getBallot(temp, this.electType,
-        DawsonElectionFactory.DAWSON_ELECTION.getElectionInstance(this));
+    Ballot ballot = DawsonElectionFactory.DAWSON_ELECTION.getBallot(temp, this.electType, this);
     return ballot;
   }
 
