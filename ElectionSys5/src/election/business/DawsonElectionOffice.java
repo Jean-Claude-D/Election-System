@@ -122,7 +122,10 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
    */
   @Override
   public List<String> getWinner(Election election) {
-    return this.factory.getElectionPolicy(election).getWinner();
+    List<String> winners = this.factory.getElectionPolicy(election).getWinner();
+    setChanged();
+    notifyObservers(winners);
+    return winners;
   }
 
   /**
@@ -142,6 +145,8 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
       throws DuplicateVoterException {
     Voter newVoter = this.factory.getVoterInstance(firstName, lastName, email, postalcode);
     this.voters.add(newVoter);
+    setChanged();
+    notifyObservers(newVoter);
     return newVoter;
   }
 
@@ -156,6 +161,8 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
   @Override
   public Election findElection(String name) throws InexistentElectionException {
     Election found = this.elections.getElection(name);
+    setChanged();
+    notifyObservers(found);
     return found;
   }
 
@@ -170,6 +177,8 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
   @Override
   public Voter findVoter(String email) throws InexistentVoterException {
     Voter found = this.voters.getVoter(email);
+    setChanged();
+    notifyObservers(found);
     return found;
   }
 
@@ -204,7 +213,9 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
       Voter voter = voterList.getVoter(email);
 
       if (notify == true) {
-        notifyObservers();
+        setChanged();
+
+        notifyObservers(voter);
         return voter;
       } else {
         return voter;
