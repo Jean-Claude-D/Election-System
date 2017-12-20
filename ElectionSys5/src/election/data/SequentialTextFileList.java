@@ -108,6 +108,8 @@ public class SequentialTextFileList implements ListPersistenceObject {
       tallies[i] = electionArray[i].getTally();
     }
     ListUtilities.saveListToTextFile(tallies, this.tallyFilename);
+    ObjectSerializedList obj = new ObjectSerializedList("datafiles/database/voters.txt",
+        "datafiles/database/elections.txt");
   }
 
 }

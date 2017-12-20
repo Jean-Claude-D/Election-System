@@ -2,6 +2,7 @@ package election.business.interfaces;
 
 import java.io.IOException;
 import java.util.List;
+import election.business.IncompleteElectionException;
 import election.business.InvalidVoterException;
 import election.data.DuplicateElectionException;
 import election.data.DuplicateVoterException;
@@ -56,7 +57,7 @@ public interface ElectionOffice {
       throws DuplicateElectionException;
 
   /**
-   * Deternine the winner of an election
+   * Determine the winner of an election
    * 
    * @param election
    * @throws IncompleteElectionException if the election is ongoing
@@ -93,6 +94,17 @@ public interface ElectionOffice {
    * @throws InexistentVoterException if a voter with that email address cannot be found
    */
   Voter findVoter(String email) throws InexistentVoterException;
+
+
+  /**
+   * Finds a voter with a given email
+   * 
+   * @param email of the voter
+   * @param notify observers if true
+   * @return
+   * @throws InexistentVoterException
+   */
+  Voter findVoter(String email, boolean notify) throws InexistentVoterException;
 
 }
 

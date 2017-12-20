@@ -12,6 +12,8 @@ import election.data.DuplicateElectionException;
 import election.data.DuplicateVoterException;
 import election.data.InexistentElectionException;
 import election.data.InexistentVoterException;
+import election.data.SequentialTextFileList;
+import election.data.VoterListDB;
 import election.data.interfaces.ElectionDAO;
 import election.data.interfaces.VoterDAO;
 
@@ -120,7 +122,10 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
    */
   @Override
   public List<String> getWinner(Election election) {
-    return this.factory.getElectionPolicy(election).getWinner();
+    List<String> winners = this.factory.getElectionPolicy(election).getWinner();
+    setChanged();
+    notifyObservers(winners);
+    return winners;
   }
 
   /**
@@ -140,6 +145,8 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
       throws DuplicateVoterException {
     Voter newVoter = this.factory.getVoterInstance(firstName, lastName, email, postalcode);
     this.voters.add(newVoter);
+    setChanged();
+    notifyObservers(newVoter);
     return newVoter;
   }
 
@@ -154,6 +161,8 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
   @Override
   public Election findElection(String name) throws InexistentElectionException {
     Election found = this.elections.getElection(name);
+    setChanged();
+    notifyObservers(found);
     return found;
   }
 
@@ -168,7 +177,67 @@ public class DawsonElectionOffice extends Observable implements ElectionOffice {
   @Override
   public Voter findVoter(String email) throws InexistentVoterException {
     Voter found = this.voters.getVoter(email);
+    setChanged();
+    notifyObservers(found);
     return found;
   }
 
+  @Override
+  /**
+   * Finds a voter with a given email
+   * 
+   * @author Felicia Gorgatchov
+   * 
+   * @param email of the voter
+   * @param notify observers if true
+   * @return
+   * @throws InexistentVoterException
+   */
+  public Voter findVoter(String email, boolean notify) throws InexistentVoterException {
+
+    /*
+     * take email and look for it through a VoterListDB
+     * 
+     * if the voter is found and notify is true, notify the observers and return the voter if the
+     * voter is found and notify is set to false, return the voter only
+     * 
+     * if the voter is not found and notify is true, notify the observers and throw exception if the
+     * voter is not found and notify is false, throw an exception only
+     */
+
+    SequentialTextFileList textFile =
+        new SequentialTextFileList("voters.txt", "elections.txt", "tally.txt");
+    VoterListDB voterList = new VoterListDB(textFile);
+
+    try {
+      Voter voter = voterList.getVoter(email);
+
+      if (notify == true) {
+        setChanged();
+
+        notifyObservers(voter);
+        return voter;
+      } else {
+        return voter;
+      }
+    } catch (InexistentVoterException ive) {
+      if (notify == true) {
+        notifyObservers();
+        System.out.println(
+            "No voter was found with the given email. Please register, or verify the provided email.");
+        throw new InexistentVoterException("Exception thrown: " + ive.getMessage());
+
+      } else {
+        System.out.println(
+            "No voter was found with the given email. Please register, or verify the provided email.");
+        throw new InexistentVoterException("Exception thrown: " + ive.getMessage());
+      }
+
+    }
+  }
+
+
+
 }
+
+

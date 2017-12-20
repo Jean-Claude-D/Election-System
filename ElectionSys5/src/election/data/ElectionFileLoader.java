@@ -92,10 +92,6 @@ public class ElectionFileLoader {
       List<String> allLines = Files.readAllLines(p);
       ArrayList<Election> listElection = new ArrayList<>();
 
-      int lineOrder = 1;
-      int numberOfChoices = 0;
-      int lineOffset = 0;
-
       String[] split;
 
       for (int i = 0; i < allLines.size(); i += Integer.parseInt(split[10]) + 1) {
@@ -110,11 +106,6 @@ public class ElectionFileLoader {
           break;
         }
 
-        numberOfChoices += Integer.parseInt(split[10]);
-
-        for (int k = lineOrder; k <= numberOfChoices + lineOffset; k++) {
-        }
-
         String[] choices = allLines.subList(i + 1, i + Integer.parseInt(split[10]) + 1)
             .toArray(new String[Integer.parseInt(split[10])]);
 
@@ -127,9 +118,6 @@ public class ElectionFileLoader {
         } catch (Exception e) {
           System.out.println("One of the variable is invalid" + e);
         }
-
-        lineOffset++;
-        lineOrder += Integer.parseInt(split[10]) + 1;
       }
       return listElection.toArray(new Election[listElection.size()]);
     } catch (NoSuchFileException e) {
@@ -186,8 +174,8 @@ public class ElectionFileLoader {
 
         if (line[0].equals(elections[i].getName())) {
 
-          List<String> choices =
-              allLines.subList(linePositionElectionList + 1, linePositionElectionList + numChoice);
+          List<String> choices = allLines.subList(linePositionElectionList + 1,
+              linePositionElectionList + numChoice + 1);
 
           result = fillingTally(choices);
 

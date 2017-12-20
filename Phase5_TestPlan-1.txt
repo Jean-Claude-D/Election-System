@@ -1,0 +1,189 @@
+Choose 3 (LAUNCH_ELECTION).\
+Expected: Text prompt for name of election
+Enter "Brittany independence referendum"\
+Expected: Graphical prompt that allows voter to sign into the given
+election
+Enter "Allen_F7@teleworm.us" and click Sign In button.\
+Expected: The GUI shows a message that the voter is not eligible
+(because the postal code is out of range)
+
+--------------------------------------------------------------------------------------------------------
+Cao Hoang Nguyen 
+--------------------------------------------------------------------------------------------------------
+
+Test Plan #1 ---CRASH--- Sorry. There are no corresponding voters to the email you have entered.
+
+	- Action: Select option #1 (FIND_VOTER)
+
+		=> 	Expected: Text prompt for user to enter an email address.
+
+	- Action: Enter email address: IamMrNobody@someWhereInTheGalaxy.cosmos.void
+
+		=> 	Expected: Message prompt saying that this voter does not exist, with a confirmation button.
+		
+
+Test Plan #2 ---DOES NOT DISPLAY ENTERED INFORMATION AFTER REGISTRATION BUT GOES BACK TO MENU ASKING FOR CHOICE----
+
+	- Action: Select option #2 (REGISTER_VOTER)
+
+		=> Expected: Text promt for user to enter:
+			+ first name
+			+ last name
+			+ email address
+			+ postal code
+	
+	- Action: Enter the follow information
+			+ first name: Banana
+			+ last name: Ananab
+			+ email address: bananaaaaa@ILoveBanana.Fruit.Banana
+			+ postal code: b1a2n3
+	
+		=> Expected: Text prompt displaying all the information entered above:
+			+ Name: Banana Ananab
+			+ email: bananaaaaa@ILoveBanana
+			+ Postal code: b1a2n3
+	
+
+Test Plan #3	===== CRASH ===== -13 
+
+	- Action: Select option #3 (DISPLAY_WINNER)
+
+		=>	Expected: Text prompt display for user to enter a name of an Election.
+
+	- Action: Enter Java or Not Java
+
+		=> Expected: Text prompt display that the election does not existed.
+
+		
+--------------------------------------------------------------------------------------------------------
+Felicia Gorgatchov
+--------------------------------------------------------------------------------------------------------
+
+Test Plan #4 ----DOES NOT DISPLAY VOTER INFO-----
+
+	- Action: Select option #1 (FIND_VOTER)
+	
+		=> 	Expected: Text prompt for user to enter an email address.
+
+	- Action: Enter email address: nickb123@bell.net
+
+		=> 	Expected: Voter information 
+				+ Name: Nicholas Baines
+				+ Email: nickb123@bell.net
+				+ Postal code: K7J3Y1
+		
+
+Test Plan #5 ------DOES NOT DISPLAY USER INFO AFTER PROMPT BUT CONTINUES TO MENU-------
+
+	- Action: Select option #2 (REGISTER_VOTER)
+		
+		=> Expected: Text promt for user to enter:
+			+ first name
+			+ last name
+			+ email address
+			+ postal code
+	
+	- Action: Enter the follow information
+			+ first name: Felicia
+			+ last name: Gorgatchov
+			+ email address: felicia.gorgatchov@gmail.com
+			+ postal code: j4x2G3
+	
+		=> Expected: Text prompt displaying all the information entered above:
+			+ Name: Felicia Gorgatchov
+			+ email: felicia.gorgatchov@gmail.com
+			+ Postal code: J4X2G3
+			
+			
+Test Plan #6  ===== DOESN'T DO ANYTHING =====
+
+	- Action: Select option #3 (DISPLAY_WINNER)
+	
+		=> Expected: Please enter the name of the election: 
+		
+	- Action: enter the following
+			+ Centenial Worldwide Elections
+			
+		=> Expected: display election information as well as the winners
+			+ Name: Centenial Worldwide Elections
+			+ Start Date: 2000-12-20  
+			+ End Date: 2010-12-04
+			
+			+Winner: 
+	
+	
+Test Plan #7 ===== DOESN'T DO ANYTHING =====
+
+	- Action: Select option #4 (LAUNCH_ELECTION)
+	
+		=> Expected: Please enter the name of the election: 
+		
+	- Action: enter the following
+			+ DSU Referendum
+			
+		=> Expected: display election information 
+			+ Name: DSU Referendum
+			+ Start Date: 2017-09-05  
+			+ End Date: 2017-09-06
+			
+Test Plan #8 ===== WORKS =====
+
+	- Action: Select option #5 (STOP)
+	
+		=> Expected: should no longer react to anything 
+		
+	- Action: press enter multiple times, type anything
+
+
+Test Plan #9 ===== VERIFIES EMAIL PROPERLY BUT DOESN'T DISPLAY INFO AFTER =====
+
+	- Action: Select option #2 (REGISTER_VOTER)
+
+		=> Expected: Text promt for user to enter:
+			+ first name
+			+ last name
+			+ email address
+			+ postal code
+	
+	- Action: Enter the bad email then good email to get the next prompt
+			+ first name: Kawaii
+			+ last name: Desu
+			+ email address: ;;;Otaku_Nihon93@Animu.ForLife
+			+ email address: Otaku_Nihon93@Animu.ForLife
+			+ postal code: j1a2p3
+	
+		=> Expected: Text prompt displaying all the information entered above:
+			
+			+ Email invalid, please verify email.			
+
+			+ Name: Kawaii Desu
+			+ email: Otaku_Nihon93@Animu.ForLife
+			+ Postal code: j1a2p3
+
+
+Test Plan #10  ===== VALIDATES PC PROPERLY BUT DOESN'T DISPLAY INFO AFTER =====
+
+	- Action: Select option #2 (REGISTER_VOTER)
+
+		=> Expected: Text promt for user to enter:
+			+ first name
+			+ last name
+			+ email address
+			+ postal code
+	
+	- Action: Enter the bad email then good email to get the next prompt
+			+ first name: Jimin
+			+ last name: Park
+			+ email address: parkjimin_BTS95@korea.com
+			+ postal code: ffffff
+			+ postal code: 1234567
+			+ postal code: p1j2m3
+	
+		=> Expected: Text prompt displaying all the information entered above:
+			
+			+ Email postal code, please verify your postal code.
+
+			+ Name: Park Jimin
+			+ email: parkjimin_BTS95@korea.com
+			+ Postal code: p1j2m3
+	
